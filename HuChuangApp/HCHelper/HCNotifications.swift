@@ -1,0 +1,30 @@
+//
+//  HCNotifications.swift
+//  HuChuangApp
+//
+//  Created by sw on 13/02/2019.
+//  Copyright © 2019 sw. All rights reserved.
+//
+
+import Foundation
+
+typealias NotificationName = Notification.Name
+
+extension Notification.Name {
+    
+    public struct User {
+        /**
+         * 登录成功，需要重新拉取数据和重新向app后台上传umtoken的界面可接受此通知
+         */
+        static let LoginSuccess = Notification.Name(rawValue: "org.user.notification.name.loginSuccess")
+    }
+    
+    public struct UserInterface {
+        /// 连续2次点击同一个tabBar
+        static let tabBarSelectedTwice = Notification.Name(rawValue: "org.UserInterface.notification.name.tabBarSelectedTwice")
+       
+        static let webHistoryItemChanged = Notification.Name(rawValue: "WebHistoryItemChangedNotification")
+        /// js通知刷新首页数据
+        static let jsReloadHome = Notification.Name(rawValue: "org.UserInterface.notification.name.jsReloadHome")
+    }
+}
