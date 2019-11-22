@@ -291,6 +291,8 @@
 		B8BE351B22147DE500EF16F1 /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE351A22147DE500EF16F1 /* EditViewModel.swift */; };
 		B8BE351D221484C600EF16F1 /* UINavigationController+BarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE351C221484C600EF16F1 /* UINavigationController+BarButtonItem.swift */; };
 		B8F8FBA823572B5700784442 /* TYData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F8FBA723572B5700784442 /* TYData.swift */; };
+		B8FE96B72388301B0077B9BF /* TYCirCleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FE96B62388301B0077B9BF /* TYCirCleView.swift */; };
+		B8FE96BA238849090077B9BF /* HCArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FE96B8238849090077B9BF /* HCArticleCell.swift */; };
 		C4193D8422A7649F007A9E07 /* TYClickedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4193D8322A7649F007A9E07 /* TYClickedButton.swift */; };
 		C41A12C122BCF49100214216 /* String+Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41A12C022BCF49100214216 /* String+Operation.swift */; };
 		C42132F622054463006C10C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42132F522054463006C10C4 /* Assets.xcassets */; };
@@ -387,14 +389,12 @@
 		C497E94823444E4600328B47 /* HCHomePreparePregnantReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C497E93A23444E4600328B47 /* HCHomePreparePregnantReusableView.swift */; };
 		C497E94923444E4600328B47 /* HCHomePreparePregnantCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C497E93B23444E4600328B47 /* HCHomePreparePregnantCell.xib */; };
 		C497E94A23444E4600328B47 /* HCHomePreparePregnantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C497E93C23444E4600328B47 /* HCHomePreparePregnantCell.swift */; };
-		C497E94B23444E4600328B47 /* HCHomeFuncItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C497E93D23444E4600328B47 /* HCHomeFuncItemCell.xib */; };
 		C497E94C23444E4600328B47 /* HCHomeAdvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C497E93E23444E4600328B47 /* HCHomeAdvCell.xib */; };
 		C497E94D23444E4600328B47 /* HCHomeAdvCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C497E93F23444E4600328B47 /* HCHomeAdvCell.swift */; };
 		C497E94E23444E4600328B47 /* HCHomeConsultingVolumeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C497E94023444E4600328B47 /* HCHomeConsultingVolumeCell.swift */; };
 		C497E94F23444E4600328B47 /* HCHomeCollectionHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C497E94123444E4600328B47 /* HCHomeCollectionHeaderReusableView.swift */; };
 		C497E95023444E4600328B47 /* HCHomeCollectionHeaderReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C497E94223444E4600328B47 /* HCHomeCollectionHeaderReusableView.xib */; };
 		C497E95123444E4600328B47 /* HCHomeConsultingVolumeReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C497E94323444E4600328B47 /* HCHomeConsultingVolumeReusableView.xib */; };
-		C497E95223444E4600328B47 /* HCHomeFuncItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C497E94423444E4600328B47 /* HCHomeFuncItemCell.swift */; };
 		C497E95523444ECF00328B47 /* HCHomeGoodNewsReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C497E95323444ECF00328B47 /* HCHomeGoodNewsReusableView.swift */; };
 		C497E95623444ECF00328B47 /* HCHomeGoodNewsReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C497E95423444ECF00328B47 /* HCHomeGoodNewsReusableView.xib */; };
 		C497E95923444EF200328B47 /* HCHomeGoodNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C497E95723444EF200328B47 /* HCHomeGoodNewsCell.swift */; };
@@ -972,6 +972,8 @@
 		B8BE351A22147DE500EF16F1 /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
 		B8BE351C221484C600EF16F1 /* UINavigationController+BarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationController+BarButtonItem.swift"; sourceTree = "<group>"; };
 		B8F8FBA723572B5700784442 /* TYData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYData.swift; sourceTree = "<group>"; };
+		B8FE96B62388301B0077B9BF /* TYCirCleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYCirCleView.swift; sourceTree = "<group>"; };
+		B8FE96B8238849090077B9BF /* HCArticleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCArticleCell.swift; sourceTree = "<group>"; };
 		C0330B19F13F10F1584530CD /* Pods-HuChuangApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HuChuangApp.debug.xcconfig"; path = "Target Support Files/Pods-HuChuangApp/Pods-HuChuangApp.debug.xcconfig"; sourceTree = "<group>"; };
 		C4193D8322A7649F007A9E07 /* TYClickedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TYClickedButton.swift; sourceTree = "<group>"; };
 		C41A12C022BCF49100214216 /* String+Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Operation.swift"; sourceTree = "<group>"; };
@@ -1072,14 +1074,12 @@
 		C497E93A23444E4600328B47 /* HCHomePreparePregnantReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCHomePreparePregnantReusableView.swift; sourceTree = "<group>"; };
 		C497E93B23444E4600328B47 /* HCHomePreparePregnantCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HCHomePreparePregnantCell.xib; sourceTree = "<group>"; };
 		C497E93C23444E4600328B47 /* HCHomePreparePregnantCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCHomePreparePregnantCell.swift; sourceTree = "<group>"; };
-		C497E93D23444E4600328B47 /* HCHomeFuncItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HCHomeFuncItemCell.xib; sourceTree = "<group>"; };
 		C497E93E23444E4600328B47 /* HCHomeAdvCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HCHomeAdvCell.xib; sourceTree = "<group>"; };
 		C497E93F23444E4600328B47 /* HCHomeAdvCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCHomeAdvCell.swift; sourceTree = "<group>"; };
 		C497E94023444E4600328B47 /* HCHomeConsultingVolumeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCHomeConsultingVolumeCell.swift; sourceTree = "<group>"; };
 		C497E94123444E4600328B47 /* HCHomeCollectionHeaderReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCHomeCollectionHeaderReusableView.swift; sourceTree = "<group>"; };
 		C497E94223444E4600328B47 /* HCHomeCollectionHeaderReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HCHomeCollectionHeaderReusableView.xib; sourceTree = "<group>"; };
 		C497E94323444E4600328B47 /* HCHomeConsultingVolumeReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HCHomeConsultingVolumeReusableView.xib; sourceTree = "<group>"; };
-		C497E94423444E4600328B47 /* HCHomeFuncItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCHomeFuncItemCell.swift; sourceTree = "<group>"; };
 		C497E95323444ECF00328B47 /* HCHomeGoodNewsReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCHomeGoodNewsReusableView.swift; sourceTree = "<group>"; };
 		C497E95423444ECF00328B47 /* HCHomeGoodNewsReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HCHomeGoodNewsReusableView.xib; sourceTree = "<group>"; };
 		C497E95723444EF200328B47 /* HCHomeGoodNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCHomeGoodNewsCell.swift; sourceTree = "<group>"; };
@@ -1992,6 +1992,7 @@
 			children = (
 				B86993D22337395800086A77 /* TYButton.swift */,
 				C4193D8322A7649F007A9E07 /* TYClickedButton.swift */,
+				B8FE96B62388301B0077B9BF /* TYCirCleView.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -2472,14 +2473,12 @@
 				C497E93A23444E4600328B47 /* HCHomePreparePregnantReusableView.swift */,
 				C497E93B23444E4600328B47 /* HCHomePreparePregnantCell.xib */,
 				C497E93C23444E4600328B47 /* HCHomePreparePregnantCell.swift */,
-				C497E93D23444E4600328B47 /* HCHomeFuncItemCell.xib */,
 				C497E93E23444E4600328B47 /* HCHomeAdvCell.xib */,
 				C497E93F23444E4600328B47 /* HCHomeAdvCell.swift */,
 				C497E94023444E4600328B47 /* HCHomeConsultingVolumeCell.swift */,
 				C497E93823444E4600328B47 /* HCHomeConsultingVolumeCell.xib */,
 				C497E94123444E4600328B47 /* HCHomeCollectionHeaderReusableView.swift */,
 				C497E94223444E4600328B47 /* HCHomeCollectionHeaderReusableView.xib */,
-				C497E94423444E4600328B47 /* HCHomeFuncItemCell.swift */,
 				C497E95323444ECF00328B47 /* HCHomeGoodNewsReusableView.swift */,
 				C497E95423444ECF00328B47 /* HCHomeGoodNewsReusableView.xib */,
 				C497E95723444EF200328B47 /* HCHomeGoodNewsCell.swift */,
@@ -2498,6 +2497,7 @@
 				C497E97723447E6F00328B47 /* HCHomeBabyTuinaClassroomCell.xib */,
 				C4C8EB3D235175660054A295 /* HCHomePreparePregnantInfoCell.swift */,
 				C4C8EB3E235175660054A295 /* HCHomePreparePregnantInfoCell.xib */,
+				B8FE96B8238849090077B9BF /* HCArticleCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -2656,7 +2656,6 @@
 				C497E97923447E6F00328B47 /* HCHomeBabyTuinaClassroomCell.xib in Resources */,
 				B816EA73221DABF400F024D5 /* CodeScan.bundle in Resources */,
 				B826AF86221C7205000428C1 /* ArticleCell.xib in Resources */,
-				C497E94B23444E4600328B47 /* HCHomeFuncItemCell.xib in Resources */,
 				B8BE34EF2214599B00EF16F1 /* MineHeaderView.xib in Resources */,
 				C497E95023444E4600328B47 /* HCHomeCollectionHeaderReusableView.xib in Resources */,
 				C497E9622344610500328B47 /* HCHomePregnancyClassroomReusableView.xib in Resources */,
@@ -2794,6 +2793,7 @@
 				B816EA7A221DABF400F024D5 /* LBXScanTypes.m in Sources */,
 				B8760D042344F14D002906F6 /* HCSearchViewController.swift in Sources */,
 				B816EB28221DABF400F024D5 /* ZXEAN8Writer.m in Sources */,
+				B8FE96B72388301B0077B9BF /* TYCirCleView.swift in Sources */,
 				C48842B2233EF6A700C209B3 /* HCClassRoomListCell.swift in Sources */,
 				B816EB48221DABF400F024D5 /* ZXEmailAddressParsedResult.m in Sources */,
 				B816EB3C221DABF400F024D5 /* ZXURLTOResultParser.m in Sources */,
@@ -2855,7 +2855,6 @@
 				C421332822056F24006C10C4 /* TYHUDAnimating.swift in Sources */,
 				C4213336220570B6006C10C4 /* UIView+Frame.swift in Sources */,
 				B816EB53221DABF400F024D5 /* ZXISBNParsedResult.m in Sources */,
-				C497E95223444E4600328B47 /* HCHomeFuncItemCell.swift in Sources */,
 				B816EAA0221DABF400F024D5 /* ZXQRCodeDecoderMetaData.m in Sources */,
 				C421336F2205961D006C10C4 /* ObservableType+Extension.swift in Sources */,
 				C421335F220588FD006C10C4 /* HandyModel.swift in Sources */,
@@ -3104,6 +3103,7 @@
 				C48842B5233EFD3500C209B3 /* HCClassRoomViewModel.swift in Sources */,
 				B816EAB6221DABF400F024D5 /* ZXHybridBinarizer.m in Sources */,
 				B816EB44221DABF400F024D5 /* ZXResultParser.m in Sources */,
+				B8FE96BA238849090077B9BF /* HCArticleCell.swift in Sources */,
 				B816EA8C221DABF400F024D5 /* ZXAztecToken.m in Sources */,
 				C42133682205902A006C10C4 /* AccountViewModel.swift in Sources */,
 				B816EB52221DABF400F024D5 /* ZXVINParsedResult.m in Sources */,

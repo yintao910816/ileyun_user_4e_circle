@@ -9,6 +9,12 @@
 import Foundation
 import Moya
 
+/// 文章栏目编码
+enum ArticleType: String {
+    /// 首页-好孕课堂
+    case webCms001 = "webCms001"
+}
+
 enum H5Type: String {
     /// 好孕消息
     case goodNews = "goodnews"
@@ -56,6 +62,8 @@ enum API{
     case uploadIcon(image: UIImage)
     /// 首页banner
     case selectBanner
+    /// 首页好孕课堂
+    case allChannelArticle(articleType: ArticleType, pageNum: Int, pageSize: Int)
     /// 首页功能列表
     case functionList
     /// 好消息
@@ -100,6 +108,8 @@ extension API: TargetType{
             return "api/upload/imgSingle"
         case .selectBanner:
             return "api/index/selectBanner"
+        case .allChannelArticle(_):
+            return "api/index/allChannelArticle"
         case .functionList:
             return "api/index/select"
         case .noticeList(_):
@@ -198,6 +208,12 @@ extension API {
             params = param
         case .selectBanner:
             params["code"] = "banner"
+        case .allChannelArticle(let articleType, let pageNum, let pageSize):
+            params["unitId"] = userDefault.unitId
+            params["cmsCode"] = articleType.rawValue
+            params["pageNum"] = pageNum
+            params["pageSize"] = pageSize
+
         case .noticeList(let type, let pageNum, let pageSize):
             params["type"] = type
             params["pageNum"] = pageNum

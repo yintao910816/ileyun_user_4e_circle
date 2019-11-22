@@ -57,9 +57,7 @@ extension UserDefaults{
             guard let rtUnitId = (object(forKey: kUnitId) as? String) else {
                 return "0"
             }
-            
-//            if rtUnitId.count == 0 { return "168" }
-            
+                        
             return rtUnitId
         }
         set{

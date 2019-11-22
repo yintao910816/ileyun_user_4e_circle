@@ -192,3 +192,50 @@ class HomeColumnModel: HJModel {
     var title: String = ""
     var content: [HomeColumnItemModel] = []
 }
+
+class HCAllChannelArticleModel: HJModel {
+
+    var size: Int = 0
+    var current: Int = 0
+    
+    var records: [HCAllChannelArticleItemModel] = []
+}
+
+class HCAllChannelArticleItemModel: HJModel {
+    var id: Int = 0
+    var shopId: Int = 0
+    var title: String = ""
+    var info: String = ""
+    var author: String = ""
+    var picPath: String = ""
+    var content: String = ""
+    var publishDate: String = ""
+    var sort: Int = 0
+    var channelId: Int = 0
+    var createDate: String = ""
+    var modifyDate: String = ""
+    var creates: String = ""
+    var modifys: String = ""
+    var bak: String = ""
+    var seoDescription: String = ""
+    var seoKeywords: String = ""
+    var code: Int = 0
+    var unitId: Int = 0
+    var linkTypes: Int = 0
+    var linkUrls: String = ""
+    var readNumber: Int = 0
+    var hrefUrl: String = ""
+    var store: Int = 0
+    var del: Bool = false
+    var recom: Bool = false
+    var release: Bool = false
+    var top: Bool = false
+    
+    lazy var storeText: String = {
+        return "\(self.store) 收藏"
+    }()
+    
+    lazy var readText: String = {
+        return "\(self.readNumber) 阅读"
+    }()
+}
