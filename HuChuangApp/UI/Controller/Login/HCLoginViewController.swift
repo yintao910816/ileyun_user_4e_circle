@@ -18,7 +18,10 @@ class HCLoginViewController: BaseViewController {
     @IBOutlet weak var getAuthorOutlet: UIButton!
     
     @IBOutlet weak var contentBgView: UIView!
-        
+    @IBOutlet weak var agreeButton: UIButton!
+    @IBOutlet weak var isAgreeButton: UIButton!
+    @IBOutlet weak var weChatLoginButton: UIButton!
+    
     private let loginTypeObser = Variable(LoginType.phone)
     
     private var timer: CountdownTimer!
@@ -26,6 +29,8 @@ class HCLoginViewController: BaseViewController {
     private var viewModel: LoginViewModel!
     
     private let keyBoardManager = KeyboardManager()
+    
+    private var agreeObservable = Variable(true)
     
     @IBAction func tapAction(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
@@ -36,6 +41,9 @@ class HCLoginViewController: BaseViewController {
             let webVC = BaseWebViewController()
             webVC.url = "http://120.24.79.125/static/html/roujiyunbao.html"
             navigationController?.pushViewController(webVC, animated: true)
+        }else if sender.tag == 1001 {
+            sender.isSelected = !sender.isSelected
+            agreeObservable.value = sender.isSelected
         }
     }
     
@@ -45,12 +53,12 @@ class HCLoginViewController: BaseViewController {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
-    override func setupUI() {
+    override func setupUI() {        
         keyBoardManager.registerNotification()
-        
-        accountInputOutlet.placeholder = "输入11位手机号码"
-        passInputOutlet.placeholder    = "输入验证码"
 
+        let agreeText = "我已阅读并接受《用户协议》"
+        agreeButton.setAttributedTitle(agreeText.attributed(.init(location: 7, length: 6), HC_MAIN_COLOR, nil), for: .normal)
+        
         timer = CountdownTimer.init(totleCount: 60)
         
         #if DEBUG
@@ -88,7 +96,9 @@ class HCLoginViewController: BaseViewController {
                                                 pass: passInputOutlet.rx.text.orEmpty.asDriver(),
                                                 loginType: loginTypeObser.asDriver()),
                                         tap: (loginTap: loginDriver,
-                                              sendCodeTap: sendCodeDriver))
+                                              sendCodeTap: sendCodeDriver,
+                                              agreeTap: agreeObservable,
+                                              weChatTap: weChatLoginButton.rx.tap.asDriver()))
         viewModel.codeEnable.asDriver()
             .drive(getAuthorOutlet.rx.enabled)
             .disposed(by: disposeBag)

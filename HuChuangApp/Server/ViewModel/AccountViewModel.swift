@@ -21,15 +21,16 @@ class LoginViewModel: BaseViewModel {
     let enableLogin = Variable(false)
     
     init(input: (account: Driver<String>, pass: Driver<String>, loginType: Driver<LoginType>),
-         tap: (loginTap: Driver<Void>, sendCodeTap: Driver<Void>)) {
+         tap: (loginTap: Driver<Void>, sendCodeTap: Driver<Void>, agreeTap: Variable<Bool>, weChatTap: Driver<Void>)) {
         super.init()
         
-        let inputSignal = Driver.combineLatest(input.account, input.pass, input.loginType) { ($0,$1,$2) }
+        let inputSignal = Observable.combineLatest(input.account.asObservable(), input.pass.asObservable(), input.loginType.asObservable(), tap.agreeTap.asObservable()) { ($0,$1,$2,$3) }
         
-        tap.loginTap.withLatestFrom(inputSignal)
+        tap.loginTap.asObservable().withLatestFrom(inputSignal)
             ._doNext(forNotice: hud)
             .filter { [unowned self] data -> Bool in return self.dealInputError(data: data) }
-            .drive(onNext: { [unowned self] in self.login(data: $0) })
+            .map{ ($0.0,$0.1,$0.2) }
+            .subscribe(onNext: { [unowned self] in self.login(data: $0) })
             .disposed(by: disposeBag)
         
         tap.sendCodeTap.withLatestFrom(input.account)
@@ -79,7 +80,13 @@ class LoginViewModel: BaseViewModel {
         return true
     }
 
-    private func dealInputError(data: (String, String, LoginType)) ->Bool {
+    private func dealInputError(data: (String, String, LoginType, Bool)) ->Bool {
+        if !data.3 {
+            hud.failureHidden("请先同意用户协议")
+            enableLogin.value = false
+            return false
+        }
+        
         switch data.2 {
         case .phone:
             if ValidateNum.phoneNum(data.0).isRight == false {
