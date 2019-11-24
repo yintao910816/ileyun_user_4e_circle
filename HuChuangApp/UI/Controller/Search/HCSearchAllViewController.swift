@@ -29,8 +29,7 @@ class HCSearchAllViewController: HCSlideItemController {
         
         tableView.register(UINib.init(nibName: "HCSearchDoctorCourseCell", bundle: Bundle.main),
                            forCellReuseIdentifier: HCSearchDoctorCourseCell_identifier)
-        tableView.register(UINib.init(nibName: "HCConsultListCell", bundle: Bundle.main),
-                           forCellReuseIdentifier: HCConsultListCell_idetifier)
+        tableView.register(HCConsultListCell.self, forCellReuseIdentifier: HCConsultListCell_idetifier)
         tableView.register(UINib.init(nibName: "HCPopularScienceCell", bundle: Bundle.main),
                            forCellReuseIdentifier: HCPopularScienceCell_identifier)
 
@@ -91,7 +90,8 @@ extension HCSearchAllViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return datasource[indexPath.section][indexPath.row].viewHeight
+//        return datasource[indexPath.section][indexPath.row].viewHeight
+        return HCConsultListCell_Height
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

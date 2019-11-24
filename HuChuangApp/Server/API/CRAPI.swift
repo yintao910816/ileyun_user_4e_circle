@@ -62,8 +62,6 @@ enum API{
     case uploadIcon(image: UIImage)
     /// 首页banner
     case selectBanner
-    /// 首页好孕课堂
-    case allChannelArticle(articleType: ArticleType, pageNum: Int, pageSize: Int)
     /// 首页功能列表
     case functionList
     /// 好消息
@@ -86,6 +84,13 @@ enum API{
     
     /// 检查版本更新
     case version
+    
+    //MARK:--爱乐孕治疗四期接口
+    /// 首页好孕课堂
+    case allChannelArticle(articleType: ArticleType, pageNum: Int, pageSize: Int)
+    /// 名医推荐
+    case recommendDoctor(areaCode: Int)
+    
 }
 
 //MARK:
@@ -108,8 +113,6 @@ extension API: TargetType{
             return "api/upload/imgSingle"
         case .selectBanner:
             return "api/index/selectBanner"
-        case .allChannelArticle(_):
-            return "api/index/allChannelArticle"
         case .functionList:
             return "api/index/select"
         case .noticeList(_):
@@ -130,6 +133,11 @@ extension API: TargetType{
             return "api/apk/version"
         case .consultList(_):
             return "api/consult/selectPageList"
+            
+        case .allChannelArticle(_):
+            return "api/index/allChannelArticle"
+        case .recommendDoctor(_):
+            return "api/doctor/recommendDoctor"
         }
     }
     
@@ -208,11 +216,6 @@ extension API {
             params = param
         case .selectBanner:
             params["code"] = "banner"
-        case .allChannelArticle(let articleType, let pageNum, let pageSize):
-            params["unitId"] = userDefault.unitId
-            params["cmsCode"] = articleType.rawValue
-            params["pageNum"] = pageNum
-            params["pageSize"] = pageSize
 
         case .noticeList(let type, let pageNum, let pageSize):
             params["type"] = type
@@ -231,6 +234,14 @@ extension API {
         case .consultList(let pageNum, let pageSize):
             params["pageNum"] = pageNum
             params["pageSize"] = pageSize
+
+        case .allChannelArticle(let articleType, let pageNum, let pageSize):
+            params["unitId"] = userDefault.unitId
+            params["cmsCode"] = articleType.rawValue
+            params["pageNum"] = pageNum
+            params["pageSize"] = pageSize
+        case .recommendDoctor(let areaCode):
+            params["areaCode"] = areaCode
 
         default:
             return nil

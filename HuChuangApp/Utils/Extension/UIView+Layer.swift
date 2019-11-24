@@ -136,22 +136,21 @@ extension UIView {
      * 设置四周阴影的view
      * 这里只设置阴影
      */
-    func setCornerAndShaow() {
+    func setCornerAndShaow(shadowRadius: CGFloat = 1, shadowOpacity: Float = 0.1) {
         setNeedsDisplay()
         layoutIfNeeded()
 
         backgroundColor = .clear
         layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.2
-        layer.shadowRadius = 5
+        layer.shadowOpacity = shadowOpacity
+        layer.shadowRadius = shadowRadius
         
         let path = UIBezierPath.init()
-        path.move(to: .init(x: -5, y: -5))
-        
-        path.addLine(to: .init(x: frame.size.width + 5, y: -5))
-        path.addLine(to: .init(x: frame.size.width + 5, y: frame.size.height + 5))
-        path.addLine(to: .init(x: -5, y: frame.size.height + 5))
-        path.addLine(to: .init(x: -5, y: -5))
+        path.move(to: .init(x: -shadowRadius, y: -shadowRadius/2.0))
+        path.addLine(to: .init(x: frame.size.width + shadowRadius, y: -shadowRadius/2.0))
+        path.addLine(to: .init(x: frame.size.width + shadowRadius, y: frame.size.height + shadowRadius * 4))
+        path.addLine(to: .init(x: -shadowRadius, y: frame.size.height + shadowRadius * 4))
+        path.addLine(to: .init(x: -shadowRadius, y: -shadowRadius))
         
         layer.shadowPath = path.cgPath
     }

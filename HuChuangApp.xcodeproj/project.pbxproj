@@ -358,7 +358,6 @@
 		C421339E2205B224006C10C4 /* HttpImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C421339A2205B224006C10C4 /* HttpImage.swift */; };
 		C42133A12205B41C006C10C4 /* BaseFilesOwner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42133A02205B41C006C10C4 /* BaseFilesOwner.swift */; };
 		C43BC443233B080F00194539 /* HCConsultListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BC441233B080F00194539 /* HCConsultListCell.swift */; };
-		C43BC444233B080F00194539 /* HCConsultListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C43BC442233B080F00194539 /* HCConsultListCell.xib */; };
 		C43BC449233B0D8F00194539 /* HCFindDoctorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BC448233B0D8F00194539 /* HCFindDoctorViewController.swift */; };
 		C43BC450233B111000194539 /* HCPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BC44F233B111000194539 /* HCPickerView.swift */; };
 		C43F09BB2214315900910437 /* HomeFunctionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43F09B92214315900910437 /* HomeFunctionCell.swift */; };
@@ -1043,7 +1042,6 @@
 		C421339F2205B366006C10C4 /* HcChuangApp-Bridge-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HcChuangApp-Bridge-Header.h"; sourceTree = "<group>"; };
 		C42133A02205B41C006C10C4 /* BaseFilesOwner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFilesOwner.swift; sourceTree = "<group>"; };
 		C43BC441233B080F00194539 /* HCConsultListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCConsultListCell.swift; sourceTree = "<group>"; };
-		C43BC442233B080F00194539 /* HCConsultListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HCConsultListCell.xib; sourceTree = "<group>"; };
 		C43BC448233B0D8F00194539 /* HCFindDoctorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCFindDoctorViewController.swift; sourceTree = "<group>"; };
 		C43BC44F233B111000194539 /* HCPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPickerView.swift; sourceTree = "<group>"; };
 		C43F09B92214315900910437 /* HomeFunctionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFunctionCell.swift; sourceTree = "<group>"; };
@@ -2433,7 +2431,6 @@
 				B826AF83221C7205000428C1 /* ArticleCell.swift */,
 				B826AF84221C7205000428C1 /* ArticleCell.xib */,
 				C43BC441233B080F00194539 /* HCConsultListCell.swift */,
-				C43BC442233B080F00194539 /* HCConsultListCell.xib */,
 				C48842B0233EF6A700C209B3 /* HCClassRoomListCell.swift */,
 				C48842B1233EF6A700C209B3 /* HCClassRoomListCell.xib */,
 			);
@@ -2662,7 +2659,6 @@
 				C497E95123444E4600328B47 /* HCHomeConsultingVolumeReusableView.xib in Resources */,
 				C421336122058E50006C10C4 /* HCLogin.storyboard in Resources */,
 				C4B185302345A41800F37197 /* HCSearchDoctorCourseCell.xib in Resources */,
-				C43BC444233B080F00194539 /* HCConsultListCell.xib in Resources */,
 				C497E96E234466E100328B47 /* HCHomePregnancyClassroomCellItemCell.xib in Resources */,
 				C497E95A23444EF200328B47 /* HCHomeGoodNewsCell.xib in Resources */,
 				B826AF80221C671B000428C1 /* ColunmCollectionViewCell.xib in Resources */,

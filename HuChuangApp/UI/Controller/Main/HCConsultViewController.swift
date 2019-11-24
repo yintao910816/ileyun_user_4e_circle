@@ -13,9 +13,14 @@ import RxDataSources
 class HCConsultViewController: BaseViewController {
 
     @IBOutlet weak var searchBar: TYSearchBar!
-    @IBOutlet weak var operationView: UIView!
     @IBOutlet weak var searchBarHeightCns: NSLayoutConstraint!
-    @IBOutlet weak var shadowView: UIView!
+    
+    @IBOutlet weak var askCornerView: UIView!
+    @IBOutlet weak var askShadowView: UIView!
+
+    @IBOutlet weak var consultCornerView: UIView!
+    @IBOutlet weak var consultShadowView: UIView!
+
     @IBOutlet weak var tableView: UITableView!
 
     @IBOutlet weak var requestionOutlet: UIButton!
@@ -28,18 +33,20 @@ class HCConsultViewController: BaseViewController {
     }
     
     override func setupUI() {
-        searchBar.searchPlaceholder = "搜索症状/疾病/药品/医生/科室"
+        searchBar.searchPlaceholder = "搜索"
         searchBar.tfBgColor = RGB(220, 220, 220, 0.6)
         searchBar.hasBottomLine = true
+        
+        tableView.rowHeight = HCConsultListCell_Height
         
         searchBar.tapInputCallBack = { [unowned self] in
             self.navigationController?.pushViewController(HCSearchViewController(), animated: true)
         }
                 
-        shadowView.setCornerAndShaow()
-            
-        tableView.register(UINib.init(nibName: "HCConsultListCell", bundle: Bundle.main),
-                           forCellReuseIdentifier: HCConsultListCell_idetifier)
+        askShadowView.setCornerAndShaow()
+        consultShadowView.setCornerAndShaow()
+
+        tableView.register(HCConsultListCell.self, forCellReuseIdentifier: HCConsultListCell_idetifier)
     }
     
     override func viewDidLayoutSubviews() {
@@ -65,12 +72,9 @@ class HCConsultViewController: BaseViewController {
                 cell.model = model
         }
         .disposed(by: disposeBag)
-        
-        tableView.rx.setDelegate(self)
-            .disposed(by: disposeBag)
-        
+                
         // 上下拉刷新绑定
-        tableView.prepare(viewModel)
+        tableView.prepare(viewModel, showFooter: false)
         tableView.headerRefreshing()
         
         // 按钮
@@ -80,13 +84,25 @@ class HCConsultViewController: BaseViewController {
                 self?.performSegue(withIdentifier: "editInfoForDoctorSegue", sender: nil)
             })
             .disposed(by: disposeBag)
+        
+        tableView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
     }
     
 }
 
 extension HCConsultViewController: UITableViewDelegate {
+ 
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.backgroundColor = .white
+        label.textColor = RGB(51, 51, 15)
+        label.font = .font(fontSize: 16, fontName: .PingFRegular)
+        label.text = "  名医推荐"
+        return label
+    }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return viewModel.datasource.value[indexPath.row].cellHeight
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
     }
 }
