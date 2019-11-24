@@ -159,7 +159,7 @@ class HomeArticleModel: HJModel {
 }
 
 class HomeColumnItemModel: HJModel {
-    var id: String = ""
+    var id: Int = 0
     var shopId: String = ""
     var parentId: String = ""
     var path: String = ""

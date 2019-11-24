@@ -70,8 +70,6 @@ enum API{
     case noticeList(type: String, pageNum: Int, pageSize: Int)
     /// 获取未读消息
     case messageUnreadCount
-    /// 今日知识
-    case column(cmsCode: String)
     case article(id: String)
     /// 今日知识点击更新阅读量
     case increReading(id: String)
@@ -90,7 +88,10 @@ enum API{
     case allChannelArticle(articleType: ArticleType, pageNum: Int, pageSize: Int)
     /// 名医推荐
     case recommendDoctor(areaCode: Int)
-    
+    /// 课堂
+    case column(cmsCode: String)
+    /// 栏目文章列表
+    case articlePage(id: Int, pageNum: Int, pageSize: Int)
 }
 
 //MARK:
@@ -121,8 +122,6 @@ extension API: TargetType{
             return "api/messageCenter/unread"
         case .goodNews:
             return "api/index/goodNews"
-        case .column(_):
-            return "api/index/column"
         case .article(_):
             return "api/index/article"
         case .increReading(_):
@@ -134,10 +133,14 @@ extension API: TargetType{
         case .consultList(_):
             return "api/consult/selectPageList"
             
+        case .column(_):
+            return "api/index/column"
         case .allChannelArticle(_):
             return "api/index/allChannelArticle"
         case .recommendDoctor(_):
             return "api/doctor/recommendDoctor"
+        case .articlePage(_):
+            return "api/index/articlePage"
         }
     }
     
@@ -221,8 +224,6 @@ extension API {
             params["type"] = type
             params["pageNum"] = pageNum
             params["pageSize"] = pageSize
-        case .column(let cmsCode):
-            params["cmsCode"] = cmsCode
         case .article(let id):
             params["id"] = id
         case .unitSetting(let type):
@@ -242,6 +243,13 @@ extension API {
             params["pageSize"] = pageSize
         case .recommendDoctor(let areaCode):
             params["areaCode"] = areaCode
+        case .column(let cmsCode):
+            params["cmsCode"] = cmsCode
+        case .articlePage(let id, let pageNum, let pageSize):
+            params["id"] = userDefault.unitId
+            params["unitId"] = id
+            params["pageNum"] = pageNum
+            params["pageSize"] = pageSize
 
         default:
             return nil

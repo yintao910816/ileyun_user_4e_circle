@@ -138,6 +138,9 @@ class RefreshVM<T>: BaseViewModel {
     public let itemSelected = PublishSubject<IndexPath>()
     public let modelSelected = PublishSubject<T>()
 
+    /// 用于多table
+    private var pageModels:[String: PageModel] = [:]
+    
     /**
      * 子类重写，响应上拉下拉加载数据
      *  必须调用super，否则分页参数不正确
@@ -187,4 +190,61 @@ extension RefreshVM {
         refreshStatus.value = .InvalidData
     }
     
+    /**
+     * 刷新方法，发射刷新信号 - 用于多个table
+     */
+    public final func updateRefresh(refresh: Bool,
+                                    models: [T]?,
+                                    dataModels: inout [T],
+                                    pages: Int,
+                                    pageKey: String) {
+        
+        if pageModels[pageKey] == nil {
+            pageModels[pageKey] = PageModel()
+        }
+        guard let page = pageModels[pageKey] else { return }
+        
+        page.totlePage = pages
+
+        let retData = models ?? [T]()
+
+        if refresh {
+            // 下拉刷新处理
+            isEmptyContentObser.value = retData.count == 0
+            refreshStatus.value = .DropDownSuccess
+            dataModels.removeAll()
+            dataModels.append(contentsOf: retData)
+        } else {
+            // 上拉刷新处理
+            if retData.count > 0 {
+                refreshStatus.value = page.hasNext ? .PullSuccessHasMoreData : .PullSuccessNoMoreData
+                dataModels.append(contentsOf: retData)
+            }else {
+                page.currentPage = page.currentPage > 1 ? (page.currentPage - 1) : 1
+            }
+        }
+    }
+        
+    /**
+     网络请求失败和出错都会统一调用这个方法
+     */
+    public final func revertCurrentPageAndRefreshStatus(pageKey: String) {
+        guard let page = pageModels[pageKey] else { return }
+
+        page.currentPage = page.currentPage > 1 ? (page.currentPage - 1) : 1
+
+        // 修改刷新view的状态
+        refreshStatus.value = .InvalidData
+    }
+
+    public func currentPage(for pageKey: String) ->Int {
+        guard let page = pageModels[pageKey] else { return 1 }
+        return page.currentPage
+    }
+    
+    public func pageSize(for pageKey: String) ->Int {
+        guard let page = pageModels[pageKey] else { return 1 }
+        return page.pageSize
+    }
+
 }

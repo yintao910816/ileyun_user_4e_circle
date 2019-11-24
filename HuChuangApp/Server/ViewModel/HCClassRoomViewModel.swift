@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-class HCClassRoomViewModel: BaseViewModel {
+class HCClassRoomViewModel: RefreshVM<HomeArticleModel> {
     
     private var columnData: HomeColumnModel!
     private var menuPageListData: [Int: [HomeArticleModel]] = [:]
@@ -57,7 +57,7 @@ class HCClassRoomViewModel: BaseViewModel {
             return
         }
         
-        HCProvider.request(.article(id: item.id))
+        HCProvider.request(.articlePage(id: item.id, pageNum: currentPage(for: "\(item.id)"), pageSize: pageSize(for: "\(item.id)")))
             .map(models: HomeArticleModel.self)
             .subscribe(onSuccess: { [weak self] data in
                 self?.menuPageListData[page] = data
@@ -66,5 +66,15 @@ class HCClassRoomViewModel: BaseViewModel {
                 
         }
         .disposed(by: disposeBag)
+
+//        HCProvider.request(.article(id: item.id))
+//            .map(models: HomeArticleModel.self)
+//            .subscribe(onSuccess: { [weak self] data in
+//                self?.menuPageListData[page] = data
+//                self?.pageListData.onNext((data, page))
+//            }) { error in
+//
+//        }
+//        .disposed(by: disposeBag)
     }
 }
