@@ -62,7 +62,11 @@ class HCSlideItemController: BaseViewController {
         
     }
     
-    func reloadData(data: Any?) {
+    public func reloadData(data: Any?) {
+        
+    }
+    
+    public func bind<T>(viewModel: RefreshVM<T>, canRefresh: Bool, canLoadMore: Bool, isAddNoMoreContent: Bool) {
         
     }
 }

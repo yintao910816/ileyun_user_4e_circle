@@ -9,15 +9,17 @@
 import Foundation
 import RxSwift
 
-class HCClassRoomViewModel: RefreshVM<HomeArticleModel> {
+class HCClassRoomViewModel: RefreshVM<HCArticleItemModel> {
     
     private var columnData: HomeColumnModel!
-    private var menuPageListData: [Int: [HomeArticleModel]] = [:]
+    private var menuPageListData: [Int: [HCArticleItemModel]] = [:]
+    // 记录当前第几页数据
+    private var page: Int = 0
     
     public let requestTodayListSubject = PublishSubject<Int>()
     
     public let menuItemData = PublishSubject<[TYSlideItemModel]>()
-    public let pageListData = PublishSubject<([HomeArticleModel], Int)>()
+    public let pageListData = PublishSubject<([HCArticleItemModel], Int)>()
 
     override init() {
         super.init()
@@ -27,9 +29,36 @@ class HCClassRoomViewModel: RefreshVM<HomeArticleModel> {
         
         requestTodayListSubject
             .subscribe(onNext: { [unowned self] page in
-                self.requestTodayList(item: self.columnData.content[page], page: page)
+                self.page = page
+                
+                if let list = self.menuPageListData[page] {
+                    self.pageListData.onNext((list, page))
+                }else {
+                    self.requestData(true)
+                }
             })
             .disposed(by: disposeBag)
+    }
+    
+    override func requestData(_ refresh: Bool) {
+        
+        updatePage(for: "\(page)", refresh: refresh)
+        
+        let item = columnData.content[page]
+        HCProvider.request(.articlePage(id: item.id, pageNum: currentPage(for: "\(page)"), pageSize: pageSize(for: "\(page)")))
+            .map(model: HCArticlePageDataModel.self)
+            .subscribe(onSuccess: { [weak self] data in
+                guard let strongSelf = self else { return }
+                if strongSelf.menuPageListData[strongSelf.page] == nil {
+                   strongSelf.menuPageListData[strongSelf.page] = [HCArticleItemModel]()
+                }
+                strongSelf.updateRefresh(refresh: refresh, models: data.records, dataModels: &(strongSelf.menuPageListData[strongSelf.page])!, pages: data.pages, pageKey: "\(strongSelf.page)")
+                self?.pageListData.onNext((strongSelf.menuPageListData[strongSelf.page]!, strongSelf.page))
+            }) { [weak self] error in
+                guard let strongSelf = self else { return }
+                strongSelf.revertCurrentPageAndRefreshStatus(pageKey: "\(strongSelf.page)")
+        }
+        .disposed(by: disposeBag)
     }
     
     /// 滚动菜单
@@ -42,39 +71,11 @@ class HCClassRoomViewModel: RefreshVM<HomeArticleModel> {
                 self?.menuItemData.onNext(TYSlideItemModel.mapData(models: model.content))
                 
                 if model.content.count > 0 {
-                    self?.requestTodayList(item: model.content.first!, page: 0)
+                    self?.requestData(true)
                 }
             }) { error in
                 
         }
         .disposed(by: disposeBag)
-    }
-    
-    /// 获取菜单栏列表数据
-    private func requestTodayList(item: HomeColumnItemModel, page: Int) {
-        if let list = menuPageListData[page] {
-            pageListData.onNext((list, page))
-            return
-        }
-        
-        HCProvider.request(.articlePage(id: item.id, pageNum: currentPage(for: "\(item.id)"), pageSize: pageSize(for: "\(item.id)")))
-            .map(models: HomeArticleModel.self)
-            .subscribe(onSuccess: { [weak self] data in
-                self?.menuPageListData[page] = data
-                self?.pageListData.onNext((data, page))
-            }) { error in
-                
-        }
-        .disposed(by: disposeBag)
-
-//        HCProvider.request(.article(id: item.id))
-//            .map(models: HomeArticleModel.self)
-//            .subscribe(onSuccess: { [weak self] data in
-//                self?.menuPageListData[page] = data
-//                self?.pageListData.onNext((data, page))
-//            }) { error in
-//
-//        }
-//        .disposed(by: disposeBag)
     }
 }

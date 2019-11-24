@@ -10,9 +10,6 @@ import Foundation
 
 /// 医生列表总数据
 class HCDoctorModel: HJModel {
-    var current: Int = 1
-    var pages: Int = 0
-    var size: Int = 10
 
     var records: [HCDoctorItemModel] = []
 }

@@ -243,11 +243,11 @@ extension API {
             params["pageSize"] = pageSize
         case .recommendDoctor(let areaCode):
             params["areaCode"] = areaCode
-        case .column(let cmsCode):
-            params["cmsCode"] = cmsCode
+        case .column(let cmsType):
+            params["cmsCode"] = cmsType.rawValue
         case .articlePage(let id, let pageNum, let pageSize):
-            params["id"] = userDefault.unitId
-            params["unitId"] = id
+            params["id"] = id
+            params["unitId"] = userDefault.unitId
             params["pageNum"] = pageNum
             params["pageSize"] = pageSize
 

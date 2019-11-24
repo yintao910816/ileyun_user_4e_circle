@@ -54,6 +54,8 @@ class HCClassRoomViewController: BaseViewController {
                     let ctrl = HCClassRoomItemController()
                     ctrl.pageIdx = idx
                     ctrl.view.backgroundColor = .white
+                    ctrl.bind(viewModel: strongSelf.viewModel, canRefresh: true, canLoadMore: true, isAddNoMoreContent: false)
+                    
                     ctrls.append(ctrl)
                 }
                 

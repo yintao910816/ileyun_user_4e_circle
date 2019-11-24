@@ -26,13 +26,13 @@ class ArticleCell: UITableViewCell {
         // Initialization code
     }
     
-    var model: HomeArticleModel! {
+    var model: HCArticleItemModel! {
         didSet {
             imgOutlet.setImage(model.picPath, .homeFunction)
             titleOutlet.text = model.title
             subTitleOutlet.text = model.info
             timeOutlet.text = model.modifyDate
-            readNumOutlet.text = model.readNumber
+            readNumOutlet.text = model.readCountText
         }
     }
 }

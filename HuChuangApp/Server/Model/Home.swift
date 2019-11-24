@@ -114,7 +114,12 @@ class HomeFunctionModel: HJModel {
     var unitName: String = ""
 }
 
-class HomeArticleModel: HJModel {
+class HCArticlePageDataModel: HJModel {
+
+    var records: [HCArticleItemModel] = []
+}
+
+class HCArticleItemModel: HJModel {
     var id: String = ""
     var shopId: String = ""
     var title: String = ""
@@ -139,7 +144,8 @@ class HomeArticleModel: HJModel {
     var top: Bool = false
     var release: Bool = false
     var hrefUrl: String = ""
-    var readNumber: String = "0"
+    var store: Int = 0
+    var readNumber: Int = 0
     
     lazy var cellHeight: CGFloat = {
         
@@ -155,6 +161,14 @@ class HomeArticleModel: HJModel {
         height += (desH > 17 ? 17 : 0)
         
         return height
+    }()
+    
+    lazy var readCountText: String = {
+        return "\(self.readNumber) 阅读"
+    }()
+    
+    lazy var collectCountText: String = {
+        return "\(self.store) 收藏"
     }()
 }
 
@@ -194,9 +208,6 @@ class HomeColumnModel: HJModel {
 }
 
 class HCAllChannelArticleModel: HJModel {
-
-    var size: Int = 0
-    var current: Int = 0
     
     var records: [HCAllChannelArticleItemModel] = []
 }

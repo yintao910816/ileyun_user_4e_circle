@@ -12,6 +12,9 @@ import HandyJSON
 class HJModel:NSObject ,HandyJSON {
     
     var total: Int = 0
+    var size : Int = 0
+    var current: Int = 1
+    var pages: Int = 0
     
     func mapping(mapper: HelpingMapper) {}
     

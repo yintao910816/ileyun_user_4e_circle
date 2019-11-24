@@ -75,7 +75,7 @@ class TYSlideMenuController: UIViewController {
         }
     }
 
-    public func reloadList(listMode: [HomeArticleModel], page: Int) {
+    public func reloadList(listMode: [HCArticleItemModel], page: Int) {
         if menuCtrls.count > page {
             menuCtrls[page].reloadData(data: listMode)
         }
@@ -155,11 +155,14 @@ class TYSlideMenu: UIView {
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         layout.sectionInset = .zero
+        layout.scrollDirection = .horizontal
         
         collectionView = UICollectionView.init(frame: frame, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .clear
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.isPagingEnabled = true
         addSubview(collectionView)
         
         collectionView.register(TYSlideCell.self, forCellWithReuseIdentifier: UICollectionViewCell_identifier)

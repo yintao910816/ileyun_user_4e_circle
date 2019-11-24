@@ -383,7 +383,6 @@
 		C47E067B23589355003A3320 /* TYCalendarDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47E067A23589355003A3320 /* TYCalendarDayCell.swift */; };
 		C47E067E23589800003A3320 /* HCRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47E067D23589800003A3320 /* HCRecorderView.swift */; };
 		C48842B2233EF6A700C209B3 /* HCClassRoomListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48842B0233EF6A700C209B3 /* HCClassRoomListCell.swift */; };
-		C48842B3233EF6A700C209B3 /* HCClassRoomListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C48842B1233EF6A700C209B3 /* HCClassRoomListCell.xib */; };
 		C48842B5233EFD3500C209B3 /* HCClassRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48842B4233EFD3500C209B3 /* HCClassRoomViewModel.swift */; };
 		C497E93523443DB100328B47 /* FindDoctorHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C497E93423443DB100328B47 /* FindDoctorHeaderView.swift */; };
 		C497E94523444E4600328B47 /* HCHomeConsultingVolumeReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C497E93723444E4600328B47 /* HCHomeConsultingVolumeReusableView.swift */; };
@@ -1071,7 +1070,6 @@
 		C47E067A23589355003A3320 /* TYCalendarDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYCalendarDayCell.swift; sourceTree = "<group>"; };
 		C47E067D23589800003A3320 /* HCRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRecorderView.swift; sourceTree = "<group>"; };
 		C48842B0233EF6A700C209B3 /* HCClassRoomListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCClassRoomListCell.swift; sourceTree = "<group>"; };
-		C48842B1233EF6A700C209B3 /* HCClassRoomListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HCClassRoomListCell.xib; sourceTree = "<group>"; };
 		C48842B4233EFD3500C209B3 /* HCClassRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCClassRoomViewModel.swift; sourceTree = "<group>"; };
 		C497E93423443DB100328B47 /* FindDoctorHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindDoctorHeaderView.swift; sourceTree = "<group>"; };
 		C497E93723444E4600328B47 /* HCHomeConsultingVolumeReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCHomeConsultingVolumeReusableView.swift; sourceTree = "<group>"; };
@@ -2460,7 +2458,6 @@
 				B826AF84221C7205000428C1 /* ArticleCell.xib */,
 				C43BC441233B080F00194539 /* HCConsultListCell.swift */,
 				C48842B0233EF6A700C209B3 /* HCClassRoomListCell.swift */,
-				C48842B1233EF6A700C209B3 /* HCClassRoomListCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2671,7 +2668,6 @@
 				C43F09BC2214315900910437 /* HomeFunctionCell.xib in Resources */,
 				C497E9722344728200328B47 /* HCHomeBabyTuinaClassroomReusableView.xib in Resources */,
 				C497E966234462B600328B47 /* HCHomePregnancyClassroomCell.xib in Resources */,
-				C48842B3233EF6A700C209B3 /* HCClassRoomListCell.xib in Resources */,
 				C497E94623444E4600328B47 /* HCHomeConsultingVolumeCell.xib in Resources */,
 				C497E95623444ECF00328B47 /* HCHomeGoodNewsReusableView.xib in Resources */,
 				C4C8EB40235175660054A295 /* HCHomePreparePregnantInfoCell.xib in Resources */,

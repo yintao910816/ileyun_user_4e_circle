@@ -143,16 +143,15 @@ class RefreshVM<T>: BaseViewModel {
     
     /**
      * 子类重写，响应上拉下拉加载数据
-     *  必须调用super，否则分页参数不正确
+     * 单个table中必须调用super，否则分页参数不正确
      */
     func requestData(_ refresh: Bool) {
         pageModel.currentPage = refresh ? 1 : (pageModel.currentPage + 1)
     }
-
 }
 
+//MARK:--单个table
 extension RefreshVM {
-
     /**
      * 刷新方法，发射刷新信号 - 用于列表数据(只有一个table)
      * models - 列表数据
@@ -189,6 +188,19 @@ extension RefreshVM {
         // 修改刷新view的状态
         refreshStatus.value = .InvalidData
     }
+}
+
+//MARK:--多table
+extension RefreshVM {
+   
+    /**
+     * 子类重写 func requestData(_ refresh: Bool)
+     *  必须调用，否则分页参数不正确
+     */
+    public final func updatePage(for pageKey: String, refresh: Bool) {
+        checkPage(pageKey: pageKey)
+        pageModels[pageKey]!.currentPage = refresh ? 1 : (pageModels[pageKey]!.currentPage + 1)
+    }
     
     /**
      * 刷新方法，发射刷新信号 - 用于多个table
@@ -199,9 +211,7 @@ extension RefreshVM {
                                     pages: Int,
                                     pageKey: String) {
         
-        if pageModels[pageKey] == nil {
-            pageModels[pageKey] = PageModel()
-        }
+        checkPage(pageKey: pageKey)
         guard let page = pageModels[pageKey] else { return }
         
         page.totlePage = pages
@@ -211,7 +221,7 @@ extension RefreshVM {
         if refresh {
             // 下拉刷新处理
             isEmptyContentObser.value = retData.count == 0
-            refreshStatus.value = .DropDownSuccess
+            refreshStatus.value = pages > 1 ? .DropDownSuccess : .DropDownSuccessAndNoMoreData
             dataModels.removeAll()
             dataModels.append(contentsOf: retData)
         } else {
@@ -221,6 +231,7 @@ extension RefreshVM {
                 dataModels.append(contentsOf: retData)
             }else {
                 page.currentPage = page.currentPage > 1 ? (page.currentPage - 1) : 1
+                refreshStatus.value = .PullSuccessNoMoreData
             }
         }
     }
@@ -238,13 +249,21 @@ extension RefreshVM {
     }
 
     public func currentPage(for pageKey: String) ->Int {
-        guard let page = pageModels[pageKey] else { return 1 }
-        return page.currentPage
+        checkPage(pageKey: pageKey)
+        return pageModels[pageKey]!.currentPage
     }
     
     public func pageSize(for pageKey: String) ->Int {
-        guard let page = pageModels[pageKey] else { return 1 }
-        return page.pageSize
+        checkPage(pageKey: pageKey)
+        return pageModels[pageKey]!.pageSize
+    }
+
+    private func checkPage(pageKey: String) {
+        if pageModels[pageKey] == nil {
+            let pageModel = PageModel()
+            pageModel.pageSize = 10
+            pageModels[pageKey] = pageModel
+        }
     }
 
 }
