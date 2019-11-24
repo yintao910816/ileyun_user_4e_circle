@@ -111,7 +111,7 @@ class HomeViewModel: BaseViewModel, VMNavigation {
     }
     
     private func requestAllChannelArticle() ->Observable<[HCAllChannelArticleItemModel]>{
-        return HCProvider.request(.allChannelArticle(articleType: .webCms001, pageNum: 1, pageSize: 10))
+        return HCProvider.request(.allChannelArticle(cmsType: .webCms001, pageNum: 1, pageSize: 10))
             .map(model: HCAllChannelArticleModel.self)
             .map{ $0.records }
             .asObservable()

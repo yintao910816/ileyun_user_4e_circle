@@ -23,7 +23,6 @@ class HCConsultViewController: BaseViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
-    @IBOutlet weak var requestionOutlet: UIButton!
     @IBOutlet weak var findDoctorOutlet: UIButton!
     
     var viewModel: ConsultViewModel!
@@ -76,15 +75,7 @@ class HCConsultViewController: BaseViewController {
         // 上下拉刷新绑定
         tableView.prepare(viewModel, showFooter: false)
         tableView.headerRefreshing()
-        
-        // 按钮
-        requestionOutlet.rx.tap
-            .asDriver()
-            .drive(onNext: { [weak self] in
-                self?.performSegue(withIdentifier: "editInfoForDoctorSegue", sender: nil)
-            })
-            .disposed(by: disposeBag)
-        
+                
         tableView.rx.setDelegate(self)
             .disposed(by: disposeBag)
     }

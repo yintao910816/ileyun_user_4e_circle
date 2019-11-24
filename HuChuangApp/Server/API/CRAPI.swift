@@ -10,7 +10,7 @@ import Foundation
 import Moya
 
 /// 文章栏目编码
-enum ArticleType: String {
+enum HCWebCmsType: String {
     /// 首页-好孕课堂
     case webCms001 = "webCms001"
 }
@@ -85,11 +85,11 @@ enum API{
     
     //MARK:--爱乐孕治疗四期接口
     /// 首页好孕课堂
-    case allChannelArticle(articleType: ArticleType, pageNum: Int, pageSize: Int)
+    case allChannelArticle(cmsType: HCWebCmsType, pageNum: Int, pageSize: Int)
     /// 名医推荐
     case recommendDoctor(areaCode: Int)
     /// 课堂
-    case column(cmsCode: String)
+    case column(cmsType: HCWebCmsType)
     /// 栏目文章列表
     case articlePage(id: Int, pageNum: Int, pageSize: Int)
 }

@@ -34,7 +34,7 @@ class HCClassRoomViewModel: RefreshVM<HomeArticleModel> {
     
     /// 滚动菜单
     private func requestColumnData() {
-        HCProvider.request(.column(cmsCode: "aa"))
+        HCProvider.request(.column(cmsType: .webCms001))
             .map(model: HomeColumnModel.self)
             .subscribe(onSuccess: { [weak self] model in
                 self?.columnData = model
