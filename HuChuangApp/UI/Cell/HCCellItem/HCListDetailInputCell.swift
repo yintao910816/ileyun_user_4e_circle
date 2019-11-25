@@ -9,6 +9,8 @@
 import UIKit
 
 public let HCListDetailInputCell_identifier = "HCListDetailInputCell"
+public let HCListDetailInputCell_height: CGFloat = 50
+
 class HCListDetailInputCell: HCBaseListCell {
 
     private var inputTf: UITextField!
@@ -34,8 +36,16 @@ class HCListDetailInputCell: HCBaseListCell {
             super.model = model
             
             inputTf.placeholder = model.placeholder
-            inputTf.snp.updateConstraints {
-                $0.size.equalTo(model.inputSize)
+            
+            if model.shwoArrow && arrowImgV.isHidden {
+                inputTf.snp.updateConstraints {
+                    $0.right.equalTo(contentView).offset(-7 - 8 - 15)
+                    $0.size.equalTo(model.inputSize)
+                }
+            }else {
+                inputTf.snp.updateConstraints {
+                    $0.size.equalTo(model.inputSize)
+                }
             }
         }
     }

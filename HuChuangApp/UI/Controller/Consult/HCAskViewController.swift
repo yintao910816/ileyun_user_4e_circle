@@ -72,6 +72,9 @@ extension HCAskViewController: UICollectionViewDelegateFlowLayout, UICollectionV
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HCAskCollectionReusableView_identifier, for: indexPath) as! HCAskCollectionReusableView
+            header.addArchivesCallBack = { [weak self] in
+                self?.performSegue(withIdentifier: "healthyInfoSegue", sender: nil)
+            }
             return header
         }
         

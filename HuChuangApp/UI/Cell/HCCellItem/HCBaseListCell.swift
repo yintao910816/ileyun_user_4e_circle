@@ -96,8 +96,12 @@ class HCBaseListCell: UITableViewCell {
                 }
             }
             
-            titleLabel.text = model.title
-            titleLabel.textColor = model.titleColor                        
+            if model.attrbuiteTitle.length > 0 {
+                titleLabel.attributedText = model.attrbuiteTitle
+            }else {
+                titleLabel.text = model.title
+                titleLabel.textColor = model.titleColor
+            }
         }
     }
     

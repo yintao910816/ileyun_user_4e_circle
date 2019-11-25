@@ -20,6 +20,8 @@ struct HCListCellItem {
     var titleIcon: String = ""
     var titleIconSize: CGSize = .init(width: 25, height: 25)
     
+    var attrbuiteTitle: NSAttributedString = NSAttributedString.init()
+    
     var detailTitle: String = ""
     var detailIcon: String = ""
     var detailIconSize: CGSize = .init(width: 25, height: 25)
@@ -32,6 +34,7 @@ struct HCListCellItem {
     // 输入框
     var inputSize: CGSize = .init(width: 100, height: 25)
     var placeholder: String = ""
+    var inputEnable: Bool = true
     
     // 右边按钮
     var detailButtonSize:CGSize = .zero

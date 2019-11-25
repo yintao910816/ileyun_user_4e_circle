@@ -92,6 +92,8 @@ enum API{
     case column(cmsType: HCWebCmsType)
     /// 栏目文章列表
     case articlePage(id: Int, pageNum: Int, pageSize: Int)
+    /// 健康档案
+    case getHealthArchives
 }
 
 //MARK:
@@ -141,6 +143,8 @@ extension API: TargetType{
             return "api/doctor/recommendDoctor"
         case .articlePage(_):
             return "api/index/articlePage"
+        case .getHealthArchives:
+            return "api/member/getHealthArchives"
         }
     }
     

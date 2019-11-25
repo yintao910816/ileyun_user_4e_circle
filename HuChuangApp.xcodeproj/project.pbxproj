@@ -271,6 +271,12 @@
 		B870E532238A7E1C0085AFA3 /* HCAskCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B870E531238A7E1C0085AFA3 /* HCAskCollectionReusableView.swift */; };
 		B870E534238A878A0085AFA3 /* HCAskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B870E533238A878A0085AFA3 /* HCAskViewModel.swift */; };
 		B870E537238A88D50085AFA3 /* HCAskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B870E536238A88D50085AFA3 /* HCAskCell.swift */; };
+		B870E539238C25120085AFA3 /* HCHealthyArchivesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B870E538238C25120085AFA3 /* HCHealthyArchivesViewController.swift */; };
+		B870E53B238C27AF0085AFA3 /* HCHealthyArchivesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B870E53A238C27AF0085AFA3 /* HCHealthyArchivesViewModel.swift */; };
+		B870E53D238C27F40085AFA3 /* PatientInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B870E53C238C27F40085AFA3 /* PatientInfo.swift */; };
+		B870E53F238C34AB0085AFA3 /* HCHealthyArchivesHeaderTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B870E53E238C34AB0085AFA3 /* HCHealthyArchivesHeaderTitleView.swift */; };
+		B870E541238C37050085AFA3 /* HCMenstruationHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B870E540238C37050085AFA3 /* HCMenstruationHistoryViewController.swift */; };
+		B870E543238C38EF0085AFA3 /* HCMenstruationHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B870E542238C38EF0085AFA3 /* HCMenstruationHistoryViewModel.swift */; };
 		B8760D042344F14D002906F6 /* HCSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8760D032344F14D002906F6 /* HCSearchViewController.swift */; };
 		B8760D062344FB85002906F6 /* HCSearchAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8760D052344FB85002906F6 /* HCSearchAllViewController.swift */; };
 		B879A060221AF0B200E573C9 /* MineFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B879A05F221AF0B200E573C9 /* MineFooterView.swift */; };
@@ -954,6 +960,12 @@
 		B870E531238A7E1C0085AFA3 /* HCAskCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCAskCollectionReusableView.swift; sourceTree = "<group>"; };
 		B870E533238A878A0085AFA3 /* HCAskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCAskViewModel.swift; sourceTree = "<group>"; };
 		B870E536238A88D50085AFA3 /* HCAskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCAskCell.swift; sourceTree = "<group>"; };
+		B870E538238C25120085AFA3 /* HCHealthyArchivesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCHealthyArchivesViewController.swift; sourceTree = "<group>"; };
+		B870E53A238C27AF0085AFA3 /* HCHealthyArchivesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCHealthyArchivesViewModel.swift; sourceTree = "<group>"; };
+		B870E53C238C27F40085AFA3 /* PatientInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientInfo.swift; sourceTree = "<group>"; };
+		B870E53E238C34AB0085AFA3 /* HCHealthyArchivesHeaderTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCHealthyArchivesHeaderTitleView.swift; sourceTree = "<group>"; };
+		B870E540238C37050085AFA3 /* HCMenstruationHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCMenstruationHistoryViewController.swift; sourceTree = "<group>"; };
+		B870E542238C38EF0085AFA3 /* HCMenstruationHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCMenstruationHistoryViewModel.swift; sourceTree = "<group>"; };
 		B8760D032344F14D002906F6 /* HCSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCSearchViewController.swift; sourceTree = "<group>"; };
 		B8760D052344FB85002906F6 /* HCSearchAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCSearchAllViewController.swift; sourceTree = "<group>"; };
 		B879A05F221AF0B200E573C9 /* MineFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineFooterView.swift; sourceTree = "<group>"; };
@@ -1972,6 +1984,7 @@
 			isa = PBXGroup;
 			children = (
 				B870E531238A7E1C0085AFA3 /* HCAskCollectionReusableView.swift */,
+				B870E53E238C34AB0085AFA3 /* HCHealthyArchivesHeaderTitleView.swift */,
 			);
 			path = Consult;
 			sourceTree = "<group>";
@@ -2276,6 +2289,8 @@
 				C4B1852A2345880E00F37197 /* HCSearchViewModel.swift */,
 				C4F3B8ED235B355800A6539A /* HCRecordViewModel.swift */,
 				B870E533238A878A0085AFA3 /* HCAskViewModel.swift */,
+				B870E53A238C27AF0085AFA3 /* HCHealthyArchivesViewModel.swift */,
+				B870E542238C38EF0085AFA3 /* HCMenstruationHistoryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2302,6 +2317,7 @@
 				B8508E322340FC9F008C24BA /* Doctor.swift */,
 				C497E9672344658D00328B47 /* HCHome.swift */,
 				C4B185332345B03400F37197 /* HCSearch.swift */,
+				B870E53C238C27F40085AFA3 /* PatientInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2426,6 +2442,8 @@
 			children = (
 				C43BC448233B0D8F00194539 /* HCFindDoctorViewController.swift */,
 				B870E52E238A7CAD0085AFA3 /* HCAskViewController.swift */,
+				B870E538238C25120085AFA3 /* HCHealthyArchivesViewController.swift */,
+				B870E540238C37050085AFA3 /* HCMenstruationHistoryViewController.swift */,
 			);
 			path = Consult;
 			sourceTree = "<group>";
@@ -2786,6 +2804,7 @@
 				B816EB08221DABF400F024D5 /* ZXAI013x0x1xDecoder.m in Sources */,
 				B816EB43221DABF400F024D5 /* ZXBizcardResultParser.m in Sources */,
 				B816EAAC221DABF400F024D5 /* ZXQRCodeFinderPattern.m in Sources */,
+				B870E53B238C27AF0085AFA3 /* HCHealthyArchivesViewModel.swift in Sources */,
 				B8508EA123420E41008C24BA /* HCSettingViewModel.swift in Sources */,
 				C4F139BA235419EF00D777F6 /* Frame.swift in Sources */,
 				C421338322059B8C006C10C4 /* CacheKey.swift in Sources */,
@@ -2987,6 +3006,7 @@
 				B816EAA4221DABF400F024D5 /* ZXQRCodeBitMatrixParser.m in Sources */,
 				C421334D220587DC006C10C4 /* Single+ModelMapper.swift in Sources */,
 				B816EA81221DABF400F024D5 /* ZXDimension.m in Sources */,
+				B870E53F238C34AB0085AFA3 /* HCHealthyArchivesHeaderTitleView.swift in Sources */,
 				C497E965234462B600328B47 /* HCHomePregnancyClassroomCell.swift in Sources */,
 				C4F139C023541E5B00D777F6 /* TYDateFormatter.swift in Sources */,
 				B826AF85221C7205000428C1 /* ArticleCell.swift in Sources */,
@@ -3021,6 +3041,7 @@
 				B816EAF6221DABF400F024D5 /* ZXMaxiCodeDecodedBitStreamParser.m in Sources */,
 				C42133942205B1E9006C10C4 /* CarouselView.swift in Sources */,
 				B816EB10221DABF400F024D5 /* ZXAI01320xDecoder.m in Sources */,
+				B870E541238C37050085AFA3 /* HCMenstruationHistoryViewController.swift in Sources */,
 				B816EAE2221DABF400F024D5 /* ZXDataMatrixX12Encoder.m in Sources */,
 				B8BE351D221484C600EF16F1 /* UINavigationController+BarButtonItem.swift in Sources */,
 				C43BC443233B080F00194539 /* HCConsultListCell.swift in Sources */,
@@ -3032,6 +3053,7 @@
 				C449FA5B2298021D00B7803E /* AppAbout.swift in Sources */,
 				B816EAA5221DABF400F024D5 /* ZXQRCodeDataBlock.m in Sources */,
 				B86993D32337395800086A77 /* TYButton.swift in Sources */,
+				B870E53D238C27F40085AFA3 /* PatientInfo.swift in Sources */,
 				B816EACE221DABF400F024D5 /* ZXPDF417BarcodeRow.m in Sources */,
 				B816EABD221DABF400F024D5 /* ZXPerspectiveTransform.m in Sources */,
 				B816EABB221DABF400F024D5 /* ZXMathUtils.m in Sources */,
@@ -3172,6 +3194,8 @@
 				C421331A22056E55006C10C4 /* BaseViewController.swift in Sources */,
 				C4F3B8EA235B320A00A6539A /* HCListDetailInputCell.swift in Sources */,
 				C4E254EA233E0793006922DB /* TYSlideMenuController.swift in Sources */,
+				B870E539238C25120085AFA3 /* HCHealthyArchivesViewController.swift in Sources */,
+				B870E543238C38EF0085AFA3 /* HCMenstruationHistoryViewModel.swift in Sources */,
 				B816EAAE221DABF400F024D5 /* ZXQRCodeFinderPatternFinder.m in Sources */,
 				B816EAD1221DABF400F024D5 /* ZXModulusPoly.m in Sources */,
 				B816EB40221DABF400F024D5 /* ZXExpandedProductResultParser.m in Sources */,

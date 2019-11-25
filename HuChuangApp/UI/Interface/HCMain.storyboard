@@ -317,11 +317,66 @@
                         <outlet property="collectionView" destination="NFf-Of-SQ1" id="DrT-Sx-KRt"/>
                         <outlet property="navHeightCns" destination="KJh-bt-4u1" id="mR4-3t-CHg"/>
                         <outlet property="submitOutlet" destination="mpg-lR-qNB" id="ATg-Kw-4GU"/>
+                        <segue destination="d9J-BZ-f1a" kind="show" identifier="healthyInfoSegue" id="iq9-cn-ogC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jw1-Za-x3V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2873" y="-136"/>
+        </scene>
+        <!--Healthy Archives View Controller-->
+        <scene sceneID="FTb-mb-4wa">
+            <objects>
+                <viewController id="d9J-BZ-f1a" customClass="HCHealthyArchivesViewController" customModule="HuChuangApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QJk-Jb-jmz"/>
+                        <viewControllerLayoutGuide type="bottom" id="Em3-FQ-CMG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YIC-Ec-DTo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ufu-8n-UR8">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Ufu-8n-UR8" firstAttribute="top" secondItem="QJk-Jb-jmz" secondAttribute="bottom" id="6x1-ED-Fdo"/>
+                            <constraint firstItem="Ufu-8n-UR8" firstAttribute="leading" secondItem="YIC-Ec-DTo" secondAttribute="leading" id="LnS-Wp-Cmk"/>
+                            <constraint firstItem="Em3-FQ-CMG" firstAttribute="top" secondItem="Ufu-8n-UR8" secondAttribute="bottom" id="kfn-um-RKW"/>
+                            <constraint firstAttribute="trailing" secondItem="Ufu-8n-UR8" secondAttribute="trailing" id="tjM-Xr-M0n"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="bJf-Zq-vgm"/>
+                    <connections>
+                        <outlet property="tableView" destination="Ufu-8n-UR8" id="hOM-jR-cVX"/>
+                        <segue destination="QWu-8C-BSW" kind="show" identifier="menstruationHistorySegue" id="8Sa-7w-Rqp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="baH-Er-nYK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3710" y="-131"/>
+        </scene>
+        <!--月经史-->
+        <scene sceneID="j41-IS-lrh">
+            <objects>
+                <viewController title="月经史" id="QWu-8C-BSW" customClass="HCMenstruationHistoryViewController" customModule="HuChuangApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xX5-VI-2hg"/>
+                        <viewControllerLayoutGuide type="bottom" id="CcU-KZ-aYu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bD0-6r-o8f">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="6An-zA-6do"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yqO-Xv-qgh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4464" y="-138"/>
         </scene>
         <!--首页-->
         <scene sceneID="qWj-5b-UzD">
