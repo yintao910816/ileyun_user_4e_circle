@@ -94,6 +94,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2sJ-n3-0LZ">
                                                 <rect key="frame" x="0.0" y="0.0" width="177" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <connections>
+                                                    <segue destination="SGB-Ok-tLX" kind="presentation" id="2W8-AG-iQZ"/>
+                                                </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="consult_ask" translatesAutoresizingMaskIntoConstraints="NO" id="0LK-kq-D8k">
                                                 <rect key="frame" x="19.5" y="35" width="30" height="30"/>
@@ -207,7 +210,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pMe-05-WMC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2087" y="-914"/>
+            <point key="canvasLocation" x="2105" y="-1912"/>
         </scene>
         <!--Main Navigation Controller-->
         <scene sceneID="Mk1-U6-Cgq">
@@ -224,6 +227,127 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7cy-vA-ZwE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1999" y="-125"/>
+        </scene>
+        <!--Main Navigation Controller-->
+        <scene sceneID="W3K-iQ-aim">
+            <objects>
+                <navigationController modalPresentationStyle="fullScreen" id="SGB-Ok-tLX" customClass="MainNavigationController" customModule="HuChuangApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VNU-6k-dqR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Czd-FO-MbZ" kind="relationship" relationship="rootViewController" id="ulT-GM-cvp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4L3-wH-Xq9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1954" y="-986"/>
+        </scene>
+        <!--Expert Consult View Controller-->
+        <scene sceneID="PO7-Kb-GJE">
+            <objects>
+                <viewController id="Czd-FO-MbZ" customClass="HCExpertConsultViewController" customModule="HuChuangApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LnH-wu-IQB"/>
+                        <viewControllerLayoutGuide type="bottom" id="trR-CR-QOL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UeC-OG-4IA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ysa-M9-ZDa" customClass="TYSearchBar" customModule="HuChuangApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="u3L-m7-HRV"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Azt-XI-uwl">
+                                <rect key="frame" x="0.0" y="52" width="375" height="45"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uNx-Qy-9HD">
+                                        <rect key="frame" x="0.0" y="0.0" width="94" height="45"/>
+                                        <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="全国">
+                                            <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="deviceRGB"/>
+                                        </state>
+                                        <state key="selected">
+                                            <color key="titleColor" red="0.99215686274509807" green="0.46666666666666667" blue="0.5725490196078431" alpha="1" colorSpace="deviceRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fuu-1N-2Ui">
+                                        <rect key="frame" x="94" y="0.0" width="93.5" height="45"/>
+                                        <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
+                                        <state key="normal" title="咨询人数">
+                                            <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="deviceRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b9c-3j-vbS">
+                                        <rect key="frame" x="187.5" y="0.0" width="94" height="45"/>
+                                        <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
+                                        <state key="normal" title="价格">
+                                            <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="deviceRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zYh-CP-Pzx">
+                                        <rect key="frame" x="281.5" y="0.0" width="93.5" height="45"/>
+                                        <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
+                                        <state key="normal" title="筛选">
+                                            <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="deviceRGB"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="Fuu-1N-2Ui" firstAttribute="leading" secondItem="uNx-Qy-9HD" secondAttribute="trailing" id="01G-6U-rnP"/>
+                                    <constraint firstItem="b9c-3j-vbS" firstAttribute="height" secondItem="Fuu-1N-2Ui" secondAttribute="height" id="1cQ-Pc-xxu"/>
+                                    <constraint firstItem="zYh-CP-Pzx" firstAttribute="leading" secondItem="b9c-3j-vbS" secondAttribute="trailing" id="49d-C8-ofd"/>
+                                    <constraint firstItem="b9c-3j-vbS" firstAttribute="width" secondItem="Fuu-1N-2Ui" secondAttribute="width" id="Can-8s-Vc8"/>
+                                    <constraint firstAttribute="bottom" secondItem="uNx-Qy-9HD" secondAttribute="bottom" id="H9h-da-9SW"/>
+                                    <constraint firstItem="uNx-Qy-9HD" firstAttribute="top" secondItem="Azt-XI-uwl" secondAttribute="top" id="He6-HZ-Rnh"/>
+                                    <constraint firstItem="b9c-3j-vbS" firstAttribute="leading" secondItem="Fuu-1N-2Ui" secondAttribute="trailing" id="JS3-Rp-tYj"/>
+                                    <constraint firstItem="Fuu-1N-2Ui" firstAttribute="centerY" secondItem="uNx-Qy-9HD" secondAttribute="centerY" id="JnA-k7-XZL"/>
+                                    <constraint firstAttribute="trailing" secondItem="zYh-CP-Pzx" secondAttribute="trailing" id="LBy-bL-gvC"/>
+                                    <constraint firstItem="zYh-CP-Pzx" firstAttribute="width" secondItem="b9c-3j-vbS" secondAttribute="width" id="OmV-ee-p6u"/>
+                                    <constraint firstItem="Fuu-1N-2Ui" firstAttribute="width" secondItem="uNx-Qy-9HD" secondAttribute="width" id="SoL-Y8-dhe"/>
+                                    <constraint firstItem="Fuu-1N-2Ui" firstAttribute="height" secondItem="uNx-Qy-9HD" secondAttribute="height" id="YNm-zZ-eQd"/>
+                                    <constraint firstItem="zYh-CP-Pzx" firstAttribute="centerY" secondItem="b9c-3j-vbS" secondAttribute="centerY" id="ZVq-da-N2t"/>
+                                    <constraint firstAttribute="height" constant="45" id="Zam-Zm-8iD"/>
+                                    <constraint firstItem="zYh-CP-Pzx" firstAttribute="height" secondItem="b9c-3j-vbS" secondAttribute="height" id="fvD-kn-wpS"/>
+                                    <constraint firstItem="uNx-Qy-9HD" firstAttribute="leading" secondItem="Azt-XI-uwl" secondAttribute="leading" id="o5n-BT-Fl7"/>
+                                    <constraint firstItem="b9c-3j-vbS" firstAttribute="centerY" secondItem="Fuu-1N-2Ui" secondAttribute="centerY" id="tzR-Vz-Ehe"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EpG-9y-oJP">
+                                <rect key="frame" x="0.0" y="97" width="375" height="570"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="EpG-9y-oJP" secondAttribute="bottom" id="Diz-5X-Fxp"/>
+                            <constraint firstItem="Azt-XI-uwl" firstAttribute="leading" secondItem="UeC-OG-4IA" secondAttribute="leading" id="Dr7-4M-w5h"/>
+                            <constraint firstAttribute="trailing" secondItem="Azt-XI-uwl" secondAttribute="trailing" id="FCb-77-tkz"/>
+                            <constraint firstItem="EpG-9y-oJP" firstAttribute="leading" secondItem="UeC-OG-4IA" secondAttribute="leading" id="Q59-2z-Hre"/>
+                            <constraint firstAttribute="trailing" secondItem="Ysa-M9-ZDa" secondAttribute="trailing" id="UKg-pC-fA8"/>
+                            <constraint firstItem="Azt-XI-uwl" firstAttribute="top" secondItem="Ysa-M9-ZDa" secondAttribute="bottom" constant="8" id="UkQ-ZE-tRV"/>
+                            <constraint firstAttribute="trailing" secondItem="EpG-9y-oJP" secondAttribute="trailing" id="fqT-xx-WTI"/>
+                            <constraint firstItem="Ysa-M9-ZDa" firstAttribute="top" secondItem="LnH-wu-IQB" secondAttribute="bottom" id="lFh-mh-hej"/>
+                            <constraint firstItem="Ysa-M9-ZDa" firstAttribute="leading" secondItem="UeC-OG-4IA" secondAttribute="leading" id="lmd-W3-jzY"/>
+                            <constraint firstItem="EpG-9y-oJP" firstAttribute="top" secondItem="Azt-XI-uwl" secondAttribute="bottom" id="t5x-36-8Bf"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="E8q-QS-WJC"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="navSearchBar" destination="Ysa-M9-ZDa" id="G7w-GO-43r"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NRf-gK-R9H" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2719" y="-986"/>
         </scene>
         <!--Ask View Controller-->
         <scene sceneID="acB-kQ-fdr">
@@ -656,7 +780,7 @@
             </objects>
             <point key="canvasLocation" x="-698" y="2597"/>
         </scene>
-        <!--Item 2-->
+        <!--课堂-->
         <scene sceneID="VAx-z3-52P">
             <objects>
                 <viewController id="k8X-5M-F95" customClass="HCClassRoomViewController" customModule="HuChuangApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -670,7 +794,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="yGv-Ec-XgC"/>
-                    <navigationItem key="navigationItem" id="7Um-3l-zZ6"/>
+                    <navigationItem key="navigationItem" title="课堂" id="7Um-3l-zZ6"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ei7-F2-j9D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

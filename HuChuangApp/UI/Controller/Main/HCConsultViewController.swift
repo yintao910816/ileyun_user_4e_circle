@@ -33,9 +33,10 @@ class HCConsultViewController: BaseViewController {
     
     override func setupUI() {
         searchBar.searchPlaceholder = "搜索"
-        searchBar.tfBgColor = RGB(220, 220, 220, 0.6)
+        searchBar.tfBgColor = RGB(247, 247, 247)
         searchBar.hasBottomLine = true
-        
+        searchBar.tfSearchIcon = "nav_search_gray"
+
         tableView.rowHeight = HCConsultListCell_Height
         
         searchBar.tapInputCallBack = { [unowned self] in

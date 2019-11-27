@@ -133,7 +133,7 @@ class TYSearchBar: UIView {
             }
         }
     }
-    
+
     public var tfBgColor: UIColor? {
         didSet {
             if tfBgColor != nil {
@@ -248,6 +248,12 @@ class TYSearchBar: UIView {
     public var inputBackGroundColor: UIColor? {
         didSet {
             contentContainer.backgroundColor = inputBackGroundColor
+        }
+    }
+    
+    public var tfSearchIcon: String = "" {
+        didSet {
+            searchIcon.image = UIImage.init(named: tfSearchIcon)
         }
     }
     
