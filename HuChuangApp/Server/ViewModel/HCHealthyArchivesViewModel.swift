@@ -35,7 +35,7 @@ class HCHealthyArchivesViewModel: BaseViewModel {
             for idx in 0..<titles.count {
                 let title = titles[idx]
                 var model = HCListCellItem()
-                model.attrbuiteTitle = title.attributed([NSMakeRange(0, title.count - 2), NSMakeRange(title.count - 1, 1)],
+                model.attrbuiteTitle = title.attributed([NSMakeRange(0, title.count - 1), NSMakeRange(title.count - 1, 1)],
                                                         color: [RGB(102, 102, 102), HC_MAIN_COLOR])
                 model.inputEnable = enable[idx]
                 data.append(model)

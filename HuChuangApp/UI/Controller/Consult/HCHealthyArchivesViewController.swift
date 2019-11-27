@@ -12,7 +12,9 @@ import RxDataSources
 class HCHealthyArchivesViewController: BaseViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var bottonButtonHeightCns: NSLayoutConstraint!
     
+    @IBOutlet weak var bottomOutlet: UIButton!
     private var viewModel: HCHealthyArchivesViewModel!
     
     override func setupUI() {
@@ -29,12 +31,14 @@ class HCHealthyArchivesViewController: BaseViewController {
     }
     
     override func rxBind() {
-        addBarItem(title: "下一步", titleColor: HC_MAIN_COLOR, right: true)
-            .drive(onNext: { [weak self] _ in
-                self?.performSegue(withIdentifier: "menstruationHistorySegue", sender: nil)
+        bottonButtonHeightCns.constant += LayoutSize.fitTopArea
+        
+        bottomOutlet.rx.tap.asDriver()
+            .drive(onNext: { [unowned self] in
+                self.performSegue(withIdentifier: "menstruationHistorySegue", sender: nil)
             })
             .disposed(by: disposeBag)
-
+        
         viewModel = HCHealthyArchivesViewModel()
         
         viewModel.datasourceObser.asDriver()

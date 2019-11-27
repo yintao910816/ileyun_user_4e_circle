@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 class HCMenstruationHistoryViewModel: BaseViewModel {
     
@@ -20,11 +21,24 @@ class HCMenstruationHistoryViewModel: BaseViewModel {
 
     public var datasourceObser = Variable([HCListCellItem]())
 
-    init(dataModel: HCHealthArchivesModel) {
+    init(dataModel: HCHealthArchivesModel,
+         tap: (menstruationHistoryTap: Driver<Void>, maritalHistoryTap: Driver<Void>)) {
         super.init()
         
         self.dataModel = dataModel
         
+        tap.menstruationHistoryTap
+            .drive(onNext: { [unowned self] in
+                self.datasourceObser.value = self.menstruationHistoryDatas
+            })
+            .disposed(by: disposeBag)
+        
+        tap.maritalHistoryTap
+            .drive(onNext: { [unowned self] in
+                self.datasourceObser.value = self.maritalHistoryDatas
+            })
+            .disposed(by: disposeBag)
+
         dealData()
     }
     
@@ -39,7 +53,7 @@ class HCMenstruationHistoryViewModel: BaseViewModel {
         for idx in 0..<titles.count {
             let title = titles[idx]
             var model = HCListCellItem()
-            model.attrbuiteTitle = title.attributed([NSMakeRange(0, title.count - 2), NSMakeRange(title.count - 1, 1)],
+            model.attrbuiteTitle = title.attributed([NSMakeRange(0, title.count - 1), NSMakeRange(title.count - 1, 1)],
                                                     color: [RGB(102, 102, 102), HC_MAIN_COLOR])
             model.detailTitle = realDatas[idx]
             model.inputEnable = false
@@ -56,7 +70,7 @@ class HCMenstruationHistoryViewModel: BaseViewModel {
         for idx in 0..<titles.count {
             let title = titles[idx]
             var model = HCListCellItem()
-            model.attrbuiteTitle = title.attributed([NSMakeRange(0, title.count - 2), NSMakeRange(title.count - 1, 1)],
+            model.attrbuiteTitle = title.attributed([NSMakeRange(0, title.count - 1), NSMakeRange(title.count - 1, 1)],
                                                     color: [RGB(102, 102, 102), HC_MAIN_COLOR])
             model.detailTitle = realDatas[idx]
             model.inputEnable = false
