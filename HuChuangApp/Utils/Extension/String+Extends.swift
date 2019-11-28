@@ -16,6 +16,12 @@ public let hc_fontSize: CGFloat = 15
 // MARK: 字符串size计算
 extension String {
     
+    func ty_textSize(font: UIFont, width: CGFloat, height: CGFloat) ->CGSize {
+        let size = CGSize.init(width: width, height: height)
+        let attributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font]
+        return self.boundingRect(with: size, options: [.usesLineFragmentOrigin, .truncatesLastVisibleLine, .usesFontLeading], attributes: attributes, context:nil).size
+    }
+
     func getTextHeigh(fontSize: Float, width: CGFloat, fontName: String = hc_fontName) -> CGFloat {
         
         return self.textSize(fontSize: fontSize, width: width, height: CGFloat(MAXFLOAT), fontName: fontName).height
@@ -28,12 +34,10 @@ extension String {
 
     private func textSize(fontSize: Float, width: CGFloat, height: CGFloat, fontName: String) ->CGSize {
     
-        let font = UIFont.init(name: fontName, size: CGFloat(fontSize))
-        let size = CGSize(width: width, height: height)
-        
-        let attributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font]
-        return self.boundingRect(with: size, options: [.usesLineFragmentOrigin, .truncatesLastVisibleLine, .usesFontLeading], attributes: attributes, context:nil).size
+        let font = UIFont.init(name: fontName, size: CGFloat(fontSize)) ?? UIFont.systemFont(ofSize: CGFloat(fontSize))
+        return ty_textSize(font: font, width: width, height: height)
     }
+    
 }
 
 // MARK:

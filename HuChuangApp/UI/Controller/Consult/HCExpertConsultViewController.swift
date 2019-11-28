@@ -11,6 +11,10 @@ import UIKit
 class HCExpertConsultViewController: BaseViewController {
 
     @IBOutlet weak var navSearchBar: TYSearchBar!
+    @IBOutlet weak var listMenuView: TYListMenuView!
+    @IBOutlet weak var tableView: UITableView!
+    
+    private var viewModel: HCExpertConsultViewModel!
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: animated)
@@ -28,6 +32,8 @@ class HCExpertConsultViewController: BaseViewController {
     }
     
     override func rxBind() {
+        viewModel = HCExpertConsultViewModel()
         
+        listMenuView.setData(listData: viewModel.getListMenuData())
     }
 }
