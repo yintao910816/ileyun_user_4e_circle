@@ -176,49 +176,7 @@ extension HCDoctorItemModel {
     }
 }
 
-///// 名医推荐
-//class HCRecommendDoctorModel: HJModel {
-//    var id: Int = 0
-//    var account: String = ""
-//    var name: String = ""
-//    var email: String = ""
-//    var mobile: String = ""
-//    var lastLogin: String = ""
-//    var ip: String = ""
-//    var status: Bool = true
-//    var bak: String = ""
-//    var skin: String = ""
-//    var numbers: String = ""
-//    var unitId: Int = 0
-//    var createDate: String = ""
-//    var modifyDate: String = ""
-//    var creates: String = ""
-//    var modifys: String = ""
-//    var age: Int = 0
-//    var sex: Int = 0
-//    var birthday: String = ""
-//    var token: String = ""
-//    var headPath: String = ""
-//    var sort: String = ""
-//    var brief: String = ""
-//    var environment: String = ""
-//    var spellCode: String = ""
-//    var spellBrevityCode: String = ""
-//    var wubiCode: String = ""
-//    var skilledIn: String = ""
-//    var skilledInIds: String = ""
-//    var technicalPost: String = ""
-//    var technicalPostId: String = ""
-//    var hisNo: String = ""
-//    var hisCode: String = ""
-//    var linueupNo: String = ""
-//    var departmentId: String = ""
-//    var consult: String = ""
-//    var consultPrice: String = ""
-//    var practitionerYear: String = ""
-//    var provinceName: String = ""
-//    var cityName: String = ""
-//    var areaCode: Int = 0
-//    var enable: Bool = true
-//
-//}
+/// 专家问诊
+class HCExpertConsultListModel: HJModel {
+    var records: [HCDoctorItemModel] = []
+}

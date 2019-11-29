@@ -22,18 +22,30 @@ class HCExpertConsultViewController: BaseViewController {
     
     override func setupUI() {
         navSearchBar.tfBgColor = RGB(247, 247, 247)
-        navSearchBar.leftItemIcon = "navigationButtonReturn"
+        navSearchBar.leftItemIcon = "navigationButtonReturnClick"
         navSearchBar.searchPlaceholder = "搜索"
         navSearchBar.tfSearchIcon = "nav_search_gray"
         
         navSearchBar.leftItemTapBack = { [unowned self] in
             self.dismiss(animated: true, completion: nil)
         }
+        
+        tableView.rowHeight = HCConsultListCell_Height
+        tableView.register(HCConsultListCell.self, forCellReuseIdentifier: HCConsultListCell_idetifier)
     }
     
     override func rxBind() {
         viewModel = HCExpertConsultViewModel()
-        
         listMenuView.setData(listData: viewModel.getListMenuData())
+        
+        viewModel.datasource.asDriver()
+            .drive(tableView.rx.items(cellIdentifier: HCConsultListCell_idetifier, cellType: HCConsultListCell.self)) { _,model,cell  in
+                cell.model = model
+        }
+        .disposed(by: disposeBag)
+                
+        // 上下拉刷新绑定
+        tableView.prepare(viewModel, showFooter: false)
+        tableView.headerRefreshing()
     }
 }

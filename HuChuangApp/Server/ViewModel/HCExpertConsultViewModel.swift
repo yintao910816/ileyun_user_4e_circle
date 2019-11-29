@@ -8,7 +8,7 @@
 
 import Foundation
 
-class HCExpertConsultViewModel: BaseViewModel {
+class HCExpertConsultViewModel: RefreshVM<HCDoctorItemModel> {
     
     private var listMenuData: [TYListMenuModel] = []
     
@@ -31,9 +31,26 @@ class HCExpertConsultViewModel: BaseViewModel {
             
             listMenuData.append(model)
         }
+        
+        reloadSubject
+            .subscribe(onNext: { [weak self] in
+                self?.requestData(true)
+            })
+            .disposed(by: disposeBag)
     }
     
     public func getListMenuData() ->[TYListMenuModel] {
         return listMenuData
+    }
+    
+    override func requestData(_ refresh: Bool) {
+        HCProvider.request(.consultSelectListPage(pageNum: 1, pageSize: 10, searchName: "", areaCode: 0, opType: 0, sceen: ""))
+            .map(model: HCExpertConsultListModel.self)
+            .subscribe(onSuccess: { [weak self] data in
+                self?.updateRefresh(refresh, data.records, data.pages)
+            }) { [weak self] error in
+                self?.revertCurrentPageAndRefreshStatus()
+        }
+        .disposed(by: disposeBag)
     }
 }
