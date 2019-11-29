@@ -16,8 +16,9 @@ class MineHeaderView: UIView {
     
     @IBOutlet weak var userIconOutlet: UIButton!
     @IBOutlet weak var nickNameOutlet: UILabel!
-    @IBOutlet weak var focusCountOutlet: UILabel!
     @IBOutlet weak var cornerBgView: UIView!
+    @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var eidtUserInfoOutlet: TYButton!
     
     @IBOutlet weak var titleTopCns: NSLayoutConstraint!
     @IBOutlet var contentView: UIView!
@@ -36,13 +37,13 @@ class MineHeaderView: UIView {
             // 通知
             openH5Publish.onNext(.consultRecord)
         case 202:
-            // 我的医生
+            // 咨询
             openH5Publish.onNext(.memberCollect)
         case 203:
-            // 我的问诊
+            // 关注
             openH5Publish.onNext(.memberCollect)
         case 204:
-            // 关注的医生
+            // 收藏
             openH5Publish.onNext(.memberCollect)
         default:
             break
@@ -75,12 +76,11 @@ class MineHeaderView: UIView {
     }
     
     private func setupUI() {
-        let attr = "0\n关注".attributed(.init(location: 2, length: 2), RGB(255, 209, 218), .font(fontSize: 14, fontName: .PingFLight))
-        focusCountOutlet.attributedText = attr
+
     }
     
     private func rxBind() {
-        userIconOutlet.rx.tap.asObservable()
+        eidtUserInfoOutlet.rx.tap.asObservable()
             .bind(to: gotoEditUserInfo)
             .disposed(by: disposeBag)
         
@@ -93,7 +93,15 @@ class MineHeaderView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+                                
+        shadowView.layer.shadowColor = UIColor.black.cgColor
+        shadowView.layer.shadowOffset = .init(width: 0, height: 0)
+        shadowView.layer.shadowOpacity = 0.2
+        shadowView.layer.shadowRadius = 5
+        shadowView.layer.cornerRadius = 5
+        shadowView.layer.masksToBounds = true
+        shadowView.clipsToBounds = false
         
-        cornerBgView.set(cornerRadius: 8, borderCorners: [.topLeft, .topRight])
+        userIconOutlet.layer.cornerRadius = userIconOutlet.height / 2.0
     }
 }

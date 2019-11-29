@@ -23,7 +23,7 @@ class TYButton: UIButton {
     }
     
     func setupUI(){
-        backgroundColor = UIColor.white
+        backgroundColor = .clear
         
         imageView?.contentMode = .center
         titleLabel?.textAlignment = .center

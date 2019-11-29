@@ -21,8 +21,6 @@ class HCMineViewController: BaseViewController {
     }
     
     override func setupUI() {
-        view.backgroundColor = .white
-        
         if #available(iOS 11, *) {
             tableView.contentInsetAdjustmentBehavior = .never
         }
@@ -39,11 +37,11 @@ class HCMineViewController: BaseViewController {
     
     override func rxBind() {
         viewModel = MineViewModel()
-        
-        header.gotoEditUserInfo
-            .bind(to: viewModel.gotoEditUserInfo)
-            .disposed(by: disposeBag)
-        
+//        
+//        header.gotoEditUserInfo
+//            .bind(to: viewModel.gotoEditUserInfo)
+//            .disposed(by: disposeBag)
+//        
         viewModel.userInfo
             .bind(to: header.userModel)
             .disposed(by: disposeBag)
@@ -57,9 +55,15 @@ class HCMineViewController: BaseViewController {
             .bind(to: viewModel.pushH5Subject)
             .disposed(by: disposeBag)
 
+                header.gotoEditUserInfo
+                    .subscribe(onNext: { [unowned self] in
+                        self.performSegue(withIdentifier: "editUserInfoVC", sender: nil)
+                    })
+                    .disposed(by: disposeBag)
+
         header.gotoSetting
             .subscribe(onNext: { [unowned self] in
-                self.performSegue(withIdentifier: "HCSettingSegue", sender: nil)
+//                self.performSegue(withIdentifier: "HCSettingSegue", sender: nil)
             })
             .disposed(by: disposeBag)
 
@@ -81,14 +85,14 @@ class HCMineViewController: BaseViewController {
 }
 
 extension HCMineViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let sepView = UIView()
-        sepView.backgroundColor = RGB(245, 245, 245)
+        sepView.backgroundColor = RGB(249, 249, 249)
         return sepView
     }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 8
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 10
     }
 }

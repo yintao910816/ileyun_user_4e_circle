@@ -66,12 +66,24 @@ class MineViewModel: BaseViewModel, VMNavigation {
     }
 
     private func requestUserInfo() {
-        let dataList = [SectionModel.init(model: 0, items: [MenuListItemModel.createModel(titleIcon: "goumaikechen", title: "购买的课堂", h5Type: .underDev),
-                                                            MenuListItemModel.createModel(titleIcon: "gongjuxiang", title: "工具箱", h5Type: .underDev),
-                                                            MenuListItemModel.createModel(titleIcon: "shoucang", title: "我的收藏", h5Type: .underDev),
-                                                            MenuListItemModel.createModel(titleIcon: "youhuijuan", title: "我的优惠劵", h5Type: .underDev)]),
-                        SectionModel.init(model: 0, items: [MenuListItemModel.createModel(titleIcon: "shouhuodizhi", title: "收货地址", h5Type: .underDev),
-                                                            MenuListItemModel.createModel(titleIcon: "yijianfankui", title: "用户反馈", h5Type: .underDev)])]
+        let dataList = [SectionModel.init(model: 0, items: [MenuListItemModel.createModel(titleIcon: "goumaikechen",
+                                                                                          title: "经期设置",
+                                                                                          h5Type: .underDev),
+                                                            MenuListItemModel.createModel(titleIcon: "gongjuxiang",
+                                                                                          title: "健康档案",
+                                                                                          h5Type: .underDev),
+                                                            MenuListItemModel.createModel(titleIcon: "shoucang",
+                                                                                          title: "我的医生",
+                                                                                          h5Type: .underDev)]),
+                        SectionModel.init(model: 1, items: [MenuListItemModel.createModel(titleIcon: "shouhuodizhi",
+                                                                                          title: "我的卡卷",
+                                                                                          h5Type: .underDev)]),
+                        SectionModel.init(model: 2, items: [MenuListItemModel.createModel(titleIcon: "shouhuodizhi",
+                                                                                          title: "用户反馈",
+                                                                                          h5Type: .underDev),
+                                                            MenuListItemModel.createModel(titleIcon: "yijianfankui",
+                                                                                          title: "帮助中心",
+                                                                                          h5Type: .underDev)])]
         
         datasource.onNext(dataList)
         

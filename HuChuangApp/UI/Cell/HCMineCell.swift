@@ -15,7 +15,8 @@ class HCMineCell: UITableViewCell {
     private var titleIconV: UIImageView!
     private var titleLabel: UILabel!
     private var bottomLine: UIView!
-    
+    private var arrowIconV: UIImageView!
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -31,11 +32,17 @@ class HCMineCell: UITableViewCell {
         titleLabel.textColor = RGB(60, 60, 60)
         titleLabel.font = .font(fontSize: 15)
         
+        arrowIconV = UIImageView()
+        arrowIconV.contentMode = .scaleAspectFill
+        arrowIconV.image = UIImage.init(named: "home_button_more")
+        arrowIconV.clipsToBounds = true
+
         bottomLine = UIView()
         bottomLine.backgroundColor = RGB(245, 245, 245)
         
         contentView.addSubview(titleIconV)
         contentView.addSubview(titleLabel)
+        contentView.addSubview(arrowIconV)
         contentView.addSubview(bottomLine)
         
         titleIconV.snp.makeConstraints{
@@ -49,8 +56,15 @@ class HCMineCell: UITableViewCell {
             $0.centerY.equalTo(contentView.snp.centerY)
         }
         
+        arrowIconV.snp.makeConstraints{
+            $0.right.equalTo(-15)
+            $0.centerY.equalTo(contentView.snp.centerY)
+        }
+
         bottomLine.snp.makeConstraints{
-            $0.left.bottom.right.equalTo(0)
+            $0.left.equalTo(15)
+            $0.right.equalTo(-15)
+            $0.bottom.equalTo(0)
             $0.height.equalTo(1)
         }
     }
