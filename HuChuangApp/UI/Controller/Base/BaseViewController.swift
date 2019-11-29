@@ -13,17 +13,20 @@ import RxCocoa
 class BaseViewController: UIViewController {
 
     lazy var disposeBag: DisposeBag = { return DisposeBag() }()
-    
-    private var safeAreaView: UIView!
+        
+    /// 导航栏和安全区域部分
+    private var navBgView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         edgesForExtendedLayout = .top
         setContentInsetAdjustmentBehaviorNever()
+                
+        navBgView = UIView()
+        navBgView.backgroundColor = .white
+        view.insertSubview(navBgView, at: 0)
         
-        safeAreaView = UIView()
-        safeAreaView.backgroundColor = .red
         
         setupUI()
         rxBind()
@@ -35,7 +38,7 @@ class BaseViewController: UIViewController {
         if #available(iOS 11, *) {
             safeHeight += self.view.safeAreaInsets.top
         }
-        safeAreaView.frame = .init(x: 0, y: 0, width: view.width, height: safeHeight)
+        navBgView.frame = .init(x: 0, y: 0, width: view.width, height: safeHeight)
     }
     
     override func didReceiveMemoryWarning() {

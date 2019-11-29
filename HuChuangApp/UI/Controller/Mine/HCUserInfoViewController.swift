@@ -9,15 +9,30 @@
 import UIKit
 import RxDataSources
 
-class HCSettingViewController: BaseViewController {
+class HCUserInfoViewController: BaseViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var navBar: HCCustomNavBar!
     
-    private var viewModel: HCSettingViewModel!
+    private var headerView: HCEditAvatarHeaderView!
+    
+    private var viewModel: HCUserInfoViewModel!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
     
     override func setupUI() {
         view.backgroundColor = RGB(245, 245, 245)
-        navigationItem.title = "设置"
+        
+        navBar.title = "个人资料"
+        navBar.backCallBack = { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
+        
+        headerView = HCEditAvatarHeaderView.init(frame: .init(origin: .zero, size: .init(width: view.width, height: HCEditAvatarHeaderView_height)))
+        headerView.avatarURL = HCHelper.share.userInfoModel?.headPath
+        tableView.tableHeaderView = headerView
         
         tableView.register(HCListDetailIconCell.self, forCellReuseIdentifier: HCListDetailIconCell_identifier)
         tableView.register(HCListDetailCell.self, forCellReuseIdentifier: HCListDetailCell_identifier)
@@ -26,7 +41,7 @@ class HCSettingViewController: BaseViewController {
     }
     
     override func rxBind() {
-        viewModel = HCSettingViewModel()
+        viewModel = HCUserInfoViewModel()
         
         let datasource = RxTableViewSectionedReloadDataSource<SectionModel<Int, HCListCellItem>>.init(configureCell: { _,tb,indexPath,model -> HCBaseListCell in
             let cell = (tb.dequeueReusableCell(withIdentifier: model.cellIdentifier) as! HCBaseListCell)
@@ -43,7 +58,7 @@ class HCSettingViewController: BaseViewController {
     }
 }
 
-extension HCSettingViewController: UITableViewDelegate {
+extension HCUserInfoViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.cellModel(for: indexPath).cellHeight
