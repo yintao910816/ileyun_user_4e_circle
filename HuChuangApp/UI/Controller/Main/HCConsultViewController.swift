@@ -70,6 +70,9 @@ class HCConsultViewController: BaseViewController {
         viewModel.datasource.asDriver()
             .drive(tableView.rx.items(cellIdentifier: HCConsultListCell_idetifier, cellType: HCConsultListCell.self)) { _,model,cell  in
                 cell.model = model
+                cell.consultCallBack = { [weak self] in
+                    self?.performSegue(withIdentifier: "picAndTextSegue", sender: $0)
+                }
         }
         .disposed(by: disposeBag)
                 
@@ -81,6 +84,9 @@ class HCConsultViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        segue.destination.prepare(parameters: ["model": sender!])
+    }
 }
 
 extension HCConsultViewController: UITableViewDelegate {

@@ -33,9 +33,10 @@ class BaseNavigationController: UINavigationController {
         
         isSideBackEnable = true
         
-        self.navigationBar.barTintColor   =  HC_MAIN_COLOR
+        self.navigationBar.barTintColor   = .white
         navigationBar.isTranslucent       = false
-        navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor :UIColor.white]
+        navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : RGB(51, 51, 51),
+                                             NSAttributedString.Key.font : UIFont.font(fontSize: 18, fontName: .PingFRegular)]
     }
     
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
@@ -44,7 +45,7 @@ class BaseNavigationController: UINavigationController {
             viewController.hidesBottomBarWhenPushed = true
             
             let backButton : UIButton = UIButton(type : .system)
-            backButton.setImage(UIImage(named :"navigationButtonReturn")?.withRenderingMode(.alwaysOriginal), for: .normal)
+            backButton.setImage(UIImage(named :"navigationButtonReturnClick")?.withRenderingMode(.alwaysOriginal), for: .normal)
             backButton.setImage(UIImage(named :"navigationButtonReturnClick")?.withRenderingMode(.alwaysOriginal), for: .highlighted)
             backButton.addTarget(self, action :#selector(backAction), for: .touchUpInside)
             backButton.sizeToFit()

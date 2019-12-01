@@ -22,7 +22,7 @@ class HCConsultListCell: UITableViewCell {
     private var consultButton:UIButton!
     private var sepLine: UIView!
     
-    public var consultCallBack: (()->())?
+    public var consultCallBack: ((HCDoctorItemModel)->())?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -138,7 +138,7 @@ class HCConsultListCell: UITableViewCell {
     }
     
     @objc private func consultAction() {
-        consultCallBack?()
+        consultCallBack?(model)
     }
     
     var model: HCDoctorItemModel! {

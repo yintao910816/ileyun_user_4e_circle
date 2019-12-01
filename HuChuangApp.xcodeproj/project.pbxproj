@@ -307,6 +307,9 @@
 		B8BE351922147B4000EF16F1 /* HCEditSynopsisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE351822147B4000EF16F1 /* HCEditSynopsisViewController.swift */; };
 		B8BE351B22147DE500EF16F1 /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE351A22147DE500EF16F1 /* EditViewModel.swift */; };
 		B8BE351D221484C600EF16F1 /* UINavigationController+BarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE351C221484C600EF16F1 /* UINavigationController+BarButtonItem.swift */; };
+		B8D4D47B2394258C00AA3D52 /* HCPicAndTextAskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4D47A2394258C00AA3D52 /* HCPicAndTextAskViewController.swift */; };
+		B8D4D47D239426B400AA3D52 /* HCPicAndTextAskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4D47C239426B400AA3D52 /* HCPicAndTextAskViewModel.swift */; };
+		B8D4D47F2394299E00AA3D52 /* HCPicAndTextAskFooterReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4D47E2394299E00AA3D52 /* HCPicAndTextAskFooterReusableView.swift */; };
 		B8F8FBA823572B5700784442 /* TYData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F8FBA723572B5700784442 /* TYData.swift */; };
 		B8FE96B72388301B0077B9BF /* TYCirCleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FE96B62388301B0077B9BF /* TYCirCleView.swift */; };
 		B8FE96BA238849090077B9BF /* HCArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FE96B8238849090077B9BF /* HCArticleCell.swift */; };
@@ -1003,6 +1006,9 @@
 		B8BE351822147B4000EF16F1 /* HCEditSynopsisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEditSynopsisViewController.swift; sourceTree = "<group>"; };
 		B8BE351A22147DE500EF16F1 /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
 		B8BE351C221484C600EF16F1 /* UINavigationController+BarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationController+BarButtonItem.swift"; sourceTree = "<group>"; };
+		B8D4D47A2394258C00AA3D52 /* HCPicAndTextAskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPicAndTextAskViewController.swift; sourceTree = "<group>"; };
+		B8D4D47C239426B400AA3D52 /* HCPicAndTextAskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPicAndTextAskViewModel.swift; sourceTree = "<group>"; };
+		B8D4D47E2394299E00AA3D52 /* HCPicAndTextAskFooterReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPicAndTextAskFooterReusableView.swift; sourceTree = "<group>"; };
 		B8F8FBA723572B5700784442 /* TYData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYData.swift; sourceTree = "<group>"; };
 		B8FE96B62388301B0077B9BF /* TYCirCleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYCirCleView.swift; sourceTree = "<group>"; };
 		B8FE96B8238849090077B9BF /* HCArticleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCArticleCell.swift; sourceTree = "<group>"; };
@@ -1999,6 +2005,7 @@
 			children = (
 				B870E531238A7E1C0085AFA3 /* HCAskCollectionReusableView.swift */,
 				B870E53E238C34AB0085AFA3 /* HCHealthyArchivesHeaderTitleView.swift */,
+				B8D4D47E2394299E00AA3D52 /* HCPicAndTextAskFooterReusableView.swift */,
 			);
 			path = Consult;
 			sourceTree = "<group>";
@@ -2335,6 +2342,7 @@
 				B870E542238C38EF0085AFA3 /* HCMenstruationHistoryViewModel.swift */,
 				B870E551239039A40085AFA3 /* HCExpertConsultViewModel.swift */,
 				B870E55723919D840085AFA3 /* HCUserInfoViewModel.swift */,
+				B8D4D47C239426B400AA3D52 /* HCPicAndTextAskViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2489,6 +2497,7 @@
 				B870E538238C25120085AFA3 /* HCHealthyArchivesViewController.swift */,
 				B870E540238C37050085AFA3 /* HCMenstruationHistoryViewController.swift */,
 				B870E544238EE0570085AFA3 /* HCExpertConsultViewController.swift */,
+				B8D4D47A2394258C00AA3D52 /* HCPicAndTextAskViewController.swift */,
 			);
 			path = Consult;
 			sourceTree = "<group>";
@@ -2966,6 +2975,7 @@
 				B816EB29221DABF400F024D5 /* ZXCode128Reader.m in Sources */,
 				B86993D623373A6500086A77 /* TYSearchBar.swift in Sources */,
 				B816EA8A221DABF400F024D5 /* ZXByQuadrantReader.m in Sources */,
+				B8D4D47F2394299E00AA3D52 /* HCPicAndTextAskFooterReusableView.swift in Sources */,
 				B816EB1F221DABF400F024D5 /* ZXAbstractRSSReader.m in Sources */,
 				B816EAD2221DABF400F024D5 /* ZXModulusGF.m in Sources */,
 				B86993E12337547700086A77 /* BaseLayout.swift in Sources */,
@@ -2987,6 +2997,7 @@
 				B816EAFD221DABF400F024D5 /* ZXOneDReader.m in Sources */,
 				B8508EA623421700008C24BA /* DataModel.swift in Sources */,
 				B816EB11221DABF400F024D5 /* ZXRSSExpandedCurrentParsingState.m in Sources */,
+				B8D4D47D239426B400AA3D52 /* HCPicAndTextAskViewModel.swift in Sources */,
 				B816EACF221DABF400F024D5 /* ZXPDF417.m in Sources */,
 				B816EAA8221DABF400F024D5 /* ZXQRCodeDecodedBitStreamParser.m in Sources */,
 				B8508EAE23422052008C24BA /* HCListButtonCell.swift in Sources */,
@@ -3030,6 +3041,7 @@
 				B816EB2A221DABF400F024D5 /* ZXUPCEANWriter.m in Sources */,
 				B816EB0A221DABF400F024D5 /* ZXRSSExpandedDecodedInformation.m in Sources */,
 				B816EA8B221DABF400F024D5 /* ZXAztecDetectorResult.m in Sources */,
+				B8D4D47B2394258C00AA3D52 /* HCPicAndTextAskViewController.swift in Sources */,
 				C421332B22056F24006C10C4 /* HUD.swift in Sources */,
 				B816EA7B221DABF400F024D5 /* ZXPlanarYUVLuminanceSource.m in Sources */,
 				B8508E332340FC9F008C24BA /* Doctor.swift in Sources */,
