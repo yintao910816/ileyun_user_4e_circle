@@ -16,6 +16,7 @@ class BaseViewController: UIViewController {
         
     /// 导航栏和安全区域部分
     private var navBgView: UIView!
+    private var bottomSafeBgView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,18 +28,30 @@ class BaseViewController: UIViewController {
         navBgView.backgroundColor = .white
         view.insertSubview(navBgView, at: 0)
         
-        
+        bottomSafeBgView = UIView()
+        bottomSafeBgView.backgroundColor = RGB(84, 197, 141)
+        view.insertSubview(bottomSafeBgView, at: 1)
+
         setupUI()
         rxBind()
     }
 
+    public var bottomSafeBgColor: UIColor? {
+        didSet {
+            bottomSafeBgView.backgroundColor = RGB(84, 197, 141)
+        }
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        var safeHeight = navigationController?.navigationBar.height ?? 0.0
+        var safeTopHeight = navigationController?.navigationBar.height ?? 0.0
+        var safeBottomHeight: CGFloat = 0
         if #available(iOS 11, *) {
-            safeHeight += self.view.safeAreaInsets.top
+            safeTopHeight += view.safeAreaInsets.top
+            safeBottomHeight = view.safeAreaInsets.bottom
         }
-        navBgView.frame = .init(x: 0, y: 0, width: view.width, height: safeHeight)
+        navBgView.frame = .init(x: 0, y: 0, width: view.width, height: safeTopHeight)
+        bottomSafeBgView.frame = .init(x: 0, y: view.height - safeBottomHeight, width: view.width, height: safeBottomHeight)
     }
     
     override func didReceiveMemoryWarning() {

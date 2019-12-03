@@ -180,3 +180,21 @@ extension HCDoctorItemModel {
 class HCExpertConsultListModel: HJModel {
     var records: [HCDoctorItemModel] = []
 }
+
+
+/// 医生信息
+class HCDoctorInfoModel: HJModel {
+    var userId: String = ""
+    var userName: String = ""
+    var headPath: String = ""
+    var technicalPost: String = ""
+    var skilledIn: String = ""
+    var unitId: String = ""
+    var unitName: String = ""
+    var price: String = ""
+    var consultNumber: Int = 0
+    var consultReplyNumber: Int = 0
+    var reviewNum: Int = 0
+    var practitionerYear: String = ""
+    var brief: String = ""
+}

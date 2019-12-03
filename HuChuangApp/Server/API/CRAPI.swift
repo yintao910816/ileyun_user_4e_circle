@@ -96,6 +96,8 @@ enum API{
     case getHealthArchives
     /// 专家问诊医生列表
     case consultSelectListPage(pageNum: Int, pageSize: Int, searchName: String, areaCode: Int, opType: Int, sceen: String)
+    /// 咨询医生信息
+    case getUserInfo(userId: String)
 }
 
 //MARK:
@@ -149,6 +151,8 @@ extension API: TargetType{
             return "api/member/getHealthArchives"
         case .consultSelectListPage(_):
             return "api/consult/selectListPage"
+        case .getUserInfo(_):
+            return "api/consult/getUserInfo"
         }
     }
     
@@ -266,6 +270,9 @@ extension API {
             params["areaCode"] = areaCode
             params["opType"] = opType
             params["sceen"] = sceen
+        case .getUserInfo(let userId):
+            params["userId"] = userId
+
         default:
             return nil
         }

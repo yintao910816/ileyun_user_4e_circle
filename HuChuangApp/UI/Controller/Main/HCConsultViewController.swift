@@ -75,6 +75,13 @@ class HCConsultViewController: BaseViewController {
                 }
         }
         .disposed(by: disposeBag)
+        
+        tableView.rx.modelSelected(HCDoctorItemModel.self)
+            .asDriver()
+            .drive(onNext: { [unowned self]  in
+                self.performSegue(withIdentifier: "doctorInfoSegue", sender: $0)
+            })
+            .disposed(by: disposeBag)
                 
         // 上下拉刷新绑定
         tableView.prepare(viewModel, showFooter: false)
@@ -85,7 +92,11 @@ class HCConsultViewController: BaseViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        segue.destination.prepare(parameters: ["model": sender!])
+        if segue.identifier == "picAndTextSegue" {
+            segue.destination.prepare(parameters: ["model": sender!])
+        }else if segue.identifier == "doctorInfoSegue" {
+            segue.destination.prepare(parameters: ["userId": (sender as! HCDoctorItemModel).userId])
+        }
     }
 }
 

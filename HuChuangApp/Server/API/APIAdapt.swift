@@ -62,7 +62,7 @@ struct APIAssistance {
      */
     static public func mothed(API: API) ->Moya.Method{
         switch API {
-        case .version:
+        case .version, .getUserInfo(_):
             return .get
         default:
             return .post
