@@ -99,6 +99,10 @@ extension HCHelper: VMNavigation {
         }
     }
     
+    public class func pushH5(href: String) {
+        HCHelper.push(BaseWebViewController.self, ["url": href])
+    }
+    
     private class func pushH5(model: H5InfoModel, arg: String?) {
         guard model.setValue.count > 0 else { return }
         

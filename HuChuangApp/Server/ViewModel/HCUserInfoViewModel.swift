@@ -17,9 +17,32 @@ class HCUserInfoViewModel: BaseViewModel {
     
     public let datasource = Variable([SectionModel<Int, HCListCellItem>]())
     
+    public let finishEdit = PublishSubject<UIImage?>()
+    
     override init() {
         super.init()
         
+        finishEdit
+            .filter({ [unowned self] image -> Bool in
+                if image == nil {
+                    self.hud.failureHidden("请选择头像")
+                    return false
+                }
+                return true
+            })
+            ._doNext(forNotice: hud)
+            .flatMap({ [unowned self] image -> Observable<HCUserModel> in
+                return self.requestEditIcon(icon: image!).concatMap{ self.requestUpdateUserInfo(iconPath: $0.filePath) }
+            })
+            .subscribe(onNext: { [weak self] user in
+                HCHelper.saveLogin(user: user)
+                self?.hud.noticeHidden()
+                self?.popSubject.onNext(Void())
+                }, onError: { [weak self] error in
+                    self?.hud.failureHidden(self?.errorMessage(error))
+            })
+            .disposed(by: disposeBag)
+
         HCHelper.share.userInfoHasReload
             .subscribe(onNext: { [weak self] _ in
                 self?.reloadUserInfo()
@@ -42,13 +65,13 @@ class HCUserInfoViewModel: BaseViewModel {
                                                                         titleColor: RGB(60, 60, 60),
                                                                         detailTitleColor: RGB(173, 173, 173),
                                                                         cellIdentifier: HCListDetailCell_identifier,
-                                                                        segue: "editNickNameSegue"),
+                                                                        segue: "editSexSegue"),
                                                          HCListCellItem(title: "出生日期",
                                                                         detailTitle: userModel.birthday,
                                                                         titleColor: RGB(60, 60, 60),
                                                                         detailTitleColor: RGB(173, 173, 173),
                                                                         cellIdentifier: HCListDetailCell_identifier,
-                                                                        segue: ""),
+                                                                        segue: "birthdaySegue"),
                                                          HCListCellItem(title: "手机号",
                                                                         detailTitle: userModel.mobileInfo,
                                                                         titleColor: RGB(60, 60, 60),
@@ -69,4 +92,31 @@ class HCUserInfoViewModel: BaseViewModel {
     public func cellModel(for indexPath: IndexPath) ->HCListCellItem {
         return cellItems[indexPath.section].items[indexPath.row]
     }
+    
+    private func requestEditIcon(icon: UIImage) ->Observable<UpLoadIconModel>{
+        return HCProvider.request(.uploadIcon(image: icon))
+            .map(model: UpLoadIconModel.self)
+            .asObservable()
+    }
+    
+    private func requestUpdateUserInfo(iconPath: String) ->Observable<HCUserModel> {
+        guard let user = HCHelper.share.userInfoModel else {
+            hud.failureHidden("用户信息获取失败，请重新登录") {
+                HCHelper.presentLogin()
+            }
+            return Observable.empty()
+        }
+        
+        let params: [String: String] = ["patientId": user.uid,
+                                        "name": user.name,
+                                        "sex": "\(user.sex)",
+                                        "headPath": iconPath,
+                                        "synopsis": user.synopsis,
+                                        "birthday": user.birthday]
+        
+        return HCProvider.request(.updateInfo(param: params))
+            .map(model: HCUserModel.self)
+            .asObservable()
+    }
+
 }

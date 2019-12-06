@@ -42,6 +42,12 @@ class BaseViewController: UIViewController {
         }
     }
     
+    public var hiddenNavBg: Bool = false {
+        didSet {
+            navBgView.isHidden = hiddenNavBg
+        }
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         var safeTopHeight = navigationController?.navigationBar.height ?? 0.0

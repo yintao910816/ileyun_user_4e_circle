@@ -44,6 +44,28 @@ enum H5Type: String {
     case underDev = "underDev"
     /// 咨询医生信息
     case doctorHome = "doctorHome"
+    /// 快速问诊
+    case doctorCs = "DoctorCs"
+    /// 快速提问
+    case csRecord = "csRecord"
+    /// 问诊记录
+    case doctorComments = "doctorComments"
+    /// 我的关注
+    case myFocused = "myFocused"
+    /// 我的搜藏
+    case myCollection = "myCollection"
+    /// 我的卡卷
+    case voucherCenter = "voucherCenter"
+    /// 经期设置
+    case menstrualSetting = "MenstrualSetting"
+    /// 个人中心健康档案
+    case healthRecordsUser = "HealthRecordsUser"
+    /// 用户反馈
+    case feedback = "feedback"
+    /// 帮助中心
+    case helpCenter = "helpCenter"
+    /// 通知中心
+    case noticeAndMessage = "noticeAndMessage"
 }
 
 //MARK:

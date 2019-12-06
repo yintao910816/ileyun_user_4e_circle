@@ -58,7 +58,7 @@
                         <constraint firstAttribute="height" constant="32" id="maB-BF-8c1"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="12"/>
-                    <state key="normal" title="去医生版&gt;&gt;">
+                    <state key="normal" title="去治疗版&gt;&gt;">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <userDefinedRuntimeAttributes>

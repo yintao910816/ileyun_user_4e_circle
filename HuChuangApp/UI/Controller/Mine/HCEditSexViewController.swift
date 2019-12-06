@@ -17,6 +17,8 @@ class HCEditSexViewController: BaseViewController {
     private var viewModel: EditSexViewModel!
     
     override func setupUI() {
+        hiddenNavBg = true
+
         UIPickerView.appearance().backgroundColor = RGB(208, 210, 217)
     }
     
@@ -32,7 +34,7 @@ class HCEditSexViewController: BaseViewController {
             .bind(to: inputOutlet.rx.text)
             .disposed(by: disposeBag)
         
-        addBarItem(title: "完成", titleColor: .white)
+        addBarItem(title: "完成", titleColor: HC_MAIN_COLOR)
             .map{ [unowned self] in self.inputOutlet.text ?? "" }
             .asObservable()
             .bind(to: viewModel.finishEdit)

@@ -37,11 +37,13 @@ class HCMineViewController: BaseViewController {
     
     override func rxBind() {
         viewModel = MineViewModel()
-//        
-//        header.gotoEditUserInfo
-//            .bind(to: viewModel.gotoEditUserInfo)
-//            .disposed(by: disposeBag)
-//        
+        
+        header.gotoEditUserInfo
+            .subscribe(onNext: { [unowned self] in
+                self.performSegue(withIdentifier: "editUserInfoVC", sender: nil)
+            })
+            .disposed(by: disposeBag)
+        
         viewModel.userInfo
             .bind(to: header.userModel)
             .disposed(by: disposeBag)
@@ -51,16 +53,9 @@ class HCMineViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         header.openH5Publish
-            .map{ MenuListItemModel.createModel(title: "", h5Type: $0) }
-            .bind(to: viewModel.pushH5Subject)
+            .subscribe(onNext: { HCHelper.preloadH5(type: $0, arg: nil) })
             .disposed(by: disposeBag)
-
-                header.gotoEditUserInfo
-                    .subscribe(onNext: { [unowned self] in
-                        self.performSegue(withIdentifier: "editUserInfoVC", sender: nil)
-                    })
-                    .disposed(by: disposeBag)
-
+        
         header.gotoSetting
             .subscribe(onNext: { [unowned self] in
                 self.performSegue(withIdentifier: "settingSegue", sender: nil)

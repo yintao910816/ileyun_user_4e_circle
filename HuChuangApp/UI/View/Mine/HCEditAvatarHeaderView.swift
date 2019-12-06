@@ -15,6 +15,8 @@ class HCEditAvatarHeaderView: UIView {
     private var avatarButton: UIButton!
     private var remindLabel: UILabel!
     
+    public var tapIconCallBack: (()->())?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -39,6 +41,12 @@ class HCEditAvatarHeaderView: UIView {
         }
     }
     
+    public var avatarImage: UIImage? {
+        didSet {
+            avatarButton.setImage(avatarImage, for: .normal)
+        }
+    }
+    
     private func setupUI() {
         backgroundColor = .white
         
@@ -47,6 +55,7 @@ class HCEditAvatarHeaderView: UIView {
         avatarButton.imageView?.contentMode = .scaleAspectFill
         avatarButton.clipsToBounds = true
         avatarButton.layer.cornerRadius = 45
+        avatarButton.addTarget(self, action: #selector(avatarTapAction), for: .touchUpInside)
         
         remindLabel = UILabel()
         remindLabel.textColor = RGB(153, 153, 153)
@@ -66,5 +75,9 @@ class HCEditAvatarHeaderView: UIView {
             $0.centerX.equalTo(snp.centerX)
             $0.top.equalTo(avatarButton.snp.bottom).offset(10)
         }
+    }
+    
+    @objc private func avatarTapAction() {
+        tapIconCallBack?()
     }
 }

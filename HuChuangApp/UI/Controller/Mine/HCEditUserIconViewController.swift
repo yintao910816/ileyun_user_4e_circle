@@ -99,6 +99,4 @@ extension HCEditUserIconViewController : UINavigationControllerDelegate, UIImage
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
-    
-    
 }

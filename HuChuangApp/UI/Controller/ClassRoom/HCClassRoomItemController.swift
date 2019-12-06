@@ -12,6 +12,8 @@ class HCClassRoomItemController: HCSlideItemController {
 
     private var tableView: UITableView!
     private var datasource: [HCArticleItemModel] = []
+    
+    public var didSelectedCallBack: ((HCArticleItemModel)->())?
             
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -66,6 +68,8 @@ extension HCClassRoomItemController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        didSelectedCallBack?(datasource[indexPath.row] as! HCArticleItemModel)
     }
     
 }

@@ -39,6 +39,9 @@ class HCClassRoomViewController: BaseViewController {
                     ctrl.pageIdx = idx
                     ctrl.view.backgroundColor = .white
                     ctrl.bind(viewModel: strongSelf.viewModel, canRefresh: true, canLoadMore: true, isAddNoMoreContent: false)
+                    ctrl.didSelectedCallBack = {
+                        HCHelper.pushH5(href: $0.hrefUrl)
+                    }
                     
                     ctrls.append(ctrl)
                 }

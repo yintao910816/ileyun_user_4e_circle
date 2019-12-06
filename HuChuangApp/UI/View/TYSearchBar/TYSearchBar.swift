@@ -51,7 +51,7 @@ class TYSearchBar: UIView {
 
         contentContainer.snp.makeConstraints{
             $0.left.equalTo(leftItem.snp.right).offset(6)
-            $0.right.equalTo(rightItem.snp.left).offset(-17)
+            $0.right.equalTo(rightItem.snp.left).offset(-10)
             $0.top.equalTo(snp.top).offset(7)
             $0.bottom.equalTo(snp.bottom).offset(-7)
         }
@@ -70,9 +70,9 @@ class TYSearchBar: UIView {
         }
 
         rightItem.snp.makeConstraints{
-            $0.right.equalTo(snp.right).offset(-17)
+            $0.right.equalTo(snp.right).offset(-15)
             $0.centerY.equalTo(leftItem.snp.centerY)
-            $0.size.equalTo(CGSize.init(width: 30, height: 30))
+            $0.size.equalTo(CGSize.init(width: 16, height: 14))
         }
         
         bottomLine.snp.makeConstraints{

@@ -14,19 +14,12 @@ class MineViewModel: BaseViewModel, VMNavigation {
     
     let userInfo = PublishSubject<HCUserModel>()
     let datasource = PublishSubject<[SectionModel<Int, MenuListItemModel>]>()
-    let gotoEditUserInfo = PublishSubject<Void>()
     let pushH5Subject = PublishSubject<MenuListItemModel>()
     let cellDidSelectedSubject = PublishSubject<MenuListItemModel>()
 
     override init() {
         super.init()
-     
-        gotoEditUserInfo
-            .subscribe(onNext: { _ in
-                MineViewModel.sbPush("HCMain", "editUserInfoVC")
-            })
-            .disposed(by: disposeBag)
-        
+             
         pushH5Subject
             ._doNext(forNotice: hud)
             .flatMap{ [unowned self] in self.requestH5(type: $0.h5Type) }
@@ -68,22 +61,22 @@ class MineViewModel: BaseViewModel, VMNavigation {
     private func requestUserInfo() {
         let dataList = [SectionModel.init(model: 0, items: [MenuListItemModel.createModel(titleIcon: "goumaikechen",
                                                                                           title: "经期设置",
-                                                                                          h5Type: .underDev),
+                                                                                          h5Type: .menstrualSetting),
                                                             MenuListItemModel.createModel(titleIcon: "gongjuxiang",
                                                                                           title: "健康档案",
-                                                                                          h5Type: .underDev),
+                                                                                          h5Type: .healthRecordsUser),
                                                             MenuListItemModel.createModel(titleIcon: "shoucang",
                                                                                           title: "我的医生",
                                                                                           h5Type: .underDev)]),
                         SectionModel.init(model: 1, items: [MenuListItemModel.createModel(titleIcon: "shouhuodizhi",
                                                                                           title: "我的卡卷",
-                                                                                          h5Type: .underDev)]),
+                                                                                          h5Type: .voucherCenter)]),
                         SectionModel.init(model: 2, items: [MenuListItemModel.createModel(titleIcon: "shouhuodizhi",
                                                                                           title: "用户反馈",
-                                                                                          h5Type: .underDev),
+                                                                                          h5Type: .feedback),
                                                             MenuListItemModel.createModel(titleIcon: "yijianfankui",
                                                                                           title: "帮助中心",
-                                                                                          h5Type: .underDev)])]
+                                                                                          h5Type: .helpCenter)])]
         
         datasource.onNext(dataList)
         

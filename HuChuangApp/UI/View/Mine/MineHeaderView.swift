@@ -35,16 +35,16 @@ class MineHeaderView: UIView {
             gotoSetting.onNext(Void())
         case 201:
             // 通知
-            openH5Publish.onNext(.consultRecord)
+            openH5Publish.onNext(.noticeAndMessage)
         case 202:
             // 咨询
-            openH5Publish.onNext(.memberCollect)
+            openH5Publish.onNext(.doctorComments)
         case 203:
             // 关注
-            openH5Publish.onNext(.memberCollect)
+            openH5Publish.onNext(.myFocused)
         case 204:
             // 收藏
-            openH5Publish.onNext(.memberCollect)
+            openH5Publish.onNext(.myCollection)
         default:
             break
         }

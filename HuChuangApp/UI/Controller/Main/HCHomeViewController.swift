@@ -39,6 +39,10 @@ class HCHomeViewController: BaseViewController {
             self.navigationController?.pushViewController(HCSearchViewController(), animated: true)
         }
         
+        searchBar.rightItemTapBack = {
+            HCHelper.preloadH5(type: .noticeAndMessage, arg: nil)
+        }
+        
         collectionView.register(HCHomeCollectionHeaderReusableView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: HCHomeCollectionHeaderReusableView_identifier)
@@ -134,5 +138,9 @@ extension HCHomeViewController: UICollectionViewDelegateFlowLayout, UICollection
         }
         
         return UICollectionReusableView()
-    }    
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        HCHelper.pushH5(href: viewModel.articleModels[indexPath.row].hrefUrl)
+    }
 }

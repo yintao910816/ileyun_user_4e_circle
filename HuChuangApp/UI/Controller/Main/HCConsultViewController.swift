@@ -27,6 +27,10 @@ class HCConsultViewController: BaseViewController {
     
     var viewModel: ConsultViewModel!
     
+    @IBAction func actions(_ sender: UIButton) {
+        HCHelper.preloadH5(type: .csRecord, arg: nil)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
