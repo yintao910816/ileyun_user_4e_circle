@@ -11,6 +11,10 @@ import RxSwift
 
 class HCHelper {
     
+    lazy var hud: NoticesCenter = {
+        return NoticesCenter()
+    }()
+
     enum AppKeys: String {
         /// app schame
         case appSchame = "ileyun.ivfcn.com"
@@ -83,4 +87,42 @@ extension HCHelper {
         }
     }
 
+}
+
+extension HCHelper: VMNavigation {
+    
+    public class func preloadH5(type: H5Type, arg: String?) {
+        _ = HCProvider.request(.unitSetting(type: type))
+            .map(model: H5InfoModel.self)
+            .subscribe(onSuccess: { HCHelper.pushH5(model: $0, arg: arg) }) { error in
+                HCHelper.share.hud.failureHidden("功能暂不开放")
+        }
+    }
+    
+    private class func pushH5(model: H5InfoModel, arg: String?) {
+        guard model.setValue.count > 0 else { return }
+        
+        if model.setValue.count > 0 {
+            var url = model.setValue
+            PrintLog("h5拼接前地址：\(url)")
+            if url.contains("?") == false {
+                url += "?token=\(userDefault.token)&unitId=\(userDefault.unitId)"
+            }else {
+                url += "&token=\(userDefault.token)&unitId=\(userDefault.unitId)"
+            }
+            
+            if let _arg = arg {
+                url += "&userId=\(_arg)"
+            }
+            
+            PrintLog("h5拼接后地址：\(url)")
+            
+            HCHelper.push(BaseWebViewController.self, ["url": url])
+        }else {
+            HCHelper.share.hud.failureHidden("功能暂不开放")
+        }
+        
+        //        let url = "\(model.setValue)?token=\(userDefault.token)&unitId=\(AppSetup.instance.unitId)"
+        //        HomeViewModel.push(BaseWebViewController.self, ["url": url])
+    }
 }

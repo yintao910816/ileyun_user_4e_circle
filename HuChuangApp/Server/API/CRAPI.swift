@@ -42,6 +42,8 @@ enum H5Type: String {
     case patientConsult = "patientConsult"
     /// 开发中
     case underDev = "underDev"
+    /// 咨询医生信息
+    case doctorHome = "doctorHome"
 }
 
 //MARK:

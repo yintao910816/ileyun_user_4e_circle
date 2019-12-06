@@ -63,7 +63,7 @@ class HCMineViewController: BaseViewController {
 
         header.gotoSetting
             .subscribe(onNext: { [unowned self] in
-//                self.performSegue(withIdentifier: "HCSettingSegue", sender: nil)
+                self.performSegue(withIdentifier: "settingSegue", sender: nil)
             })
             .disposed(by: disposeBag)
 

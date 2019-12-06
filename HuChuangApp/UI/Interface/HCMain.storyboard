@@ -893,6 +893,40 @@
             </objects>
             <point key="canvasLocation" x="-698" y="2597"/>
         </scene>
+        <!--设置-->
+        <scene sceneID="Acn-uR-Ogm">
+            <objects>
+                <viewController id="JNK-Rr-UPR" customClass="HCSettingViewController" customModule="HuChuangApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7bW-y6-Pyj"/>
+                        <viewControllerLayoutGuide type="bottom" id="dTz-59-Rri"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Dn8-Me-YVQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cxz-Br-mVK">
+                                <rect key="frame" x="0.0" y="44" width="375" height="574"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="cxz-Br-mVK" firstAttribute="top" secondItem="7bW-y6-Pyj" secondAttribute="bottom" id="0qY-QJ-YQd"/>
+                            <constraint firstItem="dTz-59-Rri" firstAttribute="top" secondItem="cxz-Br-mVK" secondAttribute="bottom" id="5ZW-xp-YfK"/>
+                            <constraint firstAttribute="trailing" secondItem="cxz-Br-mVK" secondAttribute="trailing" id="YkV-jI-4fK"/>
+                            <constraint firstItem="cxz-Br-mVK" firstAttribute="leading" secondItem="Dn8-Me-YVQ" secondAttribute="leading" id="bfc-st-HY3"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="设置" id="ZI2-5b-UE8"/>
+                    <connections>
+                        <outlet property="tableView" destination="cxz-Br-mVK" id="Wos-OZ-gxU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RYc-wP-oGE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1384.8" y="3572.5637181409297"/>
+        </scene>
         <!--课堂-->
         <scene sceneID="VAx-z3-52P">
             <objects>
@@ -943,6 +977,7 @@
                     <connections>
                         <outlet property="tableView" destination="Whz-Wr-R97" id="yPN-fY-aqj"/>
                         <segue destination="gcA-cZ-NXL" kind="show" identifier="editUserInfoVC" id="JL1-2M-bAa"/>
+                        <segue destination="JNK-Rr-UPR" kind="show" identifier="settingSegue" id="YG7-pQ-2F2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fG3-g1-Csn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1060,7 +1095,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sq2-ff-a9k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3476" y="3573"/>
+            <point key="canvasLocation" x="4463" y="3573"/>
         </scene>
         <!--User Info View Controller-->
         <scene sceneID="XR5-tC-u6V">
@@ -1161,7 +1196,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AQr-g9-9vF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1265" y="3573"/>
+            <point key="canvasLocation" x="2482" y="3573"/>
         </scene>
         <!--修改头像-->
         <scene sceneID="u3x-bm-3ER">
@@ -1243,7 +1278,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="778-iA-7ic" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2338" y="3573"/>
+            <point key="canvasLocation" x="3414" y="3573"/>
         </scene>
         <!--修改生日-->
         <scene sceneID="Rt3-Vw-pj9">
@@ -1308,7 +1343,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tma-8u-Kai" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3476" y="2797"/>
+            <point key="canvasLocation" x="3882" y="2733"/>
         </scene>
     </scenes>
     <resources>
