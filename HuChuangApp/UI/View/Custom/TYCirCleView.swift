@@ -10,33 +10,56 @@ import UIKit
 
 class TYCirCleView: UIView {
 
+    private let lineWidth: CGFloat = 8
+    
+    private var percent: Float = 0
+    
+    private var titleLabel: UILabel!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .clear
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         
-        backgroundColor = .clear
-        
-        percent = 1.5
+        setupUI()
     }
     
-    var percent: CGFloat = 0.0 {
-        didSet {
-            setNeedsDisplay()
-        }
+    private func setupUI() {
+        backgroundColor = .clear
+        
+        titleLabel = UILabel()
+        titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 2
+        titleLabel.font = .font(fontSize: 15, fontName: .PingFRegular)
+        titleLabel.textColor = .white
+        addSubview(titleLabel)
+    }
+        
+    public func set(percent: Float) {
+        self.percent = percent / 100.0
+        let title: String = "\(percent)"
+        let titleText = "\(title)%\n好孕率"
+        
+        let attr = titleText.attributed([NSRange.init(location: 0, length: title.count),
+                                         NSRange.init(location: title.count, length: 1)],
+                                        color: [.white, .white],
+                                        font: [.font(fontSize: 20, fontName: .PingFSemibold),
+                                               .font(fontSize: 12, fontName: .PingFRegular)])
+        titleLabel.attributedText = attr
+        
+        setNeedsDisplay()
     }
     
     override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else {
             return
         }
-        
+                
         let circleCenter = CGPoint.init(x: width/2.0, y: height/2.0)
-        let lineWidth: CGFloat = 8.0
         let radius: CGFloat = width/2.0 - lineWidth
         
         context.beginPath()
@@ -49,7 +72,7 @@ class TYCirCleView: UIView {
         
         // 外圆
         let startAngle : CGFloat = 1.5 * CGFloat.pi
-        var arcEndAngle: CGFloat = CGFloat(percent * CGFloat.pi)
+        var arcEndAngle: CGFloat = CGFloat(percent * Float.pi)
 
         if percent > 0 {
             arcEndAngle = arcEndAngle >= 0.5 * CGFloat.pi ? arcEndAngle - 0.5 * CGFloat.pi : 2 * CGFloat.pi - arcEndAngle
@@ -63,5 +86,15 @@ class TYCirCleView: UIView {
 
         context.addArc(center: circleCenter, radius: radius, startAngle: startAngle, endAngle: arcEndAngle, clockwise: false)
         context.strokePath()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let size = titleLabel.sizeThatFits(CGSize.init(width: width - lineWidth * 2.0, height: CGFloat.greatestFiniteMagnitude))
+        titleLabel.frame = .init(x: (width - size.width - lineWidth * 2.0) / 2.0,
+                                 y: (height - size.height - lineWidth * 2.0) / 2.0,
+                                 width: size.width,
+                                 height: size.height)
     }
 }

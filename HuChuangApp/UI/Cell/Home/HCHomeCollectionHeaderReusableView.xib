@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HCHomeCollectionHeaderReusableView" customModule="HuChuangApp" customModuleProvider="target">
             <connections>
                 <outlet property="carouselView" destination="b4R-eJ-6Zp" id="M8n-HL-mpz"/>
+                <outlet property="circleView" destination="tA0-uf-Czk" id="MpQ-kC-fZo"/>
                 <outlet property="contentView" destination="U6b-Vx-4bR" id="dF0-rO-nEF"/>
                 <outlet property="goDoctorOutlet" destination="C2i-cT-Qif" id="1zU-h4-hKW"/>
                 <outlet property="nextDayOutlet" destination="L6h-hV-8C6" id="9ek-OC-buh"/>
@@ -130,7 +131,7 @@
                 <constraint firstItem="H29-gc-Jva" firstAttribute="top" secondItem="tA0-uf-Czk" secondAttribute="bottom" constant="25" id="tSE-qp-8qa"/>
                 <constraint firstItem="L6h-hV-8C6" firstAttribute="leading" secondItem="ilk-Zu-YDQ" secondAttribute="leading" id="xZ7-yX-MlY"/>
             </constraints>
-            <point key="canvasLocation" x="-225" y="101"/>
+            <point key="canvasLocation" x="-1994" y="672"/>
         </collectionReusableView>
     </objects>
     <resources>

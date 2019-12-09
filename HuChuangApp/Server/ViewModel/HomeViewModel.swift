@@ -9,10 +9,11 @@
 import Foundation
 import RxSwift
 
-class HomeViewModel: BaseViewModel, VMNavigation {
+class HomeViewModel: RefreshVM<HCAllChannelArticleItemModel>, VMNavigation {
     
     var bannerModelObser = Variable([HomeBannerModel]())
     var articleModels: [HCAllChannelArticleItemModel] = []
+    var pregnancyProbabilityData = HCPregnancyProbabilityModel()
 
     /// 设置右上角消息数量提醒
     var unreadCountObser = Variable(("", CGFloat(0.0)))
@@ -27,8 +28,6 @@ class HomeViewModel: BaseViewModel, VMNavigation {
 
     override init() {
         super.init()
-        hud.noticeLoading()
-        
         messageListPublish
             ._doNext(forNotice: hud)
             .flatMap{ [unowned self] _ in self.requestH5(type: .notification) }
@@ -59,42 +58,52 @@ class HomeViewModel: BaseViewModel, VMNavigation {
 
         NotificationCenter.default.rx.notification(NotificationName.User.LoginSuccess)
             .subscribe(onNext: { [weak self] data in
-                self?.requestData()
+                self?.requestData(true)
             })
             .disposed(by: disposeBag)
         
         NotificationCenter.default.rx.notification(NotificationName.UserInterface.jsReloadHome)
             .subscribe(onNext: { [weak self] data in
-                self?.requestData()
-            })
-            .disposed(by: disposeBag)
-        
-        reloadSubject
-            .subscribe(onNext: { [weak self] in
-                self?.requestData()
+                self?.requestData(true)
             })
             .disposed(by: disposeBag)
     }
     
-    func requestData() {
-        /// 加载未读消息
-        requestUnread()
-        /// 加载所数据
-        
-        Observable.combineLatest(requestBanner(),
-                                 requestAllChannelArticle()){ ($0, $1) }
-            .subscribe(onNext: { [weak self] data in
-                self?.hud.noticeHidden()
-                self?.bannerModelObser.value = data.0
-                self?.articleModels = data.1
-                self?.refreshCollectionView.onNext(Void())
-                }, onError: { [unowned self] error in
-                    self.hud.failureHidden(self.errorMessage(error))
-            })
-            .disposed(by: disposeBag)
+    override func requestData(_ refresh: Bool) {
+        super.requestData(refresh)
 
+        if refresh {
+            /// 加载未读消息
+            requestUnread()
+
+            Observable.combineLatest(requestBanner(),
+                                     requestPregnancyProbability(),
+                                     requestChannelArticle()){ ($0, $1, $2) }
+                .subscribe(onNext: { [weak self] data in
+                    guard let strongSelf = self else { return }
+                    strongSelf.bannerModelObser.value = data.0
+                    strongSelf.pregnancyProbabilityData = data.1
+                    strongSelf.updateRefresh(refresh, data.2.records, data.2.pages)
+                    strongSelf.articleModels = strongSelf.datasource.value
+                    strongSelf.refreshCollectionView.onNext(Void())
+                    }, onError: { [unowned self] error in
+                        self.hud.failureHidden(self.errorMessage(error))
+                })
+                .disposed(by: disposeBag)
+        }else {
+            requestChannelArticle()
+                .subscribe(onNext: { [weak self] data in
+                    guard let strongSelf = self else { return }
+                    strongSelf.updateRefresh(refresh, data.records, data.pages)
+                    strongSelf.articleModels = strongSelf.datasource.value
+                    strongSelf.refreshCollectionView.onNext(Void())
+                }, onError: { [weak self] error in
+                    self?.hud.failureHidden(self?.errorMessage(error))
+                })
+                .disposed(by: disposeBag)
+        }
     }
-    
+        
     private func pushH5(model: H5InfoModel) {
         guard model.setValue.count > 0 else { return }
         let url = "\(model.setValue)?token=\(userDefault.token)&unitId=\(userDefault.unitId)"
@@ -110,12 +119,11 @@ class HomeViewModel: BaseViewModel, VMNavigation {
             .catchErrorJustReturn([HomeBannerModel]())
     }
     
-    private func requestAllChannelArticle() ->Observable<[HCAllChannelArticleItemModel]>{
-        return HCProvider.request(.allChannelArticle(cmsType: .webCms001, pageNum: 1, pageSize: 10))
+    private func requestChannelArticle() ->Observable<HCAllChannelArticleModel>{
+        return HCProvider.request(.allChannelArticle(cmsType: .webCms001, pageNum: pageModel.currentPage, pageSize: pageModel.pageSize))
             .map(model: HCAllChannelArticleModel.self)
-            .map{ $0.records }
             .asObservable()
-            .catchErrorJustReturn([HCAllChannelArticleItemModel]())
+            .catchErrorJustReturn(HCAllChannelArticleModel())
     }
     
     private func requestH5(type: H5Type) ->Observable<H5InfoModel> {
@@ -141,6 +149,13 @@ class HomeViewModel: BaseViewModel, VMNavigation {
                 PrintLog(error)
             }
             .disposed(by: disposeBag)
+    }
+    
+    private func requestPregnancyProbability()->Observable<HCPregnancyProbabilityModel> {
+        return HCProvider.request(.probability)
+            .map(model: HCPregnancyProbabilityModel.self)
+            .asObservable()
+            .catchErrorJustReturn(HCPregnancyProbabilityModel())
     }
     
     private func increReadingRequest(id: String) {

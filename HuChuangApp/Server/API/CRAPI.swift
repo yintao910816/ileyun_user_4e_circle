@@ -108,6 +108,8 @@ enum API{
     case version
     
     //MARK:--爱乐孕治疗四期接口
+    /// 怀孕几率查询
+    case probability
     /// 首页好孕课堂
     case allChannelArticle(cmsType: HCWebCmsType, pageNum: Int, pageSize: Int)
     /// 名医推荐
@@ -177,6 +179,8 @@ extension API: TargetType{
             return "api/consult/selectListPage"
         case .getUserInfo(_):
             return "api/consult/getUserInfo"
+        case .probability:
+            return "api/physiology/probability"
         }
     }
     

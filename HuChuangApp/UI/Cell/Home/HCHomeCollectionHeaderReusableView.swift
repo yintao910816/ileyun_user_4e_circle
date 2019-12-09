@@ -18,6 +18,7 @@ class HCHomeCollectionHeaderReusableView: UICollectionReusableView {
     @IBOutlet weak var goDoctorOutlet: UIButton!
     @IBOutlet weak var paiNuanOutlet: UILabel!
     @IBOutlet weak var nextDayOutlet: UILabel!
+    @IBOutlet weak var circleView: TYCirCleView!
     
     private var disposeBag = DisposeBag()
 
@@ -42,16 +43,28 @@ class HCHomeCollectionHeaderReusableView: UICollectionReusableView {
     }
     
     private func rxBind() {
-        let paiNuanText = "距离排卵日还有13天"
+        let paiNuanText = "距离排卵日还有0天"
         paiNuanOutlet.attributedText = paiNuanText.attributed(.init(location: 7, length: 2), .white, .font(fontSize: 21, fontName: .PingFMedium))
         
-        let nextDayText = "明日好运率20%"
+        let nextDayText = "明日好运率0%"
         nextDayOutlet.attributedText = nextDayText.attributed(.init(location: 5, length: 2), .white, .font(fontSize: 21, fontName: .PingFMedium))
 
         bannerObser
             .subscribe(onNext: { [weak self] data in
                 self?.carouselView.setData(source: data)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: disposeBag)        
+    }
+    
+    public var model: HCPregnancyProbabilityModel! {
+        didSet {
+            circleView.set(percent: model.todayProbability)
+            
+            let paiNuanText = "距离排卵日还有0天"
+            paiNuanOutlet.attributedText = paiNuanText.attributed(.init(location: 7, length: 2), .white, .font(fontSize: 21, fontName: .PingFMedium))
+            
+            let nextDayText = "明日好运率\(model.tomorrowProbability)%"
+            nextDayOutlet.attributedText = nextDayText.attributed(.init(location: 5, length: nextDayText.count - 5), .white, .font(fontSize: 21, fontName: .PingFMedium))
+        }
     }
 }

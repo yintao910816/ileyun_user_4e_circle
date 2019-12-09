@@ -49,7 +49,7 @@ DEPENDENCIES:
   - WebViewJavascriptBridge
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - Differentiator
     - HandyJSON
@@ -91,4 +91,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: bb01248be66274f8a4d29d4361a255411c547629
 
-COCOAPODS: 1.6.0
+COCOAPODS: 1.8.3

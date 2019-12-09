@@ -61,6 +61,8 @@ class HCHomeViewController: BaseViewController {
     override func rxBind() {
         viewModel = HomeViewModel()
                                 
+        collectionView.prepare(viewModel)
+                
         viewModel.refreshCollectionView
             .subscribe(onNext: { [weak self] in
                 self?.collectionView.reloadData()
@@ -74,7 +76,7 @@ class HCHomeViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
-        viewModel.reloadSubject.onNext(Void())
+        collectionView.headerRefreshing()
     }
     
     override func viewDidLayoutSubviews() {
@@ -126,6 +128,8 @@ extension HCHomeViewController: UICollectionViewDelegateFlowLayout, UICollection
                 let header = (collectionView.dequeueReusableSupplementaryView(ofKind:  UICollectionView.elementKindSectionHeader,
                 withReuseIdentifier: HCHomeCollectionHeaderReusableView_identifier,
                 for: indexPath) as! HCHomeCollectionHeaderReusableView)
+                
+                header.model = viewModel.pregnancyProbabilityData
                 
                 viewModel.bannerModelObser.asObservable()
                     .bind(to: header.bannerObser)

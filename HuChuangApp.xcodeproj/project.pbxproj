@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -459,6 +459,7 @@
 		C4F139BB235419EF00D777F6 /* TYFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F139B4235419EF00D777F6 /* TYFont.swift */; };
 		C4F139BC235419EF00D777F6 /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F139B5235419EF00D777F6 /* Debug.swift */; };
 		C4F139C023541E5B00D777F6 /* TYDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F139BF23541E5B00D777F6 /* TYDateFormatter.swift */; };
+		C4F34DBF239E492700D45995 /* HCPregnancyProbability.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F34DBE239E492700D45995 /* HCPregnancyProbability.swift */; };
 		C4F3B8EA235B320A00A6539A /* HCListDetailInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F3B8E9235B320A00A6539A /* HCListDetailInputCell.swift */; };
 		C4F3B8EC235B342E00A6539A /* HCListDetailButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F3B8EB235B342E00A6539A /* HCListDetailButtonCell.swift */; };
 		C4F3B8EE235B355800A6539A /* HCRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F3B8ED235B355800A6539A /* HCRecordViewModel.swift */; };
@@ -1169,6 +1170,7 @@
 		C4F139B4235419EF00D777F6 /* TYFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TYFont.swift; sourceTree = "<group>"; };
 		C4F139B5235419EF00D777F6 /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		C4F139BF23541E5B00D777F6 /* TYDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYDateFormatter.swift; sourceTree = "<group>"; };
+		C4F34DBE239E492700D45995 /* HCPregnancyProbability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPregnancyProbability.swift; sourceTree = "<group>"; };
 		C4F3B8E9235B320A00A6539A /* HCListDetailInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCListDetailInputCell.swift; sourceTree = "<group>"; };
 		C4F3B8EB235B342E00A6539A /* HCListDetailButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCListDetailButtonCell.swift; sourceTree = "<group>"; };
 		C4F3B8ED235B355800A6539A /* HCRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRecordViewModel.swift; sourceTree = "<group>"; };
@@ -2390,6 +2392,7 @@
 				C497E9672344658D00328B47 /* HCHome.swift */,
 				C4B185332345B03400F37197 /* HCSearch.swift */,
 				B870E53C238C27F40085AFA3 /* PatientInfo.swift */,
+				C4F34DBE239E492700D45995 /* HCPregnancyProbability.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2819,42 +2822,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-HuChuangApp/Pods-HuChuangApp-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
-				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
-				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
-				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
-				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-				"${BUILT_PRODUCTS_DIR}/WebViewJavascriptBridge/WebViewJavascriptBridge.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-HuChuangApp/Pods-HuChuangApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebViewJavascriptBridge.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-HuChuangApp/Pods-HuChuangApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2958,6 +2930,7 @@
 				B816EA9A221DABF400F024D5 /* ZXQRCodeEncoder.m in Sources */,
 				B816EB49221DABF400F024D5 /* ZXProductParsedResult.m in Sources */,
 				C4213351220587F6006C10C4 /* CRAPI.swift in Sources */,
+				C4F34DBF239E492700D45995 /* HCPregnancyProbability.swift in Sources */,
 				B816EA92221DABF400F024D5 /* ZXAztecSimpleToken.m in Sources */,
 				B842D1FE22258CC000A4F8DF /* HCAppDelegate+UM.swift in Sources */,
 				B816EA76221DABF400F024D5 /* LBXScanVideoZoomView.m in Sources */,
