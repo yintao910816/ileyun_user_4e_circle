@@ -124,6 +124,8 @@ enum API{
     case consultSelectListPage(pageNum: Int, pageSize: Int, searchName: String, areaCode: Int, opType: Int, sceen: String)
     /// 咨询医生信息
     case getUserInfo(userId: String)
+    /// 记录图标相关数据
+    case getLastWeekInfo
 }
 
 //MARK:
@@ -181,6 +183,8 @@ extension API: TargetType{
             return "api/consult/getUserInfo"
         case .probability:
             return "api/physiology/probability"
+        case .getLastWeekInfo:
+            return "api/physiology/getLast2This2NextWeekInfo "
         }
     }
     

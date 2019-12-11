@@ -13,14 +13,45 @@ import RxSwift
 class HCRecordViewModel: BaseViewModel {
     
     public var listDatasource = Variable([HCListCellItem]())
+    public let reloadUISubject = PublishSubject<([Float], [String])>()
+    /// 怀孕率数据
+    private var prepareProbabilityDatas: [Float] = []
+    private var prepareTimesDatas: [String] = []
     
     override init() {
         super.init()
         
         reloadSubject.subscribe(onNext: { [unowned self] in
-            self.configData()
+//            self.configData()
+            self.requestRecordData()
         })
         .disposed(by: disposeBag)
+    }
+    
+    private func requestRecordData() {
+        prepareData()
+        
+        HCProvider.request(.getLastWeekInfo)
+            .mapJSON()
+            .subscribe(onSuccess: { data in
+                PrintLog(data)
+            }) { error in
+                PrintLog(error)
+        }
+        .disposed(by: disposeBag)
+    }
+    
+    private func prepareData() {
+        prepareProbabilityDatas = [0.01,0.01,0.01,0.01,0.01,0.01,
+                                   0.05,0.06,0.08,0.09,0.11,0.13,0.14,
+                                   0.15,0.20,0.25,0.30,0.35,0.32,0.27,0.22,0.18,0.15,
+                                   0.14,0.12,0.11,0.09,0.07,0.06,0.05]
+        
+        for idx in 1...prepareProbabilityDatas.count {
+            prepareTimesDatas.append("\(idx)")
+        }
+        
+        reloadUISubject.onNext((prepareProbabilityDatas, prepareTimesDatas))
     }
     
     private func configData() {

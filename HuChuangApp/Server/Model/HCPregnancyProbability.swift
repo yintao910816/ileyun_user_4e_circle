@@ -18,3 +18,12 @@ class HCPregnancyProbabilityModel: HJModel {
     /// 提示
     var tips: String = ""
 }
+
+/// 记录数据
+class HCRecordItemDataModel: HJModel {
+    var cycle: Int = 0
+    var id: Int = 0
+    var keepDays: Int = 0
+    var menstruationDate: String = ""
+    var pregnantTypeId: Int = 0
+}

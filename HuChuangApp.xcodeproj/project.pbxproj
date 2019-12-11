@@ -289,6 +289,8 @@
 		B879A060221AF0B200E573C9 /* MineFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B879A05F221AF0B200E573C9 /* MineFooterView.swift */; };
 		B879A062221AF0BB00E573C9 /* MineFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B879A061221AF0BB00E573C9 /* MineFooterView.xib */; };
 		B8891A4623038DAB00950D5C /* ConsultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8891A4523038DAB00950D5C /* ConsultViewModel.swift */; };
+		B89C396A23A0C90100CAB651 /* TYCurveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C396923A0C90100CAB651 /* TYCurveView.swift */; };
+		B89C397123A141B200CAB651 /* TYMarkString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C397023A141B200CAB651 /* TYMarkString.swift */; };
 		B8AFDE5B233E702B00196064 /* HCRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AFDE5A233E702B00196064 /* HCRecordViewController.swift */; };
 		B8BE34EF2214599B00EF16F1 /* MineHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8BE34EE2214599B00EF16F1 /* MineHeaderView.xib */; };
 		B8BE34F42214645900EF16F1 /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE34F32214645900EF16F1 /* MineViewModel.swift */; };
@@ -996,6 +998,8 @@
 		B879A05F221AF0B200E573C9 /* MineFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineFooterView.swift; sourceTree = "<group>"; };
 		B879A061221AF0BB00E573C9 /* MineFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MineFooterView.xib; sourceTree = "<group>"; };
 		B8891A4523038DAB00950D5C /* ConsultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultViewModel.swift; sourceTree = "<group>"; };
+		B89C396923A0C90100CAB651 /* TYCurveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYCurveView.swift; sourceTree = "<group>"; };
+		B89C397023A141B200CAB651 /* TYMarkString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TYMarkString.swift; sourceTree = "<group>"; };
 		B8AFDE5A233E702B00196064 /* HCRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRecordViewController.swift; sourceTree = "<group>"; };
 		B8BE34EE2214599B00EF16F1 /* MineHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MineHeaderView.xib; sourceTree = "<group>"; };
 		B8BE34F32214645900EF16F1 /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
@@ -2074,6 +2078,14 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		B89C396823A0C8F400CAB651 /* TYCurveView */ = {
+			isa = PBXGroup;
+			children = (
+				B89C396923A0C90100CAB651 /* TYCurveView.swift */,
+			);
+			path = TYCurveView;
+			sourceTree = "<group>";
+		};
 		B8BE34EB2214597800EF16F1 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
@@ -2194,6 +2206,7 @@
 		C421330622056B19006C10C4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				B89C396823A0C8F400CAB651 /* TYCurveView */,
 				C4F139AE235419EF00D777F6 /* Others */,
 				C4F139AD2354199E00D777F6 /* TYCalendar */,
 				B816E872221DABF200F024D5 /* LBXScan */,
@@ -2316,6 +2329,7 @@
 		C421333022056F96006C10C4 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				B89C397023A141B200CAB651 /* TYMarkString.swift */,
 				B8699400233794A700086A77 /* UIView+Layer.swift */,
 				C41A12C022BCF49100214216 /* String+Operation.swift */,
 				B826AF81221C6C23000428C1 /* String+Extends.swift */,
@@ -2929,6 +2943,7 @@
 				C454C01F234E00A8005CBC0B /* TYSearchRecordData.swift in Sources */,
 				B816EA9A221DABF400F024D5 /* ZXQRCodeEncoder.m in Sources */,
 				B816EB49221DABF400F024D5 /* ZXProductParsedResult.m in Sources */,
+				B89C397123A141B200CAB651 /* TYMarkString.swift in Sources */,
 				C4213351220587F6006C10C4 /* CRAPI.swift in Sources */,
 				C4F34DBF239E492700D45995 /* HCPregnancyProbability.swift in Sources */,
 				B816EA92221DABF400F024D5 /* ZXAztecSimpleToken.m in Sources */,
@@ -3081,6 +3096,7 @@
 				C421333A220572F2006C10C4 /* HCTabBarViewController.swift in Sources */,
 				B816EAC5221DABF400F024D5 /* ZXGenericGFPoly.m in Sources */,
 				C421339C2205B224006C10C4 /* ImageCacheCenter.swift in Sources */,
+				B89C396A23A0C90100CAB651 /* TYCurveView.swift in Sources */,
 				B8508EA42342149B008C24BA /* HCBaseListCell.swift in Sources */,
 				B816EAC0221DABF400F024D5 /* ZXBitMatrix.m in Sources */,
 				B816EAF8221DABF400F024D5 /* ZXMaxiCodeReader.m in Sources */,

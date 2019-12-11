@@ -806,7 +806,7 @@
             </objects>
             <point key="canvasLocation" x="-2750" y="-93"/>
         </scene>
-        <!--Record View Controller-->
+        <!--记录-->
         <scene sceneID="qRg-Xv-Iv0">
             <objects>
                 <viewController id="gPG-gr-Dyb" customClass="HCRecordViewController" customModule="HuChuangApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -819,7 +819,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="vrd-hi-FJP"/>
+                    <navigationItem key="navigationItem" title="记录" id="vrd-hi-FJP"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="36e-hb-4JU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
