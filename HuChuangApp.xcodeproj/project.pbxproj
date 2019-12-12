@@ -310,6 +310,12 @@
 		B8BE351B22147DE500EF16F1 /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE351A22147DE500EF16F1 /* EditViewModel.swift */; };
 		B8BE351D221484C600EF16F1 /* UINavigationController+BarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE351C221484C600EF16F1 /* UINavigationController+BarButtonItem.swift */; };
 		B8C31DCC2396CF39003754A6 /* HCDoctorInfoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8C31DCB2396CF39003754A6 /* HCDoctorInfoHeaderView.xib */; };
+		B8CD926523A2964800C9C061 /* HCRecordUserInfoReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CD926323A2964800C9C061 /* HCRecordUserInfoReusableView.swift */; };
+		B8CD926623A2964800C9C061 /* HCRecordUserInfoReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8CD926423A2964800C9C061 /* HCRecordUserInfoReusableView.xib */; };
+		B8CD926923A2967D00C9C061 /* HCRecordSuggestReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CD926723A2967D00C9C061 /* HCRecordSuggestReusableView.swift */; };
+		B8CD926A23A2967D00C9C061 /* HCRecordSuggestReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8CD926823A2967D00C9C061 /* HCRecordSuggestReusableView.xib */; };
+		B8CD926F23A29C6800C9C061 /* HCRecordActionItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CD926D23A29C6800C9C061 /* HCRecordActionItemCell.swift */; };
+		B8CD927023A29C6800C9C061 /* HCRecordActionItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8CD926E23A29C6800C9C061 /* HCRecordActionItemCell.xib */; };
 		B8D4D47B2394258C00AA3D52 /* HCPicAndTextAskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4D47A2394258C00AA3D52 /* HCPicAndTextAskViewController.swift */; };
 		B8D4D47D239426B400AA3D52 /* HCPicAndTextAskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4D47C239426B400AA3D52 /* HCPicAndTextAskViewModel.swift */; };
 		B8D4D47F2394299E00AA3D52 /* HCPicAndTextAskFooterReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4D47E2394299E00AA3D52 /* HCPicAndTextAskFooterReusableView.swift */; };
@@ -1019,6 +1025,12 @@
 		B8BE351A22147DE500EF16F1 /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
 		B8BE351C221484C600EF16F1 /* UINavigationController+BarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationController+BarButtonItem.swift"; sourceTree = "<group>"; };
 		B8C31DCB2396CF39003754A6 /* HCDoctorInfoHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HCDoctorInfoHeaderView.xib; sourceTree = "<group>"; };
+		B8CD926323A2964800C9C061 /* HCRecordUserInfoReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRecordUserInfoReusableView.swift; sourceTree = "<group>"; };
+		B8CD926423A2964800C9C061 /* HCRecordUserInfoReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HCRecordUserInfoReusableView.xib; sourceTree = "<group>"; };
+		B8CD926723A2967D00C9C061 /* HCRecordSuggestReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRecordSuggestReusableView.swift; sourceTree = "<group>"; };
+		B8CD926823A2967D00C9C061 /* HCRecordSuggestReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HCRecordSuggestReusableView.xib; sourceTree = "<group>"; };
+		B8CD926D23A29C6800C9C061 /* HCRecordActionItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRecordActionItemCell.swift; sourceTree = "<group>"; };
+		B8CD926E23A29C6800C9C061 /* HCRecordActionItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HCRecordActionItemCell.xib; sourceTree = "<group>"; };
 		B8D4D47A2394258C00AA3D52 /* HCPicAndTextAskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPicAndTextAskViewController.swift; sourceTree = "<group>"; };
 		B8D4D47C239426B400AA3D52 /* HCPicAndTextAskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPicAndTextAskViewModel.swift; sourceTree = "<group>"; };
 		B8D4D47E2394299E00AA3D52 /* HCPicAndTextAskFooterReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPicAndTextAskFooterReusableView.swift; sourceTree = "<group>"; };
@@ -2126,6 +2138,19 @@
 			path = Mine;
 			sourceTree = "<group>";
 		};
+		B8CD926223A295E700C9C061 /* HCRecord */ = {
+			isa = PBXGroup;
+			children = (
+				B8CD926323A2964800C9C061 /* HCRecordUserInfoReusableView.swift */,
+				B8CD926423A2964800C9C061 /* HCRecordUserInfoReusableView.xib */,
+				B8CD926723A2967D00C9C061 /* HCRecordSuggestReusableView.swift */,
+				B8CD926823A2967D00C9C061 /* HCRecordSuggestReusableView.xib */,
+				B8CD926D23A29C6800C9C061 /* HCRecordActionItemCell.swift */,
+				B8CD926E23A29C6800C9C061 /* HCRecordActionItemCell.xib */,
+			);
+			path = HCRecord;
+			sourceTree = "<group>";
+		};
 		C42132E222054462006C10C4 = {
 			isa = PBXGroup;
 			children = (
@@ -2552,6 +2577,7 @@
 		C43F09B722142DEA00910437 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				B8CD926223A295E700C9C061 /* HCRecord */,
 				B870E535238A88C50085AFA3 /* Ask */,
 				C4B1852C23458D7000F37197 /* HCSearch */,
 				C497E93623444E4600328B47 /* Home */,
@@ -2775,6 +2801,7 @@
 			files = (
 				C497E94923444E4600328B47 /* HCHomePreparePregnantCell.xib in Resources */,
 				B8BE35052214723C00EF16F1 /* EditUserInfoCell.xib in Resources */,
+				B8CD927023A29C6800C9C061 /* HCRecordActionItemCell.xib in Resources */,
 				C43F09BC2214315900910437 /* HomeFunctionCell.xib in Resources */,
 				C497E9722344728200328B47 /* HCHomeBabyTuinaClassroomReusableView.xib in Resources */,
 				C497E966234462B600328B47 /* HCHomePregnancyClassroomCell.xib in Resources */,
@@ -2790,9 +2817,11 @@
 				B826AF86221C7205000428C1 /* ArticleCell.xib in Resources */,
 				B8BE34EF2214599B00EF16F1 /* MineHeaderView.xib in Resources */,
 				C497E95023444E4600328B47 /* HCHomeCollectionHeaderReusableView.xib in Resources */,
+				B8CD926A23A2967D00C9C061 /* HCRecordSuggestReusableView.xib in Resources */,
 				C497E9622344610500328B47 /* HCHomePregnancyClassroomReusableView.xib in Resources */,
 				C497E95123444E4600328B47 /* HCHomeConsultingVolumeReusableView.xib in Resources */,
 				C421336122058E50006C10C4 /* HCLogin.storyboard in Resources */,
+				B8CD926623A2964800C9C061 /* HCRecordUserInfoReusableView.xib in Resources */,
 				C4B185302345A41800F37197 /* HCSearchDoctorCourseCell.xib in Resources */,
 				C497E96E234466E100328B47 /* HCHomePregnancyClassroomCellItemCell.xib in Resources */,
 				C497E95A23444EF200328B47 /* HCHomeGoodNewsCell.xib in Resources */,
@@ -3066,6 +3095,7 @@
 				B816EB1A221DABF400F024D5 /* ZXRSSExpandedReader.m in Sources */,
 				B8BE350D2214794900EF16F1 /* Bundle+Extension.swift in Sources */,
 				B816EB36221DABF400F024D5 /* ZXVEventResultParser.m in Sources */,
+				B8CD926523A2964800C9C061 /* HCRecordUserInfoReusableView.swift in Sources */,
 				B8FC3F8B239AA0C5006EB478 /* HCSettingViewModel.swift in Sources */,
 				B816EAA3221DABF400F024D5 /* ZXQRCodeVersion.m in Sources */,
 				B816EAF7221DABF400F024D5 /* ZXMaxiCodeBitMatrixParser.m in Sources */,
@@ -3187,6 +3217,7 @@
 				C4C3257D2205C3AD0091783C /* UIView+XIB.swift in Sources */,
 				B8BE351722147B1E00EF16F1 /* HCEditBirthdayViewController.swift in Sources */,
 				B816EAD0221DABF400F024D5 /* ZXPDF417CodewordDecoder.m in Sources */,
+				B8CD926F23A29C6800C9C061 /* HCRecordActionItemCell.swift in Sources */,
 				B816EB34221DABF400F024D5 /* ZXVCardResultParser.m in Sources */,
 				B816EADC221DABF400F024D5 /* ZXPDF417DetectionResultRowIndicatorColumn.m in Sources */,
 				B816EB31221DABF400F024D5 /* ZXParsedResult.m in Sources */,
@@ -3209,6 +3240,7 @@
 				B816EAF2221DABF400F024D5 /* ZXDataMatrixVersion.m in Sources */,
 				B816EA84221DABF400F024D5 /* ZXLuminanceSource.m in Sources */,
 				C4B1852F2345A41800F37197 /* HCSearchDoctorCourseCell.swift in Sources */,
+				B8CD926923A2967D00C9C061 /* HCRecordSuggestReusableView.swift in Sources */,
 				B816EA83221DABF400F024D5 /* ZXRGBLuminanceSource.m in Sources */,
 				B816EA8D221DABF400F024D5 /* ZXAztecState.m in Sources */,
 				B816EA9B221DABF400F024D5 /* ZXQRCodeMatrixUtil.m in Sources */,
@@ -3422,18 +3454,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HuChuangApp/HuChuangApp.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = KZ83WEMA2D;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GMPPSEQW73;
 				INFOPLIST_FILE = HuChuangApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = potatochat.beta;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huchuang.aileyunuser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = potatochat.beta.dev;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/HuChuangApp/Main/Config/HcChuangApp-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3446,7 +3478,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HuChuangApp/HuChuangApp.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = GMPPSEQW73;
 				INFOPLIST_FILE = HuChuangApp/Info.plist;
@@ -3457,7 +3489,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.huchuang.aileyunuser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = aleyun_user_3_dev;
+				PROVISIONING_PROFILE_SPECIFIER = aleyun_user_3_appstore;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/HuChuangApp/Main/Config/HcChuangApp-Bridge-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

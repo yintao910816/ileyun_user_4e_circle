@@ -27,3 +27,15 @@ class HCRecordItemDataModel: HJModel {
     var menstruationDate: String = ""
     var pregnantTypeId: Int = 0
 }
+
+class HCRecordCircleData: HCRecordData {
+    
+}
+
+class HCRecordActionModel: HCRecordData {
+    
+}
+
+protocol HCRecordData {
+    
+}
