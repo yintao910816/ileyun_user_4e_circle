@@ -817,9 +817,44 @@
                     <view key="view" contentMode="scaleToFill" id="g5f-4I-ch1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0Fy-D2-kO6">
+                                <rect key="frame" x="0.0" y="44" width="375" height="574"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nN4-B0-wGG">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="hQf-gs-dNh">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="pT8-eN-Agt">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="gPG-gr-Dyb" id="ybb-DI-mbs"/>
+                                    <outlet property="delegate" destination="gPG-gr-Dyb" id="13J-0L-O5P"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="0Fy-D2-kO6" secondAttribute="trailing" id="19k-A3-8jM"/>
+                            <constraint firstItem="0Fy-D2-kO6" firstAttribute="leading" secondItem="g5f-4I-ch1" secondAttribute="leading" id="Qc9-up-xR5"/>
+                            <constraint firstItem="0Fy-D2-kO6" firstAttribute="top" secondItem="hiF-rC-NnB" secondAttribute="bottom" id="aam-f4-sA9"/>
+                            <constraint firstItem="aEF-uH-Gfm" firstAttribute="top" secondItem="0Fy-D2-kO6" secondAttribute="bottom" id="lJH-DL-eeF"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="记录" id="vrd-hi-FJP"/>
+                    <connections>
+                        <outlet property="collectionView" destination="0Fy-D2-kO6" id="y0E-gc-hdA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="36e-hb-4JU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

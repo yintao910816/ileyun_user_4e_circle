@@ -249,6 +249,8 @@
 		B826AF85221C7205000428C1 /* ArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B826AF83221C7205000428C1 /* ArticleCell.swift */; };
 		B826AF86221C7205000428C1 /* ArticleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B826AF84221C7205000428C1 /* ArticleCell.xib */; };
 		B842D1FE22258CC000A4F8DF /* HCAppDelegate+UM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B842D1FD22258CC000A4F8DF /* HCAppDelegate+UM.swift */; };
+		B8454ED123A3E19300E88BAD /* HCCurveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8454ED023A3E19300E88BAD /* HCCurveCell.swift */; };
+		B8454ED323A3EF5200E88BAD /* TYDateCalculate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8454ED223A3EF5200E88BAD /* TYDateCalculate.swift */; };
 		B8508E332340FC9F008C24BA /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8508E322340FC9F008C24BA /* Doctor.swift */; };
 		B8508E9A2341BFB3008C24BA /* HCMineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8508E992341BFB3008C24BA /* HCMineCell.swift */; };
 		B8508EA42342149B008C24BA /* HCBaseListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8508EA32342149B008C24BA /* HCBaseListCell.swift */; };
@@ -964,6 +966,8 @@
 		B826AF84221C7205000428C1 /* ArticleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticleCell.xib; sourceTree = "<group>"; };
 		B842D1FD22258CC000A4F8DF /* HCAppDelegate+UM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCAppDelegate+UM.swift"; sourceTree = "<group>"; };
 		B842D1FF22258D7F00A4F8DF /* HuChuangApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HuChuangApp.entitlements; sourceTree = "<group>"; };
+		B8454ED023A3E19300E88BAD /* HCCurveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCCurveCell.swift; sourceTree = "<group>"; };
+		B8454ED223A3EF5200E88BAD /* TYDateCalculate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYDateCalculate.swift; sourceTree = "<group>"; };
 		B8508E322340FC9F008C24BA /* Doctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor.swift; sourceTree = "<group>"; };
 		B8508E992341BFB3008C24BA /* HCMineCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCMineCell.swift; sourceTree = "<group>"; };
 		B8508EA32342149B008C24BA /* HCBaseListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCBaseListCell.swift; sourceTree = "<group>"; };
@@ -2147,6 +2151,7 @@
 				B8CD926823A2967D00C9C061 /* HCRecordSuggestReusableView.xib */,
 				B8CD926D23A29C6800C9C061 /* HCRecordActionItemCell.swift */,
 				B8CD926E23A29C6800C9C061 /* HCRecordActionItemCell.xib */,
+				B8454ED023A3E19300E88BAD /* HCCurveCell.swift */,
 			);
 			path = HCRecord;
 			sourceTree = "<group>";
@@ -2231,6 +2236,7 @@
 		C421330622056B19006C10C4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				B8454ED223A3EF5200E88BAD /* TYDateCalculate.swift */,
 				B89C396823A0C8F400CAB651 /* TYCurveView */,
 				C4F139AE235419EF00D777F6 /* Others */,
 				C4F139AD2354199E00D777F6 /* TYCalendar */,
@@ -3192,6 +3198,7 @@
 				B816EAC9221DABF400F024D5 /* ZXPDF417Common.m in Sources */,
 				B816EB41221DABF400F024D5 /* ZXTextParsedResult.m in Sources */,
 				B816EAFF221DABF400F024D5 /* ZXITFWriter.m in Sources */,
+				B8454ED323A3EF5200E88BAD /* TYDateCalculate.swift in Sources */,
 				B816EAAF221DABF400F024D5 /* ZXQRCodeDetector.m in Sources */,
 				C497E94523444E4600328B47 /* HCHomeConsultingVolumeReusableView.swift in Sources */,
 				B816EB13221DABF400F024D5 /* ZXAI01decoder.m in Sources */,
@@ -3201,6 +3208,7 @@
 				B816EAC1221DABF400F024D5 /* ZXBitSource.m in Sources */,
 				B816EB26221DABF400F024D5 /* ZXMultiFormatOneDReader.m in Sources */,
 				B816EA78221DABF400F024D5 /* LBXScanView.m in Sources */,
+				B8454ED123A3E19300E88BAD /* HCCurveCell.swift in Sources */,
 				B816EB30221DABF400F024D5 /* ZXEmailAddressResultParser.m in Sources */,
 				B816EB01221DABF400F024D5 /* ZXCode39Reader.m in Sources */,
 				B816EAE5221DABF400F024D5 /* ZXDataMatrixC40Encoder.m in Sources */,

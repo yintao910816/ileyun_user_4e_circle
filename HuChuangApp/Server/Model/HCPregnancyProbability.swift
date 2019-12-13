@@ -20,20 +20,21 @@ class HCPregnancyProbabilityModel: HJModel {
 }
 
 /// 记录数据
-class HCRecordItemDataModel: HJModel {
+class HCRecordItemDataModel: HJModel, HCRecordData {
     var cycle: Int = 0
     var id: Int = 0
     var keepDays: Int = 0
     var menstruationDate: String = ""
     var pregnantTypeId: Int = 0
+    
+    /// 画曲线数据
+    public var prepareProbabilityDatas: [Float] = []
 }
 
-class HCRecordCircleData: HCRecordData {
-    
-}
-
-class HCRecordActionModel: HCRecordData {
-    
+struct HCCellActionItem: HCRecordData {
+    var title: String = ""
+    var width: CGFloat = 0
+    var height: CGFloat = 30
 }
 
 protocol HCRecordData {

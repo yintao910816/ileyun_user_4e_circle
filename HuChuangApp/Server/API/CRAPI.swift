@@ -124,8 +124,10 @@ enum API{
     case consultSelectListPage(pageNum: Int, pageSize: Int, searchName: String, areaCode: Int, opType: Int, sceen: String)
     /// 咨询医生信息
     case getUserInfo(userId: String)
-    /// 记录图标相关数据
-    case getLastWeekInfo
+    /// 最近三个周期信息
+    case getLast2This2NextWeekInfo
+    /// 获取月经周期基础数据
+    case getMenstruationBaseInfo
 }
 
 //MARK:
@@ -183,8 +185,10 @@ extension API: TargetType{
             return "api/consult/getUserInfo"
         case .probability:
             return "api/physiology/probability"
-        case .getLastWeekInfo:
-            return "api/physiology/getLast2This2NextWeekInfo "
+        case .getLast2This2NextWeekInfo:
+            return "api/physiology/getLast2This2NextWeekInfo"
+        case .getMenstruationBaseInfo:
+            return "api/physiology/getMenstruationBaseInfo"
         }
     }
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public let HCRecordSuggestReusableView_height: CGFloat = 121
+public let HCRecordSuggestReusableView_height: CGFloat = 95
 public let HCRecordSuggestReusableView_identifier: String = "HCRecordSuggestReusableView"
 
 class HCRecordSuggestReusableView: UICollectionReusableView {
@@ -34,10 +34,10 @@ class HCRecordSuggestReusableView: UICollectionReusableView {
         
         shadowView.layer.shadowColor = UIColor.black.cgColor
         shadowView.layer.shadowOffset = .init(width: 0, height: 0)
-        shadowView.layer.shadowOpacity = 0.2
+        shadowView.layer.shadowOpacity = 0.5
         shadowView.layer.shadowRadius = 5
         shadowView.layer.cornerRadius = 5
-        shadowView.layer.masksToBounds = true
+        shadowView.layer.masksToBounds = false
         shadowView.clipsToBounds = false
     }
 }

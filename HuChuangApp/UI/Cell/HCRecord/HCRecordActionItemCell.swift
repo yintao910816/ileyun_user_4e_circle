@@ -20,4 +20,9 @@ class HCRecordActionItemCell: UICollectionViewCell {
 
     }
 
+    public var model: HCCellActionItem! {
+        didSet {
+            titleOutlet.text = model.title
+        }
+    }
 }
