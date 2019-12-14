@@ -24,11 +24,14 @@ class HCRecordItemDataModel: HJModel, HCRecordData {
     var cycle: Int = 0
     var id: Int = 0
     var keepDays: Int = 0
+    /// 月经起始日期
     var menstruationDate: String = ""
     var pregnantTypeId: Int = 0
     
     /// 画曲线数据
-    public var prepareProbabilityDatas: [Float] = []
+    public var probabilityDatas: [Float] = []
+    /// 坐标时间 月.日
+    public var timeDatas: [String] = []
 }
 
 struct HCCellActionItem: HCRecordData {
