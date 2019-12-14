@@ -62,7 +62,7 @@ class TYDateCalculate {
         let format = DateFormatter()
         format.locale = Locale(identifier: "zh_CN")
         format.setLocalizedDateFormatFromTemplate("H")
-        format.dateFormat = "yyyy-MM-dd H:mm:ss"
+        format.dateFormat = "yyyy-MM-dd"
         let date = format.date(from: string)
         return date!
     }

@@ -1,25 +1,22 @@
 //
-//  HCRecordUserInfoReusableView.swift
+//  HCExchangeReusableView.swift
 //  HuChuangApp
 //
-//  Created by yintao on 2019/12/12.
+//  Created by yintao on 2019/12/14.
 //  Copyright © 2019 sw. All rights reserved.
 //
 
 import UIKit
 
-public let HCRecordUserInfoReusableView_height: CGFloat = 121
-public let HCRecordUserInfoReusableView_identifier: String = "HCRecordUserInfoReusableView"
+public let HCExchangeReusableView_height: CGFloat = 60
+public let HCExchangeReusableView_identifier: String = "HCExchangeReusableView"
 
-class HCRecordUserInfoReusableView: UICollectionReusableView {
+class HCExchangeReusableView: UICollectionReusableView {
 
     @IBOutlet var contentView: UICollectionReusableView!
-    @IBOutlet weak var jieduanOutlet: UILabel!
-    @IBOutlet weak var jilvOutlet: UILabel!
-    @IBOutlet weak var painuanriOutlet: UILabel!
-        
+    
     public var exchangeCallBack: (()->())?
-
+    
     @IBAction func actions(_ sender: UIButton) {
         exchangeCallBack?()
     }
@@ -27,7 +24,7 @@ class HCRecordUserInfoReusableView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView = (Bundle.main.loadNibNamed("HCRecordUserInfoReusableView", owner: self, options: nil)?.first as! UICollectionReusableView)
+        contentView = (Bundle.main.loadNibNamed("HCExchangeReusableView", owner: self, options: nil)?.first as! UICollectionReusableView)
         addSubview(contentView)
         
         contentView.snp.makeConstraints{ $0.edges.equalTo(UIEdgeInsets.zero) }
@@ -36,4 +33,5 @@ class HCRecordUserInfoReusableView: UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }

@@ -32,14 +32,27 @@ class HCRecordItemDataModel: HJModel, HCRecordData {
     public var probabilityDatas: [Float] = []
     /// 坐标时间 月.日
     public var timeDatas: [String] = []
+    /// 画线数据 - 线条颜色
+    public var lineItemDatas: [TYLineItemModel] = []
+    /// 画线数据 - 画点
+    public var pointDatas: [TYPointItemModel] = []
+
+    var cellIdentifier: String { return HCCurveCell_identifier }
+    var width: CGFloat { return PPScreenW }
+    var height: CGFloat { return HCCurveCell_height }
 }
 
-struct HCCellActionItem: HCRecordData {
+class HCCellActionItem: HCRecordData {
     var title: String = ""
-    var width: CGFloat = 0
-    var height: CGFloat = 30
+    var itemWidth: CGFloat = 0
+    
+    var cellIdentifier: String { return HCRecordActionItemCell_identifier }
+    var width: CGFloat { return itemWidth }
+    var height: CGFloat { return 30 }
 }
 
 protocol HCRecordData {
-    
+    var width: CGFloat { get }
+    var height: CGFloat { get }
+    var cellIdentifier: String { get }
 }

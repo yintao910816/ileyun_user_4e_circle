@@ -11,7 +11,7 @@ import UIKit
 public let HCRecordActionItemCell_height: CGFloat = 30
 public let HCRecordActionItemCell_identifier: String = "HCRecordActionItemCell"
 
-class HCRecordActionItemCell: UICollectionViewCell {
+class HCRecordActionItemCell: HCBaseRecordCell {
 
     @IBOutlet weak var titleOutlet: UILabel!
     
@@ -19,10 +19,14 @@ class HCRecordActionItemCell: UICollectionViewCell {
         super.awakeFromNib()
 
     }
-
-    public var model: HCCellActionItem! {
+    
+    override var model: HCRecordData! {
         didSet {
-            titleOutlet.text = model.title
+            guard let itemModel = model as? HCCellActionItem else {
+                return
+            }
+            
+            titleOutlet.text = itemModel.title
         }
     }
 }

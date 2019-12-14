@@ -251,6 +251,10 @@
 		B842D1FE22258CC000A4F8DF /* HCAppDelegate+UM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B842D1FD22258CC000A4F8DF /* HCAppDelegate+UM.swift */; };
 		B8454ED123A3E19300E88BAD /* HCCurveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8454ED023A3E19300E88BAD /* HCCurveCell.swift */; };
 		B8454ED323A3EF5200E88BAD /* TYDateCalculate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8454ED223A3EF5200E88BAD /* TYDateCalculate.swift */; };
+		B8454ED523A5266100E88BAD /* HCBaseRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8454ED423A5266100E88BAD /* HCBaseRecordCell.swift */; };
+		B8454ED823A5294C00E88BAD /* HCExchangeReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8454ED623A5294C00E88BAD /* HCExchangeReusableView.swift */; };
+		B8454ED923A5294C00E88BAD /* HCExchangeReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8454ED723A5294C00E88BAD /* HCExchangeReusableView.xib */; };
+		B8454EDB23A5361200E88BAD /* TYColorLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8454EDA23A5361200E88BAD /* TYColorLineView.swift */; };
 		B8508E332340FC9F008C24BA /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8508E322340FC9F008C24BA /* Doctor.swift */; };
 		B8508E9A2341BFB3008C24BA /* HCMineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8508E992341BFB3008C24BA /* HCMineCell.swift */; };
 		B8508EA42342149B008C24BA /* HCBaseListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8508EA32342149B008C24BA /* HCBaseListCell.swift */; };
@@ -968,6 +972,10 @@
 		B842D1FF22258D7F00A4F8DF /* HuChuangApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HuChuangApp.entitlements; sourceTree = "<group>"; };
 		B8454ED023A3E19300E88BAD /* HCCurveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCCurveCell.swift; sourceTree = "<group>"; };
 		B8454ED223A3EF5200E88BAD /* TYDateCalculate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYDateCalculate.swift; sourceTree = "<group>"; };
+		B8454ED423A5266100E88BAD /* HCBaseRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCBaseRecordCell.swift; sourceTree = "<group>"; };
+		B8454ED623A5294C00E88BAD /* HCExchangeReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCExchangeReusableView.swift; sourceTree = "<group>"; };
+		B8454ED723A5294C00E88BAD /* HCExchangeReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HCExchangeReusableView.xib; sourceTree = "<group>"; };
+		B8454EDA23A5361200E88BAD /* TYColorLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYColorLineView.swift; sourceTree = "<group>"; };
 		B8508E322340FC9F008C24BA /* Doctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor.swift; sourceTree = "<group>"; };
 		B8508E992341BFB3008C24BA /* HCMineCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCMineCell.swift; sourceTree = "<group>"; };
 		B8508EA32342149B008C24BA /* HCBaseListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCBaseListCell.swift; sourceTree = "<group>"; };
@@ -2098,6 +2106,7 @@
 			isa = PBXGroup;
 			children = (
 				B89C396923A0C90100CAB651 /* TYCurveView.swift */,
+				B8454EDA23A5361200E88BAD /* TYColorLineView.swift */,
 			);
 			path = TYCurveView;
 			sourceTree = "<group>";
@@ -2152,6 +2161,9 @@
 				B8CD926D23A29C6800C9C061 /* HCRecordActionItemCell.swift */,
 				B8CD926E23A29C6800C9C061 /* HCRecordActionItemCell.xib */,
 				B8454ED023A3E19300E88BAD /* HCCurveCell.swift */,
+				B8454ED423A5266100E88BAD /* HCBaseRecordCell.swift */,
+				B8454ED623A5294C00E88BAD /* HCExchangeReusableView.swift */,
+				B8454ED723A5294C00E88BAD /* HCExchangeReusableView.xib */,
 			);
 			path = HCRecord;
 			sourceTree = "<group>";
@@ -2832,6 +2844,7 @@
 				C497E96E234466E100328B47 /* HCHomePregnancyClassroomCellItemCell.xib in Resources */,
 				C497E95A23444EF200328B47 /* HCHomeGoodNewsCell.xib in Resources */,
 				B826AF80221C671B000428C1 /* ColunmCollectionViewCell.xib in Resources */,
+				B8454ED923A5294C00E88BAD /* HCExchangeReusableView.xib in Resources */,
 				C497E94C23444E4600328B47 /* HCHomeAdvCell.xib in Resources */,
 				C4213338220572C6006C10C4 /* HCMain.storyboard in Resources */,
 				B879A062221AF0BB00E573C9 /* MineFooterView.xib in Resources */,
@@ -2978,6 +2991,7 @@
 				C454C01F234E00A8005CBC0B /* TYSearchRecordData.swift in Sources */,
 				B816EA9A221DABF400F024D5 /* ZXQRCodeEncoder.m in Sources */,
 				B816EB49221DABF400F024D5 /* ZXProductParsedResult.m in Sources */,
+				B8454ED523A5266100E88BAD /* HCBaseRecordCell.swift in Sources */,
 				B89C397123A141B200CAB651 /* TYMarkString.swift in Sources */,
 				C4213351220587F6006C10C4 /* CRAPI.swift in Sources */,
 				C4F34DBF239E492700D45995 /* HCPregnancyProbability.swift in Sources */,
@@ -3058,6 +3072,7 @@
 				B816EA7F221DABF400F024D5 /* ZXResult.m in Sources */,
 				B816EAD4221DABF400F024D5 /* ZXPDF417DecodedBitStreamParser.m in Sources */,
 				B816EAF9221DABF400F024D5 /* ZXCode93Reader.m in Sources */,
+				B8454EDB23A5361200E88BAD /* TYColorLineView.swift in Sources */,
 				B816EAE8221DABF400F024D5 /* ZXDataMatrixASCIIEncoder.m in Sources */,
 				B816EADF221DABF400F024D5 /* ZXPDF417Reader.m in Sources */,
 				B816EA9D221DABF400F024D5 /* ZXMultiFinderPatternFinder.m in Sources */,
@@ -3163,6 +3178,7 @@
 				C4213343220586E6006C10C4 /* HCMineViewController.swift in Sources */,
 				C449FA5B2298021D00B7803E /* AppAbout.swift in Sources */,
 				B816EAA5221DABF400F024D5 /* ZXQRCodeDataBlock.m in Sources */,
+				B8454ED823A5294C00E88BAD /* HCExchangeReusableView.swift in Sources */,
 				B86993D32337395800086A77 /* TYButton.swift in Sources */,
 				B870E53D238C27F40085AFA3 /* PatientInfo.swift in Sources */,
 				B816EACE221DABF400F024D5 /* ZXPDF417BarcodeRow.m in Sources */,

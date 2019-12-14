@@ -13,16 +13,23 @@ import RxSwift
 class HCRecordViewModel: BaseViewModel {
     
     public let reloadUISubject = PublishSubject<Void>()
+    public let exchangeUISubject = PublishSubject<Void>()
+
     /// 怀孕率数据
-    public var prepareProbabilityDatas: [Float] = []
-    public var prepareTimesDatas: [String] = []
+    private var prepareProbabilityDatas: [Float] = []
+    private var prepareTimesDatas: [String] = []
     /// 当前周期数据
     public var currentCircleData = HCRecordItemDataModel()
     /// 三个周期数据
-    public var circleDatas: [HCRecordItemDataModel] = []
+    private var circleDatas: [HCRecordData] = []
+    /// 底部操作cell
+    private var cellActionItemDatasource: [HCRecordData] = []
+    /// 是否是对比的UI
+    private var isContrast: Bool = false
 
-    public var cellItemDatasource: [HCCellActionItem] = []
-    
+    /// 所有cell数据
+    public var datasource: [[HCRecordData]] = []
+        
     override init() {
         super.init()
         
@@ -30,10 +37,15 @@ class HCRecordViewModel: BaseViewModel {
             self.requestRecordData()
         })
         .disposed(by: disposeBag)
+        
+        exchangeUISubject.subscribe(onNext: { [weak self] in
+            self?.exchangeData()
+        })
+        .disposed(by: disposeBag)
     }
     
     private func requestRecordData() {
-        prepareData()
+        prepareActionData()
         
         HCProvider.request(.getLast2This2NextWeekInfo)
             .map(models: HCRecordItemDataModel.self)
@@ -45,24 +57,42 @@ class HCRecordViewModel: BaseViewModel {
             .disposed(by: disposeBag)
     }
     
-    private func prepareData() {
-        cellItemDatasource = [HCCellActionItem(title: "标记月经", width: 80),
-                              HCCellActionItem(title: "标记排卵日", width: 90),
-                              HCCellActionItem(title: "标记同房", width: 80),
-                              HCCellActionItem(title: "基础体温", width: 80)]
+    private func prepareActionData() {
+        let model1 = HCCellActionItem()
+        model1.title = "标记月经"
+        model1.itemWidth = 80
         
-        prepareProbabilityDatas = [0.01,0.01,0.01,0.01,0.01,0.01,
-                                   0.05,0.06,0.08,0.09,0.11,0.13,0.14,
-                                   0.15,0.20,0.25,0.30,0.35,0.32,0.27,0.22,0.18,0.15,
-                                   0.14,0.12,0.11,0.09,0.07,0.06,0.05]
-        
-        for idx in 1...prepareProbabilityDatas.count {
-            prepareTimesDatas.append("\(idx)")
-        }
+        let model2 = HCCellActionItem()
+        model2.title = "标记排卵日"
+        model2.itemWidth = 90
+
+        let model3 = HCCellActionItem()
+        model3.title = "标记同房"
+        model3.itemWidth = 80
+
+        let model4 = HCCellActionItem()
+        model4.title = "基础体温"
+        model4.itemWidth = 80
+
+        cellActionItemDatasource = [model1, model2, model3, model4]
     }
 }
 
 extension HCRecordViewModel {
+    
+    private func exchangeData() {
+        isContrast = !isContrast
+        datasource.removeAll()
+        
+        if isContrast {
+            datasource.append(circleDatas)
+        }else {
+            datasource.append([currentCircleData])
+            datasource.append(cellActionItemDatasource)
+        }
+        
+        reloadUISubject.onNext(Void())
+    }
     
     private func dealData(datas: [HCRecordItemDataModel]) {
         guard datas.count == 3 else { return }
@@ -80,6 +110,9 @@ extension HCRecordViewModel {
                 PrintLog("非法数据")
             }
         }
+        
+        datasource.append([currentCircleData])
+        datasource.append(cellActionItemDatasource)
         
         reloadUISubject.onNext(Void())
     }
@@ -170,5 +203,68 @@ extension HCRecordViewModel {
         
         data.probabilityDatas = probabilityDatas
         data.timeDatas = resultDates
+        data.lineItemDatas = [TYLineItemModel(color: RGB(213, 89, 92),
+                                              percentage: CGFloat(yjArr.count)/CGFloat(data.cycle)),
+                              TYLineItemModel(color: RGB(84, 197, 141),
+                                              percentage: CGFloat(safeBeforeArr.count)/CGFloat(data.cycle)),
+                              TYLineItemModel(color: RGB(255, 113, 17),
+                                              percentage: CGFloat(plqArr.count)/CGFloat(data.cycle)),
+                              TYLineItemModel(color: RGB(84, 197, 141),
+                                              percentage: CGFloat(safeAfterArr.count)/CGFloat(data.cycle))]
+        
+        var pointDatas: [TYPointItemModel] = []
+        for _ in 0...resultDates.count {
+            pointDatas.append(TYPointItemModel(borderColor: .clear))
+        }
+        
+        data.pointDatas = pointDatas
+    }
+}
+
+extension HCRecordViewModel {
+    
+    public func referenceSize(forHeader section: Int) ->CGSize {
+        if datasource.count == 1 {
+            return .init(width: PPScreenW, height: HCExchangeReusableView_height)
+        }else if datasource.count == 2 {
+            return section == 0 ? .init(width: PPScreenW, height: HCRecordUserInfoReusableView_height) : .init(width: PPScreenW, height: HCRecordSuggestReusableView_height)
+        }
+        return .zero
+    }
+    
+    public func inset(_ section: Int) -> UIEdgeInsets {
+        if datasource.count == 1 {
+            return .init(top: 0, left: 0, bottom: 0, right: 0)
+        }else if datasource.count == 2 {
+            return section == 0 ? .init(top: 0, left: 0, bottom: 0, right: 0) : .init(top: 0, left: 20, bottom: 0, right: 20)
+        }
+        return .zero
+    }
+    
+    public func minimumLineSpacing(_ section: Int) ->CGFloat {
+        if datasource.count == 1 {
+            return 0
+        }else if datasource.count == 2 {
+            return section == 0 ? 0 : 10
+        }
+        return 0
+    }
+    
+    public func minimumInteritemSpacing(_ section: Int) ->CGFloat {
+        if datasource.count == 1 {
+            return 0
+        }else if datasource.count == 2 {
+            return section == 0 ? 0 : 30
+        }
+        return 0
+    }
+    
+    public func supplementaryIdentifier(for section: Int) ->String {
+        if datasource.count == 1 {
+            return HCExchangeReusableView_identifier
+        }else if datasource.count == 2 {
+            return section == 0 ? HCRecordUserInfoReusableView_identifier : HCRecordSuggestReusableView_identifier
+        }
+        return ""
     }
 }

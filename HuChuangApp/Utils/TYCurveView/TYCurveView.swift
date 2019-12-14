@@ -17,6 +17,8 @@ class TYCurveView: UIView {
     private var probabilityLabel: UILabel!
     private var sepLine: UIView!
     
+    private var lineView: TYColorLineView!
+    
     private var titleBgView: UIView!
     private var titleLable: UILabel!
     private var fullScreenButton: UIButton!
@@ -39,6 +41,8 @@ class TYCurveView: UIView {
     
     private var curvelViewWidth: CGFloat = 0
     private var curvelViewHeight: CGFloat = 190
+    
+    private var lineHeight: CGFloat = 5
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,7 +61,7 @@ class TYCurveView: UIView {
         curvelViewHeight = TYCurveView.viewHeight - remindViewHeight - titleViewHeight
         
         titleBgView = UIView()
-        titleBgView.backgroundColor = .orange
+        titleBgView.backgroundColor = .clear
         
         titleLable = UILabel()
         titleLable.text = "好孕率趋势图"
@@ -69,10 +73,10 @@ class TYCurveView: UIView {
         fullScreenButton.setImage(UIImage(named: "record_button_screen"), for: .normal)
         
         curveView = UIView()
-        curveView.backgroundColor = .yellow
+        curveView.backgroundColor = .clear
         
         curveTimeBgView = UIView()
-        curveTimeBgView.backgroundColor = .brown
+        curveTimeBgView.backgroundColor = .clear
 
         remindBgView = UIView()
         remindBgView.backgroundColor = RGB(240, 240, 240)
@@ -120,8 +124,12 @@ class TYCurveView: UIView {
         sepLine = UIView()
         sepLine.backgroundColor = RGB(204, 204, 204)
         
+        lineView = TYColorLineView.init(frame: .init(x: 0, y: 0, width: width, height: lineHeight))
+        lineView.backgroundColor = .white
+        
         addSubview(scrollView)
         scrollView.addSubview(curveView)
+        scrollView.addSubview(lineView)
         scrollView.addSubview(curveTimeBgView)
 
         addSubview(titleBgView)
@@ -148,12 +156,18 @@ class TYCurveView: UIView {
     
     public var curvelContentTextHeight: CGFloat = 40.0
     
-    public func setData(probabilityDatas: [Float], titmesDatas: [String]) {
+    public func setData(probabilityDatas: [Float], titmesDatas: [String], itemDatas: [TYLineItemModel], pointDatas: [TYPointItemModel]) {
         self.probabilityDatas = probabilityDatas
         self.timesDatas = titmesDatas
         
+        
         curvelViewWidth = CGFloat(probabilityDatas.count - 1) * itemWidth
         
+        lineView.frame = .init(x: 0, y: curvelViewHeight - curvelTimeViewHeight - lineHeight,
+                               width: curvelViewWidth,
+                               height: lineHeight)
+        lineView.set(itemDatas: itemDatas, pointDatas: pointDatas)
+
         setNeedsDisplay()
     }
     
@@ -190,6 +204,10 @@ class TYCurveView: UIView {
                               y: probabilityLabel.frame.maxY,
                               width: 1,
                               height: curvelViewHeight + titleViewHeight - probabilityLabel.height - curvelTimeViewHeight)
+        
+        lineView.frame = .init(x: 0, y: curveView.frame.maxY,
+                               width: scrollView.contentSize.width,
+                               height: lineHeight)
     }
     
     override func draw(_ rect: CGRect) {
@@ -219,8 +237,8 @@ class TYCurveView: UIView {
         /** 将折线添加到折线图层上，并设置相关的属性 */
         bezierLineLayer = CAShapeLayer.init()
         bezierLineLayer.path = path.cgPath
-        bezierLineLayer.strokeColor = UIColor.red.cgColor;
-        bezierLineLayer.fillColor = UIColor.orange.cgColor;
+        bezierLineLayer.strokeColor = HC_MAIN_COLOR.cgColor;
+        bezierLineLayer.fillColor = UIColor.clear.cgColor;
         // 默认设置路径宽度为0，使其在起始状态下不显示
         bezierLineLayer.lineWidth = 2;
         bezierLineLayer.lineCap = CAShapeLayerLineCap.round;

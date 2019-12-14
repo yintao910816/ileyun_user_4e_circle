@@ -21,6 +21,9 @@ class HCRecordViewController: BaseViewController {
         collectionView.register(HCRecordSuggestReusableView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: HCRecordSuggestReusableView_identifier)
+        collectionView.register(HCExchangeReusableView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: HCExchangeReusableView_identifier)
         collectionView.register(UINib.init(nibName: "HCRecordActionItemCell", bundle: nil),
                                 forCellWithReuseIdentifier: HCRecordActionItemCell_identifier)
         collectionView.register(HCCurveCell.self, forCellWithReuseIdentifier: HCCurveCell_identifier)
@@ -51,64 +54,66 @@ class HCRecordViewController: BaseViewController {
 extension HCRecordViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return section == 0 ? 1 : viewModel.cellItemDatasource.count
+        return viewModel.datasource[section].count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return viewModel.datasource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let model = viewModel.cellItemDatasource[indexPath.row]
-        if indexPath.section == 1 {
-            return .init(width: model.width, height: model.height)
-        }
-        
-        return .init(width: collectionView.width, height: HCCurveCell_height)
+        let model = viewModel.datasource[indexPath.section][indexPath.row]
+        return .init(width: model.width, height: model.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.section == 1 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCRecordActionItemCell_identifier, for: indexPath) as! HCRecordActionItemCell
-            cell.model = viewModel.cellItemDatasource[indexPath.row]
-            return cell
-        }
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCCurveCell_identifier, for: indexPath) as! HCCurveCell
-        cell.setData(probabilityDatas: viewModel.prepareProbabilityDatas, titmesDatas: viewModel.prepareTimesDatas)
+        let model = viewModel.datasource[indexPath.section][indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: model.cellIdentifier, for: indexPath) as! HCBaseRecordCell
+        cell.model = model
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
-            if indexPath.section == 0 {
-                let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
-                                                                             withReuseIdentifier: HCRecordUserInfoReusableView_identifier,
-                                                                             for: indexPath)
-                return header
-            }else if indexPath.section == 1 {
-                let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
-                                                                             withReuseIdentifier: HCRecordSuggestReusableView_identifier,
-                                                                             for: indexPath)
-                return header
+            let identifier = viewModel.supplementaryIdentifier(for: indexPath.section)
+            
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
+                                                                         withReuseIdentifier: identifier,
+                                                                         for: indexPath)
+            
+            if identifier == HCRecordUserInfoReusableView_identifier {
+                (header as! HCRecordUserInfoReusableView).exchangeCallBack = { [weak self] in
+                    self?.viewModel.exchangeUISubject.onNext(Void())
+                }
+            }else if identifier == HCRecordSuggestReusableView_identifier {
+
+            }else if identifier == HCExchangeReusableView_identifier {
+                (header as! HCExchangeReusableView).exchangeCallBack = { [weak self] in
+                    self?.viewModel.exchangeUISubject.onNext(Void())
+                }
+            }else {
+                return UICollectionReusableView()
             }
+            
+            return header
         }
+        
         return UICollectionReusableView()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return section == 0 ? .init(width: collectionView.width, height: HCRecordUserInfoReusableView_height) : .init(width: collectionView.width, height: HCRecordSuggestReusableView_height)
+        return viewModel.referenceSize(forHeader: section)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return section == 0 ? .init(top: 0, left: 0, bottom: 0, right: 0) : .init(top: 0, left: 20, bottom: 0, right: 20)
+        return viewModel.inset(section)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return section == 0 ? 0 : 10
+        return viewModel.minimumLineSpacing(section)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return section == 0 ? 0 : 30
+        return viewModel.minimumInteritemSpacing(section)
     }
 }
