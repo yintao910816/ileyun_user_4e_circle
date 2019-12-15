@@ -329,3 +329,63 @@ extension API {
 //MARK: API server
 let HCProvider = MoyaProvider<API>(plugins: [MoyaPlugins.MyNetworkActivityPlugin,
                                              RequestLoadingPlugin()]).rx
+
+/*
+ 绑定微信
+ https://ileyun.ivfcn.com/hc-patient/api/login/bindAuthMember
+ 
+ openId    是    string    微信授权 openId (通过 获取access token 接口 获得)
+ accessToken    是    string    微信授权 accessToken (通过 获取access token 接口 获得)
+ appType    是    string    客户端 Android , IOS
+ oauthType    是    string    固定参数 : weixin
+ mobile    是    string    手机号
+ smsCode    是    string    验证码
+ 
+ {
+   "code": 200,
+   "message": "登录成功",
+   "data": {
+     "id": 16695,
+     "account": "13367267356",
+     "name": "自费测试",
+     "realName": "邓超1",
+     "email": null,
+     "lastLogin": "2019-11-20 10:53:31",
+     "ip": "127.0.0.1",
+     "status": true,
+     "bak": null,
+     "skin": null,
+     "numbers": null,
+     "createDate": "2019-11-18 14:46:23",
+     "modifyDate": "2019-11-06 18:28:20",
+     "creates": null,
+     "modifys": null,
+     "unitId": 17,
+     "sex": 1,
+     "age": "2",
+     "birthday": "2019-11-12",
+     "token": "MDAzMTMzQUJDMzI2OTgyQUQ5QkM3NEEzQzM3OTIzREU0RkQxNUM3QkE2MkQzM0Qx",
+     "headPath": "https://ileyun.ivfcn.com/file/20191112/58EE133A8D484E3797699FC1E5AD9867.jpg",
+     "environment": "Apache-HttpClient/4.5.2 (Java/1.8.0_112-release)",
+     "synopsis": null,
+     "bindDate": "2019-11-06 18:28:20",
+     "mobileInfo": "133****7356",
+     "unitName": "中山一院生殖医学中心",
+     "visitCard": "0000000014",
+     "identityCard": "420107198706182913",
+     "hisNo": "0000041710",
+     "medicalRecordNo": "xxxxxxxx1",
+     "medicalRecordType": "AID",
+     "medicalRecordName": null,
+     "certificateType": "身份证",
+     "mobileView": null,
+     "black": null,
+     "senior": null,
+     "pregnantTypeId": 363,
+     "pregnantTypeName": "备孕中",
+     "enable": false,
+     "bind": false,
+     "soldier": false
+   }
+ }
+ **/

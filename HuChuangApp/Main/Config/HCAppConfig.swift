@@ -17,3 +17,6 @@ public func RGB(_ r : CGFloat, _ g : CGFloat, _ b : CGFloat, _ a : CGFloat = 1) 
 }
 
 let HC_MAIN_COLOR = RGB(253, 119, 146)
+
+let weixinAppid = "wx870ac6243698c3f6"
+let weixinSecret = "a570e4ced87a8c3564217b3e8159d4f6"

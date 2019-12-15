@@ -38,6 +38,12 @@ class LoginViewModel: BaseViewModel {
             ._doNext(forNotice: hud)
             .drive(onNext: { [unowned self] in self.sendCode(phone: $0) })
             .disposed(by: disposeBag)
+        
+        tap.weChatTap
+            .drive(onNext: { _ in
+                HCAccountManager.WeChatLogin()
+            })
+            .disposed(by: disposeBag)
     }
     
     private func sendCode(phone: String) {

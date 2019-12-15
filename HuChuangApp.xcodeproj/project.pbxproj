@@ -298,6 +298,7 @@
 		B89C396A23A0C90100CAB651 /* TYCurveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C396923A0C90100CAB651 /* TYCurveView.swift */; };
 		B89C397123A141B200CAB651 /* TYMarkString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C397023A141B200CAB651 /* TYMarkString.swift */; };
 		B8AFDE5B233E702B00196064 /* HCRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AFDE5A233E702B00196064 /* HCRecordViewController.swift */; };
+		B8BE1AE423A698C300DF472A /* HCAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE1AE323A698C300DF472A /* HCAccountManager.swift */; };
 		B8BE34EF2214599B00EF16F1 /* MineHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8BE34EE2214599B00EF16F1 /* MineHeaderView.xib */; };
 		B8BE34F42214645900EF16F1 /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE34F32214645900EF16F1 /* MineViewModel.swift */; };
 		B8BE34FB221470B800EF16F1 /* HCEditUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE34FA221470B800EF16F1 /* HCEditUserInfoViewController.swift */; };
@@ -1019,6 +1020,7 @@
 		B89C396923A0C90100CAB651 /* TYCurveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYCurveView.swift; sourceTree = "<group>"; };
 		B89C397023A141B200CAB651 /* TYMarkString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TYMarkString.swift; sourceTree = "<group>"; };
 		B8AFDE5A233E702B00196064 /* HCRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRecordViewController.swift; sourceTree = "<group>"; };
+		B8BE1AE323A698C300DF472A /* HCAccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCAccountManager.swift; sourceTree = "<group>"; };
 		B8BE34EE2214599B00EF16F1 /* MineHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MineHeaderView.xib; sourceTree = "<group>"; };
 		B8BE34F32214645900EF16F1 /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
 		B8BE34FA221470B800EF16F1 /* HCEditUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEditUserInfoViewController.swift; sourceTree = "<group>"; };
@@ -2241,6 +2243,7 @@
 				C421337622059A6D006C10C4 /* HCHelper.swift */,
 				C43F09C2221448B000910437 /* HCNotifications.swift */,
 				B821E34C23070907009A11A3 /* HCLocationManager.swift */,
+				B8BE1AE323A698C300DF472A /* HCAccountManager.swift */,
 			);
 			path = HCHelper;
 			sourceTree = "<group>";
@@ -3236,6 +3239,7 @@
 				B816EB4E221DABF400F024D5 /* ZXSMSTOMMSTOResultParser.m in Sources */,
 				C44159F5234616F00011B987 /* HCSearchRecommendDoctorViewController.swift in Sources */,
 				B816EB1B221DABF400F024D5 /* ZXRSS14Reader.m in Sources */,
+				B8BE1AE423A698C300DF472A /* HCAccountManager.swift in Sources */,
 				B816EB3D221DABF400F024D5 /* ZXVINResultParser.m in Sources */,
 				B816EB51221DABF400F024D5 /* ZXCalendarParsedResult.m in Sources */,
 				C4C3257D2205C3AD0091783C /* UIView+XIB.swift in Sources */,

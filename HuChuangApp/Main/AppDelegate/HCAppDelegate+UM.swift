@@ -14,58 +14,60 @@ import Foundation
 extension HCAppDelegate {
    
     func setupUM(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
+        registerAuthor()
+        
         UMConfigure.initWithAppkey(AppKey, channel: "App Store")
-        MobClick.setScenarioType(.E_UM_NORMAL)
-        UMConfigure.setLogEnabled(true)
-        
-        UMessage.setAutoAlert(false)
-        UMessage.setBadgeClear(true)
-        
-        if #available(iOS 10.0, *) {
-            let entity = UMessageRegisterEntity()
-            entity.types = Int(UMessageAuthorizationOptions.badge.rawValue) | Int(UMessageAuthorizationOptions.alert.rawValue)
-            //type是对推送的几个参数的选择，可以选择一个或者多个。默认是三个全部打开，即：声音，弹窗，角标
-     
-            // 使用 UNUserNotificationCenter 来管理通知
-            let center = UNUserNotificationCenter.current()
-            //监听回调事件
-            center.delegate = self
-            
-            UMessage.registerForRemoteNotifications(launchOptions: launchOptions, entity: entity) { (flag, error) in
-                if flag == true {
-                    PrintLog("UM注册成功")
-                }else {
-                    PrintLog("UM注册失败")
-                }
-            }
-            
-            //iOS 10 使用以下方法注册，才能得到授权
-            center.requestAuthorization(options: [UNAuthorizationOptions.alert,UNAuthorizationOptions.badge,UNAuthorizationOptions.sound], completionHandler: { (granted:Bool, error:Error?) -> Void in
-                if (granted) {
-                    //点击允许
-//                    PrintLog("注册通知成功")
-//                    UserDefaults.standard.set(true, forKey: kReceiveRemoteNote)
-                    //获取当前的通知设置，UNNotificationSettings 是只读对象，不能直接修改，只能通过以下方法获取
-                    center.getNotificationSettings(completionHandler:{(settings:UNNotificationSettings) in
-                        PrintLog( "UNNotificationSettings")
-                    })
-                } else {
-                    //点击不允许
-//                    UserDefaults.standard.set(false, forKey: kReceiveRemoteNote)
-//                    PrintLog("注册通知失败")
-                }
-            })
-        } else {
-            // Fallback on earlier versions
-            let type = UIUserNotificationType.alert.rawValue | UIUserNotificationType.badge.rawValue | UIUserNotificationType.sound.rawValue
-            let set = UIUserNotificationSettings.init(types: UIUserNotificationType(rawValue: type), categories: nil)
-            UIApplication.shared.registerUserNotificationSettings(set)
-        }
-        
-        _ = NotificationCenter.default.rx.notification(NotificationName.User.LoginSuccess, object: nil)
-            .subscribe(onNext: { [weak self] _ in
-                self?.uploadUMToken()
-            })
+//        MobClick.setScenarioType(.E_UM_NORMAL)
+//        UMConfigure.setLogEnabled(true)
+//        
+//        UMessage.setAutoAlert(false)
+//        UMessage.setBadgeClear(true)
+//        
+//        if #available(iOS 10.0, *) {
+//            let entity = UMessageRegisterEntity()
+//            entity.types = Int(UMessageAuthorizationOptions.badge.rawValue) | Int(UMessageAuthorizationOptions.alert.rawValue)
+//            //type是对推送的几个参数的选择，可以选择一个或者多个。默认是三个全部打开，即：声音，弹窗，角标
+//     
+//            // 使用 UNUserNotificationCenter 来管理通知
+//            let center = UNUserNotificationCenter.current()
+//            //监听回调事件
+//            center.delegate = self
+//            
+//            UMessage.registerForRemoteNotifications(launchOptions: launchOptions, entity: entity) { (flag, error) in
+//                if flag == true {
+//                    PrintLog("UM注册成功")
+//                }else {
+//                    PrintLog("UM注册失败")
+//                }
+//            }
+//            
+//            //iOS 10 使用以下方法注册，才能得到授权
+//            center.requestAuthorization(options: [UNAuthorizationOptions.alert,UNAuthorizationOptions.badge,UNAuthorizationOptions.sound], completionHandler: { (granted:Bool, error:Error?) -> Void in
+//                if (granted) {
+//                    //点击允许
+////                    PrintLog("注册通知成功")
+////                    UserDefaults.standard.set(true, forKey: kReceiveRemoteNote)
+//                    //获取当前的通知设置，UNNotificationSettings 是只读对象，不能直接修改，只能通过以下方法获取
+//                    center.getNotificationSettings(completionHandler:{(settings:UNNotificationSettings) in
+//                        PrintLog( "UNNotificationSettings")
+//                    })
+//                } else {
+//                    //点击不允许
+////                    UserDefaults.standard.set(false, forKey: kReceiveRemoteNote)
+////                    PrintLog("注册通知失败")
+//                }
+//            })
+//        } else {
+//            // Fallback on earlier versions
+//            let type = UIUserNotificationType.alert.rawValue | UIUserNotificationType.badge.rawValue | UIUserNotificationType.sound.rawValue
+//            let set = UIUserNotificationSettings.init(types: UIUserNotificationType(rawValue: type), categories: nil)
+//            UIApplication.shared.registerUserNotificationSettings(set)
+//        }
+//        
+//        _ = NotificationCenter.default.rx.notification(NotificationName.User.LoginSuccess, object: nil)
+//            .subscribe(onNext: { [weak self] _ in
+//                self?.uploadUMToken()
+//            })
     }
 }
 
@@ -221,9 +223,41 @@ extension HCAppDelegate {
     }
 }
 
-extension HCAppDelegate {
+extension HCAppDelegate: WXApiDelegate {
     
     public func registerAuthor() {
-//        UMSocialManager.default()?.setPlaform(.wechatSession, appKey: <#T##String!#>, appSecret: <#T##String!#>, redirectURL: <#T##String!#>)
+        UMSocialManager.default()?.openLog(true)
+        UMSocialManager.default()?.setPlaform(.wechatSession,
+                                              appKey: weixinAppid,
+                                              appSecret: weixinSecret,
+                                              redirectURL: "http://mobile.umeng.com/social")
+    }
+    
+    func onReq(_ req: BaseReq!) {
+        PrintLog("wx onReq \(req)")
+    }
+    
+    func onResp(_ resp: BaseResp!) {
+        
+    }
+}
+
+extension HCAppDelegate {
+    
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+//        let urlString = url.absoluteString
+//
+//        if urlString.contains("wx") {
+//            return WXApi.handleOpen(url, delegate: self)
+//        }
+        
+        let result = UMSocialManager.default()?.handleOpen(url)
+        return result!
+    }
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+//        return WXApi.handleOpen(url, delegate: self)
+//        BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
+        let result = UMSocialManager.default()?.handleOpen(url, sourceApplication: sourceApplication, annotation: annotation)
+        return result!
     }
 }
