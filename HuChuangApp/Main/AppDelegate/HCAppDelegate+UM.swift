@@ -220,3 +220,10 @@ extension HCAppDelegate {
         
     }
 }
+
+extension HCAppDelegate {
+    
+    public func registerAuthor() {
+//        UMSocialManager.default()?.setPlaform(.wechatSession, appKey: <#T##String!#>, appSecret: <#T##String!#>, redirectURL: <#T##String!#>)
+    }
+}

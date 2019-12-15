@@ -16,9 +16,10 @@ pod 'SnapKit', '~> 4.0.0'
 pod 'MJRefresh', '~> 3.1.15.3'
 pod 'Kingfisher', '~> 4.6.1'
 
-pod 'UMCCommon', '~> 2.1.1'
-pod 'UMCPush', '~> 3.2.4'
-pod 'UMCSecurityPlugins', '~> 1.0.6'
-pod 'UMCAnalytics', '~> 6.0.5'
+pod 'UMCCommon'
+pod 'UMCPush'
+pod 'UMCSecurityPlugins'
+pod 'UMCAnalytics'
+pod 'UMCShare/Social/WeChat'
 
 end
