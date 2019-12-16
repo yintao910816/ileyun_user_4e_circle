@@ -54,8 +54,22 @@ class LoginViewModel: BaseViewModel {
             })
             .filter{ $0 != nil }
             .map { $0! }
-            .bind(to: pushBindSubject)
-            .disposed(by: disposeBag)
+            .flatMap { [unowned self] in self.getAuthMemberInfoRequest(socialInfo: $0!) }
+            .subscribe(onNext: { [weak self] data in
+                if data.0.code == RequestCode.unBindPhone.rawValue {
+                    self?.hud.noticeHidden()
+                    self?.pushBindSubject.onNext(data.1)
+                }else if let user = data.0.data{
+                    self?.hud.noticeHidden()
+                    HCHelper.saveLogin(user: user)
+                    self?.popSubject.onNext(Void())
+                }else {
+                    self?.hud.failureHidden("未获取到用户信息")
+                }
+                }, onError: { [weak self] error in
+                    self?.hud.failureHidden(self?.errorMessage(error))
+            })
+            .disposed(by: disposeBag)            
     }
     
     private func sendCode(phone: String) {
@@ -90,24 +104,12 @@ class LoginViewModel: BaseViewModel {
             .disposed(by: disposeBag)
     }
     
-    private func getAuthMemberInfoRequest(socialInfo: UMSocialUserInfoResponse) {
-        HCProvider.request(.getAuthMember(openId: socialInfo.openid))
+    private func getAuthMemberInfoRequest(socialInfo: UMSocialUserInfoResponse) ->Observable<(DataModel<HCUserModel>,UMSocialUserInfoResponse)>
+    {
+        return HCProvider.request(.getAuthMember(openId: socialInfo.openid))
             .map(result: HCUserModel.self)
-            .subscribe(onSuccess: { [weak self] data in
-                if data.code == RequestCode.unBindPhone.rawValue {
-                    self?.hud.noticeHidden()
-                    self?.pushBindSubject.onNext(socialInfo)
-                }else if let user = data.data{
-                    self?.hud.noticeHidden()
-                    HCHelper.saveLogin(user: user)
-                    self?.popSubject.onNext(Void())
-                }else {
-                    self?.hud.failureHidden("未获取到用户信息")
-                }
-            }) { [weak self] error in
-                self?.hud.failureHidden(self?.errorMessage(error))
-            }
-        .disposed(by: disposeBag)
+            .map { ($0, socialInfo) }
+            .asObservable()
     }
 
     private func dealInputError(phone: String) ->Bool {
@@ -190,13 +192,17 @@ class HCBindPhoneViewModel: BaseViewModel {
     private func bindRequest(mobile: String, smsCode: String) {
         HCProvider.request(.bindAuthMember(userInfo: socialUserInfo, mobile: mobile, smsCode: smsCode))
             .map(model: HCUserModel.self)
-            .subscribe(onSuccess: { [weak self] model in
-                self?.hud.noticeHidden()
+            .asObservable()
+            .do(onNext: { HCHelper.saveLogin(user: $0) },
+                onError: { [weak self] in self?.hud.failureHidden(self?.errorMessage($0)) })
+            .flatMap { _ in HCProvider.request(.selectInfo).map(model: HCUserModel.self) }
+            .subscribe(onNext: { [weak self] userInfo in
+                HCHelper.saveLogin(user: userInfo)
                 self?.popSubject.onNext(Void())
-            }) { [weak self] error in
+            }, onError: { [weak self] error in
                 self?.hud.failureHidden(self?.errorMessage(error))
-        }
-        .disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func sendCode(phone: String) {
