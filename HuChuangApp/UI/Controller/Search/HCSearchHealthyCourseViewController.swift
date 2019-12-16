@@ -12,62 +12,52 @@ class HCSearchHealthyCourseViewController: HCSlideItemController {
 
     private var tableView: UITableView!
         
-    private var datasource: [HCSearchDoctorCourseModel] = []
+    private var datasource: [HCSearchCourseItemModel] = []
+
+    public var pushH5CallBack:((String)->())?
 
     override func setupUI() {
-        tableView = UITableView.init(frame: .zero, style: .grouped)
+        tableView = UITableView.init(frame: .zero, style: .plain)
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
-                
-        tableView.snp.makeConstraints { $0.edges.equalTo(UIEdgeInsets.zero) }
         
-        tableView.register(UINib.init(nibName: "HCSearchDoctorCourseCell", bundle: Bundle.main),
-                           forCellReuseIdentifier: HCSearchDoctorCourseCell_identifier)
-
-        tableView.register(HCSearchFooterView.self, forHeaderFooterViewReuseIdentifier: HCSearchFooterView_identifier)
-
-        tableView.reloadData()
+        tableView.register(HCClassRoomListCell.self, forCellReuseIdentifier: HCClassRoomListCell_identifier)
     }
-
-    public func setData(listData: [HCSearchDoctorCourseModel]) {
-        datasource = listData
+    
+    override func reloadData(data: Any?) {
+        if let dataModels = data as? [HCSearchCourseItemModel] {
+            datasource.removeAll()
+            datasource.append(contentsOf: dataModels)
+            tableView.reloadData()
+        }
+    }
+    
+    override func bind<T>(viewModel: RefreshVM<T>, canRefresh: Bool, canLoadMore: Bool, isAddNoMoreContent: Bool) {
+        
+        tableView.prepare(viewModel, showFooter: canLoadMore, showHeader: canRefresh, isAddNoMoreContent: isAddNoMoreContent)
     }
 }
 
 extension HCSearchHealthyCourseViewController: UITableViewDelegate, UITableViewDataSource {
-  
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return datasource.count
     }
-       
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footer = (tableView.dequeueReusableHeaderFooterView(withIdentifier: HCSearchFooterView_identifier) as! HCSearchFooterView)
-        footer.contentText = "更多课程 >"
-        return footer
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 52
-    }
-        
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return nil
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.01
-    }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return datasource[indexPath.row].viewHeight
+        return HCClassRoomListCell_height
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = (tableView.dequeueReusableCell(withIdentifier: HCClassRoomListCell_identifier) as! HCClassRoomListCell)
+        cell.searchCourseModel = datasource[indexPath.row]
+        return cell
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = (tableView.dequeueReusableCell(withIdentifier: HCSearchDoctorCourseCell_identifier) as! HCSearchDoctorCourseCell)
-        cell.model = datasource[indexPath.row]
-        return cell
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

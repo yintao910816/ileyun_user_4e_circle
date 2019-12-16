@@ -347,16 +347,21 @@ extension API {
             params["oauthType"] = "weixin"
         case .search(let pageNum, let pageSize, let searchModule, let searchName):
             if searchName.count > 0 {
-//                params["pageNum"] = pageNum
-//                params["pageSize"] = pageSize
-                params["searchModule"] = HCsearchModule.all.rawValue
-                params["searchName"] = searchName
+                switch searchModule {
+                case .all:
+                    params["searchName"] = searchName
+                default:
+                    params["searchName"] = searchName
+                    params["searchModule"] = searchModule.rawValue
+                }
             }else {
-                params["pageNum"] = pageNum
-                params["pageSize"] = pageSize
                 params["searchModule"] = searchModule.rawValue
-                params["searchName"] = ""
+//                params["searchName"] = ""
             }
+            
+            params["pageNum"] = pageNum
+            params["pageSize"] = pageSize
+
         default:
             return nil
         }

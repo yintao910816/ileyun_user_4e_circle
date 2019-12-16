@@ -15,6 +15,8 @@ class HCSearchViewController: BaseViewController {
     private var searchRecordView: TYSearchRecordView!
     private var slideCtrl: TYSlideMenuController!
     
+    private var pageIds: [HCsearchModule] = [.all, .doctor, .course, .article]
+    
     private var viewModel: HCSearchViewModel!
 
     override func viewWillAppear(_ animated: Bool) {
@@ -28,30 +30,27 @@ class HCSearchViewController: BaseViewController {
         searchBar.coverButtonEnable = false
         searchBar.searchPlaceholder = "搜索症状/疾病/药品/医生/科室"
         searchBar.rightItemTitle = "取消"
-        searchBar.leftItemIcon = "navigationButtonReturn"
+        searchBar.leftItemIcon = "navigationButtonReturnClick"
         searchBar.inputBackGroundColor = RGB(240, 240, 240)
         searchBar.hasBottomLine = true
         view.addSubview(searchBar)
         
         searchBar.leftItemTapBack = { [weak self] in self?.navigationController?.popViewController(animated: true) }
         
-        searchBar.rightItemTapBack = { [weak self] in
-            self?.searchRecordView.isHidden = false
-        }
-        
-        searchBar.beginSearch = { [weak self] content in
-            self?.searchRecordView.isHidden = true
-        }
+//        searchBar.rightItemTapBack = { [weak self] in
+//            self?.searchRecordView.isHidden = true
+//        }
+//
+//        searchBar.beginSearch = { [weak self] content in
+//            self?.searchRecordView.isHidden = false
+//        }
         
         slideCtrl = TYSlideMenuController()
         addChild(slideCtrl)
         view.addSubview(slideCtrl.view)
-        
-        slideCtrl.pageScroll = { [weak self] page in
-
-        }
-        
+                
         searchRecordView = TYSearchRecordView.init(frame: .init(x: 0, y: searchBar.frame.maxY, width: view.width, height: searchBar.frame.maxY))
+        searchRecordView.isHidden = true
         searchRecordView.recordDatasource = TYSearchSectionModel.createTest()
         view.addSubview(searchRecordView)
     }
@@ -59,12 +58,60 @@ class HCSearchViewController: BaseViewController {
     override func rxBind() {
         viewModel = HCSearchViewModel()
         
-        viewModel.slideDatasource.asDriver()
-            .drive(onNext: { [weak self] data in
-                self?.slideCtrl.menuItems = data.0
-                self?.slideCtrl.menuCtrls = data.1
+        let allCtrl = HCSearchAllViewController()
+        allCtrl.pageIdx = 0
+        allCtrl.view.backgroundColor = .white
+        allCtrl.bind(viewModel: viewModel, canRefresh: true, canLoadMore: false, isAddNoMoreContent: false)
+        allCtrl.pushH5CallBack = {
+            HCHelper.pushH5(href: $0)
+        }
+        
+        let doctorCtrl = HCSearchRecommendDoctorViewController()
+        doctorCtrl.pageIdx = 1
+        doctorCtrl.view.backgroundColor = .white
+        doctorCtrl.bind(viewModel: viewModel, canRefresh: true, canLoadMore: true, isAddNoMoreContent: false)
+        //        allCtrl.didSelectedCallBack = {
+        //            HCHelper.pushH5(href: $0.hrefUrl)
+        //        }
+        
+        
+        let classCtrl = HCSearchHealthyCourseViewController()
+        classCtrl.pageIdx = 2
+        classCtrl.view.backgroundColor = .white
+        classCtrl.bind(viewModel: viewModel, canRefresh: true, canLoadMore: true, isAddNoMoreContent: false)
+        //        allCtrl.didSelectedCallBack = {
+        //            HCHelper.pushH5(href: $0.hrefUrl)
+        //        }
+        
+        
+        let popularScienceCtrl = HCSearchPopularScienceViewController()
+        popularScienceCtrl.pageIdx = 3
+        popularScienceCtrl.view.backgroundColor = .white
+        popularScienceCtrl.bind(viewModel: viewModel, canRefresh: true, canLoadMore: true, isAddNoMoreContent: false)
+        //        allCtrl.didSelectedCallBack = {
+        //            HCHelper.pushH5(href: $0.hrefUrl)
+        //        }
+        popularScienceCtrl.pushH5CallBack = {
+            HCHelper.pushH5(href: $0)
+        }
+
+        slideCtrl.menuItems = TYSlideItemModel.creatSimple(for: ["全部", "医生", "课程", "文章"])
+        slideCtrl.menuCtrls = [allCtrl, doctorCtrl, classCtrl, popularScienceCtrl]
+
+        
+        viewModel.pageListData
+            .subscribe(onNext: { [weak self] data in
+                guard let strongSelf = self, let page = strongSelf.pageIds.lastIndex(of: data.1) else { return }
+                strongSelf.slideCtrl.reloadList(listMode: data.0, page: page)
             })
-            .disposed(by: disposeBag)        
+            .disposed(by: disposeBag)
+        
+        slideCtrl.pageScroll = { [weak self] page in
+            guard let strongSelf = self else { return }
+            strongSelf.viewModel.requestSearchListSubject.onNext(strongSelf.pageIds[page])
+        }
+
+        viewModel.requestSearchListSubject.onNext(.all)
     }
     
     override func viewDidLayoutSubviews() {

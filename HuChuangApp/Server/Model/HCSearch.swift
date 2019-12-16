@@ -8,67 +8,92 @@
 
 import Foundation
 
-class HCSearchDoctorCourseModel: HJModel {
-
-    var courseType: String = "女性内分泌健康课程"
-    var couseBrief: String = "ask 法律上看到飞机离开房间沙发客来访即可电视剧阿富汗空军乐山大佛看可是大家安抚旅客被打死了"
-    var doctorName: String = "陈医师"
-    var doctorJob: String = "主任医生"
-        
-    /// 测试使用
-    public class func creatTestDatas() ->[HCSearchDoctorCourseModel] {
-        return [HCSearchDoctorCourseModel()]
-    }
-}
-
-extension HCSearchDoctorCourseModel: HCDataSourceAdapt {
-    
-    var viewHeight: CGFloat {
-        var height: CGFloat = 15 + 20 + 12
-        // couseBrief
-        height += self.couseBrief.getTextHeigh(fontSize: 12, width: UIScreen.main.bounds.width - 20, fontName: FontName.PingFRegular.rawValue)
-        height += (17 + 25 + 15)
-        return height
-    }
-}
-
-class HCPopularScienceModel: HJModel {
-    var title: String = "生生世世生生世世"
-    var praise: String = "180个赞"
-    
-    public class func createTestData() ->[HCPopularScienceModel] {
-        return [HCPopularScienceModel(), HCPopularScienceModel()]
-    }
-}
-
-extension HCPopularScienceModel: HCDataSourceAdapt {
-    var viewHeight: CGFloat { return 75 }
-}
-
-class HCSearchDataModel: HJModel {
+class HCSearchDataModel: HCBaseSearchItemModel {
     var doctor: [HCSearchDoctorItemModel] = []
     var article: [HCSearchArticleItemModel] = []
     var course: [HCSearchCourseItemModel] = []
 }
 
-class HCSearchDoctorItemModel: HJModel {
+class HCSearchDoctorModel: HCBaseSearchItemModel {
+    var records: [HCSearchDoctorItemModel] = []
+}
+
+class HCSearchDoctorItemModel : HCBaseSearchItemModel {
+    var attention: String = ""
+    var brief: String = ""
+    var consultNumber: Int = 0
+    var consultReplyNumber: Int = 0
+    var headPath: String = ""
+    var memberId: Int = 0
+    var practitionerNumber: Int = 0
+    var practitionerYear: String = ""
+    var price: String = ""
+    var reviewNum: Int = 0
+    var skilledIn: String = ""
+    var technicalPost: String = ""
+    var unitId: Int = 0
+    var unitName: String = ""
     var userId: Int = 0
     var userName: String = ""
-    var headPath: String = ""
-    var technicalPost: String = ""
-    var skilledIn: String = ""
-    var price: String = ""
-    var brief: String = ""
+
+    /// 展示价格
+    lazy var priceAttText: NSAttributedString = {
+        return "¥\(self.price)".attributed(NSMakeRange(0, 1), HC_MAIN_COLOR, .font(fontSize: 10, fontName: .PingFSemibold))
+    }()
 }
 
-class HCSearchArticleItemModel: HJModel {
-    var id: Int = 0
-    var title: String = ""
+class HCSearchArticleModel: HCBaseSearchItemModel {
+    var records: [HCSearchArticleItemModel] = []
+}
+
+class HCSearchArticleItemModel: HCBaseSearchItemModel {
+    var author: String = ""
+    var bak: String = ""
+    var channelId: Int = 0
+    var code: String = ""
+    var content: String = ""
+    var createDate: String = ""
+    var creates: String = ""
+    var del: Bool = false
+    var hrefUrl: String = ""
+    var id: Int = 0;
     var info: String = ""
-    var store: Int = 0
+    var linkTypes: Int = 0
+    var linkUrls: String = ""
+    var memberId: Int = 0
+    var modifyDate: String = ""
+    var modifys: String = ""
+    var picPath: String = ""
+    var publishDate: String = ""
     var readNumber: Int = 0
+    var recom: Int = 0
+    var release: Bool = true
+    var seoDescription: String = ""
+    var seoKeywords: String = ""
+    var shopId: Int = 0
+    var sort: Int = 0
+    var store: Int = 0
+    var title: String = ""
+    var top: Bool = true
+    var unitId: Int = 0
+    
+    lazy var readCountText: String = {
+        return "\(self.readNumber) 阅读"
+    }()
+    
+    lazy var collectCountText: String = {
+        return "\(self.store) 收藏"
+    }()
 }
 
-class HCSearchCourseItemModel: HJModel {
+class HCSearchCourseModel: HCBaseSearchItemModel {
+    var records: [HCBaseSearchItemModel] = []
+}
+
+class HCSearchCourseItemModel: HCBaseSearchItemModel {
+    
+}
+
+class HCBaseSearchItemModel: HJModel {
     
 }

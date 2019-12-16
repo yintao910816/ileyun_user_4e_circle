@@ -75,7 +75,7 @@ class TYSlideMenuController: UIViewController {
         }
     }
 
-    public func reloadList(listMode: [HCArticleItemModel], page: Int) {
+    public func reloadList(listMode: [Any], page: Int) {
         if menuCtrls.count > page {
             menuCtrls[page].reloadData(data: listMode)
         }

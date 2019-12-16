@@ -11,60 +11,16 @@ import UIKit
 public let HCConsultListCell_idetifier = "HCConsultListCell"
 public let HCConsultListCell_Height: CGFloat = 160
 
-class HCConsultListCell: UITableViewCell {
+class HCConsultListCell: HCBaseDoctorCell {
     
-    private var coverImgV: UIImageView!
-    private var titleLabel: UILabel!
-    private var subTitleLabel: UILabel!
-    private var infoLabel: UILabel!
-    private var priceLabel: UILabel!
     private var countLabel: UILabel!
     private var consultButton:UIButton!
-    private var sepLine: UIView!
     
     public var consultCallBack: ((HCDoctorItemModel)->())?
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        setupUI()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-        setupUI()
-    }
-
-    private func setupUI() {
+    override func setupUI() {
         selectionStyle = .none
         
-        coverImgV = UIImageView()
-        coverImgV.backgroundColor = RGB(245, 245, 245)
-        coverImgV.contentMode = .scaleAspectFill
-        coverImgV.clipsToBounds = true
-        
-        titleLabel = UILabel()
-        titleLabel.textColor = RGB(51, 51, 51)
-        titleLabel.font = .font(fontSize: 15, fontName: .PingFSemibold)
-        
-        subTitleLabel = UILabel()
-        subTitleLabel.textColor = RGB(102, 102, 102)
-        subTitleLabel.font = .font(fontSize: 13, fontName: .PingFRegular)
-
-        infoLabel = UILabel()
-        infoLabel.textColor = RGB(153, 153, 153)
-        infoLabel.numberOfLines = 2
-        infoLabel.font = .font(fontSize: 11, fontName: .PingFSemibold)
-
-        priceLabel = UILabel()
-        priceLabel.textColor = HC_MAIN_COLOR
-        priceLabel.font = .font(fontSize: 18, fontName: .PingFSemibold)
-
         countLabel = UILabel()
         countLabel.textColor = RGB(153, 153, 153)
         countLabel.font = .font(fontSize: 10, fontName: .PingFRegular)
@@ -77,18 +33,9 @@ class HCConsultListCell: UITableViewCell {
         consultButton.titleLabel?.font = .font(fontSize: 12, fontName: .PingFRegular)
         consultButton.setTitle("图文咨询", for: .normal)
         consultButton.addTarget(self, action: #selector(consultAction), for: .touchUpInside)
-        
-        sepLine = UIView()
-        sepLine.backgroundColor = RGB(249, 249, 249)
-        
-        contentView.addSubview(coverImgV)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(subTitleLabel)
-        contentView.addSubview(infoLabel)
-        contentView.addSubview(priceLabel)
+                
         contentView.addSubview(countLabel)
         contentView.addSubview(consultButton)
-        contentView.addSubview(sepLine)
 
         coverImgV.snp.makeConstraints {
             $0.left.top.equalTo(15)
@@ -127,34 +74,23 @@ class HCConsultListCell: UITableViewCell {
         countLabel.snp.makeConstraints {
             $0.left.equalTo(priceLabel.snp.right).offset(14)
             $0.centerY.equalTo(priceLabel.snp.centerY)
-        }
-        
-        sepLine.snp.makeConstraints {
-            $0.left.equalTo(coverImgV.snp.left)
-            $0.right.equalTo(titleLabel.snp.right)
-            $0.bottom.equalTo(0)
-            $0.height.equalTo(1)
-        }
+        }        
     }
     
     @objc private func consultAction() {
-        consultCallBack?(model)
+        consultCallBack?((model as! HCDoctorItemModel))
     }
     
-    var model: HCDoctorItemModel! {
+    override var model: Any! {
         didSet {
-            coverImgV.setImage(model.headPath)
-            titleLabel.text = model.titleText
-            subTitleLabel.text = "妇产科·北京协和医院"
-            infoLabel.text = "擅长：不孕不育不孕不育不孕不育不孕不育不孕不育不孕不育不孕不育"
-            priceLabel.attributedText = model.priceAttText
-            countLabel.text = model.askNumText
+            let selfModel = (model as! HCDoctorItemModel)
+            
+            coverImgV.setImage(selfModel.headPath)
+            titleLabel.text = selfModel.titleText
+            subTitleLabel.text = "\(selfModel.technicalPost)·\(selfModel.unitName)"
+            infoLabel.text = "擅长：\(selfModel.skilledIn)"
+            priceLabel.attributedText = selfModel.priceAttText
+            countLabel.text = selfModel.askNumText
         }
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-
-    }
+    }        
 }

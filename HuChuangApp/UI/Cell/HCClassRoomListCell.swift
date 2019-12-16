@@ -101,4 +101,22 @@ class HCClassRoomListCell: UITableViewCell {
             collectCountLabel.text = model.collectCountText
         }
     }
+    
+    var searchArticleModel: HCSearchArticleItemModel! {
+        didSet {
+            imgV.setImage(searchArticleModel.picPath)
+            titleLabel.text = searchArticleModel.title
+            readCountLabel.text = searchArticleModel.readCountText
+            collectCountLabel.text = searchArticleModel.collectCountText
+        }
+    }
+    
+    var searchCourseModel: HCSearchCourseItemModel! {
+        didSet {
+//            imgV.setImage(searchModel.picPath)
+//            titleLabel.text = searchModel.title
+//            readCountLabel.text = searchModel.readCountText
+//            collectCountLabel.text = searchModel.collectCountText
+        }
+    }
 }

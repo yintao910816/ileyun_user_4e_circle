@@ -14,34 +14,62 @@ class HCSearchAllViewController: HCSlideItemController {
 
     private var tableView: UITableView!
         
-    private var datasource: [[HCDataSourceAdapt]] = []
+    private var datasource: [[HCBaseSearchItemModel]] = []
+    private var titleDatas: [String] = []
     private var footerTitles: [String] = []
+    
+    public var pushH5CallBack:((String)->())?
 
-    override func setupUI() {        
+    override func setupUI() {
         tableView = UITableView.init(frame: .zero, style: .grouped)
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
-                
+        
+        tableView.estimatedRowHeight = 0
+        tableView.estimatedSectionFooterHeight = 0
+        tableView.estimatedSectionHeaderHeight = 0
+        
+        tableView.tableFooterView = UIView()
+        tableView.sectionFooterHeight = 0.01
+        tableView.tableHeaderView = UIView()
+        tableView.sectionHeaderHeight = 0.01
+
+        setContentInsetAdjustmentBehaviorNever(contentView: tableView)
+
         tableView.snp.makeConstraints { $0.edges.equalTo(UIEdgeInsets.zero) }
         
-        tableView.register(UINib.init(nibName: "HCSearchDoctorCourseCell", bundle: Bundle.main),
-                           forCellReuseIdentifier: HCSearchDoctorCourseCell_identifier)
-        tableView.register(HCConsultListCell.self, forCellReuseIdentifier: HCConsultListCell_idetifier)
-        tableView.register(UINib.init(nibName: "HCPopularScienceCell", bundle: Bundle.main),
-                           forCellReuseIdentifier: HCPopularScienceCell_identifier)
-
-        tableView.register(HCSearchFooterView.self, forHeaderFooterViewReuseIdentifier: HCSearchFooterView_identifier)
-        tableView.register(HCPopularScienceHeaderView.self, forHeaderFooterViewReuseIdentifier: HCPopularScienceHeaderView_identifier)
-
+        tableView.register(HCSearchDoctorCell.self, forCellReuseIdentifier: HCSearchDoctorCell_idetifier)
+        tableView.register(HCClassRoomListCell.self, forCellReuseIdentifier: HCClassRoomListCell_identifier)
+    }
+            
+    override func reloadData(data: Any?) {
+        guard let models = data as? [HCSearchDataModel], let model = models.first else { return }
+        datasource.removeAll()
+        
+        if model.doctor.count > 0 {
+            datasource.append(model.doctor)
+            titleDatas.append("医生")
+        }
+        
+        if model.course.count > 0 {
+            datasource.append(model.course)
+            titleDatas.append("课堂")
+        }
+        
+        if model.article.count > 0 {
+            datasource.append(model.article)
+            titleDatas.append("文章")
+        }
+        
         tableView.reloadData()
     }
+
+    override func bind<T>(viewModel: RefreshVM<T>, canRefresh: Bool, canLoadMore: Bool, isAddNoMoreContent: Bool) {
         
-    public func setData(listData: [[HCDataSourceAdapt]], footerTitles: [String]) {
-        datasource = listData
-        self.footerTitles = footerTitles
+        tableView.prepare(viewModel, showFooter: canLoadMore, showHeader: canRefresh, isAddNoMoreContent: isAddNoMoreContent)
     }
 }
 
@@ -54,61 +82,55 @@ extension HCSearchAllViewController: UITableViewDelegate, UITableViewDataSource 
     func numberOfSections(in tableView: UITableView) -> Int {
         return datasource.count
     }
-   
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footer = (tableView.dequeueReusableHeaderFooterView(withIdentifier: HCSearchFooterView_identifier) as! HCSearchFooterView)
-        footer.contentText = footerTitles[section]
-        return footer
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 52
-    }
-    
+           
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 1 {
-            let line = UIView()
-            line.backgroundColor = RGB(245, 245, 245)
-            return line
+        let header = HCSearchHeaderView.init(frame: .init(x: 0, y: 0, width: tableView.width, height: HCSearchHeaderView_small_height))
+        header.showLine = section != 0
+        header.titleText = titleDatas[section]
+        header.clickedMoreCallBack = {
+            
         }
-        
-        if section == 2 {
-            let header = (tableView.dequeueReusableHeaderFooterView(withIdentifier: HCPopularScienceHeaderView_identifier) as! HCPopularScienceHeaderView)
-            header.titleText = "科普文章"
-            return header
-        }
-        
-        return nil
+        return header
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 1 { return 8 }
-        
-        if section == 2 { return HCPopularScienceHeaderView.viewHeight }
-
-        return 0.01
+        return section == 0 ? HCSearchHeaderView_small_height : HCSearchHeaderView_height
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return datasource[indexPath.section][indexPath.row].viewHeight
-        return HCConsultListCell_Height
+        let model = datasource[indexPath.section][indexPath.row]
+        if model.isKind(of: HCSearchDoctorItemModel.self) {
+            return HCSearchDoctorCell_Height
+        }
+        return HCClassRoomListCell_height
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            let cell = (tableView.dequeueReusableCell(withIdentifier: HCSearchDoctorCourseCell_identifier) as! HCSearchDoctorCourseCell)
-            cell.model = (datasource[0][indexPath.row] as! HCSearchDoctorCourseModel)
+        let model = datasource[indexPath.section][indexPath.row]
+        
+        if model.isKind(of: HCSearchDoctorItemModel.self) {
+            let cell = (tableView.dequeueReusableCell(withIdentifier: HCSearchDoctorCell_idetifier) as! HCSearchDoctorCell)
+            cell.model = model
             return cell
         }
-        
-        if indexPath.section == 1 {
-            let cell = (tableView.dequeueReusableCell(withIdentifier: HCConsultListCell_idetifier) as! HCConsultListCell)
-            cell.model = (datasource[1][indexPath.row] as! HCDoctorItemModel)
-            return cell
+
+        let cell = (tableView.dequeueReusableCell(withIdentifier: HCClassRoomListCell_identifier) as! HCClassRoomListCell)
+        if model.isKind(of: HCSearchArticleItemModel.self) {
+            cell.searchArticleModel = (model as! HCSearchArticleItemModel)
         }
-        
-        let cell = (tableView.dequeueReusableCell(withIdentifier: HCPopularScienceCell_identifier) as! HCPopularScienceCell)
-        cell.model = (datasource[2][indexPath.row] as! HCPopularScienceModel)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let model = datasource[indexPath.section][indexPath.row]
+        if model.isKind(of: HCSearchDoctorItemModel.self) {
+
+        }else if model.isKind(of: HCSearchArticleItemModel.self) {
+            pushH5CallBack?((model as! HCSearchArticleItemModel).linkUrls)
+        }else if model.isKind(of: HCSearchArticleItemModel.self) {
+
+        }
     }
 }

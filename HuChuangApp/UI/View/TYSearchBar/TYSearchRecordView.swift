@@ -17,10 +17,13 @@ class TYSearchRecordView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        backgroundColor = .white
+        
         let layout = TYSearchRecordLayout()
         layout.layoutDelegate = self
         
         collectionView = UICollectionView.init(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
         collectionView.dataSource = self
         collectionView.delegate = self
         addSubview(collectionView)
