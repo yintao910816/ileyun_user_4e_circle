@@ -44,3 +44,31 @@ class HCPopularScienceModel: HJModel {
 extension HCPopularScienceModel: HCDataSourceAdapt {
     var viewHeight: CGFloat { return 75 }
 }
+
+class HCSearchDataModel: HJModel {
+    var doctor: [HCSearchDoctorItemModel] = []
+    var article: [HCSearchArticleItemModel] = []
+    var course: [HCSearchCourseItemModel] = []
+}
+
+class HCSearchDoctorItemModel: HJModel {
+    var userId: Int = 0
+    var userName: String = ""
+    var headPath: String = ""
+    var technicalPost: String = ""
+    var skilledIn: String = ""
+    var price: String = ""
+    var brief: String = ""
+}
+
+class HCSearchArticleItemModel: HJModel {
+    var id: Int = 0
+    var title: String = ""
+    var info: String = ""
+    var store: Int = 0
+    var readNumber: Int = 0
+}
+
+class HCSearchCourseItemModel: HJModel {
+    
+}

@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MineHeaderView" customModule="HuChuangApp" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MineHeaderView" customModule="爱乐孕" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="Lr0-5T-znd"/>
                 <outlet property="cornerBgView" destination="dDY-um-eWZ" id="nMa-GD-rqz"/>
                 <outlet property="eidtUserInfoOutlet" destination="CVY-qF-vfa" id="aDf-RJ-tGK"/>
                 <outlet property="nickNameOutlet" destination="93l-iK-VRw" id="A1d-IU-Kcv"/>
                 <outlet property="shadowView" destination="qVN-lY-fTI" id="fd5-rY-RSi"/>
+                <outlet property="statuesOutlet" destination="gdQ-JJ-GOc" id="fDf-3x-IxS"/>
                 <outlet property="titleTopCns" destination="8ra-qP-XvK" id="EFy-Nn-m8H"/>
                 <outlet property="userIconOutlet" destination="Vh6-Ls-td3" id="3bc-5g-KNl"/>
             </connections>
@@ -35,7 +36,7 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" tag="201" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rpb-EM-bak" customClass="TYClickedButton" customModule="HuChuangApp" customModuleProvider="target">
+                                <button opaque="NO" tag="201" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rpb-EM-bak" customClass="TYClickedButton" customModule="爱乐孕" customModuleProvider="target">
                                     <rect key="frame" x="340" y="19.5" width="20" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="Rpb-EM-bak" secondAttribute="height" multiplier="1:1" id="kJf-Xa-XlT"/>
@@ -46,7 +47,7 @@
                                         <action selector="actions:" destination="-1" eventType="touchUpInside" id="Gsw-NL-4th"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" tag="200" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xuI-l0-qkS" customClass="TYClickedButton" customModule="HuChuangApp" customModuleProvider="target">
+                                <button opaque="NO" tag="200" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xuI-l0-qkS" customClass="TYClickedButton" customModule="爱乐孕" customModuleProvider="target">
                                     <rect key="frame" x="310" y="19.5" width="20" height="20"/>
                                     <state key="normal" image="shezhi"/>
                                     <connections>
@@ -87,7 +88,7 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVY-qF-vfa" customClass="TYClickedButton" customModule="HuChuangApp" customModuleProvider="target">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVY-qF-vfa" customClass="TYClickedButton" customModule="爱乐孕" customModuleProvider="target">
                                     <rect key="frame" x="349" y="84" width="11" height="22"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" image="arrow_white_right"/>
@@ -124,7 +125,7 @@
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dDY-um-eWZ">
                             <rect key="frame" x="15" y="177" width="345" height="100"/>
                             <subviews>
-                                <button opaque="NO" tag="202" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQ2-V0-fZt" customClass="TYButton" customModule="HuChuangApp" customModuleProvider="target">
+                                <button opaque="NO" tag="202" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQ2-V0-fZt" customClass="TYButton" customModule="爱乐孕" customModuleProvider="target">
                                     <rect key="frame" x="5" y="12.5" width="101.5" height="75"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
@@ -138,7 +139,7 @@
                                         <action selector="actions:" destination="-1" eventType="touchUpInside" id="r5K-Tw-f2Q"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" tag="204" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TOV-hJ-YLZ" customClass="TYButton" customModule="HuChuangApp" customModuleProvider="target">
+                                <button opaque="NO" tag="204" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TOV-hJ-YLZ" customClass="TYButton" customModule="爱乐孕" customModuleProvider="target">
                                     <rect key="frame" x="238.5" y="12.5" width="101.5" height="75"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="14"/>
@@ -149,7 +150,7 @@
                                         <action selector="actions:" destination="-1" eventType="touchUpInside" id="PXz-V3-Oxy"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" tag="203" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4d-DL-hkA" customClass="TYButton" customModule="HuChuangApp" customModuleProvider="target">
+                                <button opaque="NO" tag="203" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4d-DL-hkA" customClass="TYButton" customModule="爱乐孕" customModuleProvider="target">
                                     <rect key="frame" x="121.5" y="12.5" width="102" height="75"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="14"/>
@@ -216,7 +217,7 @@
         <image name="mine_quanzi" width="25" height="25"/>
         <image name="mine_wenzen" width="25" height="25"/>
         <image name="mine_yuyue" width="25" height="25"/>
-        <image name="nav_notice" width="31" height="35"/>
+        <image name="nav_notice" width="16" height="14"/>
         <image name="shezhi" width="33" height="32"/>
     </resources>
 </document>

@@ -19,6 +19,7 @@ class MineHeaderView: UIView {
     @IBOutlet weak var cornerBgView: UIView!
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var eidtUserInfoOutlet: TYButton!
+    @IBOutlet weak var statuesOutlet: UILabel!
     
     @IBOutlet weak var titleTopCns: NSLayoutConstraint!
     @IBOutlet var contentView: UIView!
@@ -84,9 +85,10 @@ class MineHeaderView: UIView {
             .bind(to: gotoEditUserInfo)
             .disposed(by: disposeBag)
         
-        userModel.subscribe(onNext: { [unowned self] user in
-            self.userIconOutlet.setImage(user.headPath, .userIcon)
-            self.nickNameOutlet.text = user.name
+        userModel.subscribe(onNext: { [weak self] user in
+            self?.userIconOutlet.setImage(user.headPath, .userIcon)
+            self?.nickNameOutlet.text = user.name
+            self?.statuesOutlet.text = "人生阶段：\(user.pregnantTypeName)"
         })
             .disposed(by: disposeBag)
     }

@@ -411,6 +411,7 @@
 		C44159F6234616F00011B987 /* HCSearchHealthyCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44159F4234616F00011B987 /* HCSearchHealthyCourseViewController.swift */; };
 		C4481E2422154D66007F4B0C /* BaseWKWebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4481E2322154D66007F4B0C /* BaseWKWebViewViewController.swift */; };
 		C449FA5B2298021D00B7803E /* AppAbout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C449FA5A2298021D00B7803E /* AppAbout.swift */; };
+		C44C8B2F23A72FC4009E2226 /* HCBindPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44C8B2E23A72FC4009E2226 /* HCBindPhoneViewController.swift */; };
 		C454C01B234E0005005CBC0B /* TYSearchRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C454C01A234E0005005CBC0B /* TYSearchRecordView.swift */; };
 		C454C01D234E007B005CBC0B /* TYSearchRecordLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C454C01C234E007B005CBC0B /* TYSearchRecordLayout.swift */; };
 		C454C01F234E00A8005CBC0B /* TYSearchRecordData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C454C01E234E00A8005CBC0B /* TYSearchRecordData.swift */; };
@@ -1137,6 +1138,7 @@
 		C44159F4234616F00011B987 /* HCSearchHealthyCourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCSearchHealthyCourseViewController.swift; sourceTree = "<group>"; };
 		C4481E2322154D66007F4B0C /* BaseWKWebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWKWebViewViewController.swift; sourceTree = "<group>"; };
 		C449FA5A2298021D00B7803E /* AppAbout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAbout.swift; sourceTree = "<group>"; };
+		C44C8B2E23A72FC4009E2226 /* HCBindPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCBindPhoneViewController.swift; sourceTree = "<group>"; };
 		C454C01A234E0005005CBC0B /* TYSearchRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSearchRecordView.swift; sourceTree = "<group>"; };
 		C454C01C234E007B005CBC0B /* TYSearchRecordLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSearchRecordLayout.swift; sourceTree = "<group>"; };
 		C454C01E234E00A8005CBC0B /* TYSearchRecordData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSearchRecordData.swift; sourceTree = "<group>"; };
@@ -2492,6 +2494,7 @@
 			isa = PBXGroup;
 			children = (
 				C421336522058F97006C10C4 /* HCLoginViewController.swift */,
+				C44C8B2E23A72FC4009E2226 /* HCBindPhoneViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -3273,6 +3276,7 @@
 				B816EA8D221DABF400F024D5 /* ZXAztecState.m in Sources */,
 				B816EA9B221DABF400F024D5 /* ZXQRCodeMatrixUtil.m in Sources */,
 				B816EA98221DABF400F024D5 /* ZXQRCodeMaskUtil.m in Sources */,
+				C44C8B2F23A72FC4009E2226 /* HCBindPhoneViewController.swift in Sources */,
 				B816EAFC221DABF400F024D5 /* ZXEAN8Reader.m in Sources */,
 				B816EA74221DABF400F024D5 /* LBXScanViewController.m in Sources */,
 				C421333F220586D4006C10C4 /* HCConsultViewController.swift in Sources */,

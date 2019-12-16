@@ -11,36 +11,49 @@ import HandyJSON
 
 class HCUserModel: HJModel {
     
+    var uid: String = ""
     var account: String = ""
-    var ip: String = ""
-    var skin: String = ""
-    var status: String = ""
-    var modifyDate: String = ""
+    var name: String = ""
+    var realName: String = ""
+    var email: String = ""
     var lastLogin: String = ""
+    var ip: String = ""
+    var status: Bool = true
+    var bak: String = ""
+    var skin: String = ""
+    var numbers: String = ""
+    var createDate: String = ""
+    var modifyDate: String = ""
     var creates: String = ""
     var modifys: String = ""
-    var bak: String = ""
+    var unitId: String = ""
+    var sex: Int = 0
+    var age: String = ""
     var birthday: String = ""
-    var sex: Int = 1
+    var token: String = ""
+    var headPath: String = ""
+    var environment: String = ""
     var synopsis: String = ""
     var bindDate: String = ""
     var mobileInfo: String = ""
     var unitName: String = ""
-    var numbers: String = ""
-    var identityCard: String = ""
-    var unitId: String = ""
-    var name: String = ""
-    var enable: String = ""
-    var hisNo: String = ""
     var visitCard: String = ""
-    var uid: String = ""
-    var token: String = ""
-    var email: String = ""
-    var environment: String = ""
-    var age: String = ""
-    var createDate: String = ""
-    var headPath: String = ""
-    
+    var identityCard: String = ""
+    var hisNo: String = ""
+    var medicalRecordNo: String = ""
+    var medicalRecordType: String = ""
+    var medicalRecordName: String = ""
+    var certificateType: String = ""
+    var mobileView: String = ""
+    var black: String = ""
+    var senior: String = ""
+    var pregnantTypeId: Int = 0
+    /// 备孕状态
+    var pregnantTypeName: String = ""
+    var enable: Bool = false
+    var bind: Bool = false
+    var soldier: Bool = false
+
     var sexText: String {
         get { return sex == 1 ? "男" : "女" }
     }

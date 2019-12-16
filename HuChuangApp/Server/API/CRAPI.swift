@@ -68,6 +68,20 @@ enum H5Type: String {
     case noticeAndMessage = "noticeAndMessage"
 }
 
+/// 搜索的内容类型
+/**
+ 1，searchModule = doctor 为 医生模块，
+ 2，searchModule = course 为课程，
+ 3，searchModule = article 为文章）
+ 4，searchModule 等于 空 为 全部
+ */
+enum HCsearchModule: String {
+    case doctor = "doctor"
+    case course = "course"
+    case article = "article"
+    case all = ""
+}
+
 //MARK:
 //MARK: 接口定义
 enum API{
@@ -78,6 +92,8 @@ enum API{
     case validateCode(mobile: String)
     /// 登录
     case login(mobile: String, smsCode: String)
+    /// 绑定微信
+    case bindAuthMember(userInfo: UMSocialUserInfoResponse, mobile: String, smsCode: String)
     /// 获取用户信息
     case selectInfo
     /// 修改用户信息
@@ -128,6 +144,10 @@ enum API{
     case getLast2This2NextWeekInfo
     /// 获取月经周期基础数据
     case getMenstruationBaseInfo
+    /// 微信授权登录---获取绑定信息
+    case getAuthMember(openId: String)
+    /// 搜索
+    case search(pageNum: Int, pageSize: Int, searchModule: HCsearchModule, searchName: String)
 }
 
 //MARK:
@@ -142,6 +162,8 @@ extension API: TargetType{
             return "api/login/validateCode"
         case .login(_):
             return "api/login/login"
+        case .bindAuthMember(_):
+            return "api/login/bindAuthMember"
         case .selectInfo:
             return "api/member/selectInfo"
         case .updateInfo(_):
@@ -189,6 +211,10 @@ extension API: TargetType{
             return "api/physiology/getLast2This2NextWeekInfo"
         case .getMenstruationBaseInfo:
             return "api/physiology/getMenstruationBaseInfo"
+        case .getAuthMember(_):
+            return "api/login/getAuthMember"
+        case .search(_):
+            return "api/search/search"
         }
     }
     
@@ -263,6 +289,13 @@ extension API {
         case .login(let mobile, let smsCode):
             params["mobile"] = mobile
             params["smsCode"] = smsCode
+        case .bindAuthMember(let userInfo, let mobile, let smsCode):
+            params["openId"] = userInfo.openid
+            params["accessToken"] = userInfo.accessToken
+            params["appType"] = "IOS"
+            params["oauthType"] = "weixin"
+            params["mobile"] = mobile
+            params["smsCode"] = smsCode
         case .updateInfo(let param):
             params = param
         case .selectBanner:
@@ -308,7 +341,22 @@ extension API {
             params["sceen"] = sceen
         case .getUserInfo(let userId):
             params["userId"] = userId
-
+        case .getAuthMember(let openId):
+            params["openId"] = openId
+            params["appType"] = "IOS"
+            params["oauthType"] = "weixin"
+        case .search(let pageNum, let pageSize, let searchModule, let searchName):
+            if searchName.count > 0 {
+//                params["pageNum"] = pageNum
+//                params["pageSize"] = pageSize
+                params["searchModule"] = HCsearchModule.all.rawValue
+                params["searchName"] = searchName
+            }else {
+                params["pageNum"] = pageNum
+                params["pageSize"] = pageSize
+                params["searchModule"] = searchModule.rawValue
+                params["searchName"] = ""
+            }
         default:
             return nil
         }
@@ -329,63 +377,3 @@ extension API {
 //MARK: API server
 let HCProvider = MoyaProvider<API>(plugins: [MoyaPlugins.MyNetworkActivityPlugin,
                                              RequestLoadingPlugin()]).rx
-
-/*
- 绑定微信
- https://ileyun.ivfcn.com/hc-patient/api/login/bindAuthMember
- 
- openId    是    string    微信授权 openId (通过 获取access token 接口 获得)
- accessToken    是    string    微信授权 accessToken (通过 获取access token 接口 获得)
- appType    是    string    客户端 Android , IOS
- oauthType    是    string    固定参数 : weixin
- mobile    是    string    手机号
- smsCode    是    string    验证码
- 
- {
-   "code": 200,
-   "message": "登录成功",
-   "data": {
-     "id": 16695,
-     "account": "13367267356",
-     "name": "自费测试",
-     "realName": "邓超1",
-     "email": null,
-     "lastLogin": "2019-11-20 10:53:31",
-     "ip": "127.0.0.1",
-     "status": true,
-     "bak": null,
-     "skin": null,
-     "numbers": null,
-     "createDate": "2019-11-18 14:46:23",
-     "modifyDate": "2019-11-06 18:28:20",
-     "creates": null,
-     "modifys": null,
-     "unitId": 17,
-     "sex": 1,
-     "age": "2",
-     "birthday": "2019-11-12",
-     "token": "MDAzMTMzQUJDMzI2OTgyQUQ5QkM3NEEzQzM3OTIzREU0RkQxNUM3QkE2MkQzM0Qx",
-     "headPath": "https://ileyun.ivfcn.com/file/20191112/58EE133A8D484E3797699FC1E5AD9867.jpg",
-     "environment": "Apache-HttpClient/4.5.2 (Java/1.8.0_112-release)",
-     "synopsis": null,
-     "bindDate": "2019-11-06 18:28:20",
-     "mobileInfo": "133****7356",
-     "unitName": "中山一院生殖医学中心",
-     "visitCard": "0000000014",
-     "identityCard": "420107198706182913",
-     "hisNo": "0000041710",
-     "medicalRecordNo": "xxxxxxxx1",
-     "medicalRecordType": "AID",
-     "medicalRecordName": null,
-     "certificateType": "身份证",
-     "mobileView": null,
-     "black": null,
-     "senior": null,
-     "pregnantTypeId": 363,
-     "pregnantTypeName": "备孕中",
-     "enable": false,
-     "bind": false,
-     "soldier": false
-   }
- }
- **/
