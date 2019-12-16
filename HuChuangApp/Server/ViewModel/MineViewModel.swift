@@ -71,7 +71,7 @@ class MineViewModel: BaseViewModel, VMNavigation {
                         SectionModel.init(model: 1, items: [MenuListItemModel.createModel(titleIcon: "shouhuodizhi",
                                                                                           title: "我的卡卷",
                                                                                           h5Type: .voucherCenter)]),
-                        SectionModel.init(model: 2, items: [MenuListItemModel.createModel(titleIcon: "shouhuodizhi",
+                        SectionModel.init(model: 2, items: [MenuListItemModel.createModel(titleIcon: "my_icon_feedback",
                                                                                           title: "用户反馈",
                                                                                           h5Type: .feedback),
                                                             MenuListItemModel.createModel(titleIcon: "yijianfankui",

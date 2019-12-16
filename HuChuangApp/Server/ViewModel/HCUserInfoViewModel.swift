@@ -72,18 +72,19 @@ class HCUserInfoViewModel: BaseViewModel {
                                                                         detailTitleColor: RGB(173, 173, 173),
                                                                         cellIdentifier: HCListDetailCell_identifier,
                                                                         segue: "birthdaySegue"),
-                                                         HCListCellItem(title: "手机号",
-                                                                        detailTitle: userModel.mobileInfo,
-                                                                        titleColor: RGB(60, 60, 60),
-                                                                        detailTitleColor: RGB(173, 173, 173),
-                                                                        cellIdentifier: HCListDetailCell_identifier,
-                                                                        segue: ""),
-                                                         HCListCellItem(title: "地区",
-                                                                        detailTitle: "武汉",
-                                                                        titleColor: RGB(60, 60, 60),
-                                                                        detailTitleColor: RGB(173, 173, 173),
-                                                                        cellIdentifier: HCListDetailCell_identifier,
-                                                                        segue: "")])]
+//                                                         HCListCellItem(title: "手机号",
+//                                                                        detailTitle: userModel.mobileInfo,
+//                                                                        titleColor: RGB(60, 60, 60),
+//                                                                        detailTitleColor: RGB(173, 173, 173),
+//                                                                        cellIdentifier: HCListDetailCell_identifier,
+//                                                                        segue: ""),
+//                                                         HCListCellItem(title: "地区",
+//                                                                        detailTitle: "武汉",
+//                                                                        titleColor: RGB(60, 60, 60),
+//                                                                        detailTitleColor: RGB(173, 173, 173),
+//                                                                        cellIdentifier: HCListDetailCell_identifier,
+//                                                                        segue: "")
+        ])]
         
         datasource.value = cellItems
     }
