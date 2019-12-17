@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HCHomeCollectionHeaderReusableView" customModule="HuChuangApp" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HCHomeCollectionHeaderReusableView" customModule="爱乐孕" customModuleProvider="target">
             <connections>
                 <outlet property="carouselView" destination="b4R-eJ-6Zp" id="M8n-HL-mpz"/>
                 <outlet property="circleView" destination="tA0-uf-Czk" id="MpQ-kC-fZo"/>
@@ -32,7 +32,7 @@
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H29-gc-Jva">
                     <rect key="frame" x="15" y="241" width="374" height="118"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b4R-eJ-6Zp" customClass="CarouselView" customModule="HuChuangApp" customModuleProvider="target">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b4R-eJ-6Zp" customClass="CarouselView" customModule="爱乐孕" customModuleProvider="target">
                             <rect key="frame" x="8" y="7" width="358" height="104"/>
                             <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
@@ -80,7 +80,7 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tA0-uf-Czk" customClass="TYCirCleView" customModule="HuChuangApp" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tA0-uf-Czk" customClass="TYCirCleView" customModule="爱乐孕" customModuleProvider="target">
                     <rect key="frame" x="271" y="119" width="97" height="97"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
@@ -106,6 +106,9 @@
                     <state key="normal" title="更多" image="home_button_more">
                         <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="deviceRGB"/>
                     </state>
+                    <connections>
+                        <action selector="actions:" destination="-1" eventType="touchUpInside" id="YTF-rd-Xo0"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

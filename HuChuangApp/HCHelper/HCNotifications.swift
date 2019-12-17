@@ -27,4 +27,9 @@ extension Notification.Name {
         /// js通知刷新首页数据
         static let jsReloadHome = Notification.Name(rawValue: "org.UserInterface.notification.name.jsReloadHome")
     }
+    
+    public struct UILogic {
+        /// 首页文章更多点击跳转课程tab
+        static let gotoClassRoom = Notification.Name(rawValue: "org.UILogic.notification.name.gotoClassRoom")
+    }
 }

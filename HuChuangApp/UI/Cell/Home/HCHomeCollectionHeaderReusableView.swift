@@ -23,6 +23,11 @@ class HCHomeCollectionHeaderReusableView: UICollectionReusableView {
     private var disposeBag = DisposeBag()
 
     public let bannerObser = PublishSubject<[HomeBannerModel]>()
+    public var clickedMoreCallBack: (()->())?
+    
+    @IBAction func actions(_ sender: UIButton) {
+        clickedMoreCallBack?()
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

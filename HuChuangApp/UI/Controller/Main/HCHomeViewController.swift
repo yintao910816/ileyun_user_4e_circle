@@ -134,6 +134,10 @@ extension HCHomeViewController: UICollectionViewDelegateFlowLayout, UICollection
                 viewModel.bannerModelObser.asObservable()
                     .bind(to: header.bannerObser)
                     .disposed(by: disposeBag)
+                
+                header.clickedMoreCallBack = {
+                    NotificationCenter.default.post(name: NotificationName.UILogic.gotoClassRoom, object: nil)
+                }
 
                 return header
             default:

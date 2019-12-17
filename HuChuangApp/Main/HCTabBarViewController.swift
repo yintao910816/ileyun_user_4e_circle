@@ -18,6 +18,11 @@ class HCTabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.rx.notification(NotificationName.UILogic.gotoClassRoom)
+            .subscribe(onNext: { [weak self] data in
+                self?.selectedIndex = 3
+            })
+            .disposed(by: disposeBag)
     }
 
 }
