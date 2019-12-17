@@ -82,9 +82,9 @@ class HCConsultViewController: BaseViewController {
         
         tableView.rx.modelSelected(HCDoctorItemModel.self)
             .asDriver()
-            .drive(onNext: { [unowned self]  in
+            .drive(onNext: {
 //                self.performSegue(withIdentifier: "doctorInfoSegue", sender: $0)
-                HCHelper.preloadH5(type: .doctorHome, arg: $0.userId)
+                HCHelper.pushH5(href: "\(H5Type.doctorHome.getLocalUrl())?userId=\($0.userId)")
             })
             .disposed(by: disposeBag)
                 

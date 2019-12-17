@@ -126,7 +126,8 @@ extension HCSearchAllViewController: UITableViewDelegate, UITableViewDataSource 
         
         let model = datasource[indexPath.section][indexPath.row]
         if model.isKind(of: HCSearchDoctorItemModel.self) {
-
+            let url = "\(H5Type.doctorHome.getLocalUrl())?\((model as! HCSearchDoctorItemModel).userId)"
+            pushH5CallBack?(url)
         }else if model.isKind(of: HCSearchArticleItemModel.self) {
             pushH5CallBack?((model as! HCSearchArticleItemModel).linkUrls)
         }else if model.isKind(of: HCSearchArticleItemModel.self) {

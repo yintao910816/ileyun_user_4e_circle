@@ -13,7 +13,7 @@ class HCSearchRecommendDoctorViewController: HCSlideItemController {
     private var tableView: UITableView!
         
     private var datasource: [HCSearchDoctorItemModel] = []
-    public var pushH5CallBack:((String)->())?
+    public var didSelectedCallBack:((HCSearchDoctorItemModel)->())?
 
     override func setupUI() {
         tableView = UITableView.init(frame: .zero, style: .plain)
@@ -60,5 +60,7 @@ extension HCSearchRecommendDoctorViewController: UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        didSelectedCallBack?(datasource[indexPath.row])
     }
 }

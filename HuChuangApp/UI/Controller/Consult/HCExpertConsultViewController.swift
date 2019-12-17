@@ -43,7 +43,13 @@ class HCExpertConsultViewController: BaseViewController {
                 cell.model = model
         }
         .disposed(by: disposeBag)
-                
+        
+        tableView.rx.modelSelected(HCDoctorItemModel.self)
+            .subscribe(onNext: {
+                HCHelper.pushH5(href: "\(H5Type.doctorHome.getLocalUrl())?userId=\($0.userId)")
+            })
+            .disposed(by: disposeBag)
+
         // 上下拉刷新绑定
         tableView.prepare(viewModel, showFooter: false)
         tableView.headerRefreshing()

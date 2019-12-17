@@ -100,6 +100,7 @@ extension HCHelper: VMNavigation {
     }
     
     public class func pushH5(href: String) {
+        PrintLog("链接跳转地址: \(href)")
         HCHelper.push(BaseWebViewController.self, ["url": href])
     }
     

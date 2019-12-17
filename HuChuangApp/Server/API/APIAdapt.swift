@@ -45,8 +45,8 @@ import Moya
 
 struct APIAssistance {
         
-    private static let base   = "https://wx.julyo.cn/hc-patient/"
-    private static let fileBase = "https://ileyun.ivfcn.com/hc-files/"
+    public static let base   = "https://wx.julyo.cn/hc-patient/"
+    public static let fileBase = "https://ileyun.ivfcn.com/hc-files/"
 
     static public func baseURL(API: API) ->URL{
         switch API {

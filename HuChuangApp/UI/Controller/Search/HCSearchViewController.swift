@@ -96,10 +96,9 @@ class HCSearchViewController: BaseViewController {
         doctorCtrl.pageIdx = 1
         doctorCtrl.view.backgroundColor = .white
         doctorCtrl.bind(viewModel: viewModel, canRefresh: true, canLoadMore: true, isAddNoMoreContent: false)
-        //        allCtrl.didSelectedCallBack = {
-        //            HCHelper.pushH5(href: $0.hrefUrl)
-        //        }
-        
+        doctorCtrl.didSelectedCallBack = {
+            HCHelper.pushH5(href: "\(H5Type.doctorHome.getLocalUrl())?userId=\($0.userId)")
+        }
         
 //        let classCtrl = HCSearchHealthyCourseViewController()
 //        classCtrl.pageIdx = 2
