@@ -12,7 +12,14 @@ class TYSearchRecordView: UIView {
 
     private var collectionView: UICollectionView!
     
-    public var recordDatasource: [TYSearchSectionModel] = []
+    public var clearRecordsCallBack: (()->())?
+    public var selectedCallBack: ((String)->())?
+
+    public var recordDatasource: [TYSearchSectionModel] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -72,9 +79,16 @@ extension TYSearchRecordView: UICollectionViewDataSource, UICollectionViewDelega
                                                                           for: indexPath) as! TYSearchRecordReusableViewHeader)
             let sectionModel = recordDatasource[indexPath.section]
             header.configContent(title: sectionModel.sectionTitle, showDelete: sectionModel.showDelete)
+            header.clearRecordsCallBack = { [weak self] in
+                self?.clearRecordsCallBack?()
+            }
             return header
         }
         return UICollectionReusableView()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.selectedCallBack?(recordDatasource[indexPath.section].recordDatas[indexPath.row].keyWord)
     }
 }
 
@@ -111,14 +125,16 @@ class TYSearchRecordCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        contentView.backgroundColor = .white
+        
         contentLabel = UILabel()
-        contentLabel.font = .font(fontSize: 12, fontName: .PingFMedium)
-        contentLabel.textColor = RGB(153, 153, 153)
+        contentLabel.font = .font(fontSize: 12, fontName: .PingFRegular)
+        contentLabel.backgroundColor = RGB(246, 246, 246)
+        contentLabel.textColor = RGB(61, 55, 68)
+        contentLabel.layer.cornerRadius = 15
+        contentLabel.textAlignment = .center
         contentLabel.clipsToBounds = true
-        
-        contentLabel.layer.borderColor = RGB(153, 153, 153).cgColor
-        contentLabel.layer.borderWidth = 1
-        
+                
         contentView.addSubview(contentLabel)
         
         contentLabel.snp.makeConstraints { $0.edges.equalTo(UIEdgeInsets.zero) }
@@ -134,11 +150,6 @@ class TYSearchRecordCell: UICollectionViewCell {
         }
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        contentLabel.layer.cornerRadius = contentLabel.height / 2.0
-    }
 }
 
 //MARK: -- TYSearchRecordReusableViewHeader
@@ -147,6 +158,8 @@ class TYSearchRecordReusableViewHeader: UICollectionReusableView {
     private var titleLabel: UILabel!
     private var deleteButton: UIButton!
     
+    public var clearRecordsCallBack: (()->())?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -155,7 +168,9 @@ class TYSearchRecordReusableViewHeader: UICollectionReusableView {
         titleLabel.textColor = RGB(51, 51, 51)
         
         deleteButton = UIButton()
-        deleteButton.backgroundColor = .orange
+        deleteButton.backgroundColor = .clear
+        deleteButton.setTitle("清除", for: .normal)
+        deleteButton.setTitleColor(.black, for: .normal)
         deleteButton.addTarget(self, action: #selector(deleteAction), for: .touchUpInside)
         
         addSubview(titleLabel)
@@ -182,6 +197,6 @@ class TYSearchRecordReusableViewHeader: UICollectionReusableView {
     }
     
     @objc private func deleteAction() {
-        
+        clearRecordsCallBack?()
     }
 }

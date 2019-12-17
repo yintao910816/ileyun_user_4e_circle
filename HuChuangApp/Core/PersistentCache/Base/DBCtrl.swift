@@ -25,12 +25,11 @@ class DbManager {
             PrintLog(dbFullPath)
             let db = try Connection(dbFullPath)
             
-            // 创建用户表
-            var table = Table(courseOrderTB)
-//            try db.run(table.create { t in
-//                CourseClassModel.dbBind(t)
-//            })
-
+            let table = Table(searchKeyWordTB)
+            
+            try db.run(table.create(temporary: false, ifNotExists: true, withoutRowid: false, block: { t in
+                TYSearchRecordModel.dbBind(t)
+            }))
             
             update(db)
             PrintLog("数据库版本：\(db.userVersion)")

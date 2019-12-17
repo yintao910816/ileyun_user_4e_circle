@@ -37,13 +37,19 @@ class HCSearchViewController: BaseViewController {
         
         searchBar.leftItemTapBack = { [weak self] in self?.navigationController?.popViewController(animated: true) }
         
-//        searchBar.rightItemTapBack = { [weak self] in
-//            self?.searchRecordView.isHidden = true
-//        }
-//
-//        searchBar.beginSearch = { [weak self] content in
-//            self?.searchRecordView.isHidden = false
-//        }
+        searchBar.rightItemTapBack = { [weak self] in
+            self?.searchRecordView.isHidden = true
+            self?.viewModel.requestSearchSubject.onNext(false)
+        }
+
+        searchBar.beginSearch = { [weak self] content in
+            self?.searchRecordView.isHidden = true
+            self?.viewModel.requestSearchSubject.onNext(true)
+        }
+        
+        searchBar.willSearch = { [weak self] in
+            self?.searchRecordView.isHidden = false
+        }
         
         slideCtrl = TYSlideMenuController()
         addChild(slideCtrl)
@@ -51,12 +57,32 @@ class HCSearchViewController: BaseViewController {
                 
         searchRecordView = TYSearchRecordView.init(frame: .init(x: 0, y: searchBar.frame.maxY, width: view.width, height: searchBar.frame.maxY))
         searchRecordView.isHidden = true
-        searchRecordView.recordDatasource = TYSearchSectionModel.createTest()
         view.addSubview(searchRecordView)
+        
+        searchRecordView.clearRecordsCallBack = { [weak self] in
+            self?.searchBar.reloadInput(content: nil)
+            self?.viewModel.clearSearchRecordSubject.onNext(Void())
+        }
+        searchRecordView.selectedCallBack = { [weak self] in
+            self?.searchRecordView.isHidden = true
+            self?.searchBar.resignSearchFirstResponder()
+            self?.searchBar.reloadInput(content: $0)
+            self?.viewModel.selectedSearchRecordSubject.onNext($0)
+        }
     }
     
     override func rxBind() {
         viewModel = HCSearchViewModel()
+        
+        searchBar.textObser
+            .bind(to: viewModel.keyWordObser)
+            .disposed(by: disposeBag)
+        
+        viewModel.searchRecordsObser.asDriver()
+            .drive(onNext: { [weak self] in
+                self?.searchRecordView.recordDatasource = $0
+            })
+            .disposed(by: disposeBag)
         
         let allCtrl = HCSearchAllViewController()
         allCtrl.pageIdx = 0

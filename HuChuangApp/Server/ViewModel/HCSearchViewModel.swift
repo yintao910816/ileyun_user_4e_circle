@@ -19,10 +19,22 @@ class HCSearchViewModel: RefreshVM<HCBaseSearchItemModel> {
     public let keyWordObser = Variable("")
     public let pageListData = PublishSubject<([HCBaseSearchItemModel], HCsearchModule)>()
     public let requestSearchListSubject = PublishSubject<HCsearchModule>()
+    /// 关键字搜索 - 是否添加到本地数据库
+    public let requestSearchSubject = PublishSubject<Bool>()
+    /// 清除本地缓存记录
+    public let clearSearchRecordSubject = PublishSubject<Void>()
+    public let selectedSearchRecordSubject = PublishSubject<String>()
 
+    /// 本地搜索记录
+    public let searchRecordsObser = Variable([TYSearchSectionModel]())
+    
     override init() {
         super.init()
                 
+        TYSearchRecordModel.selected { [weak self] records in
+            self?.searchRecordsObser.value = TYSearchSectionModel.recordsCreate(datas: records)
+        }
+        
         requestSearchListSubject
             .subscribe(onNext: { [unowned self] module in
                 self.module = module
@@ -31,6 +43,27 @@ class HCSearchViewModel: RefreshVM<HCBaseSearchItemModel> {
                 }else {
                     self.requestData(true)
                 }
+            })
+            .disposed(by: disposeBag)
+        
+        requestSearchSubject
+            .subscribe(onNext: { [unowned self] cache in
+                if cache { self.cacheSearchRecord() }
+                self.requestData(true)
+            })
+            .disposed(by: disposeBag)
+        
+        clearSearchRecordSubject
+            .subscribe(onNext: { [weak self] in
+                self?.clearSearchRecords()
+                self?.requestData(true)
+            })
+            .disposed(by: disposeBag)
+        
+        selectedSearchRecordSubject
+            .subscribe(onNext: { [unowned self] keyWord in
+                self.keyWordObser.value = keyWord
+                self.requestData(true)
             })
             .disposed(by: disposeBag)
     }
@@ -101,9 +134,46 @@ extension HCSearchViewModel {
                       pageKey: module.rawValue)
         
         pageListData.onNext((menuPageListData[module]!, module))
+        
+        if keyWordObser.value.count > 0 {
+            hud.noticeHidden()
+        }
     }
     
-    private func dealFailure(error: Error?) {
-        revertCurrentPageAndRefreshStatus(pageKey: module.rawValue)
+    private func dealFailure(error: Error) {
+        if keyWordObser.value.count > 0 {
+            hud.failureHidden(errorMessage(error))
+        }else {
+            revertCurrentPageAndRefreshStatus(pageKey: module.rawValue)
+        }
+    }
+    
+    private func cacheSearchRecord() {
+        if keyWordObser.value.count > 0 {
+            var datas = searchRecordsObser.value
+            if datas.count == 1 {
+                let sectionModel = TYSearchSectionModel.creatSection(sectionTitle: "搜索记录", showDelete: true)
+                sectionModel.addRecord(keyWord: keyWordObser.value)
+                datas.insert(sectionModel, at: 0)
+                
+            }else {
+                datas.first!.addRecord(keyWord: keyWordObser.value)
+            }
+            
+            searchRecordsObser.value = datas
+            
+            TYSearchRecordModel.insert(keyWord: keyWordObser.value)
+        }
+    }
+    
+    private func clearSearchRecords() {
+        var datas = searchRecordsObser.value
+        if datas.count > 1 {
+            datas.remove(at: 0)
+        }
+        
+        searchRecordsObser.value = datas
+        
+        TYSearchRecordModel.clearSearchRecords()
     }
 }

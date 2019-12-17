@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class TYSearchBar: UIView {
+    
+    private let disposeBag = DisposeBag()
     
     /// 点击按钮的回调
     public var tapInputCallBack: (()->())?
@@ -16,8 +20,13 @@ class TYSearchBar: UIView {
     public var leftItemTapBack: (()->())?
     /// 右边边按钮点击事件
     public var rightItemTapBack: (()->())?
-    /// 开始搜索
+    /// 点击return建调用
     public var beginSearch: ((String)->())?
+    /// 将要弹出键盘
+    public var willSearch: (()->())?
+    
+    /// 文字变化监听
+    public let textObser = PublishSubject<String>()
 
     /// 搜索框高度
     public class var baseHeight: CGFloat {
@@ -83,6 +92,11 @@ class TYSearchBar: UIView {
         inputCover.snp.makeConstraints {
             $0.left.right.top.bottom.equalTo(contentContainer)
         }
+        
+        searchTf.rx.text.asObservable()
+            .map{ ($0 == nil ? "" : $0!) }
+            .bind(to: textObser)
+            .disposed(by: disposeBag)        
     }
     
     private func updateRightItem() {
@@ -120,6 +134,10 @@ class TYSearchBar: UIView {
     }
     
     //MARK: - public
+    
+    /// 点击右边按钮是否搜索
+    public var isRightItemSearch: Bool = false
+    
     public var searchPlaceholder: String? {
         didSet {
             if searchPlaceholder?.count ?? 0 > 0 {
@@ -268,10 +286,12 @@ class TYSearchBar: UIView {
     }
 
     @objc private func rightItemTapAction() {
-        rightItemTapBack?()
-        
         searchTf.resignFirstResponder()
-        beginSearch?(searchTf.text ?? "")
+        if isRightItemSearch {
+            beginSearch?(searchTf.text ?? "")
+        }else {
+            rightItemTapBack?()
+        }
     }
 
     override func layoutSubviews() {
@@ -307,12 +327,23 @@ extension TYSearchBar: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        
+        willSearch?()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         beginSearch?(textField.text ?? "")
         return true
+    }
+}
+
+extension TYSearchBar {
+    
+    public func reloadInput(content: String?) {
+        searchTf.text = content
+    }
+    
+    public func resignSearchFirstResponder() {
+        searchTf.resignFirstResponder()
     }
 }
