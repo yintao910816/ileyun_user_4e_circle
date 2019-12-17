@@ -299,7 +299,7 @@ extension API {
         case .updateInfo(let param):
             params = param
         case .selectBanner:
-            params["code"] = "banner"
+            params["code"] = "activity"
 
         case .noticeList(let type, let pageNum, let pageSize):
             params["type"] = type
