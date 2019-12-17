@@ -15,7 +15,7 @@ class HCSearchViewController: BaseViewController {
     private var searchRecordView: TYSearchRecordView!
     private var slideCtrl: TYSlideMenuController!
     
-    private var pageIds: [HCsearchModule] = [.all, .doctor, .course, .article]
+    private var pageIds: [HCsearchModule] = [.all, .doctor, .article]
     
     private var viewModel: HCSearchViewModel!
 
@@ -75,17 +75,17 @@ class HCSearchViewController: BaseViewController {
         //        }
         
         
-        let classCtrl = HCSearchHealthyCourseViewController()
-        classCtrl.pageIdx = 2
-        classCtrl.view.backgroundColor = .white
-        classCtrl.bind(viewModel: viewModel, canRefresh: true, canLoadMore: true, isAddNoMoreContent: false)
+//        let classCtrl = HCSearchHealthyCourseViewController()
+//        classCtrl.pageIdx = 2
+//        classCtrl.view.backgroundColor = .white
+//        classCtrl.bind(viewModel: viewModel, canRefresh: true, canLoadMore: true, isAddNoMoreContent: false)
         //        allCtrl.didSelectedCallBack = {
         //            HCHelper.pushH5(href: $0.hrefUrl)
         //        }
         
         
         let popularScienceCtrl = HCSearchPopularScienceViewController()
-        popularScienceCtrl.pageIdx = 3
+        popularScienceCtrl.pageIdx = 2
         popularScienceCtrl.view.backgroundColor = .white
         popularScienceCtrl.bind(viewModel: viewModel, canRefresh: true, canLoadMore: true, isAddNoMoreContent: false)
         //        allCtrl.didSelectedCallBack = {
@@ -95,9 +95,9 @@ class HCSearchViewController: BaseViewController {
             HCHelper.pushH5(href: $0)
         }
 
-        slideCtrl.menuItems = TYSlideItemModel.creatSimple(for: ["全部", "医生", "课程", "文章"])
-        slideCtrl.menuCtrls = [allCtrl, doctorCtrl, classCtrl, popularScienceCtrl]
-
+        slideCtrl.menuItems = TYSlideItemModel.creatSimple(for: ["全部", "医生", "文章"])
+//        slideCtrl.menuCtrls = [allCtrl, doctorCtrl, classCtrl, popularScienceCtrl]
+        slideCtrl.menuCtrls = [allCtrl, doctorCtrl, popularScienceCtrl]
         
         viewModel.pageListData
             .subscribe(onNext: { [weak self] data in

@@ -90,7 +90,8 @@ extension HCSearchViewModel {
         case .doctor:
             datas = (data as! HCSearchDoctorModel).records
         case .course:
-            datas = (data as! HCSearchCourseModel).records
+//            datas = (data as! HCSearchCourseModel).records
+            break
         }
         
         updateRefresh(refresh: refresh,
