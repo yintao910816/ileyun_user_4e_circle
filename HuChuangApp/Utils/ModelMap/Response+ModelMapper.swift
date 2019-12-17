@@ -67,11 +67,12 @@ public extension Response {
             throw MapperError.json(message: "json解析失败")
         }
         
-        if serverModel.code == RequestCode.success.rawValue {
-            return serverModel
-        }else {
-            throw MapperError.server(message: serverModel.message)
-        }
+        return serverModel
+//        if serverModel.code == RequestCode.success.rawValue {
+//            return serverModel
+//        }else {
+//            throw MapperError.server(message: serverModel.message)
+//        }
     }
     
     internal func map<T: HandyJSON>(result type: T.Type) throws -> DataModel<[T]> {

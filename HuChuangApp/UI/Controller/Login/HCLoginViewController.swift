@@ -28,7 +28,7 @@ class HCLoginViewController: BaseViewController {
     
     private var viewModel: LoginViewModel!
     
-    private let keyBoardManager = KeyboardManager()
+//    private let keyBoardManager = KeyboardManager()
     
     private var agreeObservable = Variable(true)
     
@@ -50,11 +50,11 @@ class HCLoginViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {        
         navigationController?.setNavigationBarHidden(true, animated: animated)
         
-        keyBoardManager.registerNotification()
+//        keyBoardManager.registerNotification()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        keyBoardManager.removeNotification()
+//        keyBoardManager.removeNotification()
     }
 
     override func setupUI() {        
@@ -137,7 +137,7 @@ class HCLoginViewController: BaseViewController {
 extension HCLoginViewController: UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        keyBoardManager.move(coverView: loginOutlet, moveView: contentBgView)
+//        keyBoardManager.move(coverView: loginOutlet, moveView: contentBgView)
         return true
     }
 }
