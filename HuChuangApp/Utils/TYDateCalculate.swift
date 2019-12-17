@@ -64,6 +64,6 @@ class TYDateCalculate {
         format.setLocalizedDateFormatFromTemplate("H")
         format.dateFormat = "yyyy-MM-dd"
         let date = format.date(from: string)
-        return date!
+        return date ?? Date()
     }
 }
