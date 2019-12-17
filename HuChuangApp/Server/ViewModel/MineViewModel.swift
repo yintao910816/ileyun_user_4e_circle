@@ -17,6 +17,8 @@ class MineViewModel: BaseViewModel, VMNavigation {
     let pushH5Subject = PublishSubject<MenuListItemModel>()
     let cellDidSelectedSubject = PublishSubject<MenuListItemModel>()
 
+    private var currentType: H5Type?
+        
     override init() {
         super.init()
              
@@ -53,6 +55,8 @@ class MineViewModel: BaseViewModel, VMNavigation {
     }
     
     private func requestH5(type: H5Type) ->Observable<H5InfoModel> {
+        currentType = type
+        
         return HCProvider.request(.unitSetting(type: type))
             .map(model: H5InfoModel.self)
             .asObservable()
@@ -92,6 +96,12 @@ class MineViewModel: BaseViewModel, VMNavigation {
     }
     
     private func pushH5(model: H5InfoModel) {
+        if currentType == .healthRecordsUser {
+            pushH5(type: .healthRecordsUser)
+            currentType = nil
+            return
+        }
+        
         guard model.setValue.count > 0 else { return }
         
         if model.setValue.count > 0 {
@@ -108,11 +118,25 @@ class MineViewModel: BaseViewModel, VMNavigation {
         }else {
             hud.failureHidden("功能暂不开放")
         }
+        
+        currentType = nil
 
 //        let url = "\(model.setValue)?token=\(userDefault.token)&unitId=\(AppSetup.instance.unitId)"
 //        HomeViewModel.push(BaseWebViewController.self, ["url": url])
     }
 
+    private func pushH5(type: H5Type) {
+        var url = ""
+        switch type {
+        case .healthRecordsUser:
+            url = "\(type.getLocalUrl())?token=\(userDefault.token)&unitId=\(userDefault.unitId)&isUserInfoBack=true"
+        default:
+            break
+        }
+        if url.count > 0 {
+            HomeViewModel.push(BaseWebViewController.self, ["url": url])
+        }
+    }
 }
 
 class MenuListItemModel {

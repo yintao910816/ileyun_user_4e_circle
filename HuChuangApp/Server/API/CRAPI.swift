@@ -66,6 +66,15 @@ enum H5Type: String {
     case helpCenter = "helpCenter"
     /// 通知中心
     case noticeAndMessage = "noticeAndMessage"
+    
+    func getLocalUrl() ->String {
+        switch self {
+        case .healthRecordsUser:
+            return "https://wx.julyo.cn/patient/#/HealthRecords"
+        default:
+            return ""
+        }
+    }
 }
 
 /// 搜索的内容类型
