@@ -91,10 +91,6 @@ class TYCirCleView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let size = titleLabel.sizeThatFits(CGSize.init(width: width - lineWidth * 2.0, height: CGFloat.greatestFiniteMagnitude))
-        titleLabel.frame = .init(x: (width - size.width - lineWidth * 2.0) / 2.0,
-                                 y: (height - size.height - lineWidth * 2.0) / 2.0,
-                                 width: size.width,
-                                 height: size.height)
+        titleLabel.frame = bounds
     }
 }

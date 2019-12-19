@@ -66,4 +66,17 @@ class TYDateCalculate {
         let date = format.date(from: string)
         return date ?? Date()
     }
+    
+    /**
+     * 计算两个时间之间的差值
+     */
+    class func numberOfDays(fromDate: Date, toDate: Date) -> Int {
+        let calendar = Calendar.init(identifier: .gregorian)
+        let comp = calendar.dateComponents([.day], from: fromDate, to: toDate)
+        return comp.day ?? 0
+    }
+    
+    class func numberOfDays(toDate: String) -> Int {
+        return numberOfDays(fromDate: Date(), toDate: date(for: toDate))
+    }
 }
