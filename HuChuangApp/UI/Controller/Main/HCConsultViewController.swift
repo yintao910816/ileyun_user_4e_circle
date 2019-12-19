@@ -74,7 +74,7 @@ class HCConsultViewController: BaseViewController {
         viewModel.datasource.asDriver()
             .drive(tableView.rx.items(cellIdentifier: HCConsultListCell_idetifier, cellType: HCConsultListCell.self)) { _,model,cell  in
                 cell.model = model
-                cell.consultCallBack = { [weak self] in
+                cell.consultCallBack = {
 //                    self?.performSegue(withIdentifier: "picAndTextSegue", sender: $0)
                     HCHelper.pushH5(href: "\(H5Type.doctorCs.getLocalUrl())&userId=\($0.userId)")
                 }
@@ -85,7 +85,7 @@ class HCConsultViewController: BaseViewController {
             .asDriver()
             .drive(onNext: {
 //                self.performSegue(withIdentifier: "doctorInfoSegue", sender: $0)
-                HCHelper.pushH5(href: "\(H5Type.doctorHome.getLocalUrl())?userId=\($0.userId)")
+                HCHelper.pushH5(href: "\(H5Type.doctorHome.getLocalUrl())&userId=\($0.userId)")
             })
             .disposed(by: disposeBag)
                 

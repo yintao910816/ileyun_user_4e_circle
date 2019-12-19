@@ -35,6 +35,7 @@ class HCArticleDetailViewController: BaseWebViewController {
         storeButton.setImage(UIImage(named: "button_collect_unsel"), for: .normal)
         storeButton.titleLabel?.font = .font(fontSize: 10)
         storeButton.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 10)
+        storeButton.showsTouchWhenHighlighted = false
         storeButton.sizeToFit()
         
         shareButton = UIButton()

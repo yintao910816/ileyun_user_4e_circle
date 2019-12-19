@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum TYListArrowType {
+    case up
+    case down
+}
+
 class TYListMenuModel {
     var title: String = ""
     var titleFont: UIFont = .font(fontSize: 13, fontName: .PingFRegular)
@@ -17,7 +22,13 @@ class TYListMenuModel {
     
     var titleIconNormalImage: UIImage?
     var titleIconSelectedImage: UIImage?
+    
+    var arrowDownImage: UIImage? = UIImage(named: "btn_red_down_arrow")
+    var arrowUpImage: UIImage? = UIImage(named: "btn_red_up_arrow")
+
     var titleIconCanRotate: Bool = true
+    
+    var arrowType: TYListArrowType = .down
     
     var iconMargin: CGFloat = 5
     var margin: CGFloat = 15
@@ -38,10 +49,28 @@ class TYListMenuModel {
     
     var titleImage: UIImage? {
         get {
-            return isSelected ? titleIconSelectedImage : titleIconNormalImage
+            if titleIconCanRotate {
+                if isSelected {
+                    return arrowType == .up ? arrowUpImage : arrowDownImage
+                }
+            }
+            return titleIconNormalImage
         }
     }
 
+    public func didClicked(_ isReset: Bool = true) {
+        if isReset {
+            arrowType = .down
+            isSelected = false
+        }else {
+            isSelected = true
+            arrowType = (arrowType == .up ? .down : .up)
+        }
+    }
+    
+    public func resetStatus() {
+        
+    }
     
     class func creat(with title: String,
                      titleFont: UIFont = .font(fontSize: 13, fontName: .PingFRegular),

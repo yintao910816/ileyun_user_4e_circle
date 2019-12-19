@@ -168,6 +168,8 @@ enum API{
     case storeAndStatus(articleId: String)
     /// 文章收藏取消
     case articelStore(articleId: String, status: Bool)
+    /// 区域城市
+    case allCity
 }
 
 //MARK:
@@ -239,6 +241,8 @@ extension API: TargetType{
             return "api/cms/storeAndStatus"
         case .articelStore(_):
             return "api/cms/store"
+        case .allCity:
+            return "api/area/allCity"
         }
     }
     

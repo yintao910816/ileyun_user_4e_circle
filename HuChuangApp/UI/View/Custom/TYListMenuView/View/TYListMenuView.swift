@@ -8,6 +8,14 @@
 
 import UIKit
 
+enum TYListMenuViewType: Int {
+    case city = 0
+    case peoples = 1
+    case price = 2
+    case filiter = 3
+    case none
+}
+
 class TYListMenuView: UIView {
 
     private var collectionView: UICollectionView!
@@ -15,7 +23,8 @@ class TYListMenuView: UIView {
     
     private var datasource: [TYListMenuModel] = []
     private var selectedIdx: Int = 0
-    
+    public var selectedCallBack: ((TYListMenuViewType)->())?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -90,12 +99,25 @@ extension TYListMenuView: UICollectionViewDelegateFlowLayout, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.row != selectedIdx {
-            datasource[selectedIdx].isSelected = false
-            datasource[indexPath.row].isSelected = true
-            collectionView.reloadData()
-            
-            selectedIdx = indexPath.row
+        if indexPath.row == 1 || indexPath.row == 2 {
+            let resetIdx = indexPath.row == 1 ? 2 : 1
+            datasource[resetIdx].isSelected = false
+            datasource[indexPath.row].isSelected = !datasource[indexPath.row].isSelected
+            selectedCallBack?(datasource[indexPath.row].isSelected ? TYListMenuViewType(rawValue: indexPath.row)! : .none)
+        }else {
+            datasource[indexPath.row].didClicked(false)
+            selectedCallBack?(TYListMenuViewType(rawValue: indexPath.row)!)
         }
+        
+//        if indexPath.row != selectedIdx {
+//            datasource[selectedIdx].didClicked(true)
+//            datasource[indexPath.row].didClicked(false)
+//
+//            selectedIdx = indexPath.row
+//        }else {
+//            datasource[indexPath.row].didClicked(false)
+//        }
+        
+        collectionView.reloadData()
     }
 }

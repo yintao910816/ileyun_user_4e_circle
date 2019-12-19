@@ -298,6 +298,11 @@
 		B892FF9423AB52CD00A137C0 /* HCArticleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B892FF9323AB52CD00A137C0 /* HCArticleDetailViewController.swift */; };
 		B892FF9623AB530D00A137C0 /* HCArticleDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B892FF9523AB530D00A137C0 /* HCArticleDetailViewModel.swift */; };
 		B892FF9823AB556D00A137C0 /* HCArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B892FF9723AB556D00A137C0 /* HCArticle.swift */; };
+		B892FF9A23AB69EC00A137C0 /* HCFiliter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B892FF9923AB69EC00A137C0 /* HCFiliter.swift */; };
+		B892FF9D23AB6BB500A137C0 /* TYCityFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B892FF9C23AB6BB500A137C0 /* TYCityFilterView.swift */; };
+		B892FFA023ABB50800A137C0 /* TYFiliterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B892FF9F23ABB50800A137C0 /* TYFiliterView.swift */; };
+		B892FFA223ABB5AE00A137C0 /* TYFiliterLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B892FFA123ABB5AE00A137C0 /* TYFiliterLayout.swift */; };
+		B892FFA423ABB70700A137C0 /* TYFiliterViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B892FFA323ABB70700A137C0 /* TYFiliterViewData.swift */; };
 		B89C396A23A0C90100CAB651 /* TYCurveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C396923A0C90100CAB651 /* TYCurveView.swift */; };
 		B89C397123A141B200CAB651 /* TYMarkString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C397023A141B200CAB651 /* TYMarkString.swift */; };
 		B8AFDE5B233E702B00196064 /* HCRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AFDE5A233E702B00196064 /* HCRecordViewController.swift */; };
@@ -1021,6 +1026,11 @@
 		B892FF9323AB52CD00A137C0 /* HCArticleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCArticleDetailViewController.swift; sourceTree = "<group>"; };
 		B892FF9523AB530D00A137C0 /* HCArticleDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCArticleDetailViewModel.swift; sourceTree = "<group>"; };
 		B892FF9723AB556D00A137C0 /* HCArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCArticle.swift; sourceTree = "<group>"; };
+		B892FF9923AB69EC00A137C0 /* HCFiliter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCFiliter.swift; sourceTree = "<group>"; };
+		B892FF9C23AB6BB500A137C0 /* TYCityFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYCityFilterView.swift; sourceTree = "<group>"; };
+		B892FF9F23ABB50800A137C0 /* TYFiliterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYFiliterView.swift; sourceTree = "<group>"; };
+		B892FFA123ABB5AE00A137C0 /* TYFiliterLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TYFiliterLayout.swift; sourceTree = "<group>"; };
+		B892FFA323ABB70700A137C0 /* TYFiliterViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYFiliterViewData.swift; sourceTree = "<group>"; };
 		B89C396923A0C90100CAB651 /* TYCurveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYCurveView.swift; sourceTree = "<group>"; };
 		B89C397023A141B200CAB651 /* TYMarkString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TYMarkString.swift; sourceTree = "<group>"; };
 		B8AFDE5A233E702B00196064 /* HCRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRecordViewController.swift; sourceTree = "<group>"; };
@@ -2106,6 +2116,24 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		B892FF9B23AB6BA600A137C0 /* TYCityFilter */ = {
+			isa = PBXGroup;
+			children = (
+				B892FF9C23AB6BB500A137C0 /* TYCityFilterView.swift */,
+			);
+			path = TYCityFilter;
+			sourceTree = "<group>";
+		};
+		B892FF9E23ABB4FD00A137C0 /* TYFiliterView */ = {
+			isa = PBXGroup;
+			children = (
+				B892FFA123ABB5AE00A137C0 /* TYFiliterLayout.swift */,
+				B892FF9F23ABB50800A137C0 /* TYFiliterView.swift */,
+				B892FFA323ABB70700A137C0 /* TYFiliterViewData.swift */,
+			);
+			path = TYFiliterView;
+			sourceTree = "<group>";
+		};
 		B89C396823A0C8F400CAB651 /* TYCurveView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2262,6 +2290,8 @@
 			isa = PBXGroup;
 			children = (
 				B8454ED223A3EF5200E88BAD /* TYDateCalculate.swift */,
+				B892FF9E23ABB4FD00A137C0 /* TYFiliterView */,
+				B892FF9B23AB6BA600A137C0 /* TYCityFilter */,
 				B89C396823A0C8F400CAB651 /* TYCurveView */,
 				C4F139AE235419EF00D777F6 /* Others */,
 				C4F139AD2354199E00D777F6 /* TYCalendar */,
@@ -2465,6 +2495,7 @@
 				B870E53C238C27F40085AFA3 /* PatientInfo.swift */,
 				C4F34DBE239E492700D45995 /* HCPregnancyProbability.swift */,
 				B892FF9723AB556D00A137C0 /* HCArticle.swift */,
+				B892FF9923AB69EC00A137C0 /* HCFiliter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2970,6 +3001,7 @@
 				B816EACD221DABF400F024D5 /* ZXPDF417HighLevelEncoder.m in Sources */,
 				B86993E3233754B100086A77 /* HomeLayout.swift in Sources */,
 				B816EB2F221DABF400F024D5 /* ZXUPCEANExtensionSupport.m in Sources */,
+				B892FF9D23AB6BB500A137C0 /* TYCityFilterView.swift in Sources */,
 				B8508EAA23421E22008C24BA /* HCListDetailIconCell.swift in Sources */,
 				B816EAD3221DABF400F024D5 /* ZXPDF417ECErrorCorrection.m in Sources */,
 				B8BE350B221478A900EF16F1 /* VCServer.swift in Sources */,
@@ -3054,6 +3086,7 @@
 				B8BE351122147AE600EF16F1 /* HCEditUserIconViewController.swift in Sources */,
 				B821E34D23070907009A11A3 /* HCLocationManager.swift in Sources */,
 				C4481E2422154D66007F4B0C /* BaseWKWebViewViewController.swift in Sources */,
+				B892FFA023ABB50800A137C0 /* TYFiliterView.swift in Sources */,
 				C421332C22056F24006C10C4 /* TYHUD.swift in Sources */,
 				B816EAAA221DABF400F024D5 /* ZXQRCodeFinderPatternInfo.m in Sources */,
 				C42133582205883D006C10C4 /* BaseViewModel.swift in Sources */,
@@ -3159,6 +3192,7 @@
 				B816EAF8221DABF400F024D5 /* ZXMaxiCodeReader.m in Sources */,
 				B816EB3A221DABF400F024D5 /* ZXGeoResultParser.m in Sources */,
 				B816EB35221DABF400F024D5 /* ZXTelResultParser.m in Sources */,
+				B892FFA223ABB5AE00A137C0 /* TYFiliterLayout.swift in Sources */,
 				B870E54E23902D0D0085AFA3 /* TYListMenuView.swift in Sources */,
 				C454C01B234E0005005CBC0B /* TYSearchRecordView.swift in Sources */,
 				B816EAC7221DABF400F024D5 /* ZXMultiFormatReader.m in Sources */,
@@ -3204,6 +3238,7 @@
 				B816EA77221DABF400F024D5 /* LBXScanLineAnimation.m in Sources */,
 				C421338722059B8C006C10C4 /* DBCtrl.swift in Sources */,
 				B816EA95221DABF400F024D5 /* ZXAztecDetector.m in Sources */,
+				B892FFA423ABB70700A137C0 /* TYFiliterViewData.swift in Sources */,
 				B870E545238EE0570085AFA3 /* HCExpertConsultViewController.swift in Sources */,
 				C421338522059B8C006C10C4 /* DBProtocol.swift in Sources */,
 				C4F139B6235419EF00D777F6 /* AppLaunchView.swift in Sources */,
@@ -3294,6 +3329,7 @@
 				B8FE96BA238849090077B9BF /* HCArticleCell.swift in Sources */,
 				B816EA8C221DABF400F024D5 /* ZXAztecToken.m in Sources */,
 				C42133682205902A006C10C4 /* AccountViewModel.swift in Sources */,
+				B892FF9A23AB69EC00A137C0 /* HCFiliter.swift in Sources */,
 				B816EB52221DABF400F024D5 /* ZXVINParsedResult.m in Sources */,
 				B816EABE221DABF400F024D5 /* ZXDefaultGridSampler.m in Sources */,
 				B826AF7F221C671B000428C1 /* ColunmCollectionViewCell.swift in Sources */,
