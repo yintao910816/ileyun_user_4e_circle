@@ -28,17 +28,20 @@ class HCHelper {
     public var userInfoModel: HCUserModel?
     public var isPresentLogin: Bool = false
     
-    class func presentLogin(presentVC: UIViewController? = nil, _ completion: (() ->())? = nil) {
+    class func presentLogin(presentVC: UIViewController? = nil, isPopToRoot: Bool = false, _ completion: (() ->())? = nil) {
         HCHelper.share.isPresentLogin = true
         
         let loginSB = UIStoryboard.init(name: "HCLogin", bundle: Bundle.main)
         let loginControl = loginSB.instantiateViewController(withIdentifier: "loginControl")
         loginControl.modalPresentationStyle = .fullScreen
-        if let presentV = presentVC {
-            presentV.present(loginControl, animated: true, completion: completion)
-        }else{
-            NSObject().visibleViewController?.present(loginControl, animated: true, completion: completion)
-        }
+        
+        let newPresentV = presentVC == nil ? NSObject().visibleViewController : presentVC
+        newPresentV?.present(loginControl, animated: true, completion: {
+            if isPopToRoot {
+                newPresentV?.navigationController?.popViewController(animated: true)
+            }
+            completion?()
+        })
     }
     
     func clearUser() {
@@ -104,6 +107,11 @@ extension HCHelper: VMNavigation {
         HCHelper.push(BaseWebViewController.self, ["url": href])
     }
     
+    public class func pushLocalH5(type: H5Type) {
+        PrintLog("固定链接跳转地址: \(type.getLocalUrl())")
+        HCHelper.push(BaseWebViewController.self, ["url": type.getLocalUrl()])
+    }
+
     private class func pushH5(model: H5InfoModel, arg: String?) {
         guard model.setValue.count > 0 else { return }
         

@@ -8,8 +8,16 @@
 
 import UIKit
 
+enum HCBackItemInterface: String {
+    case white = "navigationButtonReturnClick"
+    case red = "navigationButtonReturn"
+}
+
 class BaseNavigationController: UINavigationController {
     
+    /// 返回按钮图片
+    var backItemInterface: HCBackItemInterface = .white
+
     /**
      * 是否开启右滑返回手势
      */
@@ -18,7 +26,7 @@ class BaseNavigationController: UINavigationController {
             isSideBackEnable == true ? startSideBack() : stopSideBack()
         }
     }
-    
+        
     private func startSideBack() {
         interactivePopGestureRecognizer?.delegate = self
     }
@@ -45,8 +53,7 @@ class BaseNavigationController: UINavigationController {
             viewController.hidesBottomBarWhenPushed = true
             
             let backButton : UIButton = UIButton(type : .system)
-            backButton.setImage(UIImage(named :"navigationButtonReturnClick")?.withRenderingMode(.alwaysOriginal), for: .normal)
-            backButton.setImage(UIImage(named :"navigationButtonReturnClick")?.withRenderingMode(.alwaysOriginal), for: .highlighted)
+            backButton.setImage(UIImage(named :backItemInterface.rawValue)?.withRenderingMode(.alwaysOriginal), for: .normal)
             backButton.addTarget(self, action :#selector(backAction), for: .touchUpInside)
             backButton.sizeToFit()
             viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(customView:backButton)

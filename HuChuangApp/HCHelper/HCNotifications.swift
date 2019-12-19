@@ -22,7 +22,9 @@ extension Notification.Name {
     public struct UserInterface {
         /// 连续2次点击同一个tabBar
         static let tabBarSelectedTwice = Notification.Name(rawValue: "org.UserInterface.notification.name.tabBarSelectedTwice")
-       
+        /// 跳转首页
+        static let selectedHomeTabBar = Notification.Name(rawValue: "org.UserInterface.notification.name.selectedHomeTabBar")
+
         static let webHistoryItemChanged = Notification.Name(rawValue: "WebHistoryItemChangedNotification")
         /// js通知刷新首页数据
         static let jsReloadHome = Notification.Name(rawValue: "org.UserInterface.notification.name.jsReloadHome")

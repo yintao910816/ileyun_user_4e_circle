@@ -68,14 +68,19 @@ enum H5Type: String {
     case noticeAndMessage = "noticeAndMessage"
         
     func getLocalUrl() ->String {
-        switch self {
-        case .healthRecordsUser:
-            return "\(APIAssistance.base)#/HealthRecords"
-        case .doctorHome:
-            return "\(APIAssistance.base)#/doctorHome"
-        default:
-            return ""
-        }
+        return "\(APIAssistance.baseH5Host)#/\(rawValue)?token=\(userDefault.token)"
+//        switch self {
+//        case .healthRecordsUser:
+//            return "\(APIAssistance.baseH5Host)#/HealthRecords"
+//        case .doctorHome:
+//            return "\(APIAssistance.baseH5Host)#/doctorHome"
+////        case .csRecord:
+////            return "\(APIAssistance.baseH5Host)#/csRecord?token=\(userDefault.token)"
+//        case .doctorCs:
+//            return "\(APIAssistance.baseH5Host)#/DoctorCs?token=\(userDefault.token)"
+//        default:
+//            return ""
+//        }
     }
 }
 
@@ -159,6 +164,10 @@ enum API{
     case getAuthMember(openId: String)
     /// 搜索
     case search(pageNum: Int, pageSize: Int, searchModule: HCsearchModule, searchName: String)
+    /// 文章当前收藏数量
+    case storeAndStatus(articleId: String)
+    /// 文章收藏取消
+    case articelStore(articleId: String, status: Bool)
 }
 
 //MARK:
@@ -226,6 +235,10 @@ extension API: TargetType{
             return "api/login/getAuthMember"
         case .search(_):
             return "api/search/search"
+        case .storeAndStatus(_):
+            return "api/cms/storeAndStatus"
+        case .articelStore(_):
+            return "api/cms/store"
         }
     }
     
@@ -372,6 +385,11 @@ extension API {
             
             params["pageNum"] = pageNum
             params["pageSize"] = pageSize
+        case .storeAndStatus(let articleId):
+            params["articleId"] = articleId
+        case .articelStore(let articleId, let status):
+            params["articleId"] = articleId
+            params["status"] = status
 
         default:
             return nil

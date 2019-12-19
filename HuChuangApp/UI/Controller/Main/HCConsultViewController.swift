@@ -28,7 +28,7 @@ class HCConsultViewController: BaseViewController {
     var viewModel: ConsultViewModel!
     
     @IBAction func actions(_ sender: UIButton) {
-        HCHelper.preloadH5(type: .csRecord, arg: nil)
+        HCHelper.pushLocalH5(type: .doctorCs)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,7 +75,8 @@ class HCConsultViewController: BaseViewController {
             .drive(tableView.rx.items(cellIdentifier: HCConsultListCell_idetifier, cellType: HCConsultListCell.self)) { _,model,cell  in
                 cell.model = model
                 cell.consultCallBack = { [weak self] in
-                    self?.performSegue(withIdentifier: "picAndTextSegue", sender: $0)
+//                    self?.performSegue(withIdentifier: "picAndTextSegue", sender: $0)
+                    HCHelper.pushH5(href: "\(H5Type.doctorCs.getLocalUrl())&userId=\($0.userId)")
                 }
         }
         .disposed(by: disposeBag)

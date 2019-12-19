@@ -17,13 +17,17 @@ class BaseViewController: UIViewController {
     /// 导航栏和安全区域部分
     private var navBgView: UIView!
     private var bottomSafeBgView: UIView!
-
+    
+    public var navBarColor: UIColor = .white
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         edgesForExtendedLayout = .top
         setContentInsetAdjustmentBehaviorNever()
-                
+              
+        view.backgroundColor = .white
+        
         navBgView = UIView()
         navBgView.backgroundColor = .white
         view.insertSubview(navBgView, at: 0)
@@ -75,7 +79,8 @@ class BaseViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.navigationController?.navigationBar.barTintColor = navBarColor
+
         if UIApplication.shared.statusBarStyle != .lightContent {
             UIApplication.shared.statusBarStyle = .lightContent
         }

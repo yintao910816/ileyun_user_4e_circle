@@ -23,6 +23,12 @@ class HCTabBarViewController: UITabBarController {
                 self?.selectedIndex = 3
             })
             .disposed(by: disposeBag)
+        
+        NotificationCenter.default.rx.notification(NotificationName.UserInterface.selectedHomeTabBar)
+            .subscribe(onNext: { [weak self] data in
+                self?.selectedIndex = 0
+            })
+            .disposed(by: disposeBag)
     }
 
 }

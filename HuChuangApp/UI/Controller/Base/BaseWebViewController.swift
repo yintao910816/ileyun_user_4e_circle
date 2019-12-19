@@ -246,12 +246,20 @@ extension BaseWebViewController: UIWebViewDelegate{
         context?.setObject(unsafeBitCast(appInfo, to: AnyObject.self), forKeyedSubscript: "appInfo" as NSCopying & NSObjectProtocol)
 
         // js调用，刷新首页
-        let getUserInfoFnApi: @convention(block) () ->() = {[weak self]in
+        let getUserInfoFnApi: @convention(block) () ->() = {
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: NotificationName.UserInterface.jsReloadHome, object: nil)
             }
         }
         context?.setObject(unsafeBitCast(getUserInfoFnApi, to: AnyObject.self), forKeyedSubscript: "getUserInfoFnApi" as NSCopying & NSObjectProtocol)
+
+        /// 返回上一个界面 （如个人中心提交反馈成功）
+        let backFnApi: @convention(block) () ->() = {[weak self]in
+            DispatchQueue.main.async {
+                self?.navigationController?.popViewController(animated: true)
+            }
+        }
+        context?.setObject(unsafeBitCast(backFnApi, to: AnyObject.self), forKeyedSubscript: "backFnApi" as NSCopying & NSObjectProtocol)
 
         setTitle()
     }

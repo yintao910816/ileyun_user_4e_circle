@@ -64,7 +64,7 @@ class HCLoginViewController: BaseViewController {
         timer = CountdownTimer.init(totleCount: 60)
         
         #if DEBUG
-        accountInputOutlet.text = "13995631675"
+//        accountInputOutlet.text = "13995631675"
         accountInputOutlet.text = "15717102067"
         passInputOutlet.text  = "8888"
         #else

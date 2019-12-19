@@ -19,7 +19,7 @@ class HCSettingFooterView: UIView {
         backgroundColor = .clear
 
         loginOutButton = UIButton()
-        loginOutButton.setTitle("退出登陆", for: .normal)
+        loginOutButton.setTitle("退出登录", for: .normal)
         loginOutButton.setTitleColor(HC_MAIN_COLOR, for: .normal)
         loginOutButton.titleLabel?.font = .font(fontSize: 16)
         loginOutButton.layer.cornerRadius = 23

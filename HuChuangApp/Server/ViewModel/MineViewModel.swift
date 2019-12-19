@@ -34,14 +34,7 @@ class MineViewModel: BaseViewModel, VMNavigation {
             .disposed(by: disposeBag)
 
         cellDidSelectedSubject
-            ._doNext(forNotice: hud)
-            .flatMap{ [unowned self] in self.requestH5(type: $0.h5Type) }
-            .subscribe(onNext: { [unowned self] model in
-                self.hud.noticeHidden()
-                self.pushH5(model: model)
-                }, onError: { [unowned self] error in
-                    self.hud.failureHidden(self.errorMessage(error))
-            })
+            .subscribe(onNext: { HCHelper.pushLocalH5(type: $0.h5Type) })
             .disposed(by: disposeBag)
 
         HCHelper.share.userInfoHasReload
@@ -73,7 +66,7 @@ class MineViewModel: BaseViewModel, VMNavigation {
                                                                                           title: "我的医生",
                                                                                           h5Type: .underDev)]),
                         SectionModel.init(model: 1, items: [MenuListItemModel.createModel(titleIcon: "shouhuodizhi",
-                                                                                          title: "我的卡卷",
+                                                                                          title: "我的卡券",
                                                                                           h5Type: .voucherCenter)]),
                         SectionModel.init(model: 2, items: [MenuListItemModel.createModel(titleIcon: "my_icon_feedback",
                                                                                           title: "用户反馈",

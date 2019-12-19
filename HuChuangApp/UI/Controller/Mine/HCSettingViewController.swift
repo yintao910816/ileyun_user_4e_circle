@@ -20,7 +20,9 @@ class HCSettingViewController: BaseViewController {
     override func setupUI() {
         footer = HCSettingFooterView.init(frame: .init(x: 0, y: 0, width: PPScreenW, height: 190))
         footer.loginOutCallBack = {
-            HCHelper.presentLogin()
+            HCHelper.presentLogin(presentVC: self, isPopToRoot: true) {
+                NotificationCenter.default.post(name: NotificationName.UserInterface.selectedHomeTabBar, object: nil)
+            }
         }
         tableView.tableFooterView = footer
         

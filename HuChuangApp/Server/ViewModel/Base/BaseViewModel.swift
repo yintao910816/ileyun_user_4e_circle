@@ -40,7 +40,7 @@ class BaseViewModel: NSObject {
         }
         
         if let response = _error.response {
-            return "错误码：\(response.statusCode)"
+            return "错误码：\(response.statusCode)-- \(response.debugDescription)"
         }else {
             return _error.errorDescription ?? "请检查网络是否正常"
         }

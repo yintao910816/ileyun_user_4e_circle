@@ -67,10 +67,9 @@ class HCClassRoomViewModel: RefreshVM<HCArticleItemModel> {
             .map(model: HomeColumnModel.self)
             .subscribe(onSuccess: { [weak self] model in
                 self?.columnData = model
-                
-                self?.menuItemData.onNext(TYSlideItemModel.mapData(models: model.content))
-                
+                                
                 if model.content.count > 0 {
+                    self?.menuItemData.onNext(TYSlideItemModel.mapData(models: model.content))
                     self?.requestData(true)
                 }
             }) { error in
