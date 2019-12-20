@@ -462,6 +462,7 @@
 		C497E97823447E6F00328B47 /* HCHomeBabyTuinaClassroomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C497E97623447E6F00328B47 /* HCHomeBabyTuinaClassroomCell.swift */; };
 		C497E97923447E6F00328B47 /* HCHomeBabyTuinaClassroomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C497E97723447E6F00328B47 /* HCHomeBabyTuinaClassroomCell.xib */; };
 		C4AA410A233C648C00144400 /* HCDatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AA4109233C648C00144400 /* HCDatePickerViewController.swift */; };
+		C4AEA71923ACB35F00DD7AC1 /* HCPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AEA71823ACB35F00DD7AC1 /* HCPickerController.swift */; };
 		C4B1852B2345880E00F37197 /* HCSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B1852A2345880E00F37197 /* HCSearchViewModel.swift */; };
 		C4B185342345B03400F37197 /* HCSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B185332345B03400F37197 /* HCSearch.swift */; };
 		C4C3257B2205B8490091783C /* ScrollTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C3257A2205B8490091783C /* ScrollTextView.swift */; };
@@ -1194,6 +1195,7 @@
 		C497E97623447E6F00328B47 /* HCHomeBabyTuinaClassroomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCHomeBabyTuinaClassroomCell.swift; sourceTree = "<group>"; };
 		C497E97723447E6F00328B47 /* HCHomeBabyTuinaClassroomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HCHomeBabyTuinaClassroomCell.xib; sourceTree = "<group>"; };
 		C4AA4109233C648C00144400 /* HCDatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCDatePickerViewController.swift; sourceTree = "<group>"; };
+		C4AEA71823ACB35F00DD7AC1 /* HCPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPickerController.swift; sourceTree = "<group>"; };
 		C4B1852A2345880E00F37197 /* HCSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCSearchViewModel.swift; sourceTree = "<group>"; };
 		C4B185332345B03400F37197 /* HCSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCSearch.swift; sourceTree = "<group>"; };
 		C4C3257A2205B8490091783C /* ScrollTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollTextView.swift; sourceTree = "<group>"; };
@@ -2635,6 +2637,7 @@
 			children = (
 				C43BC44F233B111000194539 /* HCPickerView.swift */,
 				C4AA4109233C648C00144400 /* HCDatePickerViewController.swift */,
+				C4AEA71823ACB35F00DD7AC1 /* HCPickerController.swift */,
 			);
 			path = Picker;
 			sourceTree = "<group>";
@@ -2965,6 +2968,7 @@
 				B816EAF0221DABF400F024D5 /* ZXDataMatrixDataBlock.m in Sources */,
 				C454C01D234E007B005CBC0B /* TYSearchRecordLayout.swift in Sources */,
 				C4E254E5233E069D006922DB /* HCClassRoomViewController.swift in Sources */,
+				C4AEA71923ACB35F00DD7AC1 /* HCPickerController.swift in Sources */,
 				C421333D220586BD006C10C4 /* HCHomeViewController.swift in Sources */,
 				C497E93523443DB100328B47 /* FindDoctorHeaderView.swift in Sources */,
 				B8F8FBA823572B5700784442 /* TYData.swift in Sources */,

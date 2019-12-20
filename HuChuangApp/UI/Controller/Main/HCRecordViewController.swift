@@ -116,4 +116,17 @@ extension HCRecordViewController: UICollectionViewDataSource, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return viewModel.minimumInteritemSpacing(section)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let model = viewModel.datasource[indexPath.section][indexPath.row]
+        if let actionModel = model as? HCCellActionItem {
+            let datePicker = HCDatePickerViewController()
+            datePicker.titleDes = actionModel.title
+            addChildViewController(datePicker)
+
+            datePicker.finishSelected = { date in
+
+            }
+        }
+    }
 }
