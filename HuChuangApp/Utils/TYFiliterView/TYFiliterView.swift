@@ -162,7 +162,7 @@ extension TYFiliterView {
             item.isSelected = false
         }
         
-        collectionView.reloadData()
+        collectionView.reloadData()        
     }
     
     @objc private func commitAction() {

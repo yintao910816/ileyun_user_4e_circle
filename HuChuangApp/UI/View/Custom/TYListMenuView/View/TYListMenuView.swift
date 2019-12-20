@@ -9,11 +9,11 @@
 import UIKit
 
 enum TYListMenuViewType: Int {
-    case city = 0
+    case none = 0
     case peoples = 1
     case price = 2
     case filiter = 3
-    case none
+    case city = 4
 }
 
 class TYListMenuView: UIView {

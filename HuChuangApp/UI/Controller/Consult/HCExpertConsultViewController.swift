@@ -16,6 +16,8 @@ class HCExpertConsultViewController: BaseViewController {
     
     @IBOutlet weak var navHeightCns: NSLayoutConstraint!
     
+    private var isFirstLoad: Bool = true
+    
     private var cityFilterView: TYCityFilterView!
     private var filiterView: TYFiliterView!
     
@@ -29,6 +31,7 @@ class HCExpertConsultViewController: BaseViewController {
         navHeightCns.constant += LayoutSize.topVirtualArea
         
         navSearchBar.tfBgColor = RGB(247, 247, 247)
+        navSearchBar.coverButtonEnable = false
         navSearchBar.leftItemIcon = "navigationButtonReturnClick"
         navSearchBar.searchPlaceholder = "搜索"
         navSearchBar.tfSearchIcon = "nav_search_gray"
@@ -38,6 +41,10 @@ class HCExpertConsultViewController: BaseViewController {
             self.dismiss(animated: true, completion: nil)
         }
         
+        navSearchBar.beginSearch = { [weak self] _ in
+            self?.viewModel.requestSearchSubject.onNext(Void())
+        }
+
         tableView.rowHeight = HCConsultListCell_Height
         tableView.register(HCConsultListCell.self, forCellReuseIdentifier: HCConsultListCell_idetifier)
         
@@ -61,11 +68,15 @@ class HCExpertConsultViewController: BaseViewController {
         cityFilterView.excuteAnimotion(false)
         
         filiterView = TYFiliterView.init(frame: view.bounds)
-        filiterView.commitCallBack = { [unowned self] _ in
-            
+        filiterView.commitCallBack = { [unowned self] in
+            self.viewModel.filiterCommitSubject.onNext($0)
         }
         view.addSubview(filiterView)
         view.bringSubviewToFront(filiterView)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+            self.isFirstLoad = false
+        }
     }
     
     override func rxBind() {
@@ -87,6 +98,9 @@ class HCExpertConsultViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
 
+        tableView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
+        
         // 上下拉刷新绑定
         tableView.prepare(viewModel, showFooter: false)
         tableView.headerRefreshing()
@@ -95,12 +109,25 @@ class HCExpertConsultViewController: BaseViewController {
             .drive(cityFilterView.datasource)
             .disposed(by: disposeBag)
         
+        navSearchBar.textObser
+            .bind(to: viewModel.searchTextObser)
+            .disposed(by: disposeBag)
+        
         viewModel.reloadSubject.onNext(Void())
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        filiterView.excuteAnimotion(false)
+        if isFirstLoad && filiterView.width > 0 {
+            filiterView.excuteAnimotion(false)
+        }
+    }
+}
+
+extension HCExpertConsultViewController: UITableViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        navSearchBar.resignSearchFirstResponder()
     }
 }

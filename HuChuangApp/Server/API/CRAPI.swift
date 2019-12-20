@@ -153,7 +153,7 @@ enum API{
     /// 健康档案
     case getHealthArchives
     /// 专家问诊医生列表
-    case consultSelectListPage(pageNum: Int, pageSize: Int, searchName: String, areaCode: Int, opType: Int, sceen: String)
+    case consultSelectListPage(pageNum: Int, pageSize: Int, searchName: String, areaCode: String, opType: Int, sceen: [String: Any])
     /// 咨询医生信息
     case getUserInfo(userId: String)
     /// 最近三个周期信息
@@ -415,3 +415,43 @@ extension API {
 //MARK: API server
 let HCProvider = MoyaProvider<API>(plugins: [MoyaPlugins.MyNetworkActivityPlugin,
                                              RequestLoadingPlugin()]).rx
+
+/**
+ https://ileyun.ivfcn.com/hc-patient/api/consult/selectListPage
+ 请求方式：
+
+ POST
+ Content-type : application/json
+ 参数说明：
+
+ 参数名 必选 类型 说明
+ areaCode 是 int 城市区域编码， 全国 就为 空
+ opType 是 string (操作类型: 排序) 0 默认 1 咨询人数 2 价格
+ sceen 是 Object (操作类型: 筛选)
+ lv 是 array 左侧筛选 — 医生级别 （主任医师）
+ skilledIn 是 array 左侧筛选 — 擅长 （不孕不育，感冒）
+ addNum 是 array (是否加号) 加号 为 1 ，
+ 请求参数示例
+
+ {
+ "pageNum":1,
+ "pageSize":20,
+ "searchName":"搜索框关键字",
+ "unitId":0,
+ "areaCode":1001
+ "opType":0,
+ "sceen":{
+     "lv ":[
+             "主任医师",
+             "副主任"
+         ],
+     "skilledIn":[
+             "不孕不育",
+             "感冒"
+         ],
+     "addNum":[
+             1
+         ]
+ }
+ }
+ */

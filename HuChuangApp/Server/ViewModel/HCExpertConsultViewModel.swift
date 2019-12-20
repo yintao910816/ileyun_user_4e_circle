@@ -12,12 +12,18 @@ import RxSwift
 class HCExpertConsultViewModel: RefreshVM<HCDoctorItemModel> {
     
     private var listMenuData: [TYListMenuModel] = []
+    /// 医生等级 - 加号 - 擅长类型
     private var filiterDatas = (([TYFiliterModel](), [TYFiliterModel](), [TYFiliterModel]()))
     private var filiterCityDatas: HCCityItemModel?
+    private var filiterOpType: Int = 0
     
     public let allCitysDataObser = Variable([HCAllCityItemModel]())
     public let filiterCommitSubject = PublishSubject<([TYFiliterModel], [TYFiliterModel], [TYFiliterModel])>()
     public let filiterCitySubject = PublishSubject<HCCityItemModel>()
+    public let filiterOpTypeSubject = PublishSubject<Int>()
+    
+    public let searchTextObser = Variable("")
+    public let requestSearchSubject = PublishSubject<Void>()
     
     override init() {
         super.init()
@@ -51,6 +57,26 @@ class HCExpertConsultViewModel: RefreshVM<HCDoctorItemModel> {
             listMenuData.append(model)
         }
         
+        filiterCitySubject
+            .subscribe(onNext: { [weak self] in
+                self?.filiterCityDatas = $0
+                self?.requestData(true)
+            })
+            .disposed(by: disposeBag)
+        
+        filiterCommitSubject
+            .subscribe(onNext: { [weak self] in
+                self?.filiterDatas = $0
+                self?.requestData(true)
+            })
+            .disposed(by: disposeBag)
+        
+        filiterCommitSubject
+            .subscribe(onNext: { [weak self] _ in
+                self?.requestData(true)
+            })
+            .disposed(by: disposeBag)
+        
         reloadSubject
             .subscribe(onNext: { [weak self] in
                 self?.requestAllCitys()
@@ -64,11 +90,20 @@ class HCExpertConsultViewModel: RefreshVM<HCDoctorItemModel> {
     }
     
     override func requestData(_ refresh: Bool) {
-        HCProvider.request(.consultSelectListPage(pageNum: 1, pageSize: 10, searchName: "", areaCode: 0, opType: 0, sceen: ""))
+        super.requestData(refresh)
+        
+        HCProvider.request(.consultSelectListPage(pageNum: pageModel
+            .currentPage,
+                                                  pageSize: pageModel.pageSize,
+                                                  searchName: searchTextObser.value,
+                                                  areaCode: filiterCityDatas?.id ?? "",
+                                                  opType: filiterOpType,
+                                                  sceen: prepareSceen()))
             .map(model: HCExpertConsultListModel.self)
             .subscribe(onSuccess: { [weak self] data in
                 self?.updateRefresh(refresh, data.records, data.pages)
             }) { [weak self] error in
+                self?.hud.failureHidden(self?.errorMessage(error))
                 self?.revertCurrentPageAndRefreshStatus()
         }
         .disposed(by: disposeBag)
@@ -80,5 +115,25 @@ class HCExpertConsultViewModel: RefreshVM<HCDoctorItemModel> {
             .asObservable()
             .bind(to: allCitysDataObser)
             .disposed(by: disposeBag)
+    }
+    
+    private func prepareSceen() ->[String: Any] {
+        var lv: [String] = []
+        var addNum: [String] = []
+        var skilledIn: [String] = []
+
+        if filiterDatas.0.count > 0 {
+            lv.append(contentsOf: filiterDatas.0.map{ $0.title })
+        }
+        
+        if filiterDatas.1.count > 0 {
+            addNum.append(contentsOf: filiterDatas.1.map{ $0.title })
+        }
+
+        if filiterDatas.2.count > 0 {
+            skilledIn.append(contentsOf: filiterDatas.2.map{ $0.title })
+        }
+        
+        return ["lv": lv, "addNum": addNum, "skilledIn": skilledIn]
     }
 }
