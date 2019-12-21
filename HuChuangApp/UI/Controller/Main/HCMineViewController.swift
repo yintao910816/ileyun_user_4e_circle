@@ -53,7 +53,8 @@ class HCMineViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         header.openH5Publish
-            .subscribe(onNext: { HCHelper.preloadH5(type: $0, arg: nil) })
+//            .subscribe(onNext: { HCHelper.preloadH5(type: $0, arg: nil) })
+            .subscribe(onNext: { HCHelper.pushLocalH5(type: $0) })
             .disposed(by: disposeBag)
         
         header.gotoSetting

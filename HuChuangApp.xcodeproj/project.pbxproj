@@ -3528,6 +3528,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C0330B19F13F10F1584530CD /* Pods-HuChuangApp.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HuChuangApp/HuChuangApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -3551,6 +3552,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EA8B0C293E3C1F848AFFFF98 /* Pods-HuChuangApp.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HuChuangApp/HuChuangApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;

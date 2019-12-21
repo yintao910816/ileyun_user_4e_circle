@@ -36,7 +36,7 @@ class TYCurveView: UIView {
     /// 标题
     private var titleViewHeight: CGFloat = 25
     /// 时间
-    private var curvelTimeViewHeight: CGFloat = 60
+    private var curvelTimeViewHeight: CGFloat = 55
     /// 备注曲线颜色
     private var remindViewHeight: CGFloat = 45
     
@@ -171,7 +171,7 @@ class TYCurveView: UIView {
                                height: lineHeight)
         lineView.set(itemDatas: itemDatas)
 
-        timeView.frame = .init(x: 0, y: 0,
+        timeView.frame = .init(x: itemWidth / 2.0, y: 0,
                                width: curvelViewWidth,
                                height: curvelTimeViewHeight - lineHeight)
         timeView.itemModels = itemDatas
@@ -199,7 +199,7 @@ class TYCurveView: UIView {
                                  width: width,
                                  height: curvelViewHeight)
 
-        scrollView.contentSize = .init(width: curveView.width, height: curvelViewHeight)
+        scrollView.contentSize = .init(width: curveView.width  + itemWidth, height: curvelViewHeight)
         
         remindBgView.frame = .init(x: 0, y: scrollView.frame.maxY, width: width, height: remindViewHeight)
         markLabel.frame = .init(x: 30, y: 0, width: remindBgView.width - 60, height: remindViewHeight)
@@ -210,12 +210,12 @@ class TYCurveView: UIView {
                               width: 1,
                               height: curvelViewHeight + titleViewHeight - probabilityLabel.height - curvelTimeViewHeight)
         
-        lineView.frame = .init(x: 0, y: curveView.frame.maxY,
-                               width: scrollView.contentSize.width,
+        lineView.frame = .init(x: itemWidth / 2.0, y: curveView.frame.maxY,
+                               width: curvelViewWidth,
                                height: lineHeight)
         
         curveTimeBgView.frame = .init(x: 0, y: lineView.frame.maxY,
-                                      width: curvelViewWidth,
+                                      width: curvelViewWidth + itemWidth,
                                       height: curvelTimeViewHeight - lineHeight)
         timeView.frame = curveTimeBgView.bounds
     }
