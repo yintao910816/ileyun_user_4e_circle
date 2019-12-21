@@ -37,9 +37,7 @@ class HCCurveCell: HCBaseRecordCell {
             contentView.addSubview(curveView)
 
             curveView.setData(probabilityDatas: proModel.probabilityDatas,
-                              titmesDatas: proModel.timeDatas,
-                              itemDatas: proModel.lineItemDatas,
-                              pointDatas: proModel.pointDatas)
+                              itemDatas: proModel.lineItemDatas)
         }
     }
         

@@ -30,12 +30,12 @@ class HCRecordItemDataModel: HJModel, HCRecordData {
     
     /// 画曲线数据
     public var probabilityDatas: [Float] = []
-    /// 坐标时间 月.日
-    public var timeDatas: [String] = []
+//    /// 坐标时间 月.日
+//    public var timeDatas: [String] = []
     /// 画线数据 - 线条颜色
     public var lineItemDatas: [TYLineItemModel] = []
-    /// 画线数据 - 画点
-    public var pointDatas: [TYPointItemModel] = []
+//    /// 画线数据 - 画点
+//    public var pointDatas: [TYPointItemModel] = []
 
     var cellIdentifier: String { return HCCurveCell_identifier }
     var width: CGFloat { return PPScreenW }

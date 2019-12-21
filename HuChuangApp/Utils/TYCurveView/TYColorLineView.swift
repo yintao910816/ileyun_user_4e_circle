@@ -13,7 +13,6 @@ class TYColorLineView: UIView {
     private var lineView: UIView!
     
     private var itemDatas: [TYLineItemModel] = []
-    var pointDatas: [TYPointItemModel] = []
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,55 +26,88 @@ class TYColorLineView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func set(itemDatas: [TYLineItemModel], pointDatas: [TYPointItemModel]) {
+    public func set(itemDatas: [TYLineItemModel]) {
         self.itemDatas.removeAll()
         self.itemDatas.append(contentsOf: itemDatas)
-        self.pointDatas = pointDatas
         
         var rect = lineView.frame
         rect.size.width = width
         lineView.frame = rect
-        
+                
         setupLine()
     }
     
     private func setupLine() {
-        let linePath = UIBezierPath.init()
-        linePath.move(to: .init(x: 0, y: 0))
-        linePath.addLine(to: .init(x: width, y: 0))
-        
-        var strokeStart: CGFloat = 0
+        var pointX: CGFloat = 0
         for data in itemDatas {
-            let shapeLayer = CAShapeLayer()
-            shapeLayer.path = linePath.cgPath
-            shapeLayer.lineWidth = 2 * lineView.height
-            shapeLayer.fillColor = UIColor.clear.cgColor
-            shapeLayer.strokeColor = data.color.cgColor
-            shapeLayer.strokeStart = strokeStart
+            let lineWidth = data.percentage * width
+            let line = UIView.init(frame: .init(x: pointX, y: 0, width: lineWidth, height: lineView.height))
+            line.backgroundColor = data.color
+            lineView.addSubview(line)
             
-            let strokeEnd: CGFloat = strokeStart + data.percentage
-            shapeLayer.strokeEnd = strokeEnd
+            pointX += lineWidth
             
-            lineView.layer.addSublayer(shapeLayer)
-            
-            strokeStart = strokeEnd
-        }
-        
-        let pointSize: CGFloat = 2 * lineView.height
-        let pointMargin: CGFloat = lineView.width / CGFloat(pointDatas.count)
-        var pointX: CGFloat = 0.0
-        for data in pointDatas {
-            let pointV = UIImageView.init(frame: .init(x: pointX, y: -lineView.height, width: pointSize, height: pointSize))
-            pointV.backgroundColor = .white
-            pointV.clipsToBounds = true
-            pointV.layer.cornerRadius = pointSize / 2
-            pointV.layer.borderColor = data.borderColor.cgColor
-            pointV.layer.borderWidth = 1
-            lineView.addSubview(pointV)
-            
-            pointX += (pointMargin - pointSize / 2.0)
+            // 点
+            let pointSize: CGFloat = lineView.height
+            let pointMargin: CGFloat = lineWidth / CGFloat(data.pointDatas.count)
+            var pointX: CGFloat = 0.0
+            for idx in 0..<data.pointDatas.count {
+                PrintLog("点X: \(pointX)")
+                let pointV = UIImageView.init(frame: .init(x: pointX, y: 0, width: pointSize, height: pointSize))
+                pointV.backgroundColor = .white
+                pointV.clipsToBounds = true
+                pointV.layer.cornerRadius = pointSize / 2
+                pointV.layer.borderColor = data.pointDatas[idx].borderColor.cgColor
+                pointV.layer.borderWidth = 1
+                line.addSubview(pointV)
+                
+                pointX += pointMargin
+            }
         }
     }
+    
+//    private func setupLine() {
+//        let linePath = UIBezierPath.init()
+//        linePath.move(to: .init(x: 0, y: 0))
+//        linePath.addLine(to: .init(x: width, y: 0))
+//
+//        var strokeStart: CGFloat = 0
+//        for data in itemDatas {
+//            let shapeLayer = CAShapeLayer()
+//            shapeLayer.path = linePath.cgPath
+//            shapeLayer.lineWidth = 2 * lineView.height
+//            shapeLayer.fillColor = UIColor.clear.cgColor
+//            shapeLayer.strokeColor = data.color.cgColor
+//            shapeLayer.strokeStart = strokeStart
+//
+//            let strokeEnd: CGFloat = strokeStart + data.percentage
+//            shapeLayer.strokeEnd = strokeEnd
+//
+//            lineView.layer.addSublayer(shapeLayer)
+//
+//            strokeStart = strokeEnd
+//        }
+//
+//        let pointSize: CGFloat = 2 * lineView.height
+//        let pointMargin: CGFloat = lineView.width / CGFloat(pointDatas.count)
+//        var pointX: CGFloat = 0.0
+//
+//        PrintLog("点总数：\(pointDatas.count) - 点大小：\(pointSize)")
+//
+//        for data in pointDatas {
+//            let pointV = UIImageView.init(frame: .init(x: pointX, y: -lineView.height, width: pointSize, height: pointSize))
+//            PrintLog("点位置：\(pointV.frame)")
+//
+//            pointV.backgroundColor = .white
+//            pointV.clipsToBounds = true
+//            pointV.layer.cornerRadius = pointSize / 2
+//            pointV.layer.borderColor = data.borderColor.cgColor
+//            pointV.layer.borderWidth = 1
+//            lineView.addSubview(pointV)
+//
+//            pointX += (pointMargin - pointSize / 2.0)
+//        }
+//    }
 }
 
 struct TYLineItemModel {
@@ -83,8 +115,12 @@ struct TYLineItemModel {
     var color: UIColor = .white
     /// 每一段所占据的总宽度百分比
     var percentage: CGFloat = 0
+    /// 每一段上面的时间点
+    var pointDatas: [TYPointItemModel] = []
 }
 
 struct TYPointItemModel {
     var borderColor: UIColor = .clear
+    /// 每个点对应的时间
+    var time: String = ""
 }

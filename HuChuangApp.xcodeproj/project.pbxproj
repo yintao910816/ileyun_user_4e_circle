@@ -426,6 +426,7 @@
 		C454C01B234E0005005CBC0B /* TYSearchRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C454C01A234E0005005CBC0B /* TYSearchRecordView.swift */; };
 		C454C01D234E007B005CBC0B /* TYSearchRecordLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C454C01C234E007B005CBC0B /* TYSearchRecordLayout.swift */; };
 		C454C01F234E00A8005CBC0B /* TYSearchRecordData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C454C01E234E00A8005CBC0B /* TYSearchRecordData.swift */; };
+		C46E4D6923AE40A800A67F02 /* TYCurveTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E4D6823AE40A800A67F02 /* TYCurveTimeView.swift */; };
 		C47E067923588FCD003A3320 /* TYCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47E067823588FCD003A3320 /* TYCalendarView.swift */; };
 		C47E067B23589355003A3320 /* TYCalendarDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47E067A23589355003A3320 /* TYCalendarDayCell.swift */; };
 		C47E067E23589800003A3320 /* HCRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47E067D23589800003A3320 /* HCRecorderView.swift */; };
@@ -1159,6 +1160,7 @@
 		C454C01A234E0005005CBC0B /* TYSearchRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSearchRecordView.swift; sourceTree = "<group>"; };
 		C454C01C234E007B005CBC0B /* TYSearchRecordLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSearchRecordLayout.swift; sourceTree = "<group>"; };
 		C454C01E234E00A8005CBC0B /* TYSearchRecordData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSearchRecordData.swift; sourceTree = "<group>"; };
+		C46E4D6823AE40A800A67F02 /* TYCurveTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYCurveTimeView.swift; sourceTree = "<group>"; };
 		C47E067823588FCD003A3320 /* TYCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYCalendarView.swift; sourceTree = "<group>"; };
 		C47E067A23589355003A3320 /* TYCalendarDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYCalendarDayCell.swift; sourceTree = "<group>"; };
 		C47E067D23589800003A3320 /* HCRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRecorderView.swift; sourceTree = "<group>"; };
@@ -2141,6 +2143,7 @@
 			children = (
 				B89C396923A0C90100CAB651 /* TYCurveView.swift */,
 				B8454EDA23A5361200E88BAD /* TYColorLineView.swift */,
+				C46E4D6823AE40A800A67F02 /* TYCurveTimeView.swift */,
 			);
 			path = TYCurveView;
 			sourceTree = "<group>";
@@ -3144,6 +3147,7 @@
 				B816EB0A221DABF400F024D5 /* ZXRSSExpandedDecodedInformation.m in Sources */,
 				B816EA8B221DABF400F024D5 /* ZXAztecDetectorResult.m in Sources */,
 				B8D4D47B2394258C00AA3D52 /* HCPicAndTextAskViewController.swift in Sources */,
+				C46E4D6923AE40A800A67F02 /* TYCurveTimeView.swift in Sources */,
 				C421332B22056F24006C10C4 /* HUD.swift in Sources */,
 				B816EA7B221DABF400F024D5 /* ZXPlanarYUVLuminanceSource.m in Sources */,
 				B8508E332340FC9F008C24BA /* Doctor.swift in Sources */,
@@ -3524,7 +3528,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C0330B19F13F10F1584530CD /* Pods-HuChuangApp.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HuChuangApp/HuChuangApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -3548,7 +3551,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EA8B0C293E3C1F848AFFFF98 /* Pods-HuChuangApp.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HuChuangApp/HuChuangApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;

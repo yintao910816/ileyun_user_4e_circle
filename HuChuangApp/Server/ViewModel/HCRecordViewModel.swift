@@ -19,7 +19,7 @@ class HCRecordViewModel: BaseViewModel {
     private var prepareProbabilityDatas: [Float] = []
     private var prepareTimesDatas: [String] = []
     /// 当前周期数据
-    public var currentCircleData = HCRecordItemDataModel()
+    public var currentCircleData: HCRecordItemDataModel?
     /// 三个周期数据
     private var circleDatas: [HCRecordData] = []
     /// 底部操作cell
@@ -87,7 +87,9 @@ extension HCRecordViewModel {
         if isContrast {
             datasource.append(circleDatas)
         }else {
-            datasource.append([currentCircleData])
+            if let data = currentCircleData {
+                datasource.append([data])
+            }
             datasource.append(cellActionItemDatasource)
         }
         
@@ -97,21 +99,35 @@ extension HCRecordViewModel {
     private func dealData(datas: [HCRecordItemDataModel]) {
         guard datas.count == 3 else { return }
 
-        currentCircleData = datas[1]
-        formatCircle(data: &currentCircleData)
-
+        var idx = 0
         for var item in datas {
             if item.cycle > 0 && item.keepDays > 0 && item.menstruationDate.count > 0 {
-                if item != currentCircleData {
-                    formatCircle(data: &item)
+                formatCircle(data: &item)
+                if idx == 1 {
+                    currentCircleData = item
                 }
                 circleDatas.append(item)
             }else {
                 PrintLog("非法数据")
             }
+            idx += 1
+        }
+
+//        for var item in datas {
+//            if item.cycle > 0 && item.keepDays > 0 && item.menstruationDate.count > 0 {
+//                if item != currentCircleData {
+//                    formatCircle(data: &item)
+//                }
+//                circleDatas.append(item)
+//            }else {
+//                PrintLog("非法数据")
+//            }
+//        }
+        
+        if let c = currentCircleData {
+            datasource.append([c])
         }
         
-        datasource.append([currentCircleData])
         datasource.append(cellActionItemDatasource)
         
         reloadUISubject.onNext(Void())
@@ -124,6 +140,7 @@ extension HCRecordViewModel {
         // 最后一天
         let endYj = TYDateCalculate.getDate(currentDate: starYj, days: data.keepDays - 1, isAfter: true)
         let yjArr: [Date] = TYDateCalculate.getDates(startDate: starYj, endDate: endYj)
+        PrintLog("starYj: \(starYj) -- endYj: \(endYj) arr: \(yjArr)")
 
         /// --- 排卵期日期推算
         let circleEndDate = TYDateCalculate.getDate(currentDate: starYj, days: data.cycle - 1, isAfter: true)
@@ -135,10 +152,15 @@ extension HCRecordViewModel {
         let endPlqDate = TYDateCalculate.getDate(currentDate: plaDate, days: 4, isAfter: true)
         let plqArr: [Date] = TYDateCalculate.getDates(startDate: starPlqDate, endDate: endPlqDate)
         
+        PrintLog("plq-- circleEndDate: \(circleEndDate) -- plaDate: \(plaDate) starPlqDate: \(starPlqDate) endPlqDate - \(endPlqDate)")
+        
+        PrintLog("starPlqDate: \(starPlqDate) -- endPlqDate: \(endPlqDate) arr: \(plqArr)")
+
         /// ---排卵期后安全期日期推算
         // 第一天
         let starSafeAfterDate = TYDateCalculate.getDate(currentDate: endPlqDate, days: 1, isAfter: true)
         let safeAfterArr: [Date] = TYDateCalculate.getDates(startDate: starSafeAfterDate, endDate: circleEndDate)
+        PrintLog("starSafeAfterDate: \(starSafeAfterDate) -- circleEndDate: \(circleEndDate) arr: \(safeAfterArr)")
 
         /// ---排卵期前安全期日期推算
         // 第一天
@@ -146,41 +168,38 @@ extension HCRecordViewModel {
         // 最后一天
         let endSafeBefore = TYDateCalculate.getDate(currentDate: starPlqDate, days: 1, isAfter: false)
         let safeBeforeArr: [Date] = TYDateCalculate.getDates(startDate: starSafeBefore, endDate: endSafeBefore)
+        PrintLog("starSafeBefore: \(starSafeBefore) -- endSafeBefore: \(endSafeBefore) arr: \(safeBeforeArr)")
 
         var allDates: [Date] = []
         allDates.append(contentsOf: yjArr)
         allDates.append(contentsOf: safeBeforeArr)
         allDates.append(contentsOf: plqArr)
         allDates.append(contentsOf: safeAfterArr)
-
-        var resultDates: [String] = []
-        for date in allDates {
-            let com = TYDateCalculate.getDataComponent(date: date)
-            resultDates.append("\(com.month!).\(com.day!)")
-        }
         
         // 怀孕几率数据
         var probabilityDatas: [Float] = []
         
-        // 月经期a怀孕几率
+        // 月经期怀孕几率
         for _ in 0..<yjArr.count {
             probabilityDatas.append(0.01)
         }
 
         // 排卵期前的安全期怀孕几率
         var beforeSafeProbabilityDatas: [Float] = [0.05,0.06,0.08,0.09,0.11,0.13,0.14]
-        if beforeSafeProbabilityDatas.count >= safeBeforeArr.count {
-            let star: Int = beforeSafeProbabilityDatas.count - safeBeforeArr.count
-            beforeSafeProbabilityDatas = Array(beforeSafeProbabilityDatas[star..<beforeSafeProbabilityDatas.count])
-        }else {
-            let count = safeBeforeArr.count - beforeSafeProbabilityDatas.count
-            var starPro: Float = 0.14
-            for i in 0..<count {
-                starPro += (Float(i) * 0.01)
-                beforeSafeProbabilityDatas.append(starPro)
+        if safeBeforeArr.count > 0 {
+            if beforeSafeProbabilityDatas.count >= safeBeforeArr.count {
+                let star: Int = beforeSafeProbabilityDatas.count - safeBeforeArr.count
+                beforeSafeProbabilityDatas = Array(beforeSafeProbabilityDatas[star..<beforeSafeProbabilityDatas.count])
+            }else {
+                let count = safeBeforeArr.count - beforeSafeProbabilityDatas.count
+                var starPro: Float = 0.14
+                for i in 0..<count {
+                    starPro += (Float(i) * 0.01)
+                    beforeSafeProbabilityDatas.append(starPro)
+                }
             }
+            probabilityDatas.append(contentsOf: beforeSafeProbabilityDatas)
         }
-        probabilityDatas.append(contentsOf: beforeSafeProbabilityDatas)
         
         // 排卵期怀孕几率
         probabilityDatas.append(contentsOf: [0.15,0.20,0.25,0.30,0.35,0.32,0.27,0.22,0.18,0.15])
@@ -202,22 +221,66 @@ extension HCRecordViewModel {
 
         
         data.probabilityDatas = probabilityDatas
-        data.timeDatas = resultDates
-        data.lineItemDatas = [TYLineItemModel(color: RGB(213, 89, 92),
-                                              percentage: CGFloat(yjArr.count)/CGFloat(data.cycle)),
-                              TYLineItemModel(color: RGB(84, 197, 141),
-                                              percentage: CGFloat(safeBeforeArr.count)/CGFloat(data.cycle)),
-                              TYLineItemModel(color: RGB(255, 113, 17),
-                                              percentage: CGFloat(plqArr.count)/CGFloat(data.cycle)),
-                              TYLineItemModel(color: RGB(84, 197, 141),
-                                              percentage: CGFloat(safeAfterArr.count)/CGFloat(data.cycle))]
         
-        var pointDatas: [TYPointItemModel] = []
-        for _ in 0...resultDates.count {
-            pointDatas.append(TYPointItemModel(borderColor: .clear))
+        var yjPoints: [TYPointItemModel] = []
+        for date in yjArr {
+            let com = TYDateCalculate.getDataComponent(date: date)
+            let m = TYPointItemModel(borderColor: .clear, time: "\(com.month!).\(com.day!)")
+            yjPoints.append(m)
+        }
+
+        var safeBeforePoints: [TYPointItemModel] = []
+        for date in safeBeforeArr {
+            let com = TYDateCalculate.getDataComponent(date: date)
+            let m = TYPointItemModel(borderColor: .clear, time: "\(com.month!).\(com.day!)")
+            safeBeforePoints.append(m)
+        }
+
+        var plqPoints: [TYPointItemModel] = []
+        for date in plqArr {
+            let com = TYDateCalculate.getDataComponent(date: date)
+            let m = TYPointItemModel(borderColor: .clear, time: "\(com.month!).\(com.day!)")
+            plqPoints.append(m)
+        }
+
+        var safeAfterPoints: [TYPointItemModel] = []
+        for date in safeAfterArr {
+            let com = TYDateCalculate.getDataComponent(date: date)
+            let m = TYPointItemModel(borderColor: .clear, time: "\(com.month!).\(com.day!)")
+            safeAfterPoints.append(m)
         }
         
-        data.pointDatas = pointDatas
+        if safeBeforeArr.count > 0 {
+            data.lineItemDatas = [TYLineItemModel(color: RGB(213, 89, 92),
+                                                  percentage: CGFloat(yjArr.count)/CGFloat(data.cycle),
+                                                  pointDatas: yjPoints),
+                                  TYLineItemModel(color: RGB(84, 197, 141),
+                                                  percentage: CGFloat(safeBeforeArr.count)/CGFloat(data.cycle),
+                                                  pointDatas: safeBeforePoints),
+                                  TYLineItemModel(color: RGB(255, 113, 17),
+                                                  percentage: CGFloat(plqArr.count)/CGFloat(data.cycle),
+                                                  pointDatas: plqPoints),
+                                  TYLineItemModel(color: RGB(84, 197, 141),
+                                                  percentage: CGFloat(safeAfterArr.count)/CGFloat(data.cycle),
+                                                  pointDatas: safeAfterPoints)]            
+        }else {
+            data.lineItemDatas = [TYLineItemModel(color: RGB(213, 89, 92),
+                                                  percentage: CGFloat(yjArr.count)/CGFloat(data.cycle),
+                                                  pointDatas: yjPoints),
+                                  TYLineItemModel(color: RGB(255, 113, 17),
+                                                  percentage: CGFloat(plqArr.count)/CGFloat(data.cycle),
+                                                  pointDatas: plqPoints),
+                                  TYLineItemModel(color: RGB(84, 197, 141),
+                                                  percentage: CGFloat(safeAfterArr.count)/CGFloat(data.cycle),
+                                                  pointDatas: safeAfterPoints)]
+        }
+                
+//        var pointDatas: [TYPointItemModel] = []
+//        for _ in 0...resultDates.count {
+//            pointDatas.append(TYPointItemModel(borderColor: .clear))
+//        }
+//
+//        data.pointDatas = pointDatas
     }
 }
 

@@ -18,6 +18,7 @@ class TYCurveView: UIView {
     private var sepLine: UIView!
     
     private var lineView: TYColorLineView!
+    private var timeView: TYCurveTimeView!
     
     private var titleBgView: UIView!
     private var titleLable: UILabel!
@@ -127,10 +128,14 @@ class TYCurveView: UIView {
         lineView = TYColorLineView.init(frame: .init(x: 0, y: 0, width: width, height: lineHeight))
         lineView.backgroundColor = .white
         
+        timeView = TYCurveTimeView()
+        timeView.backgroundColor = .white
+        
         addSubview(scrollView)
         scrollView.addSubview(curveView)
         scrollView.addSubview(lineView)
         scrollView.addSubview(curveTimeBgView)
+        curveTimeBgView.addSubview(timeView)
 
         addSubview(titleBgView)
         titleBgView.addSubview(titleLable)
@@ -156,18 +161,21 @@ class TYCurveView: UIView {
     
     public var curvelContentTextHeight: CGFloat = 40.0
     
-    public func setData(probabilityDatas: [Float], titmesDatas: [String], itemDatas: [TYLineItemModel], pointDatas: [TYPointItemModel]) {
+    public func setData(probabilityDatas: [Float], itemDatas: [TYLineItemModel]) {
         self.probabilityDatas = probabilityDatas
-        self.timesDatas = titmesDatas
-        
         
         curvelViewWidth = CGFloat(probabilityDatas.count - 1) * itemWidth
         
         lineView.frame = .init(x: 0, y: curvelViewHeight - curvelTimeViewHeight - lineHeight,
                                width: curvelViewWidth,
                                height: lineHeight)
-        lineView.set(itemDatas: itemDatas, pointDatas: pointDatas)
+        lineView.set(itemDatas: itemDatas)
 
+        timeView.frame = .init(x: 0, y: 0,
+                               width: curvelViewWidth,
+                               height: curvelTimeViewHeight - lineHeight)
+        timeView.itemModels = itemDatas
+        
         setNeedsDisplay()
     }
     
@@ -183,12 +191,9 @@ class TYCurveView: UIView {
                                        width: fullScreenImageSize.width,
                                        height: fullScreenImageSize.height)
         
-        curveView.frame = .init(x: 0, y: 0,
+        curveView.frame = .init(x: itemWidth / 2.0, y: 0,
                                 width: curvelViewWidth,
                                 height: curvelViewHeight - curvelTimeViewHeight)
-        curveTimeBgView.frame = .init(x: 0, y: curveView.frame.maxY,
-                                      width: curvelViewWidth,
-                                      height: curvelTimeViewHeight)
 
         scrollView.frame = .init(x: 0, y: titleBgView.frame.maxY,
                                  width: width,
@@ -208,6 +213,11 @@ class TYCurveView: UIView {
         lineView.frame = .init(x: 0, y: curveView.frame.maxY,
                                width: scrollView.contentSize.width,
                                height: lineHeight)
+        
+        curveTimeBgView.frame = .init(x: 0, y: lineView.frame.maxY,
+                                      width: curvelViewWidth,
+                                      height: curvelTimeViewHeight - lineHeight)
+        timeView.frame = curveTimeBgView.bounds
     }
     
     override func draw(_ rect: CGRect) {
@@ -300,9 +310,7 @@ extension TYCurveView {
         ctrl1_y = ym1 + (yc2 - ym1) * smooth_value + y1 - ym1;
         ctrl2_x = xm2 + (xc2 - xm2) * smooth_value + x2 - xm2;
         ctrl2_y = ym2 + (yc2 - ym2) * smooth_value + y2 - ym2;
-        
-        PrintLog("控制点坐标-ctrl1_x:\(ctrl1_x) ctrl1_y:\(ctrl1_y) ctrl2_x:\(ctrl2_x) ctrl2_y:\(ctrl2_y)")
-                
+                        
         path.addCurve(to: .init(x: x2, y: y2),
                       controlPoint1: .init(x: ctrl1_x, y: ctrl1_y),
                       controlPoint2: .init(x: ctrl2_x, y: ctrl2_y))
