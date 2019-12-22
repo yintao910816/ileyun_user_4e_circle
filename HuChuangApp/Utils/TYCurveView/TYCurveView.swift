@@ -44,6 +44,8 @@ class TYCurveView: UIView {
     private var curvelViewHeight: CGFloat = 190
     
     private var lineHeight: CGFloat = 5
+    
+    public var fullScreenCallBack: (()->())?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -72,6 +74,7 @@ class TYCurveView: UIView {
         
         fullScreenButton = UIButton()
         fullScreenButton.setImage(UIImage(named: "record_button_screen"), for: .normal)
+        fullScreenButton.addTarget(self, action: #selector(fullScreenAction), for: .touchUpInside)
         
         curveView = UIView()
         curveView.backgroundColor = .clear
@@ -147,6 +150,10 @@ class TYCurveView: UIView {
         addSubview(probabilityLabel)
     }
     
+    @objc private func fullScreenAction() {
+        fullScreenCallBack?()
+    }
+    
     public class var viewHeight: CGFloat {
         get {
             return 300
@@ -159,10 +166,24 @@ class TYCurveView: UIView {
         }
     }
     
+    public var hiddenRemind: Bool = false {
+        didSet {
+            remindBgView.isHidden = hiddenRemind
+        }
+    }
+    
+    public var fullScreenImage: UIImage? {
+        didSet {
+            fullScreenButton.setImage(fullScreenImage, for: .normal)
+        }
+    }
+    
     public var curvelContentTextHeight: CGFloat = 40.0
     
-    public func setData(probabilityDatas: [Float], itemDatas: [TYLineItemModel]) {
+    public func setData(probabilityDatas: [Float], itemDatas: [TYLineItemModel], title: String) {
         self.probabilityDatas = probabilityDatas
+        
+        self.titleLable.text = title
         
         curvelViewWidth = CGFloat(probabilityDatas.count - 1) * itemWidth
         

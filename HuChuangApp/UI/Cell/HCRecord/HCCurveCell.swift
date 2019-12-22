@@ -14,6 +14,8 @@ public let HCCurveCell_height: CGFloat = TYCurveView.viewHeight
 class HCCurveCell: HCBaseRecordCell {
     
     private var curveView: TYCurveView!
+    
+    public var fullScreenCallBack: (()->())?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,9 +37,14 @@ class HCCurveCell: HCBaseRecordCell {
             curveView = TYCurveView.init(frame: bounds)
             curveView.backgroundColor = .white
             contentView.addSubview(curveView)
+            
+            curveView.fullScreenCallBack = { [unowned self] in
+                self.fullScreenCallBack?()
+            }
 
             curveView.setData(probabilityDatas: proModel.probabilityDatas,
-                              itemDatas: proModel.lineItemDatas)
+                              itemDatas: proModel.lineItemDatas,
+                              title: proModel.isContrast ? proModel.nowCircle : proModel.curelTitle)
         }
     }
         

@@ -28,6 +28,19 @@ class HCRecordItemDataModel: HJModel, HCRecordData {
     var menstruationDate: String = ""
     var pregnantTypeId: Int = 0
     
+    /// 计算出的相关周期数据
+    // 所处阶段
+    var newLv: NSAttributedString = NSAttributedString.init()
+    // 怀孕几率
+    var probability: NSAttributedString = NSAttributedString.init()
+    // 距离排卵日
+    var pailuan: NSAttributedString = NSAttributedString.init()
+    // 所处哪个周期
+    var nowCircle: String = ""
+    var curelTitle: String = "好孕率趋势图"
+    // 是否是对比数据
+    var isContrast: Bool = false
+    
     /// 画曲线数据
     public var probabilityDatas: [Float] = []
 //    /// 坐标时间 月.日

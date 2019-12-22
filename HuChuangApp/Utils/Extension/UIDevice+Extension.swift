@@ -25,3 +25,14 @@ extension UIDevice {
         return false
     }
 }
+
+extension UIDevice {
+    
+    class func switchNewOrientation(_ orientation: UIInterfaceOrientation) {
+        
+        let resetOrientationTarget = NSNumber.init(value: UIInterfaceOrientation.unknown.rawValue)
+        UIDevice.current.setValue(resetOrientationTarget, forKey: "orientation")
+        let orientationTarget = NSNumber.init(value: orientation.rawValue)
+        UIDevice.current.setValue(orientationTarget, forKey: "orientation")
+    }
+}

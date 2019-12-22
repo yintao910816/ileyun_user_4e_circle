@@ -36,4 +36,12 @@ class HCRecordUserInfoReusableView: UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    public var model: HCRecordItemDataModel! {
+        didSet {
+            jieduanOutlet.attributedText = model.newLv
+            jilvOutlet.attributedText = model.probability
+            painuanriOutlet.attributedText = model.pailuan
+        }
+    }
 }

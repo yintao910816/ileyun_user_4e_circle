@@ -68,8 +68,19 @@ extension HCRecordViewController: UICollectionViewDataSource, UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let model = viewModel.datasource[indexPath.section][indexPath.row]
+        if let tempModel = model as? HCRecordItemDataModel {
+            tempModel.isContrast = viewModel.isContrast
+        }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: model.cellIdentifier, for: indexPath) as! HCBaseRecordCell
         cell.model = model
+        if let tempCell = cell as? HCCurveCell {
+            tempCell.fullScreenCallBack = { [unowned self] in
+                PrintLog("全屏")
+                let ctrl = HCRecordFullScreenController()
+                ctrl.model = self.viewModel.currentCircleData!
+                self.present(ctrl, animated: true, completion: nil)
+            }
+        }
         return cell
     }
     
@@ -85,6 +96,7 @@ extension HCRecordViewController: UICollectionViewDataSource, UICollectionViewDe
                 (header as! HCRecordUserInfoReusableView).exchangeCallBack = { [weak self] in
                     self?.viewModel.exchangeUISubject.onNext(Void())
                 }
+                (header as! HCRecordUserInfoReusableView).model = viewModel.currentCircleData!
             }else if identifier == HCRecordSuggestReusableView_identifier {
 
             }else if identifier == HCExchangeReusableView_identifier {

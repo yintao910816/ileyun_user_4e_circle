@@ -25,12 +25,12 @@ class HCRecordViewModel: BaseViewModel {
     private var circleDatas: [HCRecordData] = []
     /// 底部操作cell
     private var cellActionItemDatasource: [HCRecordData] = []
-    /// 是否是对比的UI
-    private var isContrast: Bool = false
 
     /// 所有cell数据
     public var datasource: [[HCRecordData]] = []
-        
+    /// 是否是对比的UI
+    public var isContrast: Bool = false
+
     override init() {
         super.init()
         
@@ -136,7 +136,7 @@ extension HCRecordViewModel {
         var idx = 0
         for var item in datas {
             if item.cycle > 0 && item.keepDays > 0 && item.menstruationDate.count > 0 {
-                formatCircle(data: &item)
+                formatCircle(data: &item, idx: idx)
                 if idx == 1 {
                     currentCircleData = item
                 }
@@ -158,6 +158,7 @@ extension HCRecordViewModel {
 //            }
 //        }
         
+        datasource.removeAll()
         if let c = currentCircleData {
             datasource.append([c])
         }
@@ -169,7 +170,9 @@ extension HCRecordViewModel {
         hud.noticeHidden()
     }
     
-    private func formatCircle(data: inout HCRecordItemDataModel) {
+    private func formatCircle(data: inout HCRecordItemDataModel, idx: Int) {
+        data.nowCircle = idx == 0 ? "上个周期" : idx == 1 ? "本周期" : "下个周期"
+
         /// ---月经期推算
         // 第一天
         let starYj = TYDateCalculate.date(for: data.menstruationDate)
@@ -310,7 +313,94 @@ extension HCRecordViewModel {
                                                   percentage: CGFloat(safeAfterArr.count)/CGFloat(data.cycle),
                                                   pointDatas: safeAfterPoints)]
         }
-                
+           
+        let currentDate = TYDateCalculate.formatNowDate()
+        // 所处阶段
+        var jieduanString = NSAttributedString.init()
+        // 怀孕几率
+        var jilvString = NSAttributedString.init()
+        
+        if let day = yjArr.firstIndex(of: currentDate) {
+            let dayString = "\(day + 1)"
+            var text = "所处阶段：月经期第\(dayString)天"
+            jieduanString = text.attributed([.init(location: 5, length: 3),
+                                             .init(location: 9, length: dayString.count)],
+                                            color: [HC_MAIN_COLOR, HC_MAIN_COLOR],
+                                            font: [.font(fontSize: 12), .font(fontSize: 12)])
+            
+            let intPro: Int = Int((probabilityDatas[day] * 100) / 100)
+            let stringPro = "\(intPro)"
+            text = "怀孕几率：\(stringPro)%"
+            jilvString = text.attributed(.init(location: 5,
+                                               length: stringPro.count),
+                                         HC_MAIN_COLOR,
+                                         .font(fontSize: 12))
+        }else if let day = safeBeforeArr.firstIndex(of: currentDate) {
+            let dayString = "\(day + 1)"
+            var text = "所处阶段：安全期第\(dayString)天"
+            jieduanString = text.attributed([.init(location: 5, length: 3),
+                                             .init(location: 9, length: dayString.count)],
+                                            color: [HC_MAIN_COLOR, HC_MAIN_COLOR],
+                                            font: [.font(fontSize: 12), .font(fontSize: 12)])
+            
+            let intPro: Int = Int((probabilityDatas[day + yjArr.count] * 100) / 100)
+            let stringPro = "\(intPro)"
+            text = "怀孕几率：\(stringPro)%"
+            jilvString = text.attributed(.init(location: 5,
+                                               length: stringPro.count),
+                                         HC_MAIN_COLOR,
+                                         .font(fontSize: 12))
+        }else if let day = plqArr.firstIndex(of: currentDate) {
+            let dayString = "\(day + 1)"
+            var text = "所处阶段：排卵期第\(dayString)天"
+            jieduanString = text.attributed([.init(location: 5, length: 3),
+                                             .init(location: 9, length: dayString.count)],
+                                            color: [HC_MAIN_COLOR, HC_MAIN_COLOR],
+                                            font: [.font(fontSize: 12), .font(fontSize: 12)])
+            
+            let intPro: Int = Int((probabilityDatas[day + yjArr.count + safeBeforeArr.count] * 100) / 100)
+            let stringPro = "\(intPro)"
+            text = "怀孕几率：\(stringPro)%"
+            jilvString = text.attributed(.init(location: 5,
+                                               length: stringPro.count),
+                                         HC_MAIN_COLOR,
+                                         .font(fontSize: 12))
+        }else if let day = safeAfterArr.firstIndex(of: currentDate) {
+            let dayString = "\(day + 1)"
+            var text = "所处阶段：安全期第\(dayString)天"
+            jieduanString = text.attributed([.init(location: 5, length: 3),
+                                             .init(location: 9, length: dayString.count)],
+                                            color: [HC_MAIN_COLOR, HC_MAIN_COLOR],
+                                            font: [.font(fontSize: 12), .font(fontSize: 12)])
+            
+            let intPro: Int = Int((probabilityDatas[day + yjArr.count + safeBeforeArr.count + plqArr.count] * 100) / 100)
+            let stringPro = "\(intPro)"
+            text = "怀孕几率：\(stringPro)%"
+            jilvString = text.attributed(.init(location: 5,
+                                               length: stringPro.count),
+                                         HC_MAIN_COLOR,
+                                         .font(fontSize: 12))
+        }
+        
+        data.newLv = jieduanString
+        data.probability = jilvString
+        
+        //距离排卵日
+        let days = TYDateCalculate.numberOfDays(fromDate: currentDate, toDate: plaDate)
+        var pailuanri = NSAttributedString.init()
+        if days > 0 {
+            let daysText = "\(days)"
+            let text = "距离排卵日：\(daysText)天"
+            pailuanri = text.attributed(.init(location: 6, length: daysText.count),
+                                        HC_MAIN_COLOR, .font(fontSize: 12))
+        }else {
+            let daysText = "\(-days)"
+            let text = "已过排卵日：\(daysText)天"
+            pailuanri = text.attributed(.init(location: 6, length: daysText.count),
+                                        HC_MAIN_COLOR, .font(fontSize: 12))
+        }
+        data.pailuan = pailuanri
+        
 //        var pointDatas: [TYPointItemModel] = []
 //        for _ in 0...resultDates.count {
 //            pointDatas.append(TYPointItemModel(borderColor: .clear))

@@ -33,6 +33,7 @@ class BaseViewController: UIViewController {
         view.insertSubview(navBgView, at: 0)
         
         bottomSafeBgView = UIView()
+        bottomSafeBgView.isHidden = true
         bottomSafeBgView.backgroundColor = RGB(84, 197, 141)
         view.insertSubview(bottomSafeBgView, at: 1)
 
@@ -49,6 +50,12 @@ class BaseViewController: UIViewController {
     public var hiddenNavBg: Bool = false {
         didSet {
             navBgView.isHidden = hiddenNavBg
+        }
+    }
+    
+    public var hiddenBottomBg: Bool = false {
+        didSet {
+            bottomSafeBgView.isHidden = hiddenBottomBg
         }
     }
     

@@ -79,4 +79,18 @@ class TYDateCalculate {
     class func numberOfDays(toDate: String) -> Int {
         return numberOfDays(fromDate: Date(), toDate: date(for: toDate))
     }
+    
+    /**
+     * 将当前时间格式化成指定格式
+     */
+    class func formatNowDate() ->Date {
+        let dateFormat = DateFormatter.init()
+        dateFormat.locale = Locale(identifier: "zh_CN")
+        dateFormat.setLocalizedDateFormatFromTemplate("H")
+        dateFormat.dateFormat = "yyyy-MM-dd"
+        
+        let dateString = dateFormat.string(from: Date())
+
+        return dateFormat.date(from: dateString)!
+    }
 }

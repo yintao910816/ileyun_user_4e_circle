@@ -12,11 +12,13 @@ import StoreKit
 @UIApplicationMain
 class HCAppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
+     var window: UIWindow?
 
-    var deviceToken: String = ""
+    public var deviceToken: String = ""
     
-    var isAuthorizedPush: Bool = false
+    public var isAuthorizedPush: Bool = false
+    
+    public var allowRotation: Bool = false
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
@@ -37,6 +39,13 @@ class HCAppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        if allowRotation {
+            return .landscapeLeft
+        }else {
+            return .portrait
+        }
+    }
 }
 
 import Alamofire
