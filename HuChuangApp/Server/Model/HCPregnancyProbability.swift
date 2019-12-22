@@ -44,6 +44,7 @@ class HCRecordItemDataModel: HJModel, HCRecordData {
 
 class HCCellActionItem: HCRecordData {
     var title: String = ""
+    var opType: HCMergeProOpType = .knewRecord
     var itemWidth: CGFloat = 0
     
     var cellIdentifier: String { return HCRecordActionItemCell_identifier }

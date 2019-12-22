@@ -82,8 +82,13 @@ extension HCPickerController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 
-        selectedComponent = component
-        selectedRow = row        
+//        selectedComponent = component
+//        selectedRow = row
+        
+        let intRow = pickerView.selectedRow(inComponent: 0)
+        let floatRow = pickerView.selectedRow(inComponent: 1)
+        let selectedContent = "\(sectionModel.sectionData[0][intRow])\(sectionModel.sectionData[1][floatRow])"
+        finishSelected?(selectedContent)
     }
         
 }

@@ -47,7 +47,7 @@ class HCDatePickerViewController: HCPicker {
     
     override func doneAction() {
         let formatter = DateFormatter.init()
-        formatter.dateFormat = "yyyy年 MM月 dd日"
+        formatter.dateFormat = "yyyy-MM-dd"
         let dateStr = formatter.string(from: datePicker.date)
         PrintLog("当前选择时间: \(dateStr)")
 

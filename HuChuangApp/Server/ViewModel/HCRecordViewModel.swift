@@ -14,6 +14,7 @@ class HCRecordViewModel: BaseViewModel {
     
     public let reloadUISubject = PublishSubject<Void>()
     public let exchangeUISubject = PublishSubject<Void>()
+    public let commitChangeSubject = PublishSubject<(HCMergeProOpType, String)>()
 
     /// 怀孕率数据
     private var prepareProbabilityDatas: [Float] = []
@@ -34,6 +35,7 @@ class HCRecordViewModel: BaseViewModel {
         super.init()
         
         reloadSubject.subscribe(onNext: { [unowned self] in
+            self.prepareActionData()
             self.requestRecordData()
         })
         .disposed(by: disposeBag)
@@ -42,11 +44,16 @@ class HCRecordViewModel: BaseViewModel {
             self?.exchangeData()
         })
         .disposed(by: disposeBag)
+        
+        commitChangeSubject
+            ._doNext(forNotice: hud)
+            .subscribe(onNext: { [unowned self] in
+            self.commitChange(type: $0.0, data: $0.1)
+        })
+        .disposed(by: disposeBag)
     }
     
     private func requestRecordData() {
-        prepareActionData()
-        
         HCProvider.request(.getLast2This2NextWeekInfo)
             .map(models: HCRecordItemDataModel.self)
             .subscribe(onSuccess: { [weak self] data in
@@ -56,6 +63,8 @@ class HCRecordViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
     }
+    
+
     
     private func prepareActionData() {
         let model1 = HCCellActionItem()
@@ -96,9 +105,34 @@ extension HCRecordViewModel {
         reloadUISubject.onNext(Void())
     }
     
+    private func commitChange(type: HCMergeProOpType, data: String) {
+        var dataParam: [String: Any] = [:]
+        if type == .temperature {
+            dataParam["data"] = ["temperature": data]
+        }else {
+            dataParam["data"] = data
+        }
+        
+        HCProvider.request(.mergePro(opType: type, data: dataParam))
+            .mapResponse()
+            .subscribe(onSuccess: { [weak self] res in
+                if res.code == RequestCode.success.rawValue {
+                    self?.requestRecordData()
+                }else {
+                    self?.hud.failureHidden(res.message)
+                }
+            }) { [weak self] error in
+                self?.hud.failureHidden(self?.errorMessage(error))
+        }
+        .disposed(by: disposeBag)
+    }
+    
     private func dealData(datas: [HCRecordItemDataModel]) {
         guard datas.count == 3 else { return }
 
+        circleDatas.removeAll()
+        currentCircleData = nil
+        
         var idx = 0
         for var item in datas {
             if item.cycle > 0 && item.keepDays > 0 && item.menstruationDate.count > 0 {
@@ -131,6 +165,8 @@ extension HCRecordViewModel {
         datasource.append(cellActionItemDatasource)
         
         reloadUISubject.onNext(Void())
+        
+        hud.noticeHidden()
     }
     
     private func formatCircle(data: inout HCRecordItemDataModel) {

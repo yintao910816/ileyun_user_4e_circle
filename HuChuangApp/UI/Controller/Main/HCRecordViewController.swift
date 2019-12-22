@@ -120,12 +120,23 @@ extension HCRecordViewController: UICollectionViewDataSource, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let model = viewModel.datasource[indexPath.section][indexPath.row]
         if let actionModel = model as? HCCellActionItem {
-            let datePicker = HCDatePickerViewController()
-            datePicker.titleDes = actionModel.title
-            addChildViewController(datePicker)
+            if actionModel.opType == .temperature {
+                let picker = HCPickerController()
+                picker.titleDes = "基础体温"
+                picker.sectionModel = HCPickerSectionData.createTemperature()
+                addChildViewController(picker)
 
-            datePicker.finishSelected = { date in
+                picker.finishSelected = { [weak self] content in
+                    self?.viewModel.commitChangeSubject.onNext((actionModel.opType, content))
+                }
+            }else {
+                let datePicker = HCDatePickerViewController()
+                datePicker.titleDes = actionModel.title
+                addChildViewController(datePicker)
 
+                datePicker.finishSelected = { [weak self] date in
+                    self?.viewModel.commitChangeSubject.onNext((actionModel.opType, date))
+                }
             }
         }
     }

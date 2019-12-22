@@ -15,6 +15,15 @@ enum HCWebCmsType: String {
     case webCms001 = "webCms001"
 }
 
+enum HCMergeProOpType: String {
+    /// 添加同房记录
+    case knewRecord = "knewRecord"
+    /// 添加b排卵日
+    case ovulation = "ovulation"
+    /// 添加体温记录
+    case temperature = "temperature"
+}
+
 enum H5Type: String {
     /// 好孕消息
     case goodNews = "goodnews"
@@ -170,6 +179,8 @@ enum API{
     case articelStore(articleId: String, status: Bool)
     /// 区域城市
     case allCity
+    ///
+    case mergePro(opType: HCMergeProOpType, data: [String: Any])
 }
 
 //MARK:
@@ -243,6 +254,8 @@ extension API: TargetType{
             return "api/cms/store"
         case .allCity:
             return "api/area/allCity"
+        case .mergePro(_):
+            return "api/physiology/mergePro"
         }
     }
     
@@ -394,7 +407,9 @@ extension API {
         case .articelStore(let articleId, let status):
             params["articleId"] = articleId
             params["status"] = status
-
+        case .mergePro(let opType, let data):
+            params["opType"] = opType.rawValue
+            params["data"] = data
         default:
             return nil
         }
@@ -417,41 +432,15 @@ let HCProvider = MoyaProvider<API>(plugins: [MoyaPlugins.MyNetworkActivityPlugin
                                              RequestLoadingPlugin()]).rx
 
 /**
- https://ileyun.ivfcn.com/hc-patient/api/consult/selectListPage
- 请求方式：
+ yyyy, [22.12.19 09:48]
+ https://ileyun.ivfcn.com/hc-patient/api/physiology/mergePro
 
- POST
- Content-type : application/json
- 参数说明：
+ yyyy, [22.12.19 09:49]
+ opType = knewRecord
 
- 参数名 必选 类型 说明
- areaCode 是 int 城市区域编码， 全国 就为 空
- opType 是 string (操作类型: 排序) 0 默认 1 咨询人数 2 价格
- sceen 是 Object (操作类型: 筛选)
- lv 是 array 左侧筛选 — 医生级别 （主任医师）
- skilledIn 是 array 左侧筛选 — 擅长 （不孕不育，感冒）
- addNum 是 array (是否加号) 加号 为 1 ，
- 请求参数示例
+ yyyy, [22.12.19 09:49]
+ opType = ovulation
 
- {
- "pageNum":1,
- "pageSize":20,
- "searchName":"搜索框关键字",
- "unitId":0,
- "areaCode":1001
- "opType":0,
- "sceen":{
-     "lv ":[
-             "主任医师",
-             "副主任"
-         ],
-     "skilledIn":[
-             "不孕不育",
-             "感冒"
-         ],
-     "addNum":[
-             1
-         ]
- }
- }
+ yyyy, [22.12.19 09:49]
+ opType = temperature
  */
