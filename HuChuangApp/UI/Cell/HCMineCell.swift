@@ -48,7 +48,7 @@ class HCMineCell: UITableViewCell {
         titleIconV.snp.makeConstraints{
             $0.left.equalTo(15)
             $0.centerY.equalTo(contentView.snp.centerY)
-            $0.size.equalTo(CGSize.init(width: 20, height: 20))
+            $0.size.equalTo(CGSize.init(width: 30, height: 30))
         }
         
         titleLabel.snp.makeConstraints{
@@ -80,7 +80,7 @@ class HCMineCell: UITableViewCell {
             if let icon = model.titleIcon {
                 titleIconV.image = icon
                 
-                titleIconV.snp.updateConstraints{ $0.size.equalTo(CGSize.init(width: 20, height: 20)) }
+                titleIconV.snp.updateConstraints{ $0.size.equalTo(CGSize.init(width: 30, height: 30)) }
                 titleLabel.snp.updateConstraints{ $0.left.equalTo(titleIconV.snp.right).offset(6) }
 
             }else {
