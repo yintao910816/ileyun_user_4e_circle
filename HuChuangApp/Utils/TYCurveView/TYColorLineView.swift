@@ -39,21 +39,19 @@ class TYColorLineView: UIView {
     
     private func setupLine() {
         var pointX: CGFloat = 0
-        for data in itemDatas {
-            let lineWidth = data.percentage * width
+        for i in 0..<itemDatas.count {
+            let data = itemDatas[i]
+            let lineWidth = CGFloat(data.lineCount) * 40.0
             let line = UIView.init(frame: .init(x: pointX, y: 0, width: lineWidth, height: lineView.height))
             line.backgroundColor = data.color
             lineView.addSubview(line)
             
             pointX += lineWidth
-            
             // 点
             let pointSize: CGFloat = lineView.height
-            let pointMargin: CGFloat = lineWidth / CGFloat(data.pointDatas.count)
-            var pointX: CGFloat = 0.0
+            var itemPointX: CGFloat = 0.0
             for idx in 0..<data.pointDatas.count {
-                PrintLog("点X: \(pointX)")
-                let pointV = UIImageView.init(frame: .init(x: pointX, y: 0, width: pointSize, height: pointSize))
+                let pointV = UIImageView.init(frame: .init(x: itemPointX - pointSize / 2.0, y: 0, width: pointSize, height: pointSize))
                 pointV.backgroundColor = data.pointDatas[idx].bgColor
                 pointV.clipsToBounds = true
                 pointV.layer.cornerRadius = pointSize / 2
@@ -61,7 +59,7 @@ class TYColorLineView: UIView {
                 pointV.layer.borderWidth = 1
                 line.addSubview(pointV)
                 
-                pointX += pointMargin
+                itemPointX += 40
             }
         }
     }
@@ -115,6 +113,7 @@ struct TYLineItemModel {
     var color: UIColor = .white
     /// 每一段所占据的总宽度百分比
     var percentage: CGFloat = 0
+    var lineCount: Int = 0
     /// 每一段上面的时间点
     var pointDatas: [TYPointItemModel] = []
 }

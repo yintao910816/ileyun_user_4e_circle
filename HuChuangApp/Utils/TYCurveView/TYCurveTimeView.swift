@@ -12,7 +12,7 @@ class TYCurveTimeView: UIView {
 
     private var collectionView: UICollectionView!
     
-    private var itemSize: CGSize = .zero
+    public var itemSize: CGSize = .zero
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,7 +33,7 @@ class TYCurveTimeView: UIView {
                 itemCount += pointItem.pointDatas.count
             }
             
-            itemSize = .init(width: width / CGFloat(itemCount), height: height)
+//            itemSize = .init(width: width / CGFloat(itemCount), height: height)
             
             collectionView.reloadData()
         }

@@ -371,26 +371,26 @@ extension HCRecordViewModel {
         
         if safeBeforeArr.count > 0 {
             data.lineItemDatas = [TYLineItemModel(color: RGB(213, 89, 92),
-                                                  percentage: CGFloat(yjArr.count)/CGFloat(data.cycle),
+                                                  lineCount: yjArr.count,
                                                   pointDatas: yjPoints),
                                   TYLineItemModel(color: RGB(84, 197, 141),
-                                                  percentage: CGFloat(safeBeforeArr.count)/CGFloat(data.cycle),
+                                                  lineCount: safeBeforeArr.count,
                                                   pointDatas: safeBeforePoints),
                                   TYLineItemModel(color: RGB(255, 113, 17),
-                                                  percentage: CGFloat(plqArr.count)/CGFloat(data.cycle),
+                                                  lineCount: plqArr.count,
                                                   pointDatas: plqPoints),
                                   TYLineItemModel(color: RGB(84, 197, 141),
-                                                  percentage: CGFloat(safeAfterArr.count)/CGFloat(data.cycle),
+                                                  lineCount: safeAfterArr.count,
                                                   pointDatas: safeAfterPoints)]            
         }else {
             data.lineItemDatas = [TYLineItemModel(color: RGB(213, 89, 92),
-                                                  percentage: CGFloat(yjArr.count)/CGFloat(data.cycle),
+                                                  lineCount: yjArr.count,
                                                   pointDatas: yjPoints),
                                   TYLineItemModel(color: RGB(255, 113, 17),
-                                                  percentage: CGFloat(plqArr.count)/CGFloat(data.cycle),
+                                                  lineCount: plqArr.count,
                                                   pointDatas: plqPoints),
                                   TYLineItemModel(color: RGB(84, 197, 141),
-                                                  percentage: CGFloat(safeAfterArr.count)/CGFloat(data.cycle),
+                                                  lineCount: safeAfterArr.count,
                                                   pointDatas: safeAfterPoints)]
         }
            
@@ -408,7 +408,7 @@ extension HCRecordViewModel {
                                             color: [HC_MAIN_COLOR, HC_MAIN_COLOR],
                                             font: [.font(fontSize: 12), .font(fontSize: 12)])
             
-            let intPro: Int = Int((probabilityDatas[day] * 100) / 100)
+            let intPro: Int = Int(probabilityDatas[day] * 100)
             let stringPro = "\(intPro)"
             text = "怀孕几率：\(stringPro)%"
             jilvString = text.attributed(.init(location: 5,
@@ -438,7 +438,7 @@ extension HCRecordViewModel {
                                             color: [HC_MAIN_COLOR, HC_MAIN_COLOR],
                                             font: [.font(fontSize: 12), .font(fontSize: 12)])
             
-            let intPro: Int = Int((probabilityDatas[day + yjArr.count + safeBeforeArr.count] * 100) / 100)
+            let intPro: Int = Int(probabilityDatas[day + yjArr.count + safeBeforeArr.count] * 100)
             let stringPro = "\(intPro)"
             text = "怀孕几率：\(stringPro)%"
             jilvString = text.attributed(.init(location: 5,
@@ -453,7 +453,7 @@ extension HCRecordViewModel {
                                             color: [HC_MAIN_COLOR, HC_MAIN_COLOR],
                                             font: [.font(fontSize: 12), .font(fontSize: 12)])
             
-            let intPro: Int = Int((probabilityDatas[day + yjArr.count + safeBeforeArr.count + plqArr.count] * 100) / 100)
+            let intPro: Int = Int(probabilityDatas[day + yjArr.count + safeBeforeArr.count + plqArr.count] * 100)
             let stringPro = "\(intPro)"
             text = "怀孕几率：\(stringPro)%"
             jilvString = text.attributed(.init(location: 5,

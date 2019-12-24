@@ -115,11 +115,13 @@ class TYCurveView: UIView {
                 
         scrollView = UIScrollView.init()
         scrollView.bounces = false
+        scrollView.delegate = self
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
         
         probabilityLabel = UILabel()
-        probabilityLabel.font = .font(fontSize: 24)
+        probabilityLabel.textAlignment = .center
+        probabilityLabel.font = .font(fontSize: 6)
         probabilityLabel.backgroundColor = RGB(84, 197, 141)
         probabilityLabel.textColor = .white
         probabilityLabel.layer.cornerRadius = 17
@@ -132,6 +134,7 @@ class TYCurveView: UIView {
         lineView.backgroundColor = .white
         
         timeView = TYCurveTimeView()
+        timeView.itemSize = .init(width: itemWidth, height: curvelTimeViewHeight - lineHeight)
         timeView.backgroundColor = .white
         
         addSubview(scrollView)
@@ -148,6 +151,12 @@ class TYCurveView: UIView {
         
         addSubview(sepLine)
         addSubview(probabilityLabel)
+    }
+    
+    private func setProbability(probability: Float) {
+        let intPro: Int = Int(100 * probability)
+        let nextDayText = "\(intPro)%"
+        probabilityLabel.attributedText = nextDayText.attributed(.init(location: 0, length: nextDayText.count - 1), .white, .font(fontSize: 18))
     }
     
     @objc private func fullScreenAction() {
@@ -184,6 +193,7 @@ class TYCurveView: UIView {
         self.probabilityDatas = probabilityDatas
         
         self.titleLable.text = title
+        setProbability(probability: probabilityDatas.first ?? 0.01)
         
         curvelViewWidth = CGFloat(probabilityDatas.count - 1) * itemWidth
         
@@ -212,7 +222,7 @@ class TYCurveView: UIView {
                                        width: fullScreenImageSize.width,
                                        height: fullScreenImageSize.height)
         
-        curveView.frame = .init(x: itemWidth / 2.0, y: 0,
+        curveView.frame = .init(x: width / 2.0, y: 0,
                                 width: curvelViewWidth,
                                 height: curvelViewHeight - curvelTimeViewHeight)
 
@@ -220,8 +230,9 @@ class TYCurveView: UIView {
                                  width: width,
                                  height: curvelViewHeight)
 
-        scrollView.contentSize = .init(width: curveView.width  + itemWidth, height: curvelViewHeight)
-        
+//        scrollView.contentSize = .init(width: curveView.width  + itemWidth, height: curvelViewHeight)
+        scrollView.contentSize = .init(width: curveView.width  + width, height: curvelViewHeight)
+
         remindBgView.frame = .init(x: 0, y: scrollView.frame.maxY, width: width, height: remindViewHeight)
         markLabel.frame = .init(x: 30, y: 0, width: remindBgView.width - 60, height: remindViewHeight)
         
@@ -231,11 +242,12 @@ class TYCurveView: UIView {
                               width: 1,
                               height: curvelViewHeight + titleViewHeight - probabilityLabel.height - curvelTimeViewHeight)
         
-        lineView.frame = .init(x: itemWidth / 2.0, y: curveView.frame.maxY,
+        lineView.frame = .init(x: width / 2.0, y: curveView.frame.maxY,
                                width: curvelViewWidth,
                                height: lineHeight)
         
-        curveTimeBgView.frame = .init(x: 0, y: lineView.frame.maxY,
+        curveTimeBgView.frame = .init(x: width / 2.0 - itemWidth / 2.0,
+                                      y: lineView.frame.maxY,
                                       width: curvelViewWidth + itemWidth,
                                       height: curvelTimeViewHeight - lineHeight)
         timeView.frame = curveTimeBgView.bounds
@@ -337,4 +349,31 @@ extension TYCurveView {
                       controlPoint2: .init(x: ctrl2_x, y: ctrl2_y))
     }
 
+}
+
+extension TYCurveView: UIScrollViewDelegate {
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        resetContentOffset()
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            resetContentOffset()
+        }
+    }
+    
+    private func resetContentOffset() {
+        let scrollWidth: CGFloat = scrollView.contentOffset.x
+        let floatX: CGFloat = scrollWidth.truncatingRemainder(dividingBy: itemWidth)
+        var intX: Int = Int(scrollWidth / itemWidth)
+        if floatX > itemWidth / 2.0 {
+            intX += 1
+        }
+        let offsetPoint: CGPoint = .init(x: CGFloat(intX) * itemWidth, y: 0)
+        PrintLog(offsetPoint)
+        scrollView.setContentOffset(offsetPoint, animated: true)
+        
+        setProbability(probability: probabilityDatas[intX])
+    }
 }

@@ -64,9 +64,9 @@ class HCHomeCollectionHeaderReusableView: UICollectionReusableView {
     public var model: HCPregnancyProbabilityModel! {
         didSet {
             circleView.set(percent: model.todayProbability)
-            
-            let paiNuanText = "距离排卵日还有\(TYDateCalculate.numberOfDays(toDate: model.ovulationDate))天"
-            paiNuanOutlet.attributedText = paiNuanText.attributed(.init(location: 7, length: 2), .white, .font(fontSize: 21, fontName: .PingFMedium))
+            let days = "\(TYDateCalculate.numberOfDays(toDate: model.ovulationDate))"
+            let paiNuanText = "距离排卵日还有\(days)天"
+            paiNuanOutlet.attributedText = paiNuanText.attributed(.init(location: 7, length: days.count), .white, .font(fontSize: 21, fontName: .PingFMedium))
             
             let intPro: Int = Int((100.0 * model.tomorrowProbability) / 100.0)
             let nextDayText = "明日好运率\(intPro)%"
