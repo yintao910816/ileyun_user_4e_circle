@@ -45,6 +45,12 @@ struct LayoutSize {
         }
     }
     
+    static var topVirtualArea_1: CGFloat {
+        get {
+            return UIDevice.current.isX == true ? 44 : 24
+        }
+    }
+    
     static var fitTopArea: CGFloat {
         get {
             return UIDevice.current.isX == true ? 24 : 0

@@ -21,7 +21,7 @@ class HCSearchAllViewController: HCSlideItemController {
     public var pushH5CallBack:((String)->())?
 
     override func setupUI() {
-        tableView = UITableView.init(frame: .zero, style: .grouped)
+        tableView = UITableView.init(frame: .zero, style: .plain)
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.delegate = self
@@ -126,7 +126,7 @@ extension HCSearchAllViewController: UITableViewDelegate, UITableViewDataSource 
         
         let model = datasource[indexPath.section][indexPath.row]
         if model.isKind(of: HCSearchDoctorItemModel.self) {
-            let url = "\(H5Type.doctorHome.getLocalUrl())?\((model as! HCSearchDoctorItemModel).userId)"
+            let url = "\(H5Type.doctorHome.getLocalUrl())&userId=\((model as! HCSearchDoctorItemModel).userId)"
             pushH5CallBack?(url)
         }else if model.isKind(of: HCSearchArticleItemModel.self) {
             pushH5CallBack?((model as! HCSearchArticleItemModel).linkUrls)

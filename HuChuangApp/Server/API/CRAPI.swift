@@ -16,9 +16,11 @@ enum HCWebCmsType: String {
 }
 
 enum HCMergeProOpType: String {
+    /// 标记月经
+    case menstruationDate = "menstruationDate"
     /// 添加同房记录
     case knewRecord = "knewRecord"
-    /// 添加b排卵日
+    /// 添加排卵日
     case ovulation = "ovulation"
     /// 添加体温记录
     case temperature = "temperature"
@@ -68,11 +70,11 @@ enum H5Type: String {
     /// 经期设置
     case menstrualSetting = "MenstrualSetting"
     /// 个人中心健康档案
-    case healthRecordsUser = "HealthRecordsUser"
+    case healthRecordsUser = "healthRecords"
     /// 用户反馈
     case feedback = "feedback"
     /// 帮助中心
-    case helpCenter = "helpCenter"
+    case helpCenter = "NounParsing"
     /// 通知中心
     case noticeAndMessage = "noticeAndMessage"
         
@@ -179,8 +181,10 @@ enum API{
     case articelStore(articleId: String, status: Bool)
     /// 区域城市
     case allCity
-    ///
+    /// 添加标记排卵日,添加同房记录
     case mergePro(opType: HCMergeProOpType, data: [String: Any])
+    /// 添加/修改/删除,月经周期
+    case mergeWeekInfo(id: Int, startDate: String, keepDays: Int)
 }
 
 //MARK:
@@ -256,6 +260,8 @@ extension API: TargetType{
             return "api/area/allCity"
         case .mergePro(_):
             return "api/physiology/mergePro"
+        case .mergeWeekInfo(_):
+            return "api/physiology/mergeWeekInfo"
         }
     }
     
@@ -410,6 +416,11 @@ extension API {
         case .mergePro(let opType, let data):
             params["opType"] = opType.rawValue
             params["data"] = data
+        case .mergeWeekInfo(let id, let startDate, let keepDays):
+            params["id"] = id
+            params["startDate"] = startDate
+            params["keepDays"] = keepDays
+            params["next"] = 1
         default:
             return nil
         }

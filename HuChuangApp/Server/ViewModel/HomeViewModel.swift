@@ -88,6 +88,7 @@ class HomeViewModel: RefreshVM<HCAllChannelArticleItemModel>, VMNavigation {
                     strongSelf.refreshCollectionView.onNext(Void())
                     }, onError: { [unowned self] error in
                         self.hud.failureHidden(self.errorMessage(error))
+                        self.revertCurrentPageAndRefreshStatus()
                 })
                 .disposed(by: disposeBag)
         }else {
@@ -99,6 +100,7 @@ class HomeViewModel: RefreshVM<HCAllChannelArticleItemModel>, VMNavigation {
                     strongSelf.refreshCollectionView.onNext(Void())
                 }, onError: { [weak self] error in
                     self?.hud.failureHidden(self?.errorMessage(error))
+                    self?.revertCurrentPageAndRefreshStatus()
                 })
                 .disposed(by: disposeBag)
         }

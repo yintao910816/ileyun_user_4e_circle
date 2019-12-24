@@ -34,6 +34,15 @@ class HCPickerController: HCPicker {
         show(animotion: true)
     }
 
+    override func doneAction() {
+        let intRow = picker.selectedRow(inComponent: 0)
+        let floatRow = picker.selectedRow(inComponent: 1)
+        let selectedContent = "\(sectionModel.sectionData[0][intRow].title)\(sectionModel.sectionData[1][floatRow].title)"
+        finishSelected?(selectedContent)
+        
+        cancelAction()
+    }
+    
     public var sectionModel: HCPickerSectionData! {
         didSet {
             picker.reloadAllComponents()
@@ -77,18 +86,14 @@ extension HCPickerController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if component == 1 {
+            return "\(sectionModel.sectionData[component][row].title)℃"
+        }
         return sectionModel.sectionData[component][row].title
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-
-//        selectedComponent = component
-//        selectedRow = row
         
-        let intRow = pickerView.selectedRow(inComponent: 0)
-        let floatRow = pickerView.selectedRow(inComponent: 1)
-        let selectedContent = "\(sectionModel.sectionData[0][intRow])\(sectionModel.sectionData[1][floatRow])"
-        finishSelected?(selectedContent)
     }
         
 }
@@ -105,7 +110,7 @@ struct HCPickerSectionData {
         }
         
         for idx in 0...99 {
-            let idxString = idx < 10 ? ".0\(idx)℃" : ".\(idx)℃"
+            let idxString = idx < 10 ? ".0\(idx)" : ".\(idx)"
             floatPart.append(HCPickerItemModel(title: "\(idxString)"))
         }
         

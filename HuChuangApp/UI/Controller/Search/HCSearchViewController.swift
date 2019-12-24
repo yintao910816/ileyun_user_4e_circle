@@ -26,7 +26,7 @@ class HCSearchViewController: BaseViewController {
     override func setupUI() {
         view.backgroundColor = .white
         
-        searchBar = TYSearchBar.init(frame: .init(x: 0, y: 0, width: view.width, height: TYSearchBar.baseHeight))
+        searchBar = TYSearchBar.init(frame: .init(x: 0, y: 0, width: view.width, height: TYSearchBar.baseHeight + (UIDevice.current.isX ? 0 : 24)))
         searchBar.coverButtonEnable = false
         searchBar.searchPlaceholder = "搜索症状/疾病/药品/医生/科室"
         searchBar.rightItemTitle = "取消"
@@ -97,7 +97,7 @@ class HCSearchViewController: BaseViewController {
         doctorCtrl.view.backgroundColor = .white
         doctorCtrl.bind(viewModel: viewModel, canRefresh: true, canLoadMore: true, isAddNoMoreContent: false)
         doctorCtrl.didSelectedCallBack = {
-            HCHelper.pushH5(href: "\(H5Type.doctorHome.getLocalUrl())?userId=\($0.userId)")
+            HCHelper.pushH5(href: "\(H5Type.doctorHome.getLocalUrl())&userId=\($0.userId)")
         }
         
 //        let classCtrl = HCSearchHealthyCourseViewController()

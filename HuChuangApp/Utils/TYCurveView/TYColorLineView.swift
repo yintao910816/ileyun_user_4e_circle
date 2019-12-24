@@ -54,7 +54,7 @@ class TYColorLineView: UIView {
             for idx in 0..<data.pointDatas.count {
                 PrintLog("点X: \(pointX)")
                 let pointV = UIImageView.init(frame: .init(x: pointX, y: 0, width: pointSize, height: pointSize))
-                pointV.backgroundColor = .white
+                pointV.backgroundColor = data.pointDatas[idx].bgColor
                 pointV.clipsToBounds = true
                 pointV.layer.cornerRadius = pointSize / 2
                 pointV.layer.borderColor = data.pointDatas[idx].borderColor.cgColor
@@ -121,6 +121,7 @@ struct TYLineItemModel {
 
 struct TYPointItemModel {
     var borderColor: UIColor = .clear
+    var bgColor: UIColor = .white
     /// 每个点对应的时间
     var time: String = ""
 }

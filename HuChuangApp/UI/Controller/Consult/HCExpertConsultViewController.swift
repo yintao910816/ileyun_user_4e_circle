@@ -28,7 +28,7 @@ class HCExpertConsultViewController: BaseViewController {
     }
     
     override func setupUI() {
-        navHeightCns.constant += LayoutSize.topVirtualArea
+        navHeightCns.constant += LayoutSize.topVirtualArea_1
         
         navSearchBar.tfBgColor = RGB(247, 247, 247)
         navSearchBar.coverButtonEnable = false

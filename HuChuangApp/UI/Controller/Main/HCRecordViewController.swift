@@ -147,7 +147,11 @@ extension HCRecordViewController: UICollectionViewDataSource, UICollectionViewDe
                 addChildViewController(datePicker)
 
                 datePicker.finishSelected = { [weak self] date in
-                    self?.viewModel.commitChangeSubject.onNext((actionModel.opType, date))
+                    if actionModel.opType == .menstruationDate {
+                        self?.viewModel.commitMergeWeekInfoSubject.onNext(date)
+                    }else {
+                        self?.viewModel.commitChangeSubject.onNext((actionModel.opType, date))
+                    }
                 }
             }
         }

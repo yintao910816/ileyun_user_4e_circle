@@ -40,6 +40,8 @@ class HCRecordItemDataModel: HJModel, HCRecordData {
     var curelTitle: String = "好孕率趋势图"
     // 是否是对比数据
     var isContrast: Bool = false
+    // 是否已经设置过周期相关数据
+    var circleIsSet: Bool = false
     
     /// 画曲线数据
     public var probabilityDatas: [Float] = []

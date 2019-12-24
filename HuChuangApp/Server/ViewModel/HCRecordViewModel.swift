@@ -14,15 +14,22 @@ class HCRecordViewModel: BaseViewModel {
     
     public let reloadUISubject = PublishSubject<Void>()
     public let exchangeUISubject = PublishSubject<Void>()
+    /// 添加标记排卵日,添加同房记录,温度
     public let commitChangeSubject = PublishSubject<(HCMergeProOpType, String)>()
+    /// 标记月经
+    public let commitMergeWeekInfoSubject = PublishSubject<String>()
 
     /// 怀孕率数据
     private var prepareProbabilityDatas: [Float] = []
     private var prepareTimesDatas: [String] = []
     /// 当前周期数据
-    public var currentCircleData: HCRecordItemDataModel?
+    public var currentCircleData: HCRecordItemDataModel!
+    /// 下个周期数据
+    public var nextCircleData: HCRecordItemDataModel!
+    /// 上个周期数据
+    public var lastCircleData: HCRecordItemDataModel!
     /// 三个周期数据
-    private var circleDatas: [HCRecordData] = []
+    private var circleDatas: [HCRecordItemDataModel] = []
     /// 底部操作cell
     private var cellActionItemDatasource: [HCRecordData] = []
 
@@ -51,6 +58,19 @@ class HCRecordViewModel: BaseViewModel {
             self.commitChange(type: $0.0, data: $0.1)
         })
         .disposed(by: disposeBag)
+        
+        commitMergeWeekInfoSubject
+            .filter { [unowned self] in self.caculteDate(date: $0) }
+            .subscribe(onNext: { [unowned self] in
+                self.commitMergeWeekInfo(isNext: false, startDate: $0)
+            })
+            .disposed(by: disposeBag)
+        
+        NotificationCenter.default.rx.notification(NotificationName.User.LoginSuccess)
+            .subscribe(onNext: { [weak self] data in
+                self?.requestRecordData()
+            })
+            .disposed(by: disposeBag)
     }
     
     private func requestRecordData() {
@@ -69,18 +89,22 @@ class HCRecordViewModel: BaseViewModel {
     private func prepareActionData() {
         let model1 = HCCellActionItem()
         model1.title = "标记月经"
+        model1.opType = .menstruationDate
         model1.itemWidth = 80
         
         let model2 = HCCellActionItem()
         model2.title = "标记排卵日"
+        model2.opType = .ovulation
         model2.itemWidth = 90
 
         let model3 = HCCellActionItem()
         model3.title = "标记同房"
+        model3.opType = .knewRecord
         model3.itemWidth = 80
 
         let model4 = HCCellActionItem()
         model4.title = "基础体温"
+        model4.opType = .temperature
         model4.itemWidth = 80
 
         cellActionItemDatasource = [model1, model2, model3, model4]
@@ -89,26 +113,11 @@ class HCRecordViewModel: BaseViewModel {
 
 extension HCRecordViewModel {
     
-    private func exchangeData() {
-        isContrast = !isContrast
-        datasource.removeAll()
-        
-        if isContrast {
-            datasource.append(circleDatas)
-        }else {
-            if let data = currentCircleData {
-                datasource.append([data])
-            }
-            datasource.append(cellActionItemDatasource)
-        }
-        
-        reloadUISubject.onNext(Void())
-    }
-    
+    // 添加标记排卵日,添加同房记录
     private func commitChange(type: HCMergeProOpType, data: String) {
         var dataParam: [String: Any] = [:]
         if type == .temperature {
-            dataParam["data"] = ["temperature": data]
+            dataParam["temperature"] = data
         }else {
             dataParam["data"] = data
         }
@@ -127,40 +136,106 @@ extension HCRecordViewModel {
         .disposed(by: disposeBag)
     }
     
+    // 添加/修改/删除,月经周期
+    private func commitMergeWeekInfo(isNext: Bool, startDate: String) {
+        let id = isNext ? nextCircleData.id : currentCircleData.id
+        let keepDays = isNext ? (nextCircleData.keepDays > 0 ? nextCircleData.keepDays : 7) : (currentCircleData.keepDays > 0 ? currentCircleData.keepDays : 7)
+        hud.noticeLoading()
+        
+        HCProvider.request(.mergeWeekInfo(id: id, startDate: startDate, keepDays: keepDays))
+            .mapResponse()
+            .subscribe(onSuccess: { [weak self] res in
+                if res.code == RequestCode.success.rawValue {
+                    self?.requestRecordData()
+                }else {
+                    self?.hud.failureHidden(res.message)
+                }
+            }) { [weak self] error in
+                self?.hud.failureHidden(self?.errorMessage(error))
+        }
+        .disposed(by: disposeBag)
+    }
+
+}
+
+extension HCRecordViewModel {
+    
+    private func caculteDate(date: String) ->Bool {
+        let fixDate = TYDateCalculate.date(for: date)
+        let currentCircleDate = TYDateCalculate.date(for: currentCircleData.menstruationDate)
+        let days = TYDateCalculate.numberOfDays(fromDate: fixDate, toDate: currentCircleDate)
+        //
+        if days > lastCircleData.cycle - 21 && lastCircleData.cycle - 21 > 0 {
+            NoticesCenter.alert(title: "提示", message: "标记日期不符合经期规律，请重新标记", cancleTitle: "确定")
+            return false
+        }
+
+        // 新设置的月经起始时间与原先设置的时间大于21天进入下一周期的设置
+        if days > 21 {
+            NoticesCenter.alert(title: "提示", message: "标记日期与预测日期相差太大，是否进入下一周期", cancleTitle: "否", okTitle: "是") { [unowned self] in
+                self.commitMergeWeekInfo(isNext: true, startDate: date)
+            }
+            return false
+        }
+                
+        return true
+    }
+    
+    private func exchangeData() {
+        isContrast = !isContrast
+        datasource.removeAll()
+        
+        if isContrast {
+            datasource.append(circleDatas)
+        }else {
+            if currentCircleData.circleIsSet {
+                datasource.append([currentCircleData])
+            }
+            datasource.append(cellActionItemDatasource)
+        }
+        
+        reloadUISubject.onNext(Void())
+    }
+        
     private func dealData(datas: [HCRecordItemDataModel]) {
         guard datas.count == 3 else { return }
 
         circleDatas.removeAll()
-        currentCircleData = nil
         
         var idx = 0
         for var item in datas {
             if item.cycle > 0 && item.keepDays > 0 && item.menstruationDate.count > 0 {
                 formatCircle(data: &item, idx: idx)
-                if idx == 1 {
+                if idx == 0 {
+                    lastCircleData = item
+                    lastCircleData.circleIsSet = true
+                }else if idx == 1 {
                     currentCircleData = item
+                    currentCircleData.circleIsSet = true
+                }else if idx == 2 {
+                    nextCircleData = item
+                    nextCircleData.circleIsSet = true
                 }
                 circleDatas.append(item)
             }else {
                 PrintLog("非法数据")
+                if idx == 0 {
+                    lastCircleData = item
+                    lastCircleData.circleIsSet = false
+                }else if idx == 1 {
+                    currentCircleData = item
+                    currentCircleData.circleIsSet = false
+                }else if idx == 2 {
+                    nextCircleData = item
+                    nextCircleData.circleIsSet = false
+                }
             }
             idx += 1
         }
-
-//        for var item in datas {
-//            if item.cycle > 0 && item.keepDays > 0 && item.menstruationDate.count > 0 {
-//                if item != currentCircleData {
-//                    formatCircle(data: &item)
-//                }
-//                circleDatas.append(item)
-//            }else {
-//                PrintLog("非法数据")
-//            }
-//        }
         
         datasource.removeAll()
-        if let c = currentCircleData {
-            datasource.append([c])
+        if currentCircleData.circleIsSet  {
+            datasource.append([currentCircleData])
         }
         
         datasource.append(cellActionItemDatasource)
@@ -278,7 +353,12 @@ extension HCRecordViewModel {
         var plqPoints: [TYPointItemModel] = []
         for date in plqArr {
             let com = TYDateCalculate.getDataComponent(date: date)
-            let m = TYPointItemModel(borderColor: .clear, time: "\(com.month!).\(com.day!)")
+            var m = TYPointItemModel(borderColor: .clear, time: "\(com.month!).\(com.day!)")
+            if TYDateCalculate.numberOfDays(fromDate: date, toDate: plaDate) == 0 {
+                PrintLog("找到排卵日：\(date)")
+//                m.bgColor = HC_MAIN_COLOR
+//                m.bgColor = .black
+            }
             plqPoints.append(m)
         }
 

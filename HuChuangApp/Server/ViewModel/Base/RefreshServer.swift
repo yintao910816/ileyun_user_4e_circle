@@ -175,6 +175,7 @@ extension RefreshVM {
                 datasource.value.append(contentsOf: retData)
             }else {
                 pageModel.currentPage = pageModel.currentPage > 1 ? (pageModel.currentPage - 1) : 1
+                refreshStatus.value = .PullSuccessNoMoreData
             }
         }
     }

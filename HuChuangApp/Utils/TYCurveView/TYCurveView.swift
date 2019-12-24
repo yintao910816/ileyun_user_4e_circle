@@ -293,7 +293,7 @@ extension TYCurveView {
             
             PrintLog("转化坐标-\(idx): x:\(x),y:\(y)")
             
-            pointsArray.append(.init(x: x, y: y))
+            pointsArray.append(.init(x: x, y: y - 30))
         }
         
         /// 添加首尾两个点, 用于求出第一条曲线和最后一条曲线控制点的坐标点
