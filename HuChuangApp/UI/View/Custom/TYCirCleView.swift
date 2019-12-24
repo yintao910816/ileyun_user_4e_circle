@@ -41,7 +41,9 @@ class TYCirCleView: UIView {
         
     public func set(percent: Float) {
         self.percent = percent / 100.0
-        let title: String = "\(percent)"
+        let intPro: Int = Int((100.0 * percent) / 100.0)
+        let title: String = "\(intPro)"
+
         let titleText = "\(title)%\n好孕率"
         
         let attr = titleText.attributed([NSRange.init(location: 0, length: title.count),

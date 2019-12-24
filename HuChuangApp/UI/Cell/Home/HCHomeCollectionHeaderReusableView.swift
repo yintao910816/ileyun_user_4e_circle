@@ -68,7 +68,8 @@ class HCHomeCollectionHeaderReusableView: UICollectionReusableView {
             let paiNuanText = "距离排卵日还有\(TYDateCalculate.numberOfDays(toDate: model.ovulationDate))天"
             paiNuanOutlet.attributedText = paiNuanText.attributed(.init(location: 7, length: 2), .white, .font(fontSize: 21, fontName: .PingFMedium))
             
-            let nextDayText = "明日好运率\(model.tomorrowProbability)%"
+            let intPro: Int = Int((100.0 * model.tomorrowProbability) / 100.0)
+            let nextDayText = "明日好运率\(intPro)%"
             nextDayOutlet.attributedText = nextDayText.attributed(.init(location: 5, length: nextDayText.count - 5), .white, .font(fontSize: 21, fontName: .PingFMedium))
         }
     }
