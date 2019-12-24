@@ -101,7 +101,7 @@ extension HCHomeViewController: UICollectionViewDelegateFlowLayout, UICollection
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         switch section {
         case 0:
-            return .init(width: view.width, height: 404)
+            return .init(width: view.width, height: 374)
         default:
             return .zero
         }
