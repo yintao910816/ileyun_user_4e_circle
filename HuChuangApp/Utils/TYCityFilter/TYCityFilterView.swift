@@ -18,6 +18,7 @@ class TYCityFilterView: UIView {
     private var titlesIndex: [String] = []
     
     public let datasource = Variable([HCAllCityItemModel]())
+    public var didSelectedCallBack: ((HCCityItemModel)->())?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -127,6 +128,8 @@ extension TYCityFilterView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        didSelectedCallBack?(datasource.value[indexPath.section].list[indexPath.row])
     }
 }
 

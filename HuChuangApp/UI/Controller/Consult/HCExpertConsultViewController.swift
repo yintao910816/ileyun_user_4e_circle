@@ -55,12 +55,17 @@ class HCExpertConsultViewController: BaseViewController {
             case .filiter:
                 self?.filiterView.excuteAnimotion(true)
             default:
-                break
+                self?.viewModel.filiterOpTypeSubject.onNext(type.rawValue)
             }
         }
         
         cityFilterView = TYCityFilterView.init(frame: view.bounds)
         view.insertSubview(cityFilterView, belowSubview: listMenuView)
+        cityFilterView.didSelectedCallBack = { [weak self] in
+            self?.viewModel.filiterCitySubject.onNext($0)
+            self?.cityFilterView.excuteAnimotion(true)
+        }
+        
         cityFilterView.snp.makeConstraints{
             $0.left.right.bottom.equalTo(0)
             $0.top.equalTo(listMenuView.snp.bottom)

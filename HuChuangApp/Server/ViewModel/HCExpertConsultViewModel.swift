@@ -77,6 +77,13 @@ class HCExpertConsultViewModel: RefreshVM<HCDoctorItemModel> {
             })
             .disposed(by: disposeBag)
         
+        filiterOpTypeSubject
+            .subscribe(onNext: { [unowned self] in
+                self.filiterOpType = $0
+                self.requestData(true)
+            })
+            .disposed(by: disposeBag)
+        
         reloadSubject
             .subscribe(onNext: { [weak self] in
                 self?.requestAllCitys()
@@ -92,12 +99,11 @@ class HCExpertConsultViewModel: RefreshVM<HCDoctorItemModel> {
     override func requestData(_ refresh: Bool) {
         super.requestData(refresh)
         
-        HCProvider.request(.consultSelectListPage(pageNum: pageModel
-            .currentPage,
+        HCProvider.request(.consultSelectListPage(pageNum: pageModel.currentPage,
                                                   pageSize: pageModel.pageSize,
                                                   searchName: searchTextObser.value,
                                                   areaCode: filiterCityDatas?.id ?? "",
-                                                  opType: filiterOpType,
+                                                  opType: prepareFiliterOpType(),
                                                   sceen: prepareSceen()))
             .map(model: HCExpertConsultListModel.self)
             .subscribe(onSuccess: { [weak self] data in
@@ -135,5 +141,9 @@ class HCExpertConsultViewModel: RefreshVM<HCDoctorItemModel> {
         }
         
         return ["lv": lv, "addNum": addNum, "skilledIn": skilledIn]
+    }
+    
+    private func prepareFiliterOpType() ->[String: Any] {
+        return ["type": filiterOpType, "desc": 1]
     }
 }

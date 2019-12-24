@@ -106,7 +106,11 @@ extension TYListMenuView: UICollectionViewDelegateFlowLayout, UICollectionViewDa
             selectedCallBack?(datasource[indexPath.row].isSelected ? TYListMenuViewType(rawValue: indexPath.row)! : .none)
         }else {
             datasource[indexPath.row].didClicked(false)
-            selectedCallBack?(TYListMenuViewType(rawValue: indexPath.row)!)
+            if indexPath.row == 0 {
+                selectedCallBack?(.city)
+            }else if indexPath.row == 3 {
+                selectedCallBack?(.filiter)
+            }
         }
         
 //        if indexPath.row != selectedIdx {

@@ -162,7 +162,7 @@ enum API{
     /// 健康档案
     case getHealthArchives
     /// 专家问诊医生列表
-    case consultSelectListPage(pageNum: Int, pageSize: Int, searchName: String, areaCode: String, opType: Int, sceen: [String: Any])
+    case consultSelectListPage(pageNum: Int, pageSize: Int, searchName: String, areaCode: String, opType: [String: Any], sceen: [String: Any])
     /// 咨询医生信息
     case getUserInfo(userId: String)
     /// 最近三个周期信息
