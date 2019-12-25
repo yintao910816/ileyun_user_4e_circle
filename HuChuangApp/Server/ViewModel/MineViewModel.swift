@@ -64,7 +64,7 @@ class MineViewModel: BaseViewModel, VMNavigation {
                                                                                           h5Type: .healthRecordsUser),
                                                             MenuListItemModel.createModel(titleIcon: "shoucang",
                                                                                           title: "我的医生",
-                                                                                          h5Type: .underDev)]),
+                                                                                          h5Type: .myDoctor)]),
                         SectionModel.init(model: 1, items: [MenuListItemModel.createModel(titleIcon: "shouhuodizhi",
                                                                                           title: "我的卡券",
                                                                                           h5Type: .voucherCenter)]),

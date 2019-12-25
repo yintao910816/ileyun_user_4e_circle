@@ -57,8 +57,6 @@ enum H5Type: String {
     case doctorHome = "doctorHome"
     /// 快速问诊
     case doctorCs = "DoctorCs"
-    /// 快速提问
-    case csRecord = "csRecord"
     /// 问诊记录
     case doctorComments = "doctorComments"
     /// 我的关注
@@ -66,7 +64,7 @@ enum H5Type: String {
     /// 我的搜藏
     case myCollection = "myCollection"
     /// 我的卡卷
-    case voucherCenter = "voucherCenter"
+    case voucherCenter = "myCoupon"
     /// 经期设置
     case menstrualSetting = "MenstrualSetting"
     /// 个人中心健康档案
@@ -77,6 +75,10 @@ enum H5Type: String {
     case helpCenter = "NounParsing"
     /// 通知中心
     case noticeAndMessage = "noticeAndMessage"
+    /// 订单
+    case csRecord = "CsRecord"
+    /// 我的医生
+    case myDoctor = "myDoctor"
         
     func getLocalUrl() ->String {
         return "\(APIAssistance.baseH5Host)#/\(rawValue)?token=\(userDefault.token)"

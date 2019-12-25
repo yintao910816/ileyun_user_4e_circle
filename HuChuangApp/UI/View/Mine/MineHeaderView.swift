@@ -38,8 +38,8 @@ class MineHeaderView: UIView {
             // 通知
             openH5Publish.onNext(.noticeAndMessage)
         case 202:
-            // 咨询
-            openH5Publish.onNext(.doctorComments)
+            // 订单
+            openH5Publish.onNext(.csRecord)
         case 203:
             // 关注
             openH5Publish.onNext(.myFocused)
