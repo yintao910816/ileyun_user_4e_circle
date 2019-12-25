@@ -54,11 +54,13 @@ extension UserDefaults{
     
     var unitId: String {
         get{
-            guard let rtUnitId = (object(forKey: kUnitId) as? String) else {
-                return "0"
-            }
-                        
-            return rtUnitId
+//            guard let rtUnitId = (object(forKey: kUnitId) as? String) else {
+//                return "0"
+//            }
+//
+//            return rtUnitId
+            // 爱乐孕改值写死0
+            return "0"
         }
         set{
             set(newValue, forKey: kUnitId)

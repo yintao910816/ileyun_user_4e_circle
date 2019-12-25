@@ -9,10 +9,10 @@
 import Foundation
 import RxSwift
 
-class HomeViewModel: RefreshVM<HCAllChannelArticleItemModel>, VMNavigation {
+class HomeViewModel: RefreshVM<HCArticleItemModel>, VMNavigation {
     
     var bannerModelObser = Variable([HomeBannerModel]())
-    var articleModels: [HCAllChannelArticleItemModel] = []
+    var articleModels: [HCArticleItemModel] = []
     var pregnancyProbabilityData = HCPregnancyProbabilityModel()
 
     /// 设置右上角消息数量提醒
@@ -121,11 +121,11 @@ class HomeViewModel: RefreshVM<HCAllChannelArticleItemModel>, VMNavigation {
             .catchErrorJustReturn([HomeBannerModel]())
     }
     
-    private func requestChannelArticle() ->Observable<HCAllChannelArticleModel>{
+    private func requestChannelArticle() ->Observable<HCArticlePageDataModel>{
         return HCProvider.request(.allChannelArticle(cmsType: .webCms001, pageNum: pageModel.currentPage, pageSize: pageModel.pageSize))
-            .map(model: HCAllChannelArticleModel.self)
+            .map(model: HCArticlePageDataModel.self)
             .asObservable()
-            .catchErrorJustReturn(HCAllChannelArticleModel())
+            .catchErrorJustReturn(HCArticlePageDataModel())
     }
     
     private func requestH5(type: H5Type) ->Observable<H5InfoModel> {

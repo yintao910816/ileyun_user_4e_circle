@@ -85,12 +85,12 @@ class HCArticleCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    var model: HCAllChannelArticleItemModel! {
+    var model: HCArticleItemModel! {
         didSet {
             coverImgV.setImage(model.picPath)
             titleLabel.text = model.title
-            collectionLabel.text = model.storeText
-            readLabel.text = model.readText
+            collectionLabel.text = model.collectCountText
+            readLabel.text = model.readCountText
         }
     }
 }

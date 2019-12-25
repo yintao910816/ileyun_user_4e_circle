@@ -302,9 +302,7 @@ extension TYCurveView {
             let y = drawHeight - CGFloat(probabilityDatas[idx]) * drawHeight
             if idx == 0 { x = leftMargin }
             else { x = leftMargin + CGFloat(idx) * itemWidth }
-            
-            PrintLog("转化坐标-\(idx): x:\(x),y:\(y)")
-            
+                        
             pointsArray.append(.init(x: x, y: y - 30))
         }
         

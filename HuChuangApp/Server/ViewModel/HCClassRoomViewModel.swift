@@ -45,20 +45,27 @@ class HCClassRoomViewModel: RefreshVM<HCArticleItemModel> {
         updatePage(for: "\(page)", refresh: refresh)
         
         let item = columnData.content[page]
-        HCProvider.request(.articlePage(id: item.id, pageNum: currentPage(for: "\(page)"), pageSize: pageSize(for: "\(page)")))
+        var signal = HCProvider.request(.articlePage(id: item.id, pageNum: currentPage(for: "\(page)"), pageSize: pageSize(for: "\(page)")))
             .map(model: HCArticlePageDataModel.self)
-            .subscribe(onSuccess: { [weak self] data in
-                guard let strongSelf = self else { return }
-                if strongSelf.menuPageListData[strongSelf.page] == nil {
-                   strongSelf.menuPageListData[strongSelf.page] = [HCArticleItemModel]()
-                }
-                strongSelf.updateRefresh(refresh: refresh, models: data.records, dataModels: &(strongSelf.menuPageListData[strongSelf.page])!, pages: data.pages, pageKey: "\(strongSelf.page)")
-                self?.pageListData.onNext((strongSelf.menuPageListData[strongSelf.page]!, strongSelf.page))
-            }) { [weak self] error in
-                guard let strongSelf = self else { return }
-                strongSelf.revertCurrentPageAndRefreshStatus(pageKey: "\(strongSelf.page)")
+        
+        if page == 0 {
+            signal = HCProvider.request(.allChannelArticle(cmsType: .webCms001, pageNum: currentPage(for: "\(page)"), pageSize: pageSize(for: "\(page)")))
+                .map(model: HCArticlePageDataModel.self)
+        }
+        
+        signal.subscribe(onSuccess: { [weak self] data in
+            guard let strongSelf = self else { return }
+            if strongSelf.menuPageListData[strongSelf.page] == nil {
+                strongSelf.menuPageListData[strongSelf.page] = [HCArticleItemModel]()
+            }
+            strongSelf.updateRefresh(refresh: refresh, models: data.records, dataModels: &(strongSelf.menuPageListData[strongSelf.page])!, pages: data.pages, pageKey: "\(strongSelf.page)")
+            self?.pageListData.onNext((strongSelf.menuPageListData[strongSelf.page]!, strongSelf.page))
+        }) { [weak self] error in
+            guard let strongSelf = self else { return }
+            strongSelf.revertCurrentPageAndRefreshStatus(pageKey: "\(strongSelf.page)")
         }
         .disposed(by: disposeBag)
+
     }
     
     /// 滚动菜单
@@ -66,6 +73,7 @@ class HCClassRoomViewModel: RefreshVM<HCArticleItemModel> {
         HCProvider.request(.column(cmsType: .webCms001))
             .map(model: HomeColumnModel.self)
             .subscribe(onSuccess: { [weak self] model in
+                model.content.insert(HomeColumnItemModel.creatAllColum(), at: 0)
                 self?.columnData = model
                                 
                 if model.content.count > 0 {

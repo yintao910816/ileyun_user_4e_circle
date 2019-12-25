@@ -254,7 +254,6 @@ extension HCRecordViewModel {
         // 最后一天
         let endYj = TYDateCalculate.getDate(currentDate: starYj, days: data.keepDays - 1, isAfter: true)
         let yjArr: [Date] = TYDateCalculate.getDates(startDate: starYj, endDate: endYj)
-        PrintLog("starYj: \(starYj) -- endYj: \(endYj) arr: \(yjArr)")
 
         /// --- 排卵期日期推算
         let circleEndDate = TYDateCalculate.getDate(currentDate: starYj, days: data.cycle - 1, isAfter: true)
@@ -266,15 +265,10 @@ extension HCRecordViewModel {
         let endPlqDate = TYDateCalculate.getDate(currentDate: plaDate, days: 4, isAfter: true)
         let plqArr: [Date] = TYDateCalculate.getDates(startDate: starPlqDate, endDate: endPlqDate)
         
-        PrintLog("plq-- circleEndDate: \(circleEndDate) -- plaDate: \(plaDate) starPlqDate: \(starPlqDate) endPlqDate - \(endPlqDate)")
-        
-        PrintLog("starPlqDate: \(starPlqDate) -- endPlqDate: \(endPlqDate) arr: \(plqArr)")
-
         /// ---排卵期后安全期日期推算
         // 第一天
         let starSafeAfterDate = TYDateCalculate.getDate(currentDate: endPlqDate, days: 1, isAfter: true)
         let safeAfterArr: [Date] = TYDateCalculate.getDates(startDate: starSafeAfterDate, endDate: circleEndDate)
-        PrintLog("starSafeAfterDate: \(starSafeAfterDate) -- circleEndDate: \(circleEndDate) arr: \(safeAfterArr)")
 
         /// ---排卵期前安全期日期推算
         // 第一天
@@ -282,7 +276,6 @@ extension HCRecordViewModel {
         // 最后一天
         let endSafeBefore = TYDateCalculate.getDate(currentDate: starPlqDate, days: 1, isAfter: false)
         let safeBeforeArr: [Date] = TYDateCalculate.getDates(startDate: starSafeBefore, endDate: endSafeBefore)
-        PrintLog("starSafeBefore: \(starSafeBefore) -- endSafeBefore: \(endSafeBefore) arr: \(safeBeforeArr)")
 
         var allDates: [Date] = []
         allDates.append(contentsOf: yjArr)

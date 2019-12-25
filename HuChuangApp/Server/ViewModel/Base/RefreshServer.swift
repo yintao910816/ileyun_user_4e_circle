@@ -200,7 +200,8 @@ extension RefreshVM {
      */
     public final func updatePage(for pageKey: String, refresh: Bool) {
         checkPage(pageKey: pageKey)
-        pageModels[pageKey]!.currentPage = refresh ? 1 : (pageModels[pageKey]!.currentPage + 1)
+        let curPageModel = pageModels[pageKey]!
+        curPageModel.currentPage = refresh ? 1 : (curPageModel.currentPage + 1)
     }
     
     /**
