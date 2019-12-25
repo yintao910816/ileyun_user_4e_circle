@@ -16,6 +16,7 @@ class TYColorLineView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        clipsToBounds = true
         
         lineView = UIView.init(frame: bounds)
         lineView.backgroundColor = .white
