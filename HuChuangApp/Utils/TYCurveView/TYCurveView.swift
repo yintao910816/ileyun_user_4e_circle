@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import RxSwift
 
 class TYCurveView: UIView {
+    private let disposeBag = DisposeBag()
 
     private var scrollView: UIScrollView!
     private var curveView: UIView!
@@ -46,6 +48,7 @@ class TYCurveView: UIView {
     private var lineHeight: CGFloat = 10
     
     public var fullScreenCallBack: (()->())?
+    public var scrollViewDidScrollCallBack: ((CGFloat)->())?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -210,6 +213,21 @@ class TYCurveView: UIView {
         setNeedsDisplay()
     }
     
+    public func setOffsetX(_ offsetX: CGFloat) {
+        if offsetX != scrollView.contentOffset.x {
+            scrollView.setContentOffset(.init(x: offsetX, y: 0), animated: false)
+            
+            let scrollWidth: CGFloat = scrollView.contentOffset.x
+            var intX: Int = Int(scrollWidth / itemWidth)
+            let floatX: CGFloat = scrollWidth.truncatingRemainder(dividingBy: itemWidth)
+
+            if floatX > itemWidth / 2.0 {
+                intX += 1
+            }
+            setProbability(probability: probabilityDatas[intX])
+        }
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -352,6 +370,10 @@ extension TYCurveView {
 }
 
 extension TYCurveView: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollViewDidScrollCallBack?(scrollView.contentOffset.x)
+    }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         resetContentOffset()

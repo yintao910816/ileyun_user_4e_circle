@@ -28,6 +28,8 @@ extension Notification.Name {
         static let webHistoryItemChanged = Notification.Name(rawValue: "WebHistoryItemChangedNotification")
         /// js通知刷新首页数据
         static let jsReloadHome = Notification.Name(rawValue: "org.UserInterface.notification.name.jsReloadHome")
+        /// 记录对比时同步滚动
+        static let recordScroll = Notification.Name(rawValue: "org.UserInterface.notification.name.recordScroll")
     }
     
     public struct UILogic {

@@ -88,6 +88,19 @@ extension HCRecordViewController: UICollectionViewDataSource, UICollectionViewDe
                 ctrl.model = self.viewModel.currentCircleData!
                 self.present(ctrl, animated: true, completion: nil)
             }
+            tempCell.scrollViewDidScrollCallBack = { [unowned self] offsetX in
+//                let section = indexPath.section
+                let data = self.viewModel.datasource[indexPath.section]
+                for idx in 0..<data.count {
+                    if idx != indexPath.row {
+                        NotificationCenter.default.post(name: NotificationName.UserInterface.recordScroll, object: (offsetX,tempCell))
+//                        let indexP = IndexPath(row: idx, section: section)
+//                        if let curCell = collectionView.dequeueReusableCell(withReuseIdentifier: HCCurveCell_identifier, for: indexP) as? HCCurveCell {
+//                            curCell.setOffsetX(offsetX)
+//                        }
+                    }
+                }
+            }
         }
         return cell
     }

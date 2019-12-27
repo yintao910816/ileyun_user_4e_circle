@@ -7,19 +7,31 @@
 //
 
 import UIKit
+import RxSwift
 
 public let HCCurveCell_identifier = "HCCurveCell"
 public let HCCurveCell_height: CGFloat = TYCurveView.viewHeight
 
 class HCCurveCell: HCBaseRecordCell {
     
+    private let disposeBag = DisposeBag()
+
     private var curveView: TYCurveView!
     
     public var fullScreenCallBack: (()->())?
+    public var scrollViewDidScrollCallBack: ((CGFloat)->())?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        NotificationCenter.default.rx.notification(NotificationName.UserInterface.recordScroll)
+            .subscribe(onNext: { [weak self] no in
+                guard let data = no.object as? (CGFloat, HCCurveCell), let strongSelf = self else { return }
+                if data.1 != strongSelf {
+                    strongSelf.setOffsetX(data.0)
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     required init?(coder: NSCoder) {
@@ -38,6 +50,8 @@ class HCCurveCell: HCBaseRecordCell {
             curveView.backgroundColor = .white
             contentView.addSubview(curveView)
             
+            curveView.scrollViewDidScrollCallBack = { [weak self] in self?.scrollViewDidScrollCallBack?($0) }
+            
             curveView.fullScreenCallBack = { [unowned self] in
                 self.fullScreenCallBack?()
             }
@@ -47,5 +61,10 @@ class HCCurveCell: HCBaseRecordCell {
                               title: proModel.isContrast ? proModel.nowCircle : proModel.curelTitle)
         }
     }
-        
+     
+    public func setOffsetX(_ offsetX: CGFloat) {
+        if curveView != nil {
+            curveView.setOffsetX(offsetX)
+        }
+    }
 }
