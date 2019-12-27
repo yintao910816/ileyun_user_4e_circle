@@ -39,7 +39,7 @@ class HCLoginViewController: BaseViewController {
     @IBAction func actions(_ sender: UIButton) {
         if sender.tag == 1000 {
             let webVC = BaseWebViewController()
-            webVC.url = "http://120.24.79.125/static/html/roujiyunbao.html"
+            webVC.url = "https://ileyun.ivfcn.com/cms/alyyhxy.html"
             navigationController?.pushViewController(webVC, animated: true)
         }else if sender.tag == 1001 {
             sender.isSelected = !sender.isSelected

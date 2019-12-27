@@ -68,7 +68,13 @@ class HCConsultViewController: BaseViewController {
     }
     override func rxBind() {
         super.rxBind()
-
+        
+        findDoctorOutlet.rx.tap.asDriver()
+            .drive(onNext: { [unowned self] in
+                self.performSegue(withIdentifier: "expertConsultSegue", sender: nil)
+            })
+            .disposed(by: disposeBag)
+        
         viewModel = ConsultViewModel.init()
         
         viewModel.datasource.asDriver()

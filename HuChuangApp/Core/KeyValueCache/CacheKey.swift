@@ -15,6 +15,8 @@ let kLoginPhone       = "loginPhone"
 
 let kUnitId           = "unitId"
 
+let kunitIdNoEmpty    = "unitIdNoEmpty"
+
 /**
  * 是否加载引导界面
  *

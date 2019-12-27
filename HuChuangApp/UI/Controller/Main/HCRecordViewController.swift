@@ -121,7 +121,9 @@ extension HCRecordViewController: UICollectionViewDataSource, UICollectionViewDe
                 }
                 (header as! HCRecordUserInfoReusableView).model = viewModel.currentCircleData!
             }else if identifier == HCRecordSuggestReusableView_identifier {
-
+                (header as! HCRecordSuggestReusableView).askDoctorCallBack = { [weak self] in
+                    self?.viewModel.expertConsultSubject.onNext(Void())
+                }
             }else if identifier == HCExchangeReusableView_identifier {
                 (header as! HCExchangeReusableView).exchangeCallBack = { [weak self] in
                     self?.viewModel.exchangeUISubject.onNext(Void())

@@ -55,7 +55,8 @@ class HCHelper {
         userDefault.uid = user.uid
         userDefault.token = user.token
         userDefault.unitId = user.unitId
-        
+        userDefault.unitIdNoEmpty = user.unitId
+
         HCHelper.share.userInfoModel = user
         
         HCHelper.share.userInfoHasReload.onNext(user)

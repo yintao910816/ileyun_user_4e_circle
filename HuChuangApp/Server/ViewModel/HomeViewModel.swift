@@ -19,6 +19,7 @@ class HomeViewModel: RefreshVM<HCArticleItemModel>, VMNavigation {
     var unreadCountObser = Variable(("", CGFloat(0.0)))
     
     let goodnewsDidSelected = PublishSubject<Int>()
+    let gotoPageHomeSubject = PublishSubject<Void>()
 
     let messageListPublish = PublishSubject<UINavigationController?>()
     let refreshUnreadPublish = PublishSubject<Void>()
@@ -53,6 +54,12 @@ class HomeViewModel: RefreshVM<HCArticleItemModel>, VMNavigation {
         refreshUnreadPublish
             .subscribe(onNext: { [unowned self] in
                 self.requestUnread()
+            })
+            .disposed(by: disposeBag)
+
+        gotoPageHomeSubject
+            .subscribe(onNext: { [weak self] in
+                self?.gotoPageHome()
             })
             .disposed(by: disposeBag)
 
@@ -204,5 +211,22 @@ extension HomeViewModel {
         let webVC = BaseWebViewController()
         webVC.url   = url
         navigationVC?.pushViewController(webVC, animated: true)
+    }
+    
+    private func gotoPageHome() {
+        guard var link = bannerModelObser.value.first?.link, link.count > 0 else {
+            NoticesCenter.alert(message: "链接不存在")
+            return
+        }
+        
+        PrintLog("h5拼接前地址：\(link)")
+        if link.contains("?") == false {
+            link += "?token=\(userDefault.token)&unitId=\(userDefault.unitIdNoEmpty)"
+        }else {
+            link += "&token=\(userDefault.token)&unitId=\(userDefault.unitIdNoEmpty)"
+        }
+        PrintLog("h5拼接后地址：\(link)")
+        
+        HomeViewModel.push(BaseWebViewController.self, ["url": link])
     }
 }

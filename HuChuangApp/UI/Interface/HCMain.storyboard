@@ -94,9 +94,6 @@
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2sJ-n3-0LZ">
                                                 <rect key="frame" x="0.0" y="0.0" width="177" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <connections>
-                                                    <segue destination="Czd-FO-MbZ" kind="show" id="bw9-Nf-jSE"/>
-                                                </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="consult_ask" translatesAutoresizingMaskIntoConstraints="NO" id="0LK-kq-D8k">
                                                 <rect key="frame" x="19.5" y="35" width="30" height="30"/>
@@ -174,6 +171,7 @@
                         <segue destination="qV7-Ek-Djy" kind="show" identifier="editInfoForDoctorSegue" id="67f-4x-8hI"/>
                         <segue destination="14V-Ys-6vN" kind="show" identifier="picAndTextSegue" id="33I-s7-3i0"/>
                         <segue destination="Bw9-w0-no9" kind="show" identifier="doctorInfoSegue" id="inH-aX-yyb"/>
+                        <segue destination="Czd-FO-MbZ" kind="show" identifier="expertConsultSegue" id="Hog-eP-hXa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RuJ-8e-1a1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -392,7 +390,7 @@
         <!--Expert Consult View Controller-->
         <scene sceneID="PO7-Kb-GJE">
             <objects>
-                <viewController id="Czd-FO-MbZ" customClass="HCExpertConsultViewController" customModule="爱乐孕" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="expertConsultCtrl" id="Czd-FO-MbZ" customClass="HCExpertConsultViewController" customModule="爱乐孕" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LnH-wu-IQB"/>
                         <viewControllerLayoutGuide type="bottom" id="trR-CR-QOL"/>

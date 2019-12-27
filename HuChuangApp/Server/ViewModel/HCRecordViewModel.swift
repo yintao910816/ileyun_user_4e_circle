@@ -10,7 +10,7 @@ import Foundation
 
 import RxSwift
 
-class HCRecordViewModel: BaseViewModel {
+class HCRecordViewModel: BaseViewModel, VMNavigation {
     
     public let reloadUISubject = PublishSubject<Void>()
     public let exchangeUISubject = PublishSubject<Void>()
@@ -18,7 +18,8 @@ class HCRecordViewModel: BaseViewModel {
     public let commitChangeSubject = PublishSubject<(HCMergeProOpType, String)>()
     /// 标记月经 (是否月经l第一天，时间)
     public let commitMergeWeekInfoSubject = PublishSubject<(Bool, String)>()
-
+    /// 问医生
+    public let expertConsultSubject = PublishSubject<Void>()
     /// 怀孕率数据
     private var prepareProbabilityDatas: [Float] = []
     private var prepareTimesDatas: [String] = []
@@ -65,6 +66,11 @@ class HCRecordViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
         
+        expertConsultSubject.subscribe(onNext: { 
+            HCRecordViewModel.sbPush("HCMain", "expertConsultCtrl")
+        })
+            .disposed(by: disposeBag)
+
         NotificationCenter.default.rx.notification(NotificationName.User.LoginSuccess)
             .subscribe(onNext: { [weak self] data in
                 self?.requestRecordData()

@@ -139,8 +139,8 @@ extension HCHomeViewController: UICollectionViewDelegateFlowLayout, UICollection
                     NotificationCenter.default.post(name: NotificationName.UILogic.gotoClassRoom, object: nil)
                 }
                 
-                header.gotoAppstoreCallBack = {
-                    HCHelper.openOldAleYun()
+                header.gotoPageHomeCallBack = { [weak self] in
+                    self?.viewModel.gotoPageHomeSubject.onNext(Void())
                 }
 
                 return header

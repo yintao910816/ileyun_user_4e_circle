@@ -67,6 +67,21 @@ extension UserDefaults{
             synchronize()
         }
     }
+    
+    /// 接口获取的 unitId
+    var unitIdNoEmpty: String {
+        get{
+            guard let rtUnitId = (object(forKey: kunitIdNoEmpty) as? String) else {
+                return "0"
+            }
+            
+            return rtUnitId
+        }
+        set{
+            set(newValue, forKey: kunitIdNoEmpty)
+            synchronize()
+        }
+    }
 
     var lanuchStatue: String {
         get {

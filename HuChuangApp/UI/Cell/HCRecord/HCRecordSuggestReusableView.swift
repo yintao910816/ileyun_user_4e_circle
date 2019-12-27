@@ -16,6 +16,12 @@ class HCRecordSuggestReusableView: UICollectionReusableView {
     @IBOutlet var contentView: UICollectionReusableView!
     @IBOutlet weak var shadowView: UIView!
     
+    public var askDoctorCallBack: (()->())?
+    
+    @IBAction func askDoctorAction(_ sender: UIButton) {
+        askDoctorCallBack?()
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
