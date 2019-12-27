@@ -14,6 +14,11 @@ class HCRecordViewController: BaseViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    /// 跳转经期设置界面
+    @IBAction func setCircleAction(_ sender: UIButton) {
+        HCHelper.pushLocalH5(type: .menstrualSetting)
+    }
+    
     override func setupUI() {
         collectionView.register(HCRecordUserInfoReusableView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
@@ -36,8 +41,10 @@ class HCRecordViewController: BaseViewController {
 //            .disposed(by: disposeBag)
         
         viewModel.reloadUISubject
-            .subscribe(onNext: { [weak self] data in
-                self?.collectionView.reloadData()
+            .subscribe(onNext: { [weak self] in
+                guard let strongSelf = self else { return }
+                strongSelf.collectionView.isHidden = strongSelf.viewModel.currentCircleData.circleIsSet
+                strongSelf.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
 
@@ -89,15 +96,10 @@ extension HCRecordViewController: UICollectionViewDataSource, UICollectionViewDe
                 self.present(ctrl, animated: true, completion: nil)
             }
             tempCell.scrollViewDidScrollCallBack = { [unowned self] offsetX in
-//                let section = indexPath.section
                 let data = self.viewModel.datasource[indexPath.section]
                 for idx in 0..<data.count {
                     if idx != indexPath.row {
                         NotificationCenter.default.post(name: NotificationName.UserInterface.recordScroll, object: (offsetX,tempCell))
-//                        let indexP = IndexPath(row: idx, section: section)
-//                        if let curCell = collectionView.dequeueReusableCell(withReuseIdentifier: HCCurveCell_identifier, for: indexP) as? HCCurveCell {
-//                            curCell.setOffsetX(offsetX)
-//                        }
                     }
                 }
             }

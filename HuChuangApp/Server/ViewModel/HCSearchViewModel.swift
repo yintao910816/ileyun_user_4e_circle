@@ -49,6 +49,7 @@ class HCSearchViewModel: RefreshVM<HCBaseSearchItemModel> {
         requestSearchSubject
             .subscribe(onNext: { [unowned self] cache in
                 if cache { self.cacheSearchRecord() }
+                self.module = .all
                 self.requestData(true)
             })
             .disposed(by: disposeBag)

@@ -87,8 +87,8 @@ class HCConsultListCell: HCBaseDoctorCell {
             
             coverImgV.setImage(selfModel.headPath)
             titleLabel.text = selfModel.titleText
-            subTitleLabel.text = "\(selfModel.technicalPost)·\(selfModel.unitName)"
-            infoLabel.text = "擅长：\(selfModel.skilledIn)"
+            subTitleLabel.text = selfModel.unitNameText
+            infoLabel.text = selfModel.skilledInText
             priceLabel.attributedText = selfModel.priceAttText
             countLabel.text = selfModel.askNumText
         }

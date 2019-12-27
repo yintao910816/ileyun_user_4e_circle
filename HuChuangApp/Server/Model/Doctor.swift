@@ -142,6 +142,9 @@ class HCDoctorItemModel: HJModel {
     
     /// 展示价格
     lazy var priceAttText: NSAttributedString = {
+        if self.price == "0" {
+            return NSAttributedString.init(string: "免费")
+        }
         return "¥\(self.price)".attributed(NSMakeRange(0, 1), HC_MAIN_COLOR, .font(fontSize: 10, fontName: .PingFSemibold))
     }()
     
@@ -149,6 +152,29 @@ class HCDoctorItemModel: HJModel {
     lazy var askNumText: String = {
         return "\(self.consultNumber)人咨询"
     }()
+    
+    /// 医院
+    lazy var unitNameText: String = {
+        var text = ""
+        if self.technicalPost.count > 0 && self.unitName.count > 0 {
+            text = "\(self.technicalPost)·\(self.unitName)"
+        }else if self.technicalPost.count > 0 {
+            text = self.technicalPost
+        }else if self.unitName.count > 0 {
+            text = self.unitName
+        }
+        return text
+    }()
+    
+    /// 擅长
+    lazy var skilledInText: String = {
+        var text = ""
+        if self.skilledIn.count > 0 {
+            text = "擅长: \(self.skilledIn)"
+        }
+        return text
+    }()
+
 }
 
 extension HCDoctorItemModel: HCDataSourceAdapt {

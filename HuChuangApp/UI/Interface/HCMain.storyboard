@@ -815,9 +815,44 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reminders" translatesAutoresizingMaskIntoConstraints="NO" id="PQ7-L1-atU">
+                                <rect key="frame" x="151.5" y="194" width="72.5" height="79"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您还没有设置经期" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4o-Fm-0pa">
+                                <rect key="frame" x="131.5" y="298" width="112" height="20"/>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="14"/>
+                                <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="需要设置经期才能计算好孕率哦" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mbr-o7-f5K">
+                                <rect key="frame" x="96" y="333" width="183" height="19"/>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cfn-y9-28f">
+                                <rect key="frame" x="125" y="372" width="125" height="40"/>
+                                <color key="backgroundColor" red="0.99215686270000003" green="0.46666666670000001" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="hR0-jR-1cp"/>
+                                    <constraint firstAttribute="width" constant="125" id="zGO-QD-sUl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="12"/>
+                                <state key="normal" title="去设置">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="setCircleAction:" destination="gPG-gr-Dyb" eventType="touchUpInside" id="fpV-2z-Eda"/>
+                                </connections>
+                            </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0Fy-D2-kO6">
                                 <rect key="frame" x="0.0" y="44" width="375" height="574"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nN4-B0-wGG">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -843,9 +878,17 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="0Fy-D2-kO6" secondAttribute="trailing" id="19k-A3-8jM"/>
+                            <constraint firstItem="Cfn-y9-28f" firstAttribute="centerX" secondItem="PQ7-L1-atU" secondAttribute="centerX" id="DA4-b8-aCB"/>
+                            <constraint firstItem="w4o-Fm-0pa" firstAttribute="top" secondItem="PQ7-L1-atU" secondAttribute="bottom" constant="25" id="ErN-7n-Sc4"/>
                             <constraint firstItem="0Fy-D2-kO6" firstAttribute="leading" secondItem="g5f-4I-ch1" secondAttribute="leading" id="Qc9-up-xR5"/>
+                            <constraint firstItem="mbr-o7-f5K" firstAttribute="centerX" secondItem="PQ7-L1-atU" secondAttribute="centerX" id="UHm-uZ-bDL"/>
+                            <constraint firstItem="w4o-Fm-0pa" firstAttribute="centerX" secondItem="PQ7-L1-atU" secondAttribute="centerX" id="Zxx-yg-vXZ"/>
                             <constraint firstItem="0Fy-D2-kO6" firstAttribute="top" secondItem="hiF-rC-NnB" secondAttribute="bottom" id="aam-f4-sA9"/>
+                            <constraint firstItem="Cfn-y9-28f" firstAttribute="top" secondItem="mbr-o7-f5K" secondAttribute="bottom" constant="20" id="hAY-pZ-5t2"/>
                             <constraint firstItem="aEF-uH-Gfm" firstAttribute="top" secondItem="0Fy-D2-kO6" secondAttribute="bottom" id="lJH-DL-eeF"/>
+                            <constraint firstItem="PQ7-L1-atU" firstAttribute="centerY" secondItem="g5f-4I-ch1" secondAttribute="centerY" constant="-100" id="oRT-CH-nTZ"/>
+                            <constraint firstItem="PQ7-L1-atU" firstAttribute="centerX" secondItem="g5f-4I-ch1" secondAttribute="centerX" id="rud-fc-FsX"/>
+                            <constraint firstItem="mbr-o7-f5K" firstAttribute="top" secondItem="w4o-Fm-0pa" secondAttribute="bottom" constant="15" id="x6i-1T-nst"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="记录" id="vrd-hi-FJP"/>
@@ -855,7 +898,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="36e-hb-4JU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="473" y="503"/>
+            <point key="canvasLocation" x="472.80000000000001" y="502.39880059970017"/>
         </scene>
         <!--记录-->
         <scene sceneID="ZhJ-wV-BdK">
@@ -1388,6 +1431,7 @@
         <image name="firth_tab_unselected" width="17.5" height="18.5"/>
         <image name="five_tab_selected" width="17.5" height="19"/>
         <image name="five_tab_unselected" width="17.5" height="19"/>
+        <image name="reminders" width="72.5" height="79"/>
         <image name="second_tab_selected" width="18.5" height="19"/>
         <image name="second_tab_unselected" width="18.5" height="19"/>
         <image name="third_tab_selected" width="18.5" height="18.5"/>

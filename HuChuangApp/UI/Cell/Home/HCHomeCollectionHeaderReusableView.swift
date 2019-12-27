@@ -24,9 +24,16 @@ class HCHomeCollectionHeaderReusableView: UICollectionReusableView {
 
     public let bannerObser = PublishSubject<[HomeBannerModel]>()
     public var clickedMoreCallBack: (()->())?
-    
+    public var gotoAppstoreCallBack: (()->())?
+
     @IBAction func actions(_ sender: UIButton) {
-        clickedMoreCallBack?()
+        if sender.tag == 200 {
+            // 更多
+            clickedMoreCallBack?()
+        }else if sender.tag == 201 {
+            // 跳转老版本的爱乐孕
+            gotoAppstoreCallBack?()
+        }
     }
     
     override init(frame: CGRect) {

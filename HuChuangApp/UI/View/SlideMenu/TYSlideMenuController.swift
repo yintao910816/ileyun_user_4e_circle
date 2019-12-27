@@ -29,16 +29,7 @@ class TYSlideMenuController: UIViewController {
         headerMenu.datasource = menuItems
         headerMenu.menuSelect = { [weak self] page in
             guard let strongSelf = self else { return }
-            
-            if page == strongSelf.currentPage || page >= strongSelf.menuCtrls.count { return }
-            
-            strongSelf.pageCtrl.setViewControllers([strongSelf.menuCtrls[page]],
-                                                   direction: page > strongSelf.currentPage ? .forward : .reverse,
-                                                   animated: true) { if $0 {  } }
-            
-            strongSelf.currentPage = page
-            
-            strongSelf.pageScroll?(page)
+            strongSelf.selectedPage(page: page, needCallBack: true)
         }
         
         pageCtrl = UIPageViewController.init(transitionStyle: .scroll,
@@ -50,6 +41,20 @@ class TYSlideMenuController: UIViewController {
         view.addSubview(pageCtrl.view)
     }
          
+    public func selectedPage(page: Int, needCallBack: Bool) {
+        if page == currentPage || page >= menuCtrls.count { return }
+        
+        pageCtrl.setViewControllers([menuCtrls[page]],
+                                               direction: page > currentPage ? .forward : .reverse,
+                                               animated: true) { if $0 {  } }
+        
+        currentPage = page
+        
+        if needCallBack {
+            pageScroll?(page)
+        }
+    }
+    
     public var menuCtrls: [HCSlideItemController] = [] {
         didSet {
                         

@@ -139,3 +139,17 @@ extension HCHelper: VMNavigation {
         //        HomeViewModel.push(BaseWebViewController.self, ["url": url])
     }
 }
+
+extension HCHelper {
+    
+    /// 跳转到老版本爱乐孕
+    class func openOldAleYun() {
+        let urlStr = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=\(old_ileyun_appid)"
+        guard let url = URL(string: urlStr)  else {
+            NoticesCenter.alert(message: "跳转失败！")
+            return
+        }
+        
+        UIApplication.shared.openURL(url)
+    }
+}

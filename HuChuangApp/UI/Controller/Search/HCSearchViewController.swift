@@ -33,13 +33,14 @@ class HCSearchViewController: BaseViewController {
         searchBar.leftItemIcon = "navigationButtonReturnClick"
         searchBar.inputBackGroundColor = RGB(240, 240, 240)
         searchBar.hasBottomLine = true
+        searchBar.returnKeyType = .search
         view.addSubview(searchBar)
         
         searchBar.leftItemTapBack = { [weak self] in self?.navigationController?.popViewController(animated: true) }
         
         searchBar.rightItemTapBack = { [weak self] in
             self?.searchRecordView.isHidden = true
-            self?.viewModel.requestSearchSubject.onNext(false)
+            self?.searchBar.reloadInput(content: nil)
         }
 
         searchBar.beginSearch = { [weak self] content in

@@ -156,7 +156,7 @@ class TYSearchRecordCell: UICollectionViewCell {
 public let TYSearchRecordReusableViewHeader_identifier = "TYSearchRecordReusableViewHeader"
 class TYSearchRecordReusableViewHeader: UICollectionReusableView {
     private var titleLabel: UILabel!
-    private var deleteButton: UIButton!
+    private var deleteButton: TYClickedButton!
     
     public var clearRecordsCallBack: (()->())?
 
@@ -167,9 +167,9 @@ class TYSearchRecordReusableViewHeader: UICollectionReusableView {
         titleLabel.font = .font(fontSize: 14, fontName: .PingFMedium)
         titleLabel.textColor = RGB(51, 51, 51)
         
-        deleteButton = UIButton()
+        deleteButton = TYClickedButton()
         deleteButton.backgroundColor = .clear
-        deleteButton.setTitle("清除", for: .normal)
+        deleteButton.setImage(UIImage(named: "search_delete"), for: .normal)
         deleteButton.setTitleColor(.black, for: .normal)
         deleteButton.addTarget(self, action: #selector(deleteAction), for: .touchUpInside)
         
@@ -184,6 +184,7 @@ class TYSearchRecordReusableViewHeader: UICollectionReusableView {
         deleteButton.snp.makeConstraints {
             $0.right.equalTo(-10)
             $0.centerY.equalTo(snp.centerY)
+            $0.size.equalTo(CGSize(width: 20, height: 20))
         }
     }
     

@@ -56,7 +56,7 @@ class HCBindPhoneViewController: BaseViewController {
         let agreeText = "我已阅读并接受《用户协议》"
         agreeButton.setAttributedTitle(agreeText.attributed(.init(location: 7, length: 6), HC_MAIN_COLOR, nil), for: .normal)
         
-        timer = CountdownTimer.init(totleCount: 60)
+        timer = CountdownTimer.init(totleCount: 120)
         
         #if DEBUG
         phoneInputOutlet.text = "18627844751"
