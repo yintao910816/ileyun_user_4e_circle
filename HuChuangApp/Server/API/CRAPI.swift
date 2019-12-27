@@ -184,9 +184,9 @@ enum API{
     /// 区域城市
     case allCity
     /// 添加标记排卵日,添加同房记录
-    case mergePro(opType: HCMergeProOpType, data: [String: Any])
+    case mergePro(opType: HCMergeProOpType, date: String, data: [String: Any])
     /// 添加/修改/删除,月经周期
-    case mergeWeekInfo(id: Int, startDate: String, keepDays: Int)
+    case mergeWeekInfo(id: Int, startDate: String, keepDays: Int, next: Int)
 }
 
 //MARK:
@@ -415,14 +415,15 @@ extension API {
         case .articelStore(let articleId, let status):
             params["articleId"] = articleId
             params["status"] = status
-        case .mergePro(let opType, let data):
+        case .mergePro(let opType, let date, let data):
             params["opType"] = opType.rawValue
+            params["date"] = date
             params["data"] = data
-        case .mergeWeekInfo(let id, let startDate, let keepDays):
+        case .mergeWeekInfo(let id, let startDate, let keepDays, let next):
             params["id"] = id
             params["startDate"] = startDate
             params["keepDays"] = keepDays
-            params["next"] = 1
+            params["next"] = next
         default:
             return nil
         }

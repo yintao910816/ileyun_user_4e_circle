@@ -40,16 +40,18 @@ class TYColorLineView: UIView {
     
     private func setupLine() {
         var pointX: CGFloat = 0
+        var markXWidth: CGFloat = 0
         for i in 0..<itemDatas.count {
             let data = itemDatas[i]
             let lineWidth = CGFloat(data.lineCount) * 40.0
-            let line = UIView.init(frame: .init(x: pointX, y: 0, width: lineWidth, height: lineView.height))
+            let line = UIView.init(frame: .init(x: pointX, y: lineView.height / 2.0, width: lineWidth, height: lineView.height / 2.0))
             line.backgroundColor = data.color
             lineView.addSubview(line)
             
+            markXWidth = pointX
             pointX += lineWidth
             // 点
-            let pointSize: CGFloat = lineView.height
+            let pointSize: CGFloat = lineView.height / 2.0
             var itemPointX: CGFloat = 0.0
             for idx in 0..<data.pointDatas.count {
                 let pointV = UIImageView.init(frame: .init(x: itemPointX - pointSize / 2.0, y: 0, width: pointSize, height: pointSize))
@@ -59,6 +61,15 @@ class TYColorLineView: UIView {
                 pointV.layer.borderColor = data.pointDatas[idx].borderColor.cgColor
                 pointV.layer.borderWidth = 1
                 line.addSubview(pointV)
+
+                let itemModel = data.pointDatas[idx]
+                if itemModel.isMark {
+                    let markX = markXWidth + itemPointX
+                    let markV = UIImageView.init(frame: .init(x: markX - pointSize / 2.0, y: 0, width: pointSize, height: pointSize))
+                    markV.backgroundColor = .clear
+                    markV.image = itemModel.markIcon
+                    lineView.addSubview(markV)
+                }
                 
                 itemPointX += 40
             }
@@ -124,4 +135,10 @@ struct TYPointItemModel {
     var bgColor: UIColor = .white
     /// 每个点对应的时间
     var time: String = ""
+    /// 时间背景色
+    var timeBgColor: UIColor = .clear
+    /// 是否特殊需要标记
+    var isMark: Bool = false
+    /// 特殊标记的图标
+    var markIcon: UIImage?
 }

@@ -90,6 +90,12 @@ class HCExpertConsultViewModel: RefreshVM<HCDoctorItemModel> {
                 self?.requestData(true)
             })
             .disposed(by: disposeBag)
+        
+        requestSearchSubject
+            .subscribe(onNext: { [unowned self] in
+                self.requestData(true)
+            })
+            .disposed(by: disposeBag)
     }
     
     public func getListMenuData() ->[TYListMenuModel] {

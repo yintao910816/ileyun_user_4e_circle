@@ -30,7 +30,8 @@ class TYDateCalculate {
         var star = startDate
         let end = endDate
         
-        let calendar = Calendar.init(identifier: .gregorian)
+        var calendar = Calendar.init(identifier: .gregorian)
+        calendar.timeZone = TimeZone.init(secondsFromGMT: 8) ?? TimeZone.current
         
         var compontDates: [Date] = []
         var result: ComparisonResult = star.compare(end)
@@ -44,6 +45,10 @@ class TYDateCalculate {
          
             // 对比日期大小
             result = star.compare(end)
+        }
+        
+        for idx in 0..<compontDates.count {
+            compontDates[idx] = TYDateCalculate.formatDate(date: compontDates[idx])
         }
         
         return compontDates
@@ -60,8 +65,7 @@ class TYDateCalculate {
      */
     class func date(for string: String) ->Date {
         let format = DateFormatter()
-        format.locale = Locale(identifier: "zh_CN")
-        format.setLocalizedDateFormatFromTemplate("H")
+        format.timeZone = TimeZone.init(secondsFromGMT: 8)
         format.dateFormat = "yyyy-MM-dd"
         let date = format.date(from: string)
         return date ?? Date()
@@ -77,7 +81,7 @@ class TYDateCalculate {
     }
     
     class func numberOfDays(toDate: String) -> Int {
-        return numberOfDays(fromDate: Date(), toDate: date(for: toDate))
+        return numberOfDays(fromDate: TYDateCalculate.formatNowDate(), toDate: date(for: toDate))
     }
     
     /**
@@ -85,12 +89,31 @@ class TYDateCalculate {
      */
     class func formatNowDate() ->Date {
         let dateFormat = DateFormatter.init()
-        dateFormat.locale = Locale(identifier: "zh_CN")
-        dateFormat.setLocalizedDateFormatFromTemplate("H")
+        dateFormat.timeZone = TimeZone.init(secondsFromGMT: 8)
         dateFormat.dateFormat = "yyyy-MM-dd"
         
         let dateString = dateFormat.string(from: Date())
 
         return dateFormat.date(from: dateString)!
     }
+    
+    class func formatNowDateString() ->String {
+        let dateFormat = DateFormatter.init()
+        dateFormat.timeZone = TimeZone.init(secondsFromGMT: 8)
+        dateFormat.dateFormat = "yyyy-MM-dd"
+        
+        let dateString = dateFormat.string(from: Date())
+
+        return dateString
+    }
+    
+    class func formatDate(date: Date) ->Date {
+            let dateFormat = DateFormatter.init()
+            dateFormat.timeZone = TimeZone.init(secondsFromGMT: 8)
+            dateFormat.dateFormat = "yyyy-MM-dd"
+            
+            let dateString = dateFormat.string(from: date)
+
+            return dateFormat.date(from: dateString)!
+        }
 }

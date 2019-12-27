@@ -138,6 +138,12 @@ class TYSearchBar: UIView {
     /// 点击右边按钮是否搜索
     public var isRightItemSearch: Bool = false
     
+    public var returnKeyType: UIReturnKeyType = .default {
+        didSet {
+            searchTf.returnKeyType = .search
+        }
+    }
+    
     public var searchPlaceholder: String? {
         didSet {
             if searchPlaceholder?.count ?? 0 > 0 {

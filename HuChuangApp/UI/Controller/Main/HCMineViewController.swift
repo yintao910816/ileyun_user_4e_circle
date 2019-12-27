@@ -28,7 +28,7 @@ class HCMineViewController: BaseViewController {
             automaticallyAdjustsScrollViewInsets = false
         }
         
-        header =  MineHeaderView.init(frame: .init(x: 0, y: 0, width: tableView.width, height: 250 + LayoutSize.topVirtualArea))
+        header =  MineHeaderView.init(frame: .init(x: 0, y: 0, width: tableView.width, height: 255 + LayoutSize.topVirtualArea))
         tableView.tableHeaderView = header
                 
         tableView.rowHeight = 50

@@ -16,8 +16,8 @@ class HCRecordViewModel: BaseViewModel {
     public let exchangeUISubject = PublishSubject<Void>()
     /// 添加标记排卵日,添加同房记录,温度
     public let commitChangeSubject = PublishSubject<(HCMergeProOpType, String)>()
-    /// 标记月经
-    public let commitMergeWeekInfoSubject = PublishSubject<String>()
+    /// 标记月经 (是否月经l第一天，时间)
+    public let commitMergeWeekInfoSubject = PublishSubject<(Bool, String)>()
 
     /// 怀孕率数据
     private var prepareProbabilityDatas: [Float] = []
@@ -60,9 +60,8 @@ class HCRecordViewModel: BaseViewModel {
         .disposed(by: disposeBag)
         
         commitMergeWeekInfoSubject
-            .filter { [unowned self] in self.caculteDate(date: $0) }
-            .subscribe(onNext: { [unowned self] in
-                self.commitMergeWeekInfo(isNext: false, startDate: $0)
+            .subscribe(onNext: { [unowned self] data in
+                data.0 == true ? self.caculte(startDate: data.1) : self.caculte(lastDate: data.1)
             })
             .disposed(by: disposeBag)
         
@@ -116,13 +115,15 @@ extension HCRecordViewModel {
     // 添加标记排卵日,添加同房记录
     private func commitChange(type: HCMergeProOpType, data: String) {
         var dataParam: [String: Any] = [:]
+        var date: String = ""
         if type == .temperature {
             dataParam["temperature"] = data
+            date = TYDateCalculate.formatNowDateString()
         }else {
-            dataParam["data"] = data
+            date = data
         }
         
-        HCProvider.request(.mergePro(opType: type, data: dataParam))
+        HCProvider.request(.mergePro(opType: type, date: date, data: dataParam))
             .mapResponse()
             .subscribe(onSuccess: { [weak self] res in
                 if res.code == RequestCode.success.rawValue {
@@ -137,12 +138,16 @@ extension HCRecordViewModel {
     }
     
     // 添加/修改/删除,月经周期
-    private func commitMergeWeekInfo(isNext: Bool, startDate: String) {
-        let id = isNext ? nextCircleData.id : currentCircleData.id
-        let keepDays = isNext ? (nextCircleData.keepDays > 0 ? nextCircleData.keepDays : 7) : (currentCircleData.keepDays > 0 ? currentCircleData.keepDays : 7)
+    private func commitMergeWeekInfo(isNext: Bool, startDate: String, keepDays: Int) {
+//        let id = isNext ? nextCircleData.id : currentCircleData.id
+        // 不管修改当前周期还是下个周期id都是传当前周期
+        let id = currentCircleData.id
         hud.noticeLoading()
         
-        HCProvider.request(.mergeWeekInfo(id: id, startDate: startDate, keepDays: keepDays))
+        HCProvider.request(.mergeWeekInfo(id: id,
+                                          startDate: startDate,
+                                          keepDays: keepDays,
+                                          next: isNext ? 1 : 0))
             .mapResponse()
             .subscribe(onSuccess: { [weak self] res in
                 if res.code == RequestCode.success.rawValue {
@@ -160,25 +165,72 @@ extension HCRecordViewModel {
 
 extension HCRecordViewModel {
     
-    private func caculteDate(date: String) ->Bool {
-        let fixDate = TYDateCalculate.date(for: date)
-        let currentCircleDate = TYDateCalculate.date(for: currentCircleData.menstruationDate)
-        let days = TYDateCalculate.numberOfDays(fromDate: fixDate, toDate: currentCircleDate)
-        //
-        if days > lastCircleData.cycle - 21 && lastCircleData.cycle - 21 > 0 {
-            NoticesCenter.alert(title: "提示", message: "标记日期不符合经期规律，请重新标记", cancleTitle: "确定")
-            return false
-        }
-
-        // 新设置的月经起始时间与原先设置的时间大于21天进入下一周期的设置
-        if days > 21 {
-            NoticesCenter.alert(title: "提示", message: "标记日期与预测日期相差太大，是否进入下一周期", cancleTitle: "否", okTitle: "是") { [unowned self] in
-                self.commitMergeWeekInfo(isNext: true, startDate: date)
+    // 选择第一天的计算
+    private func caculte(startDate: String) {
+        if startDate.count > 0 {
+            let tempDays = TYDateCalculate.numberOfDays(toDate: startDate)
+            if tempDays > 0 {
+                // 选择月经只能选择在当日之前的时间
+                NoticesCenter.alert(title: "提示", message: "标记日期不符合经期规律，请重新标记")
+                return
             }
-            return false
+
+            let firstDate = TYDateCalculate.date(for: startDate)
+                        
+            let currentCircleDate = TYDateCalculate.date(for: currentCircleData.menstruationDate)
+            let days = TYDateCalculate.numberOfDays(fromDate: currentCircleDate, toDate: firstDate)
+
+            // 新设置的月经起始时间与原先设置的时间大于21天进入下一周期的设置
+            if days >= 21 {
+                NoticesCenter.alert(title: "提示", message: "标记日期与预测日期相差太大，是否进入下一周期", cancleTitle: "否", okTitle: "是") { [unowned self] in
+                    self.commitMergeWeekInfo(isNext: true,
+                                             startDate: startDate,
+                                             keepDays: self.currentCircleData.keepDays)
+                }
+
+                return
+            }
+
+            // 标记月经第一天与当前月经第一天差值区间 -21到21
+            if abs(days) < 21 {
+                commitMergeWeekInfo(isNext: false, startDate: startDate, keepDays: currentCircleData.keepDays)
+                return
+            }
+            
+            NoticesCenter.alert(title: "提示", message: "标记日期不符合经期规律，请重新标记")
         }
-                
-        return true
+    }
+    
+    // 选择最后一天的计算
+    private func caculte(lastDate: String) {
+        if lastDate.count > 0 {
+            let tempDays = TYDateCalculate.numberOfDays(toDate: lastDate)
+            if tempDays > 0 {
+                // 选择月经只能选择在当日之前的时间
+                NoticesCenter.alert(title: "提示", message: "标记日期不符合经期规律，请重新标记")
+                return
+            }
+
+            let lastDate = TYDateCalculate.date(for: lastDate)
+            let currentCircleDate = TYDateCalculate.date(for: currentCircleData.menstruationDate)
+            let days = TYDateCalculate.numberOfDays(fromDate: currentCircleDate, toDate: lastDate)
+
+            // 标记月经最后一天小与当前月经第一天
+            if days < 0 {
+                NoticesCenter.alert(title: "提示", message: "月经结束日期应该大于月经起始日期")
+                return
+            }
+            
+            // 月经周期最多7天
+            if days > 7 {
+                NoticesCenter.alert(title: "提示", message: "标记日期不符合经期规律，请重新标记")
+                return
+            }
+            
+            self.commitMergeWeekInfo(isNext: false,
+                                     startDate: currentCircleData.menstruationDate,
+                                     keepDays: days)
+        }
     }
     
     private func exchangeData() {
@@ -344,21 +396,33 @@ extension HCRecordViewModel {
         }
 
         var plqPoints: [TYPointItemModel] = []
+        var idx: Int = 0
         for date in plqArr {
             let com = TYDateCalculate.getDataComponent(date: date)
             var m = TYPointItemModel(borderColor: .clear, time: "\(com.month!).\(com.day!)")
+            if idx % 2 == 0 {
+                // 排卵期隔天标记建议同房
+                m.isMark = true
+                m.markIcon = UIImage(named: "record_icon_love")
+            }
             if TYDateCalculate.numberOfDays(fromDate: date, toDate: plaDate) == 0 {
                 PrintLog("找到排卵日：\(date)")
 //                m.bgColor = HC_MAIN_COLOR
 //                m.bgColor = .black
+                m.timeBgColor = RGB(253, 220, 220)
             }
             plqPoints.append(m)
+            idx += 1
         }
 
         var safeAfterPoints: [TYPointItemModel] = []
         for date in safeAfterArr {
             let com = TYDateCalculate.getDataComponent(date: date)
-            let m = TYPointItemModel(borderColor: .clear, time: "\(com.month!).\(com.day!)")
+            var m = TYPointItemModel(borderColor: .clear, time: "\(com.month!).\(com.day!)")
+            if date == safeAfterArr.first {
+                m.isMark = true
+                m.markIcon = UIImage(named: "record_icon_love")
+            }
             safeAfterPoints.append(m)
         }
         

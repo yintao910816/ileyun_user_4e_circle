@@ -95,7 +95,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="177" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <connections>
-                                                    <segue destination="SGB-Ok-tLX" kind="presentation" id="2W8-AG-iQZ"/>
+                                                    <segue destination="Czd-FO-MbZ" kind="show" id="bw9-Nf-jSE"/>
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="consult_ask" translatesAutoresizingMaskIntoConstraints="NO" id="0LK-kq-D8k">
@@ -389,22 +389,6 @@
             </objects>
             <point key="canvasLocation" x="1952.8" y="1303.8980509745129"/>
         </scene>
-        <!--Main Navigation Controller-->
-        <scene sceneID="W3K-iQ-aim">
-            <objects>
-                <navigationController modalPresentationStyle="fullScreen" id="SGB-Ok-tLX" customClass="MainNavigationController" customModule="爱乐孕" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VNU-6k-dqR">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="Czd-FO-MbZ" kind="relationship" relationship="rootViewController" id="ulT-GM-cvp"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4L3-wH-Xq9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1954" y="-986"/>
-        </scene>
         <!--Expert Consult View Controller-->
         <scene sceneID="PO7-Kb-GJE">
             <objects>
@@ -473,7 +457,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NRf-gK-R9H" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2719" y="-986"/>
+            <point key="canvasLocation" x="1998" y="-896"/>
         </scene>
         <!--Ask View Controller-->
         <scene sceneID="acB-kQ-fdr">

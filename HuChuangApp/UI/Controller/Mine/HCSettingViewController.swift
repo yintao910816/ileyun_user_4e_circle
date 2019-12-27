@@ -58,5 +58,11 @@ extension HCSettingViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        if indexPath.row == 1 {
+            NoticesCenter.alert(message: "清除成功！")
+        }else {
+            NoticesCenter.alert(message: "开发中。。。")
+        }
     }
 }

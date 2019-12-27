@@ -34,6 +34,7 @@ class HCExpertConsultViewController: BaseViewController {
         navSearchBar.coverButtonEnable = false
         navSearchBar.leftItemIcon = "navigationButtonReturnClick"
         navSearchBar.searchPlaceholder = "搜索"
+        navSearchBar.returnKeyType = .search
         navSearchBar.tfSearchIcon = "nav_search_gray"
         navSearchBar.backgroundColor = .white
         

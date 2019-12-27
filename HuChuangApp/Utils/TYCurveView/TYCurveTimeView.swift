@@ -96,17 +96,25 @@ extension TYCurveTimeView: UICollectionViewDelegateFlowLayout, UICollectionViewD
 
 class TYCurveTimeCell: UICollectionViewCell {
     
-    private var contentLabel: UILabel!
-    
+    private var timeLabel: UILabel!
+    private var daysLabel: UILabel!
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentLabel = UILabel.init(frame: bounds)
-        contentLabel.textAlignment = .center
-        contentLabel.font = .font(fontSize: 12)
-        contentLabel.numberOfLines = 2
-        contentLabel.textColor = RGB(153, 153, 153)
-        addSubview(contentLabel)
+        timeLabel = UILabel.init(frame: bounds)
+        timeLabel.textAlignment = .center
+        timeLabel.clipsToBounds = true
+        timeLabel.font = .font(fontSize: 12)
+        timeLabel.textColor = RGB(153, 153, 153)
+        addSubview(timeLabel)
+        
+        daysLabel = UILabel.init(frame: bounds)
+        daysLabel.backgroundColor = .clear
+        daysLabel.textAlignment = .center
+        daysLabel.font = .font(fontSize: 12)
+        daysLabel.textColor = RGB(153, 153, 153)
+        addSubview(daysLabel)
     }
     
     required init?(coder: NSCoder) {
@@ -114,6 +122,18 @@ class TYCurveTimeCell: UICollectionViewCell {
     }
     
     public func configData(model: TYPointItemModel, idx: Int) {
-        contentLabel.text = "\(model.time)\n\(idx)"
+        timeLabel.text = model.time
+        timeLabel.backgroundColor = model.timeBgColor
+        daysLabel.text = "\(idx)"
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let timeHeight: CGFloat = 16.0
+        timeLabel.frame = .init(x: 0, y: (height / 2.0 - timeHeight) / 2, width: width, height: timeHeight)
+        daysLabel.frame = .init(x: 0, y: height / 2.0, width: width, height: height / 2.0)
+        
+        timeLabel.layer.cornerRadius = timeLabel.height / 2.0
     }
 }

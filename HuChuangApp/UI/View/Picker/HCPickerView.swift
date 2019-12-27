@@ -119,14 +119,27 @@ extension HCPickerView: UIPickerViewDelegate, UIPickerViewDataSource {
     
 }
 
+
+public enum HCPickerAction {
+    case cancel
+    case ok
+}
+
 class HCPicker: UIViewController {
-    
+        
     public var toolBar: UIToolbar!
     public var tapGes: UITapGestureRecognizer!
     public var containerView: UIView!
-    
+    public var cancelButton: UIButton!
+    public var doneButton: UIButton!
+
     public var titleDes: String = ""
-    public var finishSelected: ((String)->())?
+    public var cancelTitle: String = "取消"
+    public var okTitle: String = "完成"
+    /// 取消按钮是否有除了隐藏picker的其它功能
+    public var isCustomCancel: Bool = false
+
+    public var finishSelected: (((HCPickerAction, String))->())?
 
     public var pickerHeight: CGFloat = 150
     
@@ -141,8 +154,8 @@ class HCPicker: UIViewController {
         
         toolBar = UIToolbar.init()
         
-        let cancelButton = UIButton.init(frame: .init(x: 0, y: 0, width: 40, height: 44))
-        cancelButton.setTitle("取消", for: .normal)
+        cancelButton = UIButton.init(frame: .init(x: 0, y: 0, width: 40, height: 44))
+        cancelButton.setTitle(cancelTitle, for: .normal)
         cancelButton.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
         cancelButton.setTitleColor(.black, for: .normal)
         cancelButton.titleLabel?.font = .font(fontSize: 15, fontName: .PingFMedium)
@@ -153,8 +166,8 @@ class HCPicker: UIViewController {
         titleLable.textColor = .black
         titleLable.text = titleDes
 
-        let doneButton = UIButton.init(frame: .init(x: 0, y: 0, width: 40, height: 44))
-        doneButton.setTitle("完成", for: .normal)
+        doneButton = UIButton.init(frame: .init(x: 0, y: 0, width: 40, height: 44))
+        doneButton.setTitle(okTitle, for: .normal)
         doneButton.addTarget(self, action: #selector(doneAction), for: .touchUpInside)
         doneButton.setTitleColor(.black, for: .normal)
         doneButton.titleLabel?.font = .font(fontSize: 15, fontName: .PingFMedium)
@@ -167,9 +180,13 @@ class HCPicker: UIViewController {
         toolBar.frame = .init(x: 0, y: 0, width: view.width, height: 44)
         
         ///
-        tapGes = UITapGestureRecognizer.init(target: self, action: #selector(cancelAction))
+        tapGes = UITapGestureRecognizer.init(target: self, action: #selector(tapAction))
         tapGes.delegate = self
         view.addGestureRecognizer(tapGes)
+    }
+    
+    @objc func tapAction() {
+        hidden(animotion: true, complement: nil)
     }
     
     @objc func cancelAction() {
@@ -179,7 +196,7 @@ class HCPicker: UIViewController {
     @objc func doneAction() {
 
     }
-    
+        
     public func show(animotion: Bool) {
         if animotion {
             view.backgroundColor = RGB(10, 10, 10, 0.5)

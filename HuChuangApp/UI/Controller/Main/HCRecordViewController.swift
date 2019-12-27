@@ -49,6 +49,14 @@ class HCRecordViewController: BaseViewController {
         
 //        contentView.frame = view.bounds
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if viewModel != nil {
+            viewModel.reloadSubject.onNext(Void())
+        }
+    }
 }
 
 extension HCRecordViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -138,21 +146,26 @@ extension HCRecordViewController: UICollectionViewDataSource, UICollectionViewDe
                 picker.sectionModel = HCPickerSectionData.createTemperature()
                 addChildViewController(picker)
 
-                picker.finishSelected = { [weak self] content in
-                    self?.viewModel.commitChangeSubject.onNext((actionModel.opType, content))
+                picker.finishSelected = { [weak self] data in
+                    self?.viewModel.commitChangeSubject.onNext((actionModel.opType, data.1))
                 }
             }else {
                 let datePicker = HCDatePickerViewController()
                 datePicker.titleDes = actionModel.title
-                addChildViewController(datePicker)
 
-                datePicker.finishSelected = { [weak self] date in
-                    if actionModel.opType == .menstruationDate {
-                        self?.viewModel.commitMergeWeekInfoSubject.onNext(date)
-                    }else {
-                        self?.viewModel.commitChangeSubject.onNext((actionModel.opType, date))
+                if actionModel.opType == .menstruationDate {
+                    datePicker.cancelTitle = "月经第一天"
+                    datePicker.okTitle = "月经最后一天"
+                    datePicker.isCustomCancel = true
+                    datePicker.finishSelected = { [weak self] data in
+                        self?.viewModel.commitMergeWeekInfoSubject.onNext((data.0 == .cancel, data.1))
+                    }
+                }else {
+                    datePicker.finishSelected = { [weak self] data in
+                        self?.viewModel.commitChangeSubject.onNext((actionModel.opType, data.1))
                     }
                 }
+                addChildViewController(datePicker)
             }
         }
     }

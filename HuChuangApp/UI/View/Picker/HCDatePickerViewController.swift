@@ -51,8 +51,21 @@ class HCDatePickerViewController: HCPicker {
         let dateStr = formatter.string(from: datePicker.date)
         PrintLog("当前选择时间: \(dateStr)")
 
-        finishSelected?(dateStr)
+        finishSelected?((HCPickerAction.ok, dateStr))
         
-        cancelAction()
+        super.cancelAction()
+    }
+    
+    override func cancelAction() {
+        super.cancelAction()
+        
+        if isCustomCancel {
+            let formatter = DateFormatter.init()
+            formatter.dateFormat = "yyyy-MM-dd"
+            let dateStr = formatter.string(from: datePicker.date)
+            PrintLog("当前选择时间: \(dateStr)")
+
+            finishSelected?((HCPickerAction.cancel, dateStr))
+        }
     }
 }

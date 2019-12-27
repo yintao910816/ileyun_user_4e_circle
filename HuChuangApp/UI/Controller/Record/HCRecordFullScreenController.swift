@@ -39,14 +39,14 @@ class HCRecordFullScreenController: BaseViewController {
         let text3 = "排卵期    ".prepare(markColor: RGB(255, 113, 17), textColor: RGB(102, 102, 102), textFont: .font(fontSize: 8))
         let text4 = "排卵日    ".prepare(markColor: RGB(253, 119, 146), textColor: RGB(102, 102, 102), textFont: .font(fontSize: 8))
         let text5 = "建议同房".prepare(markImage: UIImage(named: "record_icon_love"), textColor: RGB(102, 102, 102), textFont: .font(fontSize: 8), isRound: false)
-        let text6 = NSAttributedString.init(string: "\n预测：半透明    实际：100%不透明")
+//        let text6 = NSAttributedString.init(string: "\n预测：半透明    实际：100%不透明")
         
         let attr = NSMutableAttributedString.init(attributedString: text1)
         attr.append(text2)
         attr.append(text3)
         attr.append(text4)
         attr.append(text5)
-        attr.append(text6)
+//        attr.append(text6)
         
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 10

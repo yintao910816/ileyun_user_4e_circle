@@ -38,7 +38,7 @@ class HCPickerController: HCPicker {
         let intRow = picker.selectedRow(inComponent: 0)
         let floatRow = picker.selectedRow(inComponent: 1)
         let selectedContent = "\(sectionModel.sectionData[0][intRow].title)\(sectionModel.sectionData[1][floatRow].title)"
-        finishSelected?(selectedContent)
+        finishSelected?((HCPickerAction.ok, selectedContent))
         
         cancelAction()
     }

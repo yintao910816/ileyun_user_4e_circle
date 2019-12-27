@@ -184,7 +184,8 @@ extension BaseWebViewController: UIWebViewDelegate{
         let changeTitle: @convention(block) () ->() = {[weak self] in
             DispatchQueue.main.async {
                 guard let params = JSContext.currentArguments() else { return }
-                
+                PrintLog("h5 调用 - changeTitle")
+
                 for idx in 0..<params.count {
                     if idx == 0 {
                         let _title = ((params[0] as AnyObject).toString()) ?? ""
@@ -241,6 +242,8 @@ extension BaseWebViewController: UIWebViewDelegate{
         }
 
         let appInfo: @convention(block) () ->(String) = { [weak self] in
+            PrintLog("h5 调用 - appInfo")
+
             return self?.stringForAppInfo() ?? ""
         }
         context?.setObject(unsafeBitCast(appInfo, to: AnyObject.self), forKeyedSubscript: "appInfo" as NSCopying & NSObjectProtocol)
@@ -248,6 +251,8 @@ extension BaseWebViewController: UIWebViewDelegate{
         // js调用，刷新首页
         let getUserInfoFnApi: @convention(block) () ->() = {
             DispatchQueue.main.async {
+                PrintLog("h5 调用 - getUserInfoFnApi")
+
                 NotificationCenter.default.post(name: NotificationName.UserInterface.jsReloadHome, object: nil)
             }
         }
@@ -256,6 +261,8 @@ extension BaseWebViewController: UIWebViewDelegate{
         /// 返回上一个界面 （如个人中心提交反馈成功）
         let backFnApi: @convention(block) () ->() = {[weak self]in
             DispatchQueue.main.async {
+                PrintLog("h5 调用 - backFnApi")
+
                 self?.navigationController?.popViewController(animated: true)
             }
         }
