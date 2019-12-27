@@ -143,7 +143,7 @@ class HCDoctorItemModel: HJModel {
     /// 展示价格
     lazy var priceAttText: NSAttributedString = {
         if self.price == "0" {
-            return NSAttributedString.init(string: "免费")
+            return "免费".attributed(NSMakeRange(0, 2), HC_MAIN_COLOR, .font(fontSize: 15, fontName: .PingFSemibold))
         }
         return "¥\(self.price)".attributed(NSMakeRange(0, 1), HC_MAIN_COLOR, .font(fontSize: 10, fontName: .PingFSemibold))
     }()
