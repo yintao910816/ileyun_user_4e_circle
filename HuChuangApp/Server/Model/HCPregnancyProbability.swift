@@ -42,6 +42,8 @@ class HCRecordItemDataModel: HJModel, HCRecordData {
     var isContrast: Bool = false
     // 是否已经设置过周期相关数据
     var circleIsSet: Bool = false
+    // 周期中当前天在第几个
+    var nowDateIdxOfCircle: Int = 0
     
     /// 画曲线数据
     public var probabilityDatas: [Float] = []

@@ -43,7 +43,7 @@ class HCRecordViewController: BaseViewController {
         viewModel.reloadUISubject
             .subscribe(onNext: { [weak self] in
                 guard let strongSelf = self else { return }
-                strongSelf.collectionView.isHidden = strongSelf.viewModel.currentCircleData.circleIsSet
+                strongSelf.collectionView.isHidden = !strongSelf.viewModel.currentCircleData.circleIsSet
                 strongSelf.collectionView.reloadData()
             })
             .disposed(by: disposeBag)

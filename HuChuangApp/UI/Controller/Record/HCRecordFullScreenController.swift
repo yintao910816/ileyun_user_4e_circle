@@ -78,7 +78,8 @@ class HCRecordFullScreenController: BaseViewController {
         
         curveView.setData(probabilityDatas: model.probabilityDatas,
                           itemDatas: model.lineItemDatas,
-                          title: model.isContrast ? model.nowCircle : model.curelTitle)
+                          title: model.isContrast ? model.nowCircle : model.curelTitle,
+                          nowIdx: model.nowDateIdxOfCircle)
     }
     
     override func viewDidLayoutSubviews() {

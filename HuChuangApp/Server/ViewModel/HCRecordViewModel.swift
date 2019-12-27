@@ -237,6 +237,15 @@ extension HCRecordViewModel {
         isContrast = !isContrast
         datasource.removeAll()
         
+        circleDatas = circleDatas.map { [unowned self] data -> HCRecordItemDataModel in
+            data.isContrast = self.isContrast
+            return data
+        }
+        
+        lastCircleData.isContrast = isContrast
+        currentCircleData.isContrast = isContrast
+        nextCircleData.isContrast = isContrast
+
         if isContrast {
             datasource.append(circleDatas)
         }else {
@@ -538,12 +547,17 @@ extension HCRecordViewModel {
         }
         data.pailuan = pailuanri
         
-//        var pointDatas: [TYPointItemModel] = []
-//        for _ in 0...resultDates.count {
-//            pointDatas.append(TYPointItemModel(borderColor: .clear))
-//        }
-//
-//        data.pointDatas = pointDatas
+        // 计算当前天在周期的第几天
+        var tempDateArr: [Date] = []
+        tempDateArr.append(contentsOf: yjArr)
+        tempDateArr.append(contentsOf: safeBeforeArr)
+        tempDateArr.append(contentsOf: plqArr)
+        tempDateArr.append(contentsOf: safeAfterArr)
+
+        let currentNowDate = TYDateCalculate.formatNowDate()
+        if let idx = tempDateArr.firstIndex(of: currentNowDate) {
+            data.nowDateIdxOfCircle = idx
+        }
     }
 }
 

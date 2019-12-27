@@ -34,6 +34,7 @@ class TYCurveView: UIView {
     
     private var probabilityDatas: [Float] = []
     private var timesDatas: [String] = []
+    private var nowIdx: Int = 0
     
     /// 标题
     private var titleViewHeight: CGFloat = 25
@@ -192,9 +193,10 @@ class TYCurveView: UIView {
     
     public var curvelContentTextHeight: CGFloat = 40.0
     
-    public func setData(probabilityDatas: [Float], itemDatas: [TYLineItemModel], title: String) {
+    public func setData(probabilityDatas: [Float], itemDatas: [TYLineItemModel], title: String, nowIdx: Int) {
         self.probabilityDatas = probabilityDatas
-        
+        self.nowIdx = nowIdx
+
         self.titleLable.text = title
         setProbability(probability: probabilityDatas.first ?? 0.01)
         
@@ -211,6 +213,10 @@ class TYCurveView: UIView {
         timeView.itemModels = itemDatas
         
         setNeedsDisplay()
+        layoutIfNeeded()
+        
+        scrollView.contentSize = .init(width: curveView.width  + width, height: curvelViewHeight)
+        setOffsetX(CGFloat(nowIdx) * itemWidth)
     }
     
     public func setOffsetX(_ offsetX: CGFloat) {
@@ -224,7 +230,10 @@ class TYCurveView: UIView {
             if floatX > itemWidth / 2.0 {
                 intX += 1
             }
-            setProbability(probability: probabilityDatas[intX])
+            
+            if intX < probabilityDatas.count {
+                setProbability(probability: probabilityDatas[intX])
+            }
         }
     }
     
@@ -248,8 +257,6 @@ class TYCurveView: UIView {
                                  width: width,
                                  height: curvelViewHeight)
 
-//        scrollView.contentSize = .init(width: curveView.width  + itemWidth, height: curvelViewHeight)
-        scrollView.contentSize = .init(width: curveView.width  + width, height: curvelViewHeight)
 
         remindBgView.frame = .init(x: 0, y: scrollView.frame.maxY, width: width, height: remindViewHeight)
         markLabel.frame = .init(x: 30, y: 0, width: remindBgView.width - 60, height: remindViewHeight)
@@ -396,6 +403,8 @@ extension TYCurveView: UIScrollViewDelegate {
         PrintLog(offsetPoint)
         scrollView.setContentOffset(offsetPoint, animated: true)
         
-        setProbability(probability: probabilityDatas[intX])
+        if intX < probabilityDatas.count {
+            setProbability(probability: probabilityDatas[intX])
+        }
     }
 }
