@@ -27,14 +27,20 @@ class HCRecordItemDataModel: HJModel, HCRecordData {
     /// 月经起始日期
     var menstruationDate: String = ""
     var pregnantTypeId: Int = 0
-    
+    /// 标记的同房数据
+    var knewRecordList: [HCKnewRecordItemModel] = []
+    /// 标记的排卵日数据
+    var ovulationList: [HCOvulationItemModel] = []
+
     /// 计算出的相关周期数据
+    /// 转化出来的排卵日Date数据
+    var ovulationDates: [Date] = []
     // 所处阶段
     var newLv: NSAttributedString = NSAttributedString.init()
     // 怀孕几率
     var probability: NSAttributedString = NSAttributedString.init()
-    // 距离排卵日
-    var pailuan: NSAttributedString = NSAttributedString.init()
+    // 预测排卵日
+    var pailuan: Date?
     // 所处哪个周期
     var nowCircle: String = ""
     var curelTitle: String = "好孕率趋势图"
@@ -57,6 +63,65 @@ class HCRecordItemDataModel: HJModel, HCRecordData {
     var cellIdentifier: String { return HCCurveCell_identifier }
     var width: CGFloat { return PPScreenW }
     var height: CGFloat { return HCCurveCell_height }
+    
+    // 距离排卵日
+    public func calutePailuanLeft(nextCircle: HCRecordItemDataModel) ->NSAttributedString {
+        var daysText = "未知"
+        var text = "距离排卵日：\(daysText)"
+        var pailuanri = NSAttributedString.init()
+        guard let curPailuan = pailuan else {
+            pailuanri = text.attributed(.init(location: 6, length: daysText.count),
+                                        HC_MAIN_COLOR, .font(fontSize: 12))
+
+            return pailuanri
+        }
+        
+        let days = TYDateCalculate.numberOfDays(toDate: curPailuan)
+        if days > 0 {
+            daysText = "\(days)"
+            text = "距离排卵日：\(daysText)天"
+            pailuanri = text.attributed(.init(location: 6, length: daysText.count),
+                                        HC_MAIN_COLOR, .font(fontSize: 12))
+        }else {
+            guard let nextPailuan = nextCircle.pailuan else {
+                pailuanri = text.attributed(.init(location: 6, length: daysText.count),
+                                            HC_MAIN_COLOR, .font(fontSize: 12))
+
+                return pailuanri
+            }
+            
+            let days = TYDateCalculate.numberOfDays(toDate: nextPailuan)
+            daysText = "\(days)"
+            text = "距离排卵日：\(daysText)天"
+            pailuanri = text.attributed(.init(location: 6, length: daysText.count),
+                                        HC_MAIN_COLOR, .font(fontSize: 12))
+        }
+
+        return pailuanri
+    }
+}
+
+/// 标记的同房数据
+class HCKnewRecordItemModel: HJModel {
+    var bak: String = ""
+    var createDate: String = ""
+    var creates: String = ""
+    var id: Int = 0
+    var knewDate: String = ""
+    var memberId: Int = 0
+    var modifyDate: String = ""
+    var modifys: String = ""
+}
+
+class HCOvulationItemModel: HJModel {
+    var bak: String = ""
+    var createDate: String = ""
+    var creates: String = ""
+    var id: Int = 0
+    var memberId: Int = 0
+    var modifyDate: String = ""
+    var modifys: String = ""
+    var ovulationDate: String = "";
 }
 
 class HCCellActionItem: HCRecordData {

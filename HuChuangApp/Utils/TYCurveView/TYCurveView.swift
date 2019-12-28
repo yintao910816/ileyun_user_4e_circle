@@ -99,7 +99,7 @@ class TYCurveView: UIView {
         let text1 = "月经期    ".prepare(markColor: RGB(213, 89, 92), textColor: RGB(102, 102, 102), textFont: .font(fontSize: 8))
         let text2 = "安全期    ".prepare(markColor: RGB(84, 197, 141), textColor: RGB(102, 102, 102), textFont: .font(fontSize: 8))
         let text3 = "排卵期    ".prepare(markColor: RGB(255, 113, 17), textColor: RGB(102, 102, 102), textFont: .font(fontSize: 8))
-        let text4 = "排卵日    ".prepare(markColor: RGB(253, 119, 146), textColor: RGB(102, 102, 102), textFont: .font(fontSize: 8))
+        let text4 = "排卵日    ".prepare(markColor: RGB(253, 220, 220), textColor: RGB(102, 102, 102), textFont: .font(fontSize: 8))
         let text5 = "建议同房".prepare(markImage: UIImage(named: "record_icon_love"), textColor: RGB(102, 102, 102), textFont: .font(fontSize: 8), isRound: false)
 //        let text6 = NSAttributedString.init(string: "\n预测：半透明    实际：100%不透明")
         

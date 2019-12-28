@@ -84,6 +84,10 @@ class TYDateCalculate {
         return numberOfDays(fromDate: TYDateCalculate.formatNowDate(), toDate: date(for: toDate))
     }
     
+    class func numberOfDays(toDate: Date) -> Int {
+        return numberOfDays(fromDate: TYDateCalculate.formatNowDate(), toDate: toDate)
+    }
+
     /**
      * 将当前时间格式化成指定格式
      */

@@ -39,7 +39,7 @@ class HCExpertConsultViewController: BaseViewController {
         navSearchBar.backgroundColor = .white
         
         navSearchBar.leftItemTapBack = { [unowned self] in
-            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: true)
         }
         
         navSearchBar.beginSearch = { [weak self] _ in

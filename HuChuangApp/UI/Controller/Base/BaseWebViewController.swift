@@ -9,7 +9,7 @@
 import UIKit
 import JavaScriptCore
 
-class BaseWebViewController: BaseViewController {
+class BaseWebViewController: BaseViewController, VMNavigation {
 
     var url: String = ""
     var redirect_url: String?
@@ -195,6 +195,15 @@ extension BaseWebViewController: UIWebViewDelegate{
             }
         }
         context?.setObject(unsafeBitCast(changeTitle, to: AnyObject.self), forKeyedSubscript: "changeTitle" as NSCopying & NSObjectProtocol)
+
+        //使用优惠券跳转医生列表 - openActivity(String name, String csId)
+        let openActivity: @convention(block) () ->() = {
+            DispatchQueue.main.async {
+                PrintLog("h5 调用 - openActivity")
+                BaseWebViewController.sbPush("HCMain", "expertConsultCtrl")
+            }
+        }
+        context?.setObject(unsafeBitCast(openActivity, to: AnyObject.self), forKeyedSubscript: "openActivity" as NSCopying & NSObjectProtocol)
 
         let backHomeFnApi: @convention(block) () ->() = {[weak self]in
             DispatchQueue.main.async {

@@ -40,7 +40,7 @@ class HCHomeViewController: BaseViewController {
         }
         
         searchBar.rightItemTapBack = {
-            HCHelper.preloadH5(type: .noticeAndMessage, arg: nil)
+            HCHelper.pushLocalH5(type: .noticeAndMessage)
         }
         
         collectionView.register(HCHomeCollectionHeaderReusableView.self,

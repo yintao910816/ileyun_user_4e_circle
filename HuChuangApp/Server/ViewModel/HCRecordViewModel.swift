@@ -114,6 +114,13 @@ class HCRecordViewModel: BaseViewModel, VMNavigation {
 
         cellActionItemDatasource = [model1, model2, model3, model4]
     }
+    
+    /// 距离排卵日数据
+    public var pailuanriLeft: NSAttributedString {
+        get {
+            return currentCircleData.calutePailuanLeft(nextCircle: nextCircleData)
+        }
+    }
 }
 
 extension HCRecordViewModel {
@@ -315,6 +322,13 @@ extension HCRecordViewModel {
     private func formatCircle(data: inout HCRecordItemDataModel, idx: Int) {
         data.nowCircle = idx == 0 ? "上个周期" : idx == 1 ? "本周期" : "下个周期"
 
+        // 转化排卵日数据为Date
+        var tempOvulationDates: [Date] = []
+        for item in data.ovulationList {
+            tempOvulationDates.append(TYDateCalculate.date(for: item.ovulationDate))
+        }
+        data.ovulationDates = tempOvulationDates
+        
         /// ---月经期推算
         // 第一天
         let starYj = TYDateCalculate.date(for: data.menstruationDate)
@@ -326,6 +340,7 @@ extension HCRecordViewModel {
         let circleEndDate = TYDateCalculate.getDate(currentDate: starYj, days: data.cycle - 1, isAfter: true)
         // 排卵日
         let plaDate = TYDateCalculate.getDate(currentDate: circleEndDate, days: 14, isAfter: false)
+        data.pailuan = plaDate
         // 排卵期第一天 排卵日a往前推5天
         let starPlqDate = TYDateCalculate.getDate(currentDate: plaDate, days: 5, isAfter: false)
         // 排卵期最后一天 排卵日a往后推4天
@@ -398,23 +413,32 @@ extension HCRecordViewModel {
         
         var yjPoints: [TYPointItemModel] = []
         for date in yjArr {
+            let timeBgColor: UIColor = tempOvulationDates.contains(date) ? RGB(253, 220, 220) : .clear
             let com = TYDateCalculate.getDataComponent(date: date)
-            let m = TYPointItemModel(borderColor: .clear, time: "\(com.month!).\(com.day!)")
+            let m = TYPointItemModel(borderColor: .clear,
+                                     time: "\(com.month!).\(com.day!)",
+                                     timeBgColor: timeBgColor)
             yjPoints.append(m)
         }
 
         var safeBeforePoints: [TYPointItemModel] = []
         for date in safeBeforeArr {
+            let timeBgColor: UIColor = tempOvulationDates.contains(date) ? RGB(253, 220, 220) : .clear
             let com = TYDateCalculate.getDataComponent(date: date)
-            let m = TYPointItemModel(borderColor: .clear, time: "\(com.month!).\(com.day!)")
+            let m = TYPointItemModel(borderColor: .clear,
+                                     time: "\(com.month!).\(com.day!)",
+                                     timeBgColor: timeBgColor)
             safeBeforePoints.append(m)
         }
 
         var plqPoints: [TYPointItemModel] = []
         var idx: Int = 0
         for date in plqArr {
+            let timeBgColor: UIColor = tempOvulationDates.contains(date) ? RGB(253, 220, 220) : .clear
             let com = TYDateCalculate.getDataComponent(date: date)
-            var m = TYPointItemModel(borderColor: .clear, time: "\(com.month!).\(com.day!)")
+            var m = TYPointItemModel(borderColor: .clear,
+                                     time: "\(com.month!).\(com.day!)",
+                                     timeBgColor: timeBgColor)
             if idx % 2 == 0 {
                 // 排卵期隔天标记建议同房
                 m.isMark = true
@@ -432,8 +456,11 @@ extension HCRecordViewModel {
 
         var safeAfterPoints: [TYPointItemModel] = []
         for date in safeAfterArr {
+            let timeBgColor: UIColor = tempOvulationDates.contains(date) ? RGB(253, 220, 220) : .clear
             let com = TYDateCalculate.getDataComponent(date: date)
-            var m = TYPointItemModel(borderColor: .clear, time: "\(com.month!).\(com.day!)")
+            var m = TYPointItemModel(borderColor: .clear,
+                                     time: "\(com.month!).\(com.day!)",
+                                     timeBgColor: timeBgColor)
             if date == safeAfterArr.first {
                 m.isMark = true
                 m.markIcon = UIImage(named: "record_icon_love")
@@ -495,7 +522,8 @@ extension HCRecordViewModel {
                                             color: [HC_MAIN_COLOR, HC_MAIN_COLOR],
                                             font: [.font(fontSize: 12), .font(fontSize: 12)])
             
-            let intPro: Int = Int((probabilityDatas[day + yjArr.count] * 100) / 100)
+            PrintLog((probabilityDatas[day + yjArr.count]))
+            let intPro: Int = Int(probabilityDatas[day + yjArr.count] * 100)
             let stringPro = "\(intPro)"
             text = "怀孕几率：\(stringPro)%"
             jilvString = text.attributed(.init(location: 5,
@@ -536,23 +564,7 @@ extension HCRecordViewModel {
         
         data.newLv = jieduanString
         data.probability = jilvString
-        
-        //距离排卵日
-        let days = TYDateCalculate.numberOfDays(fromDate: currentDate, toDate: plaDate)
-        var pailuanri = NSAttributedString.init()
-        if days > 0 {
-            let daysText = "\(days)"
-            let text = "距离排卵日：\(daysText)天"
-            pailuanri = text.attributed(.init(location: 6, length: daysText.count),
-                                        HC_MAIN_COLOR, .font(fontSize: 12))
-        }else {
-            let daysText = "\(-days)"
-            let text = "已过排卵日：\(daysText)天"
-            pailuanri = text.attributed(.init(location: 6, length: daysText.count),
-                                        HC_MAIN_COLOR, .font(fontSize: 12))
-        }
-        data.pailuan = pailuanri
-        
+                
         // 计算当前天在周期的第几天
         var tempDateArr: [Date] = []
         tempDateArr.append(contentsOf: yjArr)
