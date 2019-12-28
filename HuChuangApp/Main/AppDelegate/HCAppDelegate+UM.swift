@@ -17,57 +17,57 @@ extension HCAppDelegate {
         registerAuthor()
         
         UMConfigure.initWithAppkey(AppKey, channel: "App Store")
-//        MobClick.setScenarioType(.E_UM_NORMAL)
-//        UMConfigure.setLogEnabled(true)
-//        
-//        UMessage.setAutoAlert(false)
-//        UMessage.setBadgeClear(true)
-//        
-//        if #available(iOS 10.0, *) {
-//            let entity = UMessageRegisterEntity()
-//            entity.types = Int(UMessageAuthorizationOptions.badge.rawValue) | Int(UMessageAuthorizationOptions.alert.rawValue)
-//            //type是对推送的几个参数的选择，可以选择一个或者多个。默认是三个全部打开，即：声音，弹窗，角标
-//     
-//            // 使用 UNUserNotificationCenter 来管理通知
-//            let center = UNUserNotificationCenter.current()
-//            //监听回调事件
-//            center.delegate = self
-//            
-//            UMessage.registerForRemoteNotifications(launchOptions: launchOptions, entity: entity) { (flag, error) in
-//                if flag == true {
-//                    PrintLog("UM注册成功")
-//                }else {
-//                    PrintLog("UM注册失败")
-//                }
-//            }
-//            
-//            //iOS 10 使用以下方法注册，才能得到授权
-//            center.requestAuthorization(options: [UNAuthorizationOptions.alert,UNAuthorizationOptions.badge,UNAuthorizationOptions.sound], completionHandler: { (granted:Bool, error:Error?) -> Void in
-//                if (granted) {
-//                    //点击允许
-////                    PrintLog("注册通知成功")
-////                    UserDefaults.standard.set(true, forKey: kReceiveRemoteNote)
-//                    //获取当前的通知设置，UNNotificationSettings 是只读对象，不能直接修改，只能通过以下方法获取
-//                    center.getNotificationSettings(completionHandler:{(settings:UNNotificationSettings) in
-//                        PrintLog( "UNNotificationSettings")
-//                    })
-//                } else {
-//                    //点击不允许
-////                    UserDefaults.standard.set(false, forKey: kReceiveRemoteNote)
-////                    PrintLog("注册通知失败")
-//                }
-//            })
-//        } else {
-//            // Fallback on earlier versions
-//            let type = UIUserNotificationType.alert.rawValue | UIUserNotificationType.badge.rawValue | UIUserNotificationType.sound.rawValue
-//            let set = UIUserNotificationSettings.init(types: UIUserNotificationType(rawValue: type), categories: nil)
-//            UIApplication.shared.registerUserNotificationSettings(set)
-//        }
-//        
-//        _ = NotificationCenter.default.rx.notification(NotificationName.User.LoginSuccess, object: nil)
-//            .subscribe(onNext: { [weak self] _ in
-//                self?.uploadUMToken()
-//            })
+        MobClick.setScenarioType(.E_UM_NORMAL)
+        UMConfigure.setLogEnabled(true)
+        
+        UMessage.setAutoAlert(false)
+        UMessage.setBadgeClear(true)
+        
+        if #available(iOS 10.0, *) {
+            let entity = UMessageRegisterEntity()
+            entity.types = Int(UMessageAuthorizationOptions.badge.rawValue) | Int(UMessageAuthorizationOptions.alert.rawValue)
+            //type是对推送的几个参数的选择，可以选择一个或者多个。默认是三个全部打开，即：声音，弹窗，角标
+     
+            // 使用 UNUserNotificationCenter 来管理通知
+            let center = UNUserNotificationCenter.current()
+            //监听回调事件
+            center.delegate = self
+            
+            UMessage.registerForRemoteNotifications(launchOptions: launchOptions, entity: entity) { (flag, error) in
+                if flag == true {
+                    PrintLog("UM注册成功")
+                }else {
+                    PrintLog("UM注册失败")
+                }
+            }
+            
+            //iOS 10 使用以下方法注册，才能得到授权
+            center.requestAuthorization(options: [UNAuthorizationOptions.alert,UNAuthorizationOptions.badge,UNAuthorizationOptions.sound], completionHandler: { (granted:Bool, error:Error?) -> Void in
+                if (granted) {
+                    //点击允许
+//                    PrintLog("注册通知成功")
+//                    UserDefaults.standard.set(true, forKey: kReceiveRemoteNote)
+                    //获取当前的通知设置，UNNotificationSettings 是只读对象，不能直接修改，只能通过以下方法获取
+                    center.getNotificationSettings(completionHandler:{(settings:UNNotificationSettings) in
+                        PrintLog( "UNNotificationSettings")
+                    })
+                } else {
+                    //点击不允许
+//                    UserDefaults.standard.set(false, forKey: kReceiveRemoteNote)
+//                    PrintLog("注册通知失败")
+                }
+            })
+        } else {
+            // Fallback on earlier versions
+            let type = UIUserNotificationType.alert.rawValue | UIUserNotificationType.badge.rawValue | UIUserNotificationType.sound.rawValue
+            let set = UIUserNotificationSettings.init(types: UIUserNotificationType(rawValue: type), categories: nil)
+            UIApplication.shared.registerUserNotificationSettings(set)
+        }
+        
+        _ = NotificationCenter.default.rx.notification(NotificationName.User.LoginSuccess, object: nil)
+            .subscribe(onNext: { [weak self] _ in
+                self?.uploadUMToken()
+            })
     }
 }
 
@@ -80,13 +80,16 @@ extension HCAppDelegate : UNUserNotificationCenterDelegate{
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
+        var deviceTokenString = String()
+        let bytes = [UInt8](deviceToken)
+        for item in bytes {
+            deviceTokenString += String(format:"%02x", item&0x000000FF)
+        }
+        PrintLog("推送token \(deviceTokenString)")
+        
         UMessage.registerDeviceToken(deviceToken)
         
-        let data = deviceToken as NSData
-        let token = data.description.replacingOccurrences(of: "<", with: "").replacingOccurrences(of: ">", with: "").replacingOccurrences(of: " ", with: "")
-
-        self.deviceToken = token
-
+        self.deviceToken = deviceTokenString
         uploadUMToken()
     }
     
@@ -125,7 +128,11 @@ extension HCAppDelegate : UNUserNotificationCenterDelegate{
     func receiveRemoteNotificationForbackground(userInfo : [AnyHashable : Any]){
         PrintLog(userInfo)
         
-        let message = userInfo["alert"] as? String ?? "alert"
+        DispatchQueue.main.async {
+            HCHelper.pushLocalH5(type: .noticeAndMessage)
+        }
+
+//        let message = userInfo["alert"] as? String ?? "alert"
         
 //        let tabVC = self.window?.rootViewController as! MainTabBarController
 //        let selVC = tabVC.selectedViewController as! UINavigationController
