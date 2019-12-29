@@ -54,7 +54,6 @@ class HCRecordViewModel: BaseViewModel, VMNavigation {
         .disposed(by: disposeBag)
         
         commitChangeSubject
-            ._doNext(forNotice: hud)
             .subscribe(onNext: { [unowned self] in
             self.commitChange(type: $0.0, data: $0.1)
         })
@@ -130,9 +129,22 @@ extension HCRecordViewModel {
         var dataParam: [String: Any] = [:]
         var date: String = ""
         if type == .temperature {
+            hud.noticeLoading()
             dataParam["temperature"] = data
             date = TYDateCalculate.formatNowDateString()
         }else {
+            if type == .ovulation {
+                // 标记排卵日只能在当前周期
+                let starDate = TYDateCalculate.date(for: currentCircleData.menstruationDate)
+                let markDate = TYDateCalculate.date(for: data)
+                let days = TYDateCalculate.numberOfDays(fromDate: starDate, toDate: markDate)
+                if days >= currentCircleData.cycle || days < 0 {
+                    NoticesCenter.alert(title: "提示", message: "只能在当前周期内标记排卵日")
+                    return
+                }
+            }
+            
+            hud.noticeLoading()
             date = data
         }
         

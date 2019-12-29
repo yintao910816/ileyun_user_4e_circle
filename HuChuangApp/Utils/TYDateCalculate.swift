@@ -87,7 +87,7 @@ class TYDateCalculate {
     class func numberOfDays(toDate: Date) -> Int {
         return numberOfDays(fromDate: TYDateCalculate.formatNowDate(), toDate: toDate)
     }
-
+    
     /**
      * 将当前时间格式化成指定格式
      */
@@ -97,7 +97,7 @@ class TYDateCalculate {
         dateFormat.dateFormat = "yyyy-MM-dd"
         
         let dateString = dateFormat.string(from: Date())
-
+        
         return dateFormat.date(from: dateString)!
     }
     
@@ -107,17 +107,64 @@ class TYDateCalculate {
         dateFormat.dateFormat = "yyyy-MM-dd"
         
         let dateString = dateFormat.string(from: Date())
-
+        
         return dateString
     }
     
     class func formatDate(date: Date) ->Date {
-            let dateFormat = DateFormatter.init()
-            dateFormat.timeZone = TimeZone.init(secondsFromGMT: 8)
-            dateFormat.dateFormat = "yyyy-MM-dd"
-            
-            let dateString = dateFormat.string(from: date)
-
-            return dateFormat.date(from: dateString)!
-        }
+        let dateFormat = DateFormatter.init()
+        dateFormat.timeZone = TimeZone.init(secondsFromGMT: 8)
+        dateFormat.dateFormat = "yyyy-MM-dd"
+        
+        let dateString = dateFormat.string(from: date)
+        
+        return dateFormat.date(from: dateString)!
+    }
 }
+
+extension TYDateCalculate {
+    
+    /// 判断每天是否在当前月中
+    public class func currentMonthContais(dateString: String) ->Bool {
+        let startDate = startOfCurrentMonth()
+        let endDate = endOfCurrentMonth()
+        
+        let formatDate = date(for: dateString)
+        
+        if numberOfDays(fromDate: startDate, toDate: formatDate) < 0 {
+            return false
+        }
+        
+        if numberOfDays(fromDate: formatDate, toDate: endDate) < 0 {
+            return false
+        }
+
+        return false
+    }
+    
+    /// 本月开始日期
+    private class func startOfCurrentMonth() -> Date {
+        let date = Date()
+        let calendar = NSCalendar.current
+        let components = calendar.dateComponents(Set<Calendar.Component>([.year, .month]), from: date)
+        let startOfMonth = calendar.date(from: components)!
+        return startOfMonth
+    }
+    
+    
+    /// 本月结束日期
+    private class func endOfCurrentMonth(returnEndTime:Bool = false) -> Date {
+        let calendar = NSCalendar.current
+        var components = DateComponents()
+        components.month = 1
+        if returnEndTime {
+            components.second = -1
+        } else {
+            components.day = -1
+        }
+        
+        let endOfMonth = calendar.date(byAdding: components, to: startOfCurrentMonth())!
+        return endOfMonth
+    }
+}
+
