@@ -412,8 +412,9 @@ extension HCRecordViewModel {
         data.probabilityDatas = probabilityDatas
         
         var yjPoints: [TYPointItemModel] = []
+        let alphTimeBgColor = HC_MAIN_COLOR
         for date in yjArr {
-            let timeBgColor: UIColor = tempOvulationDates.contains(date) ? RGB(253, 220, 220) : .clear
+            let timeBgColor: UIColor = tempOvulationDates.contains(date) ? alphTimeBgColor : .clear
             let com = TYDateCalculate.getDataComponent(date: date)
             let m = TYPointItemModel(borderColor: .clear,
                                      time: "\(com.month!).\(com.day!)",
@@ -423,7 +424,7 @@ extension HCRecordViewModel {
 
         var safeBeforePoints: [TYPointItemModel] = []
         for date in safeBeforeArr {
-            let timeBgColor: UIColor = tempOvulationDates.contains(date) ? RGB(253, 220, 220) : .clear
+            let timeBgColor: UIColor = tempOvulationDates.contains(date) ? alphTimeBgColor : .clear
             let com = TYDateCalculate.getDataComponent(date: date)
             let m = TYPointItemModel(borderColor: .clear,
                                      time: "\(com.month!).\(com.day!)",
@@ -434,7 +435,10 @@ extension HCRecordViewModel {
         var plqPoints: [TYPointItemModel] = []
         var idx: Int = 0
         for date in plqArr {
-            let timeBgColor: UIColor = tempOvulationDates.contains(date) ? RGB(253, 220, 220) : .clear
+            var timeBgColor = tempOvulationDates.contains(date) ? alphTimeBgColor : .clear
+            if date == plaDate {
+                timeBgColor = RGB(253, 119, 146, 0.2)
+            }
             let com = TYDateCalculate.getDataComponent(date: date)
             var m = TYPointItemModel(borderColor: .clear,
                                      time: "\(com.month!).\(com.day!)",
@@ -444,19 +448,14 @@ extension HCRecordViewModel {
                 m.isMark = true
                 m.markIcon = UIImage(named: "record_icon_love")
             }
-            if TYDateCalculate.numberOfDays(fromDate: date, toDate: plaDate) == 0 {
-                PrintLog("找到排卵日：\(date)")
-//                m.bgColor = HC_MAIN_COLOR
-//                m.bgColor = .black
-                m.timeBgColor = RGB(253, 220, 220)
-            }
+
             plqPoints.append(m)
             idx += 1
         }
 
         var safeAfterPoints: [TYPointItemModel] = []
         for date in safeAfterArr {
-            let timeBgColor: UIColor = tempOvulationDates.contains(date) ? RGB(253, 220, 220) : .clear
+            let timeBgColor: UIColor = tempOvulationDates.contains(date) ? alphTimeBgColor : .clear
             let com = TYDateCalculate.getDataComponent(date: date)
             var m = TYPointItemModel(borderColor: .clear,
                                      time: "\(com.month!).\(com.day!)",

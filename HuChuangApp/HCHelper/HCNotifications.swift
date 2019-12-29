@@ -35,5 +35,7 @@ extension Notification.Name {
     public struct UILogic {
         /// 首页文章更多点击跳转课程tab
         static let gotoClassRoom = Notification.Name(rawValue: "org.UILogic.notification.name.gotoClassRoom")
+        /// 首页顶部红色背景点击跳转记录界面
+        static let gotoRecord = Notification.Name(rawValue: "org.UILogic.notification.name.gotoRecord")
     }
 }

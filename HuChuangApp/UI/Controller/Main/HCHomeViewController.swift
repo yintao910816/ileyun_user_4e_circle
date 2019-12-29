@@ -142,6 +142,10 @@ extension HCHomeViewController: UICollectionViewDelegateFlowLayout, UICollection
                 header.gotoPageHomeCallBack = { [weak self] in
                     self?.viewModel.gotoPageHomeSubject.onNext(Void())
                 }
+                
+                header.gotoRecordCallBack = { 
+                    NotificationCenter.default.post(name: NotificationName.UILogic.gotoRecord, object: nil)
+                }
 
                 return header
             default:

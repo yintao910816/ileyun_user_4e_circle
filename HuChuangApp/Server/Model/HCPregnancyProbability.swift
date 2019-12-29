@@ -92,7 +92,7 @@ class HCRecordItemDataModel: HJModel, HCRecordData {
             
             let days = TYDateCalculate.numberOfDays(toDate: nextPailuan)
             daysText = "\(days)"
-            text = "距离排卵日：\(daysText)天"
+            text = "距离下一个排卵日：\(daysText)天"
             pailuanri = text.attributed(.init(location: 6, length: daysText.count),
                                         HC_MAIN_COLOR, .font(fontSize: 12))
         }

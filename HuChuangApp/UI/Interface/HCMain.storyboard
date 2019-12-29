@@ -95,7 +95,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="177" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </button>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="consult_ask" translatesAutoresizingMaskIntoConstraints="NO" id="0LK-kq-D8k">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="consult_consult" translatesAutoresizingMaskIntoConstraints="NO" id="0LK-kq-D8k">
                                                 <rect key="frame" x="19.5" y="35" width="30" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -814,22 +814,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reminders" translatesAutoresizingMaskIntoConstraints="NO" id="PQ7-L1-atU">
-                                <rect key="frame" x="151.5" y="194" width="72.5" height="79"/>
+                                <rect key="frame" x="115" y="154.5" width="145" height="158"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您还没有设置经期" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4o-Fm-0pa">
-                                <rect key="frame" x="131.5" y="298" width="112" height="20"/>
+                                <rect key="frame" x="131.5" y="337.5" width="112" height="20"/>
                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="14"/>
                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="需要设置经期才能计算好孕率哦" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mbr-o7-f5K">
-                                <rect key="frame" x="96" y="333" width="183" height="19"/>
+                                <rect key="frame" x="96" y="372.5" width="183" height="19"/>
                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cfn-y9-28f">
-                                <rect key="frame" x="125" y="372" width="125" height="40"/>
+                                <rect key="frame" x="125" y="411.5" width="125" height="40"/>
                                 <color key="backgroundColor" red="0.99215686270000003" green="0.46666666670000001" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="hR0-jR-1cp"/>
@@ -1423,6 +1423,7 @@
     </scenes>
     <resources>
         <image name="consult_ask" width="45" height="45"/>
+        <image name="consult_consult" width="45" height="45"/>
         <image name="first_tab_selected" width="18.5" height="20"/>
         <image name="first_tab_unselected" width="18.5" height="20"/>
         <image name="firth_tab_selected" width="17.5" height="18.5"/>

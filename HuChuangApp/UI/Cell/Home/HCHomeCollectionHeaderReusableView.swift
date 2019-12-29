@@ -25,6 +25,7 @@ class HCHomeCollectionHeaderReusableView: UICollectionReusableView {
     public let bannerObser = PublishSubject<[HomeBannerModel]>()
     public var clickedMoreCallBack: (()->())?
     public var gotoPageHomeCallBack: (()->())?
+    public var gotoRecordCallBack: (()->())?
 
     @IBAction func actions(_ sender: UIButton) {
         if sender.tag == 200 {
@@ -34,6 +35,10 @@ class HCHomeCollectionHeaderReusableView: UICollectionReusableView {
             // 点击去爱乐孕治疗
             gotoPageHomeCallBack?()
         }
+    }
+    
+    @objc private func tapGesAction(_ sender: UITapGestureRecognizer) {
+        gotoRecordCallBack?()
     }
     
     override init(frame: CGRect) {
@@ -46,6 +51,9 @@ class HCHomeCollectionHeaderReusableView: UICollectionReusableView {
         goDoctorOutlet.layer.borderWidth = 2
         
         contentView.snp.makeConstraints{ $0.edges.equalTo(UIEdgeInsets.zero) }
+        
+        let tap = UITapGestureRecognizer.init(target: self, action: #selector(tapGesAction(_:)))
+        (viewWithTag(1000))?.addGestureRecognizer(tap)
         
         rxBind()
     }

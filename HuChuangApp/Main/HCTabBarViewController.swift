@@ -29,6 +29,12 @@ class HCTabBarViewController: UITabBarController {
                 self?.selectedIndex = 0
             })
             .disposed(by: disposeBag)
+        
+        NotificationCenter.default.rx.notification(NotificationName.UILogic.gotoRecord)
+            .subscribe(onNext: { [weak self] data in
+                self?.selectedIndex = 2
+            })
+            .disposed(by: disposeBag)
     }
 
 }
