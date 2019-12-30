@@ -11,14 +11,19 @@ import RxSwift
 
 class ConsultViewModel: RefreshVM<HCDoctorItemModel> {
     
+    private var areaCode: String = "2700"
+    
     let webRefreshSubject = PublishSubject<String>()
+    
+    private var locationManager: HCLocationManager!
     
     override init() {
         super.init()
                 
         reloadSubject
+        ._doNext(forNotice: hud)
             .subscribe(onNext: { [weak self] in
-                self?.requestData(true)
+                self?.prepareRequestData()
             })
             .disposed(by: disposeBag)
     }
@@ -26,13 +31,47 @@ class ConsultViewModel: RefreshVM<HCDoctorItemModel> {
     override func requestData(_ refresh: Bool) {
         super.requestData(refresh)
         
-        HCProvider.request(.recommendDoctor(areaCode: 2700))
+        HCProvider.request(.recommendDoctor(areaCode: areaCode))
             .map(models: HCDoctorItemModel.self)
             .subscribe(onSuccess: { [weak self] data in
+                self?.hud.noticeHidden()
                 self?.updateRefresh(refresh, data, data.count)
             }) { [weak self] error in
+                self?.hud.failureHidden(self?.errorMessage(error))
                 self?.revertCurrentPageAndRefreshStatus()
         }
         .disposed(by: disposeBag)
+    }
+}
+
+extension ConsultViewModel {
+    
+    private func prepareRequestData() {
+        locationManager = HCLocationManager()
+        
+        Observable.combineLatest(locationManager.addressSubject.asObserver(), requestAllCity()) { ($0,$1) }
+            .subscribe(onNext: { [weak self] data in
+                if let geoCity = data.0.1, geoCity.count > 0 {
+                    for item in data.1 {
+                        for city in item.list {
+                            if city.name.contains(geoCity) {
+                                self?.areaCode = city.id
+                                break
+                            }
+                        }
+                    }
+                }
+                
+                self?.requestData(true)
+            }, onError: { [weak self] error in
+                self?.requestData(true)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func requestAllCity() ->Observable<[HCAllCityItemModel]> {
+        return HCProvider.request(.allCity)
+            .map(models: HCAllCityItemModel.self)
+            .asObservable()
     }
 }

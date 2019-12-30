@@ -13,12 +13,15 @@ import RxSwift
 class HCLocationManager: NSObject {
 
     private var locationManager: CLLocationManager!
+    private var geocoder: CLGeocoder!
     
     public let locationSubject = PublishSubject<CLLocation?>()
-    
+    public let addressSubject = PublishSubject<([AnyHashable : Any]?, String?)>()
+
     override init() {
         super.init()
         locationManager = CLLocationManager.init()
+        geocoder = CLGeocoder.init()
         
         reLocationAction()
     }
@@ -66,9 +69,31 @@ extension HCLocationManager: CLLocationManagerDelegate {
         let location = thelocations.lastObject as! CLLocation
         locationManager.stopUpdatingLocation()
         
+        getAddress(for: location.coordinate.longitude, latitude: location.coordinate.latitude)
+        
         locationSubject.onNext(location)
     }
 
 }
 
+extension HCLocationManager {
+    
+    private func getAddress(for longitude: CLLocationDegrees, latitude: CLLocationDegrees) {
+        let locations = CLLocation.init(latitude: latitude, longitude: longitude)
+        geocoder.reverseGeocodeLocation(locations) { [weak self] (placemarks, error) in
+            if error == nil {
+                if let placemark = placemarks?.first, let city = placemark.addressDictionary?["City"] as? String {
+                    PrintLog(placemark.addressDictionary)
 
+                    var resultCity: NSString = city as NSString
+                    if city.contains("市") {
+                        resultCity = resultCity.replacingOccurrences(of: "市", with: "") as NSString
+                    }
+                    self?.addressSubject.onNext((placemark.addressDictionary, resultCity as String))
+                }
+            }else {
+                self?.addressSubject.onError(error!)
+            }
+        }
+    }
+}

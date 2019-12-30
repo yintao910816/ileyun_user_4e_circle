@@ -163,7 +163,7 @@ enum API{
     /// 首页好孕课堂
     case allChannelArticle(cmsType: HCWebCmsType, pageNum: Int, pageSize: Int)
     /// 名医推荐
-    case recommendDoctor(areaCode: Int)
+    case recommendDoctor(areaCode: String)
     /// 课堂
     case column(cmsType: HCWebCmsType)
     /// 栏目文章列表

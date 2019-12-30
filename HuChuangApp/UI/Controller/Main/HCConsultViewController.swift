@@ -100,10 +100,11 @@ class HCConsultViewController: BaseViewController {
                 
         // 上下拉刷新绑定
         tableView.prepare(viewModel, showFooter: false)
-        tableView.headerRefreshing()
                 
         tableView.rx.setDelegate(self)
             .disposed(by: disposeBag)
+        
+        viewModel.reloadSubject.onNext(Void())
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
