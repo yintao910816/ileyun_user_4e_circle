@@ -64,6 +64,15 @@ public final class RequestLoadingPlugin: PluginType {
                 if code == RequestCode.invalid.rawValue && HCHelper.share.isPresentLogin == false {
                     HCHelper.presentLogin()
                 }
+
+//                switch (target as! API) {
+//                case .login(_):
+//                    HCHelper.share.loginInfo = (rdic["data"] as? [String : Any] ?? [:])
+//                    break
+//                default:
+//                    break
+//                }
+                
             } catch  {
                 PrintLogDetail(error)
             }

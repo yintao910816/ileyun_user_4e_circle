@@ -26,6 +26,7 @@ class HCHelper {
 
     public let userInfoHasReload = PublishSubject<HCUserModel>()
     public var userInfoModel: HCUserModel?
+    public var loginInfo: [String: Any] = [:]
     public var isPresentLogin: Bool = false
     
     class func presentLogin(presentVC: UIViewController? = nil, isPopToRoot: Bool = false, _ completion: (() ->())? = nil) {
