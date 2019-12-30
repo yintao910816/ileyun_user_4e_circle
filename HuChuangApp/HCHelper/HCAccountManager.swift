@@ -31,12 +31,11 @@ extension HCAccountManager {
     // 分享
     class func presentShare(thumbURL: Any, title: String, descr: String, webpageUrl: String) {
         let messageObject = UMSocialMessageObject.init()
-        let shareObject = UMShareWebpageObject.shareObject(withTitle: title, descr: descr, thumImage: thumbURL)
-        shareObject?.webpageUrl = webpageUrl
+        let shareObject = UMShareWebpageObject.shareObject(withTitle: title, descr: descr, thumImage: thumbURL)!
+        shareObject.webpageUrl = webpageUrl
         messageObject.shareObject = shareObject
         
-        PrintLog("分享链接：\(shareObject?.webpageUrl)")
-
+        PrintLog("分享链接：\(shareObject.webpageUrl)")
     UMSocialUIManager.setPreDefinePlatforms([NSNumber(integerLiteral:UMSocialPlatformType.wechatSession.rawValue),NSNumber(integerLiteral:UMSocialPlatformType.wechatTimeLine.rawValue)])
 
         UMSocialUIManager.showShareMenuViewInWindow { (platformType, info) in
@@ -57,7 +56,8 @@ extension HCAccountManager {
     
     /// 拼接医生主页分享链接
     class func doctorHomeLink(forShare userId: String) ->String {
-        return "\(APIAssistance.baseH5Host)?from=groupmessage#/\(H5Type.doctorHome)?userId=\(userId)&share=1"
+        let urlString = "\(APIAssistance.baseH5Host)?from=groupmessage#/\(H5Type.doctorHome)?userId=\(userId)&share=1"
+        return urlString
     }
     /// 拼接文章分享链接
     class func articleLink(forUrl url: String) ->String {
