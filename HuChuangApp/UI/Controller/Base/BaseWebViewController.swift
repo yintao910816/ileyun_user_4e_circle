@@ -182,13 +182,14 @@ extension BaseWebViewController: UIWebViewDelegate{
 
         // 设置标题
         let changeTitle: @convention(block) () ->() = {[weak self] in
+            guard let params = JSContext.currentArguments() else { return }
+            PrintLog("h5 调用 - changeTitle")
+            
             DispatchQueue.main.async {
-                guard let params = JSContext.currentArguments() else { return }
-                PrintLog("h5 调用 - changeTitle")
-
                 for idx in 0..<params.count {
                     if idx == 0 {
                         let _title = ((params[0] as AnyObject).toString()) ?? ""
+                        PrintLog("h5 调用 - changeTitle -- \(_title)")
                         self?.navigationItem.title = _title
                     }
                 }
