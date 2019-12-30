@@ -295,6 +295,8 @@
 		B879A060221AF0B200E573C9 /* MineFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B879A05F221AF0B200E573C9 /* MineFooterView.swift */; };
 		B879A062221AF0BB00E573C9 /* MineFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B879A061221AF0BB00E573C9 /* MineFooterView.xib */; };
 		B8891A4623038DAB00950D5C /* ConsultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8891A4523038DAB00950D5C /* ConsultViewModel.swift */; };
+		B890693823BA40D2001D3FE9 /* HCDoctorHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890693723BA40D2001D3FE9 /* HCDoctorHomeController.swift */; };
+		B890693A23BA4262001D3FE9 /* HCDoctorHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B890693923BA4262001D3FE9 /* HCDoctorHomeViewModel.swift */; };
 		B892FF9423AB52CD00A137C0 /* HCArticleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B892FF9323AB52CD00A137C0 /* HCArticleDetailViewController.swift */; };
 		B892FF9623AB530D00A137C0 /* HCArticleDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B892FF9523AB530D00A137C0 /* HCArticleDetailViewModel.swift */; };
 		B892FF9823AB556D00A137C0 /* HCArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B892FF9723AB556D00A137C0 /* HCArticle.swift */; };
@@ -1026,6 +1028,8 @@
 		B879A05F221AF0B200E573C9 /* MineFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineFooterView.swift; sourceTree = "<group>"; };
 		B879A061221AF0BB00E573C9 /* MineFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MineFooterView.xib; sourceTree = "<group>"; };
 		B8891A4523038DAB00950D5C /* ConsultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultViewModel.swift; sourceTree = "<group>"; };
+		B890693723BA40D2001D3FE9 /* HCDoctorHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCDoctorHomeController.swift; sourceTree = "<group>"; };
+		B890693923BA4262001D3FE9 /* HCDoctorHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCDoctorHomeViewModel.swift; sourceTree = "<group>"; };
 		B892FF9323AB52CD00A137C0 /* HCArticleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCArticleDetailViewController.swift; sourceTree = "<group>"; };
 		B892FF9523AB530D00A137C0 /* HCArticleDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCArticleDetailViewModel.swift; sourceTree = "<group>"; };
 		B892FF9723AB556D00A137C0 /* HCArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCArticle.swift; sourceTree = "<group>"; };
@@ -2482,6 +2486,7 @@
 				B8FC3F862396D74D006EB478 /* HCDoctorInfoViewModel.swift */,
 				B8FC3F8A239AA0C5006EB478 /* HCSettingViewModel.swift */,
 				B892FF9523AB530D00A137C0 /* HCArticleDetailViewModel.swift */,
+				B890693923BA4262001D3FE9 /* HCDoctorHomeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2642,6 +2647,7 @@
 				B870E544238EE0570085AFA3 /* HCExpertConsultViewController.swift */,
 				B8D4D47A2394258C00AA3D52 /* HCPicAndTextAskViewController.swift */,
 				B8DE28272396CB1000D5046D /* HCDoctorInfoViewController.swift */,
+				B890693723BA40D2001D3FE9 /* HCDoctorHomeController.swift */,
 			);
 			path = Consult;
 			sourceTree = "<group>";
@@ -2815,6 +2821,7 @@
 				C42132E822054462006C10C4 /* Frameworks */,
 				C42132E922054462006C10C4 /* Resources */,
 				67F7665EA12AB2ECFBF524D0 /* [CP] Embed Pods Frameworks */,
+				5B1BA44F0E100965C3ACE7D8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2908,6 +2915,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		5B1BA44F0E100965C3ACE7D8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HuChuangApp/Pods-HuChuangApp-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HuChuangApp/Pods-HuChuangApp-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HuChuangApp/Pods-HuChuangApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		61B47AD9E1830680BA849922 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3310,8 +3334,10 @@
 				B816EACA221DABF400F024D5 /* ZXPDF417ErrorCorrection.m in Sources */,
 				B816EB1E221DABF400F024D5 /* ZXRSSUtils.m in Sources */,
 				B816EA86221DABF400F024D5 /* ZXDecodeHints.m in Sources */,
+				B890693823BA40D2001D3FE9 /* HCDoctorHomeController.swift in Sources */,
 				C4C8EB3F235175660054A295 /* HCHomePreparePregnantInfoCell.swift in Sources */,
 				B816EAB2221DABF400F024D5 /* ZXDetectorResult.m in Sources */,
+				B890693A23BA4262001D3FE9 /* HCDoctorHomeViewModel.swift in Sources */,
 				C4C3257B2205B8490091783C /* ScrollTextView.swift in Sources */,
 				C497E9682344658D00328B47 /* HCHome.swift in Sources */,
 				C42133592205883D006C10C4 /* PageModel.swift in Sources */,

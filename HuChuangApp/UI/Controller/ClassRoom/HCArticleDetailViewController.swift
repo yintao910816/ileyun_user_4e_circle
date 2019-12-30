@@ -11,7 +11,7 @@ import UIKit
 class HCArticleDetailViewController: BaseWebViewController {
 
     private var viewModel: HCArticleDetailViewModel!
-    private var articleID: String!
+    private var articleModel: HCArticleItemModel!
     
     private var storeButton: UIButton!
     private var shareButton: UIButton!
@@ -42,10 +42,8 @@ class HCArticleDetailViewController: BaseWebViewController {
         shareButton.setImage(UIImage(named: "button_share"), for: .normal)
         shareButton.sizeToFit()
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: storeButton)
-
-//        navigationItem.rightBarButtonItems = [UIBarButtonItem.init(customView: shareButton),
-//                                              UIBarButtonItem.init(customView: storeButton)]
+        navigationItem.rightBarButtonItems = [UIBarButtonItem.init(customView: shareButton),
+                                              UIBarButtonItem.init(customView: storeButton)]
     }
     
     override func rxBind() {
@@ -54,7 +52,7 @@ class HCArticleDetailViewController: BaseWebViewController {
         let storeDriver = storeButton.rx.tap.asDriver()
             .map{ [unowned self] in !self.storeButton.isSelected }
         
-        viewModel = HCArticleDetailViewModel.init(articleId: articleID,
+        viewModel = HCArticleDetailViewModel.init(articleModel: articleModel,
                                                   tap: (storeDriver: storeDriver,
                                                         shareDriver: shareButton.rx.tap.asDriver()))
         
@@ -74,15 +72,15 @@ class HCArticleDetailViewController: BaseWebViewController {
     }
     
     override func prepare(parameters: [String : Any]?) {
-        super.prepare(parameters: parameters)
-        
-       articleID = (parameters!["id"] as! String)
+        articleModel = (parameters!["model"] as! HCArticleItemModel)
+
+        super.prepare(parameters: ["url": articleModel.hrefUrl])
     }
 }
 
 extension HCArticleDetailViewController {
     
-    public class func preprare(url: String, articleID: String) ->[String: String] {
-        return ["url": url, "id": articleID]
+    public class func preprare(model: HCArticleItemModel) ->[String: HCArticleItemModel] {
+        return ["model": model]
     }
 }

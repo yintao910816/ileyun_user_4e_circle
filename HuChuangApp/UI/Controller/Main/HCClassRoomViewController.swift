@@ -41,7 +41,7 @@ class HCClassRoomViewController: BaseViewController {
                     ctrl.bind(viewModel: strongSelf.viewModel, canRefresh: true, canLoadMore: true, isAddNoMoreContent: false)
                     ctrl.didSelectedCallBack = { [weak self] in
                         let ctrl = HCArticleDetailViewController()
-                        ctrl.prepare(parameters: HCArticleDetailViewController.preprare(url: $0.hrefUrl, articleID: $0.id))
+                        ctrl.prepare(parameters: HCArticleDetailViewController.preprare(model: $0))
                         self?.navigationController?.pushViewController(ctrl, animated: true)
                     }
                     

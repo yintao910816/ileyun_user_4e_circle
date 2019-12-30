@@ -21,5 +21,5 @@ let HC_MAIN_COLOR = RGB(253, 119, 146)
 let weixinAppid = "wx870ac6243698c3f6"
 let weixinSecret = "a570e4ced87a8c3564217b3e8159d4f6"
 
-// 老版爱乐孕 appid
-let old_ileyun_appid: String = "1241588748"
+// 爱乐孕 appid
+let ileyun_appid: String = "1241588748"

@@ -34,7 +34,16 @@ class MineViewModel: BaseViewModel, VMNavigation {
             .disposed(by: disposeBag)
 
         cellDidSelectedSubject
-            .subscribe(onNext: { HCHelper.pushLocalH5(type: $0.h5Type) })
+            .subscribe(onNext: {
+                if $0.h5Type == .share {
+                    HCAccountManager.presentShare(thumbURL: UIImage(named: "app_icon")!,
+                                                  title: "爱乐孕",
+                                                  descr: "您的好孕帮手",
+                                                  webpageUrl: HCAccountManager.appstoreURL())
+                }else {
+                    HCHelper.pushLocalH5(type: $0.h5Type)
+                }
+            })
             .disposed(by: disposeBag)
 
         HCHelper.share.userInfoHasReload
@@ -73,7 +82,10 @@ class MineViewModel: BaseViewModel, VMNavigation {
                                                                                           h5Type: .feedback),
                                                             MenuListItemModel.createModel(titleIcon: "yijianfankui",
                                                                                           title: "帮助中心",
-                                                                                          h5Type: .helpCenter)])]
+                                                                                          h5Type: .helpCenter),
+                                                            MenuListItemModel.createModel(titleIcon: "my_icon_recommend",
+                                                                                          title: "推荐给爱乐孕好友",
+                                                                                          h5Type: .share)])]
         
         datasource.onNext(dataList)
         

@@ -39,6 +39,9 @@ PODS:
     - UMCCommon
     - UMCShare/Core
     - UMCShare/Social/ReducedWeChat
+  - UMCShare/UI (6.9.6):
+    - UMCCommon
+    - UMCShare/Core
   - WebViewJavascriptBridge (6.0.3)
 
 DEPENDENCIES:
@@ -56,6 +59,7 @@ DEPENDENCIES:
   - UMCPush
   - UMCSecurityPlugins
   - UMCShare/Social/WeChat
+  - UMCShare/UI
   - WebViewJavascriptBridge
 
 SPEC REPOS:
@@ -102,6 +106,6 @@ SPEC CHECKSUMS:
   UMCShare: e0cef55c0fd6051254c8cda1d0630eb578b27bad
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
 
-PODFILE CHECKSUM: 1964fc79ce94956bce4527f2f59b8983a5fbc7b5
+PODFILE CHECKSUM: 28f10e9cf7f514b0715a01fee9281910b4b652fc
 
 COCOAPODS: 1.8.3

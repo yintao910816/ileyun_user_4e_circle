@@ -12,16 +12,16 @@ import RxCocoa
 
 class HCArticleDetailViewModel: BaseViewModel {
     
-    private var articleId: String = ""
+    private var articleModel: HCArticleItemModel!
     
     public let articleStatusObser = Variable(HCStoreAndStatusModel())
     public let storeEnable = Variable(false)
 
-    init(articleId: String,
+    init(articleModel: HCArticleItemModel,
          tap:(storeDriver: Driver<Bool>, shareDriver: Driver<Void>)) {
         super.init()
         
-        self.articleId = articleId
+        self.articleModel = articleModel
         
         reloadSubject
             .subscribe(onNext: { [weak self] _ in
@@ -36,10 +36,20 @@ class HCArticleDetailViewModel: BaseViewModel {
                 self.postChangeStatus(status: $0)
             })
             .disposed(by: disposeBag)
+        
+        tap.shareDriver
+            .drive(onNext: { [unowned self] in
+                let link = HCAccountManager.articleLink(forUrl: self.articleModel.hrefUrl)
+                HCAccountManager.presentShare(thumbURL: self.articleModel.picPath,
+                                              title: "您的孕期好帮手",
+                                              descr: self.articleModel.title,
+                                              webpageUrl: link)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func requestArticleStatus() {
-        HCProvider.request(.storeAndStatus(articleId: articleId))
+        HCProvider.request(.storeAndStatus(articleId: articleModel.id))
             .map(model: HCStoreAndStatusModel.self)
             .asObservable()
             .do(onNext: { [weak self] _ in self?.storeEnable.value = true })
@@ -49,7 +59,7 @@ class HCArticleDetailViewModel: BaseViewModel {
     }
     
     private func postChangeStatus(status: Bool) {
-        HCProvider.request(.articelStore(articleId: articleId, status: status))
+        HCProvider.request(.articelStore(articleId: articleModel.id, status: status))
             .mapResponse()
             .subscribe(onSuccess: { [weak self] data in
                 guard let strongSelf = self else { return }

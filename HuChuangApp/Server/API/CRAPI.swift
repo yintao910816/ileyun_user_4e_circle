@@ -79,9 +79,14 @@ enum H5Type: String {
     case csRecord = "CsRecord"
     /// 我的医生
     case myDoctor = "myDoctor"
+    /// 分享app给好友
+    case share = "share"
         
-    func getLocalUrl() ->String {
-        return "\(APIAssistance.baseH5Host)#/\(rawValue)?token=\(userDefault.token)"
+    func getLocalUrl(needToken: Bool = true) ->String {
+        if needToken {
+            return "\(APIAssistance.baseH5Host)#/\(rawValue)?token=\(userDefault.token)"
+        }
+        return "\(APIAssistance.baseH5Host)#/\(rawValue)"
 //        switch self {
 //        case .healthRecordsUser:
 //            return "\(APIAssistance.baseH5Host)#/HealthRecords"

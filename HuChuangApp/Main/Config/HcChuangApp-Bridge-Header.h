@@ -22,5 +22,6 @@
 #import <UMAnalytics/MobClick.h>
 #import <UMShare/UMShare.h>
 #import "WXApi.h"
+#import <UShareUI/UShareUI.h>
 
 #endif /* HcChuangApp_Bridge_Header_h */

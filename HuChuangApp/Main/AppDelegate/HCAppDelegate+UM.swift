@@ -238,6 +238,11 @@ extension HCAppDelegate: WXApiDelegate {
                                               appKey: weixinAppid,
                                               appSecret: weixinSecret,
                                               redirectURL: "http://mobile.umeng.com/social")
+        
+        UMSocialManager.default()?.setPlaform(.wechatTimeLine,
+                                              appKey: weixinAppid,
+                                              appSecret: weixinSecret,
+                                              redirectURL: "http://mobile.umeng.com/social")
     }
     
     func onReq(_ req: BaseReq!) {

@@ -91,7 +91,10 @@ class HCConsultViewController: BaseViewController {
             .asDriver()
             .drive(onNext: {
 //                self.performSegue(withIdentifier: "doctorInfoSegue", sender: $0)
-                HCHelper.pushH5(href: "\(H5Type.doctorHome.getLocalUrl())&userId=\($0.userId)")
+//                HCHelper.pushH5(href: "\(H5Type.doctorHome.getLocalUrl())&userId=\($0.userId)")
+                let ctrl = HCDoctorHomeController()
+                ctrl.prepare(parameters: HCDoctorHomeController.preprare(model: $0))
+                self.navigationController?.pushViewController(ctrl, animated: true)
             })
             .disposed(by: disposeBag)
                 

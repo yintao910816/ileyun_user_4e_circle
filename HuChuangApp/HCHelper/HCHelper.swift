@@ -145,7 +145,7 @@ extension HCHelper {
     
     /// 跳转到老版本爱乐孕
     class func openOldAleYun() {
-        let urlStr = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=\(old_ileyun_appid)"
+        let urlStr = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=\(ileyun_appid)"
         guard let url = URL(string: urlStr)  else {
             NoticesCenter.alert(message: "跳转失败！")
             return
