@@ -16,6 +16,8 @@ let kLoginPhone       = "loginPhone"
 let kUnitId           = "unitId"
 
 let kunitIdNoEmpty    = "unitIdNoEmpty"
+/// 登录成功字典信息转成的json字符串
+let kLoginInfoString         = "loginInfoString"
 
 /**
  * 是否加载引导界面

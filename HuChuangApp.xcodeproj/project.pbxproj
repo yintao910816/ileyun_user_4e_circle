@@ -329,6 +329,7 @@
 		B8BE351922147B4000EF16F1 /* HCEditSynopsisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE351822147B4000EF16F1 /* HCEditSynopsisViewController.swift */; };
 		B8BE351B22147DE500EF16F1 /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE351A22147DE500EF16F1 /* EditViewModel.swift */; };
 		B8BE351D221484C600EF16F1 /* UINavigationController+BarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE351C221484C600EF16F1 /* UINavigationController+BarButtonItem.swift */; };
+		B8BE603323BB4C4D00EC0027 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE603223BB4C4D00EC0027 /* Dictionary+Extension.swift */; };
 		B8C31DCC2396CF39003754A6 /* HCDoctorInfoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8C31DCB2396CF39003754A6 /* HCDoctorInfoHeaderView.xib */; };
 		B8CD926523A2964800C9C061 /* HCRecordUserInfoReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CD926323A2964800C9C061 /* HCRecordUserInfoReusableView.swift */; };
 		B8CD926623A2964800C9C061 /* HCRecordUserInfoReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8CD926423A2964800C9C061 /* HCRecordUserInfoReusableView.xib */; };
@@ -1062,6 +1063,7 @@
 		B8BE351822147B4000EF16F1 /* HCEditSynopsisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEditSynopsisViewController.swift; sourceTree = "<group>"; };
 		B8BE351A22147DE500EF16F1 /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
 		B8BE351C221484C600EF16F1 /* UINavigationController+BarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationController+BarButtonItem.swift"; sourceTree = "<group>"; };
+		B8BE603223BB4C4D00EC0027 /* Dictionary+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
 		B8C31DCB2396CF39003754A6 /* HCDoctorInfoHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HCDoctorInfoHeaderView.xib; sourceTree = "<group>"; };
 		B8CD926323A2964800C9C061 /* HCRecordUserInfoReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRecordUserInfoReusableView.swift; sourceTree = "<group>"; };
 		B8CD926423A2964800C9C061 /* HCRecordUserInfoReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HCRecordUserInfoReusableView.xib; sourceTree = "<group>"; };
@@ -2446,6 +2448,7 @@
 				C421333322056FB8006C10C4 /* UIDevice+Extension.swift */,
 				C421333122056F96006C10C4 /* UIKit+Extension.swift */,
 				C4213335220570B6006C10C4 /* UIView+Frame.swift */,
+				B8BE603223BB4C4D00EC0027 /* Dictionary+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -3357,6 +3360,7 @@
 				B816EA9B221DABF400F024D5 /* ZXQRCodeMatrixUtil.m in Sources */,
 				B816EA98221DABF400F024D5 /* ZXQRCodeMaskUtil.m in Sources */,
 				C44C8B2F23A72FC4009E2226 /* HCBindPhoneViewController.swift in Sources */,
+				B8BE603323BB4C4D00EC0027 /* Dictionary+Extension.swift in Sources */,
 				B816EAFC221DABF400F024D5 /* ZXEAN8Reader.m in Sources */,
 				B8BE1AED23A7E92F00DF472A /* HCSearchHeaderView.swift in Sources */,
 				B816EA74221DABF400F024D5 /* LBXScanViewController.m in Sources */,
@@ -3570,7 +3574,7 @@
 				CODE_SIGN_ENTITLEMENTS = HuChuangApp/HuChuangApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 1.2;
 				DEVELOPMENT_TEAM = GMPPSEQW73;
 				INFOPLIST_FILE = HuChuangApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -3596,7 +3600,7 @@
 				CODE_SIGN_ENTITLEMENTS = HuChuangApp/HuChuangApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 1.2;
 				DEVELOPMENT_TEAM = GMPPSEQW73;
 				INFOPLIST_FILE = HuChuangApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

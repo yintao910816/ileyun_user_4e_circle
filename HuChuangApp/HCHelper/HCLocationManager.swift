@@ -16,7 +16,7 @@ class HCLocationManager: NSObject {
     private var geocoder: CLGeocoder!
     
     public let locationSubject = PublishSubject<CLLocation?>()
-    public let addressSubject = PublishSubject<([AnyHashable : Any]?, String?)>()
+    public let addressSubject = PublishSubject<([AnyHashable : Any]?, String?, CLLocationCoordinate2D)>()
 
     override init() {
         super.init()
@@ -69,7 +69,7 @@ extension HCLocationManager: CLLocationManagerDelegate {
         let location = thelocations.lastObject as! CLLocation
         locationManager.stopUpdatingLocation()
         
-        getAddress(for: location.coordinate.longitude, latitude: location.coordinate.latitude)
+        getAddress(for: location.coordinate)
         
         locationSubject.onNext(location)
     }
@@ -78,8 +78,8 @@ extension HCLocationManager: CLLocationManagerDelegate {
 
 extension HCLocationManager {
     
-    private func getAddress(for longitude: CLLocationDegrees, latitude: CLLocationDegrees) {
-        let locations = CLLocation.init(latitude: latitude, longitude: longitude)
+    private func getAddress(for coor: CLLocationCoordinate2D) {
+        let locations = CLLocation.init(latitude: coor.latitude, longitude: coor.longitude)
         geocoder.reverseGeocodeLocation(locations) { [weak self] (placemarks, error) in
             if error == nil {
                 if let placemark = placemarks?.first, let city = placemark.addressDictionary?["City"] as? String {
@@ -89,7 +89,7 @@ extension HCLocationManager {
                     if city.contains("市") {
                         resultCity = resultCity.replacingOccurrences(of: "市", with: "") as NSString
                     }
-                    self?.addressSubject.onNext((placemark.addressDictionary, resultCity as String))
+                    self?.addressSubject.onNext((placemark.addressDictionary, resultCity as String, coor))
                 }
             }else {
                 self?.addressSubject.onError(error!)

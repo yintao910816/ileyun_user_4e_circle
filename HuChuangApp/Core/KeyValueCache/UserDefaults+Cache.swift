@@ -82,6 +82,20 @@ extension UserDefaults{
             synchronize()
         }
     }
+    
+    var loginInfoString: String {
+        get {
+            guard let string = (object(forKey: kLoginInfoString) as? String) else {
+                return ""
+            }
+            
+            return string
+        }
+        set{
+            set(newValue, forKey: kLoginInfoString)
+            synchronize()
+        }
+    }
 
     var lanuchStatue: String {
         get {

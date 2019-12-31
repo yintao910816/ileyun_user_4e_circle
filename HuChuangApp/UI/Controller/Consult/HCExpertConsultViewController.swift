@@ -108,7 +108,7 @@ class HCExpertConsultViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         // 上下拉刷新绑定
-        tableView.prepare(viewModel, showFooter: false)
+        tableView.prepare(viewModel, showFooter: true)
         tableView.headerRefreshing()
         
         viewModel.allCitysDataObser.asDriver()

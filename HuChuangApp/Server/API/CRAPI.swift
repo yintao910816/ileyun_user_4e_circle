@@ -163,7 +163,7 @@ enum API{
     /// 首页好孕课堂
     case allChannelArticle(cmsType: HCWebCmsType, pageNum: Int, pageSize: Int)
     /// 名医推荐
-    case recommendDoctor(areaCode: String)
+    case recommendDoctor(areaCode: String, lat: String, lng: String)
     /// 课堂
     case column(cmsType: HCWebCmsType)
     /// 栏目文章列表
@@ -376,8 +376,10 @@ extension API {
             params["cmsCode"] = articleType.rawValue
             params["pageNum"] = pageNum
             params["pageSize"] = pageSize
-        case .recommendDoctor(let areaCode):
+        case .recommendDoctor(let areaCode, let lat, let lng):
             params["areaCode"] = areaCode
+            params["lat"] = lat
+            params["lng"] = lng
         case .column(let cmsType):
             params["cmsCode"] = cmsType.rawValue
         case .articlePage(let id, let pageNum, let pageSize):

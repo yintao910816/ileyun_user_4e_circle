@@ -11,7 +11,9 @@ import RxSwift
 
 class ConsultViewModel: RefreshVM<HCDoctorItemModel> {
     
-    private var areaCode: String = "2700"
+    private var areaCode: String = ""
+    private var lat: String = ""
+    private var lng: String = ""
     
     let webRefreshSubject = PublishSubject<String>()
     
@@ -31,7 +33,7 @@ class ConsultViewModel: RefreshVM<HCDoctorItemModel> {
     override func requestData(_ refresh: Bool) {
         super.requestData(refresh)
         
-        HCProvider.request(.recommendDoctor(areaCode: areaCode))
+        HCProvider.request(.recommendDoctor(areaCode: areaCode, lat: lat, lng: lng))
             .map(models: HCDoctorItemModel.self)
             .subscribe(onSuccess: { [weak self] data in
                 self?.hud.noticeHidden()

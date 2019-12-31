@@ -65,13 +65,14 @@ public final class RequestLoadingPlugin: PluginType {
                     HCHelper.presentLogin()
                 }
 
-//                switch (target as! API) {
-//                case .login(_):
-//                    HCHelper.share.loginInfo = (rdic["data"] as? [String : Any] ?? [:])
-//                    break
-//                default:
-//                    break
-//                }
+                switch (target as! API) {
+                case .login(_), .selectInfo:
+                    let infoDic = (rdic["data"] as? [String : Any] ?? [:])
+                    userDefault.loginInfoString = infoDic.getJSONString()
+                    break
+                default:
+                    break
+                }
                 
             } catch  {
                 PrintLogDetail(error)

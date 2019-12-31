@@ -225,6 +225,10 @@ extension HomeViewModel {
         }else {
             link += "&token=\(userDefault.token)&unitId=\(userDefault.unitIdNoEmpty)"
         }
+        
+        let urlLink = userDefault.loginInfoString.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        link += "&userInfo=\(urlLink!)"
+        
         PrintLog("h5拼接后地址：\(link)")
         
         HomeViewModel.push(BaseWebViewController.self, ["url": link])

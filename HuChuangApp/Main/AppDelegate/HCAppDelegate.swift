@@ -8,6 +8,7 @@
 
 import UIKit
 import StoreKit
+import RxSwift
 
 @UIApplicationMain
 class HCAppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,8 @@ class HCAppDelegate: UIResponder, UIApplicationDelegate {
     public var isAuthorizedPush: Bool = false
     
     public var allowRotation: Bool = false
+    
+    private var disposeBag = DisposeBag()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
@@ -33,6 +36,17 @@ class HCAppDelegate: UIResponder, UIApplicationDelegate {
         
         if #available(iOS 13.0, *) {
             window?.overrideUserInterfaceStyle = .light
+        }
+        
+        if userDefault.loginInfoString.count == 0 {
+            HCProvider.request(.selectInfo)
+                .map(model: HCUserModel.self)
+                .subscribe(onSuccess: { user in
+                    HCHelper.saveLogin(user: user)
+                }) { error in
+                    PrintLog(error)
+                }
+                .disposed(by: disposeBag)
         }
         
 //        if userDefault.lanuchStatue != vLaunch { AppLaunchView().show() }
