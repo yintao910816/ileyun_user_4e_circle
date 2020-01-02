@@ -51,9 +51,18 @@ class BaseNavigationController: UINavigationController {
         if self.children.count > 0
         { // 非根控制器
             viewController.hidesBottomBarWhenPushed = true
+            var backImage = UIImage(named: HCBackItemInterface.white.rawValue)
+            if viewController.isKind(of: HCArticleDetailViewController.self) || viewController.isKind(of: HCDoctorHomeController.self) {
+                backImage = UIImage(named: HCBackItemInterface.red.rawValue)
+                navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white,
+                                                     NSAttributedString.Key.font : UIFont.font(fontSize: 18, fontName: .PingFRegular)]
+            }else {
+                navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : RGB(51, 51, 51),
+                                                     NSAttributedString.Key.font : UIFont.font(fontSize: 18, fontName: .PingFRegular)]
+            }
             
             let backButton : UIButton = UIButton(type : .system)
-            backButton.setImage(UIImage(named :backItemInterface.rawValue)?.withRenderingMode(.alwaysOriginal), for: .normal)
+            backButton.setImage(backImage?.withRenderingMode(.alwaysOriginal), for: .normal)
             backButton.addTarget(self, action :#selector(backAction), for: .touchUpInside)
             backButton.sizeToFit()
             viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(customView:backButton)

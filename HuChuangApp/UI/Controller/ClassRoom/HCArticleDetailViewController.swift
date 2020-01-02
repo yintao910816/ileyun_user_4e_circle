@@ -30,6 +30,8 @@ class HCArticleDetailViewController: BaseWebViewController {
     override func setupUI() {
         super.setupUI()
         
+        title = articleModel.title
+        
         storeButton = UIButton()
         storeButton.setImage(UIImage(named: "button_collect_sel"), for: .selected)
         storeButton.setImage(UIImage(named: "button_collect_unsel"), for: .normal)
