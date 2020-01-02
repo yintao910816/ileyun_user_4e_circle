@@ -63,7 +63,8 @@ class EditUserIconViewModel: BaseViewModel {
                                         "sex": "\(user.sex)",
                                         "headPath": iconPath,
                                         "synopsis": user.synopsis,
-                                        "birthday": user.birthday]
+                                        "birthday": user.birthday,
+                                        "areaCode": user.areaCode]
         
         return HCProvider.request(.updateInfo(param: params))
             .map(model: HCUserModel.self)
@@ -104,7 +105,8 @@ class EditNickNameViewModel: BaseViewModel {
                                         "sex": "\(user.sex)",
                                         "headPath": user.headPath,
                                         "synopsis": user.synopsis,
-                                        "birthday": user.birthday]
+                                        "birthday": user.birthday,
+                                        "areaCode": user.areaCode]
 
         HCProvider.request(.updateInfo(param: params))
             .map(model: HCUserModel.self)
@@ -156,7 +158,8 @@ class EditSexViewModel: BaseViewModel {
                                         "sex": sex == "男" ? "1" : "2",
                                         "headPath": user.headPath,
                                         "synopsis": user.synopsis,
-                                        "birthday": user.birthday]
+                                        "birthday": user.birthday,
+                                        "areaCode": user.areaCode]
         HCProvider.request(.updateInfo(param: params))
             .map(model: HCUserModel.self)
             .subscribe(onSuccess: { [weak self] user in
@@ -203,7 +206,8 @@ class EditBirthdayViewModel: BaseViewModel {
                                         "sex": "\(user.sex)",
                                         "headPath": user.headPath,
                                         "synopsis": user.synopsis,
-                                        "birthday": birthday]
+                                        "birthday": birthday,
+                                        "areaCode": user.areaCode]
         HCProvider.request(.updateInfo(param: params))
             .map(model: HCUserModel.self)
             .subscribe(onSuccess: { [weak self] user in
@@ -250,7 +254,8 @@ class EditSynopsisViewModel: BaseViewModel {
                                         "sex": "\(user.sex)",
                                         "headPath": user.headPath,
                                         "synopsis": synopsis,
-                                        "birthday": user.birthday]
+                                        "birthday": user.birthday,
+                                        "areaCode": user.areaCode]
         HCProvider.request(.updateInfo(param: params))
             .map(model: HCUserModel.self)
             .subscribe(onSuccess: { [weak self] user in

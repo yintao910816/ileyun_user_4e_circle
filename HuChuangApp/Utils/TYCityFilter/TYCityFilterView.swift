@@ -133,8 +133,8 @@ extension TYCityFilterView: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-private let TYCityCell_identifier = "TYCityCell"
-private let TYCityCell_height: CGFloat = 45
+public let TYCityCell_identifier = "TYCityCell"
+public let TYCityCell_height: CGFloat = 45
 
 class TYCityCell: UITableViewCell {
     

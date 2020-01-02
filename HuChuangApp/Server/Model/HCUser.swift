@@ -53,7 +53,9 @@ class HCUserModel: HJModel {
     var enable: Bool = false
     var bind: Bool = false
     var soldier: Bool = false
-
+    var cityName: String = ""
+    var areaCode: String = ""
+    
     var sexText: String {
         get { return sex == 1 ? "男" : "女" }
     }

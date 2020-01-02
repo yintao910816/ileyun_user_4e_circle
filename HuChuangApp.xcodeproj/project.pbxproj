@@ -265,6 +265,8 @@
 		B8508EAE23422052008C24BA /* HCListButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8508EAD23422052008C24BA /* HCListButtonCell.swift */; };
 		B8508EB0234250CF008C24BA /* HCListDetailNewTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8508EAF234250CF008C24BA /* HCListDetailNewTypeCell.swift */; };
 		B8508EB2234251D5008C24BA /* HCFindDoctorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8508EB1234251D5008C24BA /* HCFindDoctorViewModel.swift */; };
+		B85CD93323BE602E00B1A1C3 /* HCEditUserCityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85CD93223BE602E00B1A1C3 /* HCEditUserCityController.swift */; };
+		B85CD93523BE609A00B1A1C3 /* HCEditUserCityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85CD93423BE609A00B1A1C3 /* HCEditUserCityViewModel.swift */; };
 		B8688794235B842F00B9B10F /* HCRecordRemindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8688793235B842F00B9B10F /* HCRecordRemindView.swift */; };
 		B86993D32337395800086A77 /* TYButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86993D22337395800086A77 /* TYButton.swift */; };
 		B86993D623373A6500086A77 /* TYSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86993D523373A6500086A77 /* TYSearchBar.swift */; };
@@ -999,6 +1001,8 @@
 		B8508EAD23422052008C24BA /* HCListButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCListButtonCell.swift; sourceTree = "<group>"; };
 		B8508EAF234250CF008C24BA /* HCListDetailNewTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCListDetailNewTypeCell.swift; sourceTree = "<group>"; };
 		B8508EB1234251D5008C24BA /* HCFindDoctorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCFindDoctorViewModel.swift; sourceTree = "<group>"; };
+		B85CD93223BE602E00B1A1C3 /* HCEditUserCityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEditUserCityController.swift; sourceTree = "<group>"; };
+		B85CD93423BE609A00B1A1C3 /* HCEditUserCityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEditUserCityViewModel.swift; sourceTree = "<group>"; };
 		B8688793235B842F00B9B10F /* HCRecordRemindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRecordRemindView.swift; sourceTree = "<group>"; };
 		B86993D22337395800086A77 /* TYButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TYButton.swift; sourceTree = "<group>"; };
 		B86993D523373A6500086A77 /* TYSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSearchBar.swift; sourceTree = "<group>"; };
@@ -2200,6 +2204,7 @@
 				B8BE351622147B1E00EF16F1 /* HCEditBirthdayViewController.swift */,
 				B8BE351822147B4000EF16F1 /* HCEditSynopsisViewController.swift */,
 				B8FC3F88239A9FCE006EB478 /* HCSettingViewController.swift */,
+				B85CD93223BE602E00B1A1C3 /* HCEditUserCityController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -2490,6 +2495,7 @@
 				B8FC3F8A239AA0C5006EB478 /* HCSettingViewModel.swift */,
 				B892FF9523AB530D00A137C0 /* HCArticleDetailViewModel.swift */,
 				B890693923BA4262001D3FE9 /* HCDoctorHomeViewModel.swift */,
+				B85CD93423BE609A00B1A1C3 /* HCEditUserCityViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3137,6 +3143,7 @@
 				C42133582205883D006C10C4 /* BaseViewModel.swift in Sources */,
 				B816EAEC221DABF400F024D5 /* ZXDataMatrixHighLevelEncoder.m in Sources */,
 				B816EAFD221DABF400F024D5 /* ZXOneDReader.m in Sources */,
+				B85CD93523BE609A00B1A1C3 /* HCEditUserCityViewModel.swift in Sources */,
 				B8508EA623421700008C24BA /* DataModel.swift in Sources */,
 				B816EB11221DABF400F024D5 /* ZXRSSExpandedCurrentParsingState.m in Sources */,
 				B8D4D47D239426B400AA3D52 /* HCPicAndTextAskViewModel.swift in Sources */,
@@ -3216,6 +3223,7 @@
 				B870E53F238C34AB0085AFA3 /* HCHealthyArchivesHeaderTitleView.swift in Sources */,
 				C497E965234462B600328B47 /* HCHomePregnancyClassroomCell.swift in Sources */,
 				C4F139C023541E5B00D777F6 /* TYDateFormatter.swift in Sources */,
+				B85CD93323BE602E00B1A1C3 /* HCEditUserCityController.swift in Sources */,
 				B826AF85221C7205000428C1 /* ArticleCell.swift in Sources */,
 				C497E9612344610500328B47 /* HCHomePregnancyClassroomReusableView.swift in Sources */,
 				B816EACC221DABF400F024D5 /* ZXPDF417Dimensions.m in Sources */,

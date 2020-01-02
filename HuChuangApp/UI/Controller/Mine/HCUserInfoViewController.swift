@@ -93,6 +93,12 @@ extension HCUserInfoViewController: UITableViewDelegate {
             performSegue(withIdentifier: cellModel.segue, sender: nil)
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "editUserCitySegue" {
+            let ctr = segue.destination as! HCEditUserCityController
+        }
+    }
 }
 
 extension HCUserInfoViewController {
