@@ -47,9 +47,9 @@ class TYFiliterSectionModel {
     public var datas: [TYFiliterModel] = []
     
     public class func createData() ->[TYFiliterSectionModel] {
-        let titles_1 = ["主任医师", "副主任医师", "主治医师", "护士长", "护士", "临床医生", "实验室主任", "实验室医师", "其它"]
+        let titles_1 = ["主任医师", "副主任医师", "主治医师"]
         let titles_2 = ["加号"]
-        let titles_3 = ["门诊建档咨询", "人工授精", "试管婴儿", "第二代试管(ICSI)", "第三代试管(PGD/PGS)", "输卵管堵塞", "男科"]
+        let titles_3 = ["人工授精", "试管婴儿", "输卵管堵塞", "卵巢早衰", "排卵障碍", "多囊卵巢", "促排卵治疗", "子宫内膜异常", "习惯性流产"]
 
         let section_1 = TYFiliterSectionModel()
         section_1.sectionTitle = "医生级别"
