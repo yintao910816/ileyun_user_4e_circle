@@ -42,6 +42,14 @@ class TYListMenuView: UIView {
         datasource = listData
         collectionView.reloadData()
     }
+    
+    // 选择城市修改标题
+    public func cityChange(title: String) {
+        if datasource.count > 0 {
+            datasource[0].title = title
+            collectionView.reloadData()
+        }
+    }
         
     private func setupUI() {
         let layout = UICollectionViewFlowLayout()
@@ -102,10 +110,10 @@ extension TYListMenuView: UICollectionViewDelegateFlowLayout, UICollectionViewDa
         if indexPath.row == 1 || indexPath.row == 2 {
             let resetIdx = indexPath.row == 1 ? 2 : 1
             datasource[resetIdx].isSelected = false
-            datasource[indexPath.row].isSelected = !datasource[indexPath.row].isSelected
+            datasource[indexPath.row].didClicked()
             selectedCallBack?(datasource[indexPath.row].isSelected ? TYListMenuViewType(rawValue: indexPath.row)! : .none)
         }else {
-            datasource[indexPath.row].didClicked(false)
+            datasource[indexPath.row].didClicked()
             if indexPath.row == 0 {
                 selectedCallBack?(.city)
             }else if indexPath.row == 3 {

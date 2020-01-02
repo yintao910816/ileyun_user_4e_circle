@@ -63,6 +63,7 @@ class HCExpertConsultViewController: BaseViewController {
         cityFilterView = TYCityFilterView.init(frame: view.bounds)
         view.insertSubview(cityFilterView, belowSubview: listMenuView)
         cityFilterView.didSelectedCallBack = { [weak self] in
+            self?.listMenuView.cityChange(title: $0.name)
             self?.viewModel.filiterCitySubject.onNext($0)
             self?.cityFilterView.excuteAnimotion(true)
         }
@@ -100,7 +101,9 @@ class HCExpertConsultViewController: BaseViewController {
         
         tableView.rx.modelSelected(HCDoctorItemModel.self)
             .subscribe(onNext: {
-                HCHelper.pushH5(href: "\(H5Type.doctorHome.getLocalUrl())&userId=\($0.userId)")
+                let ctrl = HCDoctorHomeController()
+                ctrl.prepare(parameters: HCDoctorHomeController.preprare(model: $0))
+                self.navigationController?.pushViewController(ctrl, animated: true)
             })
             .disposed(by: disposeBag)
 

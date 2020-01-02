@@ -13,7 +13,7 @@ class HCSearchPopularScienceViewController: HCSlideItemController {
     private var tableView: UITableView!
         
     private var datasource: [HCSearchArticleItemModel] = []
-    public var pushH5CallBack:((String)->())?
+    public var pushH5CallBack:((HCSearchArticleItemModel)->())?
 
     override func setupUI() {
         tableView = UITableView.init(frame: .zero, style: .plain)
@@ -61,6 +61,6 @@ extension HCSearchPopularScienceViewController: UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        pushH5CallBack?(datasource[indexPath.row].linkUrls)
+        pushH5CallBack?(datasource[indexPath.row])
     }
 }

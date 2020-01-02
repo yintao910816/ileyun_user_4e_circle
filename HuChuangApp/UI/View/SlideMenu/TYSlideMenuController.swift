@@ -43,7 +43,7 @@ class TYSlideMenuController: UIViewController {
         view.addSubview(pageCtrl.view)
     }
          
-    public func selectedPage(page: Int, needCallBack: Bool) {
+    public func selectedPage(page: Int, needCallBack: Bool, needMenuScroll: Bool = false) {
         if page == currentPage || page >= menuCtrls.count { return }
         
         pageCtrl.setViewControllers([menuCtrls[page]],
@@ -55,6 +55,10 @@ class TYSlideMenuController: UIViewController {
         if needCallBack {
             pageScroll?(page)
             pageScrollSubject.onNext(page)
+        }
+        
+        if needMenuScroll {
+            headerMenu.setMenu(index: page)
         }
     }
     

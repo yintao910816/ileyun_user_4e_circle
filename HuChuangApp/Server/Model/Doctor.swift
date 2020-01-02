@@ -175,6 +175,14 @@ class HCDoctorItemModel: HJModel {
         return text
     }()
 
+    public class func transform(model: HCSearchDoctorItemModel) ->HCDoctorItemModel {
+        let m = HCDoctorItemModel()
+        m.userId = "\(model.userId)"
+        m.userName = model.userName
+        m.technicalPost = model.technicalPost
+        m.headPath = model.headPath
+        return m
+    }
 }
 
 extension HCDoctorItemModel: HCDataSourceAdapt {

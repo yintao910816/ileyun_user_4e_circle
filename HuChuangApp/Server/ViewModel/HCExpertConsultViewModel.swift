@@ -32,23 +32,16 @@ class HCExpertConsultViewModel: RefreshVM<HCDoctorItemModel> {
         for idx in 0..<listDataTitle.count {
             let model = TYListMenuModel()
             model.title = listDataTitle[idx]
-            model.isSelected = idx == 0
-//            if idx == 0 || idx == 2{
-//                model.titleIconNormalImage = UIImage.init(named: "btn_gray_down_arrow")
-//            }else if idx == 3 {
-//                model.titleIconCanRotate = false
-//                model.titleIconNormalImage = UIImage.init(named: "list_menu_filiter")
-//                model.titleIconSelectedImage = UIImage.init(named: "list_menu_filiter")
-//            }
   
             if idx == 0{
-                model.titleIconNormalImage = UIImage.init(named: "btn_gray_down_arrow")
-                model.isSelected = true
-                model.titleIconCanRotate = true
+                model.titleIconNormalImage = UIImage.init(named: "btn_red_down_arrow")
+                model.titleIconSelectedImage = UIImage.init(named: "btn_red_up_arrow")
+                model.titleNormalColor = HC_MAIN_COLOR
             }else if idx == 1 || idx == 2 {
-                model.titleIconCanRotate = false
+                model.titleSelectColor = RGB(153, 153, 153)
+                model.titleIconNormalImage = UIImage.init(named: "btn_gray_down_arrow")
+                model.titleIconSelectedImage = UIImage.init(named: "btn_gray_up_arrow")
             }else if idx == 3 {
-                model.titleIconCanRotate = false
                 model.titleSelectColor = RGB(153, 153, 153)
                 model.titleIconNormalImage = UIImage.init(named: "list_menu_filiter")
                 model.titleIconSelectedImage = UIImage.init(named: "list_menu_filiter")
@@ -125,6 +118,11 @@ class HCExpertConsultViewModel: RefreshVM<HCDoctorItemModel> {
         HCProvider.request(.allCity)
             .map(models: HCAllCityItemModel.self)
             .asObservable()
+            .map({ datas -> [HCAllCityItemModel] in
+                var tempDatas: [HCAllCityItemModel] = datas
+                tempDatas.insert(HCAllCityItemModel.creatAll(), at: 0)
+                return tempDatas
+            })
             .bind(to: allCitysDataObser)
             .disposed(by: disposeBag)
     }
@@ -150,6 +148,9 @@ class HCExpertConsultViewModel: RefreshVM<HCDoctorItemModel> {
     }
     
     private func prepareFiliterOpType() ->[String: Any] {
-        return ["type": filiterOpType, "desc": 1]
+        let menuItem = listMenuData[filiterOpType]
+        // desc = 1 倒序， 则 为正序
+        let order: Int = menuItem.isSelected ? 1 : 0
+        return ["type": filiterOpType, "desc": order]
     }
 }

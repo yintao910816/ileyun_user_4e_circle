@@ -170,6 +170,16 @@ class HCArticleItemModel: HJModel {
     lazy var collectCountText: String = {
         return "\(self.store) 收藏"
     }()
+    
+    /// 模型转换
+    public class func transform(model: HCSearchArticleItemModel) ->HCArticleItemModel {
+        let m = HCArticleItemModel()
+        m.id = "\(model.id)"
+        m.hrefUrl = model.hrefUrl
+        m.picPath = model.picPath
+        m.title = model.title
+        return m
+    }
 }
 
 class HomeColumnItemModel: HJModel {

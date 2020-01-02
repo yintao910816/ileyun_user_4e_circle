@@ -227,11 +227,12 @@ extension HCSearchViewModel {
                 datas.insert(sectionModel, at: 0)
                 
             }else {
-                datas.first!.addRecord(keyWord: keyWordObser.value)
+                if datas.first?.recordDatas.contains(where: { [unowned self] in $0.keyWord == self.keyWordObser.value }) == false {
+                    datas.first!.addRecord(keyWord: keyWordObser.value)
+                    searchRecordsObser.value = datas
+                }
             }
-            
-            searchRecordsObser.value = datas
-            
+                        
             TYSearchRecordModel.insert(keyWord: keyWordObser.value)
         }
     }

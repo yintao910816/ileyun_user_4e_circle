@@ -39,7 +39,8 @@ class HCSearchViewController: BaseViewController {
         searchBar.leftItemTapBack = { [weak self] in self?.navigationController?.popViewController(animated: true) }
         
         searchBar.rightItemTapBack = { [weak self] in
-            self?.searchRecordView.isHidden = true
+            self?.searchRecordView.isHidden = false
+            self?.viewModel.keyWordObser.value = ""
             self?.searchBar.reloadInput(content: nil)
         }
 
@@ -88,39 +89,55 @@ class HCSearchViewController: BaseViewController {
         let allCtrl = HCSearchAllViewController()
         allCtrl.pageIdx = 0
         allCtrl.view.backgroundColor = .white
-        allCtrl.bind(viewModel: viewModel, canRefresh: true, canLoadMore: false, isAddNoMoreContent: false)
-        allCtrl.pushH5CallBack = {
-            HCHelper.pushH5(href: $0)
+//        allCtrl.bind(viewModel: viewModel, canRefresh: true, canLoadMore: false, isAddNoMoreContent: false)
+        allCtrl.pushH5CallBack = { [unowned self] in
+            switch $0.1 {
+            case .doctor:
+                let ctrl = HCDoctorHomeController()
+                ctrl.prepare(parameters: HCDoctorHomeController.preprare(model: HCDoctorItemModel.transform(model: $0.0 as! HCSearchDoctorItemModel)))
+                self.navigationController?.pushViewController(ctrl, animated: true)
+            case .article, .course:
+                let ctrl = HCArticleDetailViewController()
+                ctrl.prepare(parameters: HCArticleDetailViewController.preprare(model: HCArticleItemModel.transform(model: $0.0 as! HCSearchArticleItemModel)))
+                self.navigationController?.pushViewController(ctrl, animated: true)
+            default:
+                break
+            }
+        }
+        allCtrl.clickedMoreCallBack = { [unowned self] modul in
+            self.slideCtrl.selectedPage(page: self.pageIds.lastIndex(of: modul)!,
+                                        needCallBack: false,
+                                        needMenuScroll: true)
         }
         
         let doctorCtrl = HCSearchRecommendDoctorViewController()
         doctorCtrl.pageIdx = 1
         doctorCtrl.view.backgroundColor = .white
-        doctorCtrl.bind(viewModel: viewModel, canRefresh: true, canLoadMore: true, isAddNoMoreContent: false)
-        doctorCtrl.didSelectedCallBack = {
-            HCHelper.pushH5(href: "\(H5Type.doctorHome.getLocalUrl())&userId=\($0.userId)")
+//        doctorCtrl.bind(viewModel: viewModel, canRefresh: true, canLoadMore: true, isAddNoMoreContent: false)
+        doctorCtrl.didSelectedCallBack = { [unowned self] in
+            let ctrl = HCDoctorHomeController()
+            ctrl.prepare(parameters: HCDoctorHomeController.preprare(model: HCDoctorItemModel.transform(model: $0)))
+            self.navigationController?.pushViewController(ctrl, animated: true)
         }
         
         let classCtrl = HCSearchHealthyCourseViewController()
         classCtrl.pageIdx = 2
         classCtrl.view.backgroundColor = .white
-        classCtrl.bind(viewModel: viewModel, canRefresh: true, canLoadMore: true, isAddNoMoreContent: false)
-//                allCtrl.didSelectedCallBack = {
-//                    HCHelper.pushH5(href: $0.hrefUrl)
-//                }
-        classCtrl.pushH5CallBack = {
-            HCHelper.pushH5(href: $0)
+//        classCtrl.bind(viewModel: viewModel, canRefresh: true, canLoadMore: true, isAddNoMoreContent: false)
+        classCtrl.pushH5CallBack = { [unowned self] _ in
+//            let ctrl = HCArticleDetailViewController()
+//            ctrl.prepare(parameters: HCArticleDetailViewController.preprare(model: HCArticleItemModel.transform(model: $0)))
+//            self.navigationController?.pushViewController(ctrl, animated: true)
         }
         
         let popularScienceCtrl = HCSearchPopularScienceViewController()
         popularScienceCtrl.pageIdx = 3
         popularScienceCtrl.view.backgroundColor = .white
-        popularScienceCtrl.bind(viewModel: viewModel, canRefresh: true, canLoadMore: true, isAddNoMoreContent: false)
-        //        allCtrl.didSelectedCallBack = {
-        //            HCHelper.pushH5(href: $0.hrefUrl)
-        //        }
-        popularScienceCtrl.pushH5CallBack = {
-            HCHelper.pushH5(href: $0)
+//        popularScienceCtrl.bind(viewModel: viewModel, canRefresh: true, canLoadMore: true, isAddNoMoreContent: false)
+        popularScienceCtrl.pushH5CallBack = { [unowned self] in
+            let ctrl = HCArticleDetailViewController()
+            ctrl.prepare(parameters: HCArticleDetailViewController.preprare(model: HCArticleItemModel.transform(model: $0)))
+            self.navigationController?.pushViewController(ctrl, animated: true)
         }
 
         slideCtrl.menuItems = TYSlideItemModel.creatSimple(for: ["全部", "医生", "课程", "文章"])

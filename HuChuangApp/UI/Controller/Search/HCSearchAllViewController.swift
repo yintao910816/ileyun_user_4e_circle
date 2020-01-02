@@ -17,9 +17,11 @@ class HCSearchAllViewController: HCSlideItemController {
     private var datasource: [[HCBaseSearchItemModel]] = []
     private var titleDatas: [String] = []
     private var footerTitles: [String] = []
+    private var contentType: [HCsearchModule] = []
     
-    public var pushH5CallBack:((String)->())?
-
+    public var pushH5CallBack:(((HCBaseSearchItemModel, HCsearchModule))->())?
+    public var clickedMoreCallBack:((HCsearchModule)->())?
+    
     override func setupUI() {
         tableView = UITableView.init(frame: .zero, style: .plain)
         tableView.separatorStyle = .none
@@ -49,20 +51,24 @@ class HCSearchAllViewController: HCSlideItemController {
         guard let models = data as? [HCSearchDataModel], let model = models.first else { return }
         datasource.removeAll()
         titleDatas.removeAll()
+        contentType.removeAll()
         
         if model.doctor.count > 0 {
             datasource.append(model.doctor)
             titleDatas.append("医生")
+            contentType.append(.doctor)
         }
         
         if model.course.count > 0 {
             datasource.append(model.course)
             titleDatas.append("课堂")
+            contentType.append(.course)
         }
         
         if model.article.count > 0 {
             datasource.append(model.article)
             titleDatas.append("文章")
+            contentType.append(.article)
         }
         
         tableView.reloadData()
@@ -88,8 +94,8 @@ extension HCSearchAllViewController: UITableViewDelegate, UITableViewDataSource 
         let header = HCSearchHeaderView.init(frame: .init(x: 0, y: 0, width: tableView.width, height: HCSearchHeaderView_small_height))
         header.showLine = section != 0
         header.titleText = titleDatas[section]
-        header.clickedMoreCallBack = {
-            
+        header.clickedMoreCallBack = { [unowned self] in
+            self.clickedMoreCallBack?(self.contentType[section])
         }
         return header
     }
@@ -127,12 +133,14 @@ extension HCSearchAllViewController: UITableViewDelegate, UITableViewDataSource 
         
         let model = datasource[indexPath.section][indexPath.row]
         if model.isKind(of: HCSearchDoctorItemModel.self) {
-            let url = "\(H5Type.doctorHome.getLocalUrl())&userId=\((model as! HCSearchDoctorItemModel).userId)"
-            pushH5CallBack?(url)
+            pushH5CallBack?((model, HCsearchModule.doctor))
+//            let url = "\(H5Type.doctorHome.getLocalUrl())&userId=\((model as! HCSearchDoctorItemModel).userId)"
+//            pushH5CallBack?(url)
         }else if model.isKind(of: HCSearchArticleItemModel.self) {
-            pushH5CallBack?((model as! HCSearchArticleItemModel).linkUrls)
+//            pushH5CallBack?((model as! HCSearchArticleItemModel).linkUrls)
+            pushH5CallBack?((model, HCsearchModule.article))
         }else if model.isKind(of: HCSearchArticleItemModel.self) {
-
+            pushH5CallBack?((model, HCsearchModule.course))
         }
     }
 }

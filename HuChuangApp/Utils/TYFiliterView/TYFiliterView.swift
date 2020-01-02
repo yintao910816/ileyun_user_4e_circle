@@ -155,13 +155,18 @@ extension TYFiliterView {
         for item in lvDatas {
             item.isSelected = false
         }
+        lvDatas.removeAll()
+        
         for item in addDatas {
             item.isSelected = false
         }
+        addDatas.removeAll()
+
         for item in skillIndDatas {
             item.isSelected = false
         }
-        
+        skillIndDatas.removeAll()
+
         collectionView.reloadData()        
     }
     

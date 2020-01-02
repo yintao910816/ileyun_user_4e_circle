@@ -8,10 +8,10 @@
 
 import Foundation
 
-enum TYListArrowType {
-    case up
-    case down
-}
+//enum TYListArrowType {
+//    case up
+//    case down
+//}
 
 class TYListMenuModel {
     var title: String = ""
@@ -23,12 +23,12 @@ class TYListMenuModel {
     var titleIconNormalImage: UIImage?
     var titleIconSelectedImage: UIImage?
     
-    var arrowDownImage: UIImage? = UIImage(named: "btn_red_down_arrow")
-    var arrowUpImage: UIImage? = UIImage(named: "btn_red_up_arrow")
+//    var arrowDownImage: UIImage? = UIImage(named: "btn_red_down_arrow")
+//    var arrowUpImage: UIImage? = UIImage(named: "btn_red_up_arrow")
 
-    var titleIconCanRotate: Bool = true
+//    var titleIconCanRotate: Bool = true
     
-    var arrowType: TYListArrowType = .down
+//    var arrowType: TYListArrowType = .down
     
     var iconMargin: CGFloat = 5
     var margin: CGFloat = 15
@@ -49,25 +49,36 @@ class TYListMenuModel {
     
     var titleImage: UIImage? {
         get {
-            if titleIconCanRotate {
-                if isSelected {
-                    return arrowType == .up ? arrowUpImage : arrowDownImage
-                }
-            }
-            return titleIconNormalImage
+//            if titleIconCanRotate {
+//                if isSelected {
+////                    return arrowType == .up ? arrowUpImage : arrowDownImage
+//                }
+//            }
+//            return titleIconNormalImage
+            return isSelected ? titleIconSelectedImage : titleIconNormalImage
         }
     }
 
-    public func didClicked(_ isReset: Bool = true) {
-        if isReset {
-            arrowType = .down
-            isSelected = false
-        }else {
-            isSelected = true
-            arrowType = (arrowType == .up ? .down : .up)
-        }
+    public func didClicked() {
+        isSelected = !isSelected
     }
     
+//    public func didClicked(_ isReset: Bool = true) {
+//        if isReset {
+//            arrowType = .down
+//            isSelected = false
+//        }else {
+//            isSelected = true
+//            arrowType = (arrowType == .up ? .down : .up)
+//        }
+//    }
+//
+//
+//    public func rotateDidClicked() {
+//        isSelected = !isSelected
+//        arrowType = (arrowType == .up ? .down : .up)
+//    }
+
     public func resetStatus() {
         
     }
@@ -79,7 +90,6 @@ class TYListMenuModel {
                      isSelected: Bool = false,
                      titleIconNormalImage:UIImage? = nil,
                      titleIconSelectedImage:UIImage? = nil,
-                     titleIconCanRotate: Bool = true,
                      iconMargin: CGFloat = 5,
                      margin: CGFloat = 15) ->TYListMenuModel
     {
@@ -91,7 +101,6 @@ class TYListMenuModel {
         model.isSelected = isSelected
         model.titleIconNormalImage = titleIconNormalImage
         model.titleIconSelectedImage = titleIconSelectedImage
-        model.titleIconCanRotate = titleIconCanRotate
         model.iconMargin = margin
         model.margin = margin
 
