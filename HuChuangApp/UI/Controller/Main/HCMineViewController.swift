@@ -28,6 +28,8 @@ class HCMineViewController: BaseViewController {
             automaticallyAdjustsScrollViewInsets = false
         }
         
+        view.backgroundColor = RGB(249, 249, 249)
+        
         header =  MineHeaderView.init(frame: .init(x: 0, y: 0, width: tableView.width, height: 255 + LayoutSize.topVirtualArea))
         tableView.tableHeaderView = header
                 
@@ -83,12 +85,14 @@ class HCMineViewController: BaseViewController {
 extension HCMineViewController: UITableViewDelegate {
         
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == 2 { return nil }
+        
         let sepView = UIView()
         sepView.backgroundColor = RGB(249, 249, 249)
         return sepView
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 10
+        return section == 2 ? 0 : 10
     }
 }

@@ -77,7 +77,13 @@ class MineHeaderView: UIView {
     }
     
     private func setupUI() {
-
+        let tapGes = UITapGestureRecognizer.init(target: self, action: #selector(tapAction(_:)))
+        tapGes.delegate = self
+        contentView.addGestureRecognizer(tapGes)
+    }
+    
+    @objc private func tapAction(_ tap: UITapGestureRecognizer) {
+        gotoEditUserInfo.onNext(Void())
     }
     
     private func rxBind() {
@@ -105,5 +111,15 @@ class MineHeaderView: UIView {
         shadowView.clipsToBounds = false
         
         userIconOutlet.layer.cornerRadius = userIconOutlet.height / 2.0
+    }
+}
+
+extension MineHeaderView: UIGestureRecognizerDelegate {
+    
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer.location(in: self).y >= cornerBgView.y {
+            return false
+        }
+        return true
     }
 }
