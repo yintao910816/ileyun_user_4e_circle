@@ -336,7 +336,9 @@ extension HCRecordViewModel {
 
         // 转化排卵日数据为Date
         var tempOvulationDates: [Date] = []
-        for item in data.ovulationList {
+        // 标记排卵日只取第一个
+        let tempOvulationList = data.ovulationList.count > 1 ? [data.ovulationList.last!] : data.ovulationList
+        for item in tempOvulationList {
             tempOvulationDates.append(TYDateCalculate.date(for: item.ovulationDate))
         }
         data.ovulationDates = tempOvulationDates

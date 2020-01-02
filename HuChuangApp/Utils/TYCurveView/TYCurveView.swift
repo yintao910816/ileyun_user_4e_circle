@@ -214,9 +214,6 @@ class TYCurveView: UIView {
         
         setNeedsDisplay()
         layoutIfNeeded()
-        
-        scrollView.contentSize = .init(width: curveView.width  + width, height: curvelViewHeight)
-        setOffsetX(CGFloat(nowIdx) * itemWidth)
     }
     
     public func setOffsetX(_ offsetX: CGFloat) {
@@ -278,6 +275,9 @@ class TYCurveView: UIView {
                                       width: curvelViewWidth + itemWidth,
                                       height: curvelTimeViewHeight - lineHeight)
         timeView.frame = curveTimeBgView.bounds
+        
+        scrollView.contentSize = .init(width: curveView.width  + width, height: curvelViewHeight)
+        setOffsetX(CGFloat(nowIdx) * itemWidth)
     }
     
     override func draw(_ rect: CGRect) {
@@ -380,31 +380,35 @@ extension TYCurveView: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         scrollViewDidScrollCallBack?(scrollView.contentOffset.x)
+        resetContentOffset(needScroll: false)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        resetContentOffset()
+        resetContentOffset(needScroll: true)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
-            resetContentOffset()
+            resetContentOffset(needScroll: false)
         }
     }
     
-    private func resetContentOffset() {
+    private func resetContentOffset(needScroll: Bool) {
         let scrollWidth: CGFloat = scrollView.contentOffset.x
         let floatX: CGFloat = scrollWidth.truncatingRemainder(dividingBy: itemWidth)
         var intX: Int = Int(scrollWidth / itemWidth)
         if floatX > itemWidth / 2.0 {
             intX += 1
         }
-        let offsetPoint: CGPoint = .init(x: CGFloat(intX) * itemWidth, y: 0)
-        PrintLog(offsetPoint)
-        scrollView.setContentOffset(offsetPoint, animated: true)
         
         if intX < probabilityDatas.count {
             setProbability(probability: probabilityDatas[intX])
+        }
+        
+        if needScroll {
+            let offsetPoint: CGPoint = .init(x: CGFloat(intX) * itemWidth, y: 0)
+            PrintLog(offsetPoint)
+            scrollView.setContentOffset(offsetPoint, animated: true)
         }
     }
 }
