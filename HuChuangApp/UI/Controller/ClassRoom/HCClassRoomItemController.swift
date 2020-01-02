@@ -69,7 +69,7 @@ extension HCClassRoomItemController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        didSelectedCallBack?(datasource[indexPath.row] as! HCArticleItemModel)
+        didSelectedCallBack?(datasource[indexPath.row])
     }
     
 }

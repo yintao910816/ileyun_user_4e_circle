@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class TYSlideMenuController: UIViewController {
 
@@ -18,7 +19,8 @@ class TYSlideMenuController: UIViewController {
     private var pendingCtrl: UIViewController?
         
     public var pageScroll: ((Int)->())?
-        
+    public let pageScrollSubject = PublishSubject<Int>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -52,6 +54,7 @@ class TYSlideMenuController: UIViewController {
         
         if needCallBack {
             pageScroll?(page)
+            pageScrollSubject.onNext(page)
         }
     }
     
@@ -139,6 +142,7 @@ extension TYSlideMenuController: UIPageViewControllerDataSource, UIPageViewContr
                                 
                 headerMenu.setMenu(index: currentPage)
                 pageScroll?(currentPage)
+                pageScrollSubject.onNext(currentPage)
                 break
             }
         }

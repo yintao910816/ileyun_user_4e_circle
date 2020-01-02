@@ -17,8 +17,13 @@ class HCSearchViewModel: RefreshVM<HCBaseSearchItemModel> {
     private var module: HCsearchModule = .all
 
     public let keyWordObser = Variable("")
-    public let pageListData = PublishSubject<([HCBaseSearchItemModel], HCsearchModule)>()
+//    public let pageListData = PublishSubject<([HCBaseSearchItemModel], HCsearchModule)>()
+    /// 全部-医生-课程-文章
+    public let pageListData = PublishSubject<([HCSearchDataModel], [HCSearchDoctorItemModel], [HCSearchCourseItemModel], [HCSearchArticleItemModel], HCsearchModule)>()
+
     public let requestSearchListSubject = PublishSubject<HCsearchModule>()
+    /// 绑定当前滑动到哪个栏目
+    public let currentPageObser = Variable(HCsearchModule.all)
     /// 关键字搜索 - 是否添加到本地数据库
     public let requestSearchSubject = PublishSubject<Bool>()
     /// 清除本地缓存记录
@@ -35,16 +40,16 @@ class HCSearchViewModel: RefreshVM<HCBaseSearchItemModel> {
             self?.searchRecordsObser.value = TYSearchSectionModel.recordsCreate(datas: records)
         }
         
-        requestSearchListSubject
-            .subscribe(onNext: { [unowned self] module in
-                self.module = module
-                if let list = self.menuPageListData[module] {
-                    self.pageListData.onNext((list, module))
-                }else {
-                    self.requestData(true)
-                }
-            })
-            .disposed(by: disposeBag)
+//        requestSearchListSubject
+//            .subscribe(onNext: { [unowned self] module in
+//                self.module = module
+//                if let list = self.menuPageListData[module] {
+//                    self.pageListData.onNext((list, module))
+//                }else {
+//                    self.requestData(true)
+//                }
+//            })
+//            .disposed(by: disposeBag)
         
         requestSearchSubject
             .subscribe(onNext: { [unowned self] cache in
@@ -73,37 +78,49 @@ class HCSearchViewModel: RefreshVM<HCBaseSearchItemModel> {
         
         updatePage(for: module.rawValue, refresh: refresh)
         
-        let requestProvider = HCProvider.request(.search(pageNum: currentPage(for: module.rawValue),
-                                                         pageSize: pageSize(for: module.rawValue),
-                                                         searchModule: module,
-                                                         searchName: keyWordObser.value))
+        HCProvider.request(.search(pageNum: currentPage(for: module.rawValue),
+                                   pageSize: pageSize(for: module.rawValue),
+                                   searchModule: module,
+                                   searchName: keyWordObser.value))
+            .map(model: HCSearchDataModel.self)
+            .subscribe(onSuccess: { [weak self] in self?.dealSuccess(data: $0, refresh: refresh) },
+                       onError: { [weak self] in self?.dealFailure(error: $0) })
+            .disposed(by: disposeBag)
+
         
-        switch module {
-        case .all:
-            requestProvider
-                .map(model: HCSearchDataModel.self)
-                .subscribe(onSuccess: { [weak self] in self?.dealSuccess(data: $0, refresh: refresh) },
-                           onError: { [weak self] in self?.dealFailure(error: $0) })
-                .disposed(by: disposeBag)
-        case .article:
-            requestProvider
-                .map(model: HCSearchArticleModel.self)
-                .subscribe(onSuccess: { [weak self] in self?.dealSuccess(data: $0, refresh: refresh) },
-                           onError: { [weak self] in self?.dealFailure(error: $0) })
-                .disposed(by: disposeBag)
-        case .course:
-            requestProvider
-                .map(model: HCSearchCourseModel.self)
-                .subscribe(onSuccess: { [weak self] in self?.dealSuccess(data: $0, refresh: refresh) },
-                           onError: { [weak self] in self?.dealFailure(error: $0) })
-                .disposed(by: disposeBag)
-        case .doctor:
-            requestProvider
-                .map(model: HCSearchDoctorModel.self)
-                .subscribe(onSuccess: { [weak self] in self?.dealSuccess(data: $0, refresh: refresh) },
-                           onError: { [weak self] in self?.dealFailure(error: $0) })
-                .disposed(by: disposeBag)
-        }
+//        updatePage(for: module.rawValue, refresh: refresh)
+//
+//        let requestProvider = HCProvider.request(.search(pageNum: currentPage(for: module.rawValue),
+//                                                         pageSize: pageSize(for: module.rawValue),
+//                                                         searchModule: module,
+//                                                         searchName: keyWordObser.value))
+//
+//        switch module {
+//        case .all:
+//            requestProvider
+//                .map(model: HCSearchDataModel.self)
+//                .subscribe(onSuccess: { [weak self] in self?.dealSuccess(data: $0, refresh: refresh) },
+//                           onError: { [weak self] in self?.dealFailure(error: $0) })
+//                .disposed(by: disposeBag)
+//        case .article:
+//            requestProvider
+//                .map(model: HCSearchArticleModel.self)
+//                .subscribe(onSuccess: { [weak self] in self?.dealSuccess(data: $0, refresh: refresh) },
+//                           onError: { [weak self] in self?.dealFailure(error: $0) })
+//                .disposed(by: disposeBag)
+//        case .course:
+//            requestProvider
+//                .map(model: HCSearchCourseModel.self)
+//                .subscribe(onSuccess: { [weak self] in self?.dealSuccess(data: $0, refresh: refresh) },
+//                           onError: { [weak self] in self?.dealFailure(error: $0) })
+//                .disposed(by: disposeBag)
+//        case .doctor:
+//            requestProvider
+//                .map(model: HCSearchDoctorModel.self)
+//                .subscribe(onSuccess: { [weak self] in self?.dealSuccess(data: $0, refresh: refresh) },
+//                           onError: { [weak self] in self?.dealFailure(error: $0) })
+//                .disposed(by: disposeBag)
+//        }
     }
 
 }
@@ -118,13 +135,43 @@ extension HCSearchViewModel {
         var datas = [HCBaseSearchItemModel]()
         switch module {
         case .all:
+            if menuPageListData[HCsearchModule.doctor] == nil {
+                menuPageListData[HCsearchModule.doctor] = [HCBaseSearchItemModel]()
+            }
+            if menuPageListData[HCsearchModule.course] == nil {
+                menuPageListData[HCsearchModule.course] = [HCBaseSearchItemModel]()
+            }
+            if menuPageListData[HCsearchModule.article] == nil {
+                menuPageListData[HCsearchModule.article] = [HCBaseSearchItemModel]()
+            }
+
             datas = [data]
+            
+            let searchData = data as! HCSearchDataModel
+            
+            updateRefresh(refresh: true,
+                          models: searchData.doctor,
+                          dataModels: &(menuPageListData[.doctor])!,
+                          pages: 10,
+                          pageKey: HCsearchModule.doctor.rawValue)
+
+            updateRefresh(refresh: true,
+                          models: searchData.course,
+                          dataModels: &(menuPageListData[.course])!,
+                          pages: 10,
+                          pageKey: HCsearchModule.course.rawValue)
+
+            updateRefresh(refresh: true,
+                          models: searchData.article,
+                          dataModels: &(menuPageListData[.article])!,
+                          pages: 10,
+                          pageKey: HCsearchModule.article.rawValue)
         case .article:
-            datas = (data as! HCSearchArticleModel).records
+            datas = (data as? HCSearchArticleModel)?.records ?? [HCBaseSearchItemModel]()
         case .doctor:
-            datas = (data as! HCSearchDoctorModel).records
+            datas = (data as? HCSearchDoctorModel)?.records ?? [HCBaseSearchItemModel]()
         case .course:
-//            datas = (data as! HCSearchCourseModel).records
+            datas = (data as? HCSearchCourseModel)?.records ?? [HCBaseSearchItemModel]()
             break
         }
         
@@ -133,8 +180,30 @@ extension HCSearchViewModel {
                       dataModels: &(menuPageListData[module])!,
                       pages: data.pages,
                       pageKey: module.rawValue)
+                
+        let allData = HCSearchDataModel.init()
+        if let allSource = menuPageListData[.all]?.first as? HCSearchDataModel {
+            allData.doctor = allSource.doctor.count > 3 ? Array(allSource.doctor[0...2]) : allSource.doctor
+            allData.course = allSource.course.count > 3 ? Array(allSource.course[0...2]) : allSource.course
+            allData.article = allSource.article.count > 3 ? Array(allSource.article[0...2]) : allSource.article
+        }
         
-        pageListData.onNext((menuPageListData[module]!, module))
+        var doctorData = [HCSearchDoctorItemModel]()
+        if let dotorSource = menuPageListData[.doctor] as? [HCSearchDoctorItemModel] {
+            doctorData = dotorSource
+        }
+        
+        var courseData = [HCSearchCourseItemModel]()
+        if let courseSource = menuPageListData[.course] as? [HCSearchCourseItemModel] {
+            courseData = courseSource
+        }
+
+        var articleData = [HCSearchArticleItemModel]()
+        if let articleSource = menuPageListData[.article] as? [HCSearchArticleItemModel] {
+            articleData = articleSource
+        }
+
+        pageListData.onNext(([allData], doctorData, courseData, articleData, module))
         
         if keyWordObser.value.count > 0 {
             hud.noticeHidden()

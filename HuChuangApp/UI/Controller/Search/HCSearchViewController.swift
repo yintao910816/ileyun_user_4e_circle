@@ -15,7 +15,7 @@ class HCSearchViewController: BaseViewController {
     private var searchRecordView: TYSearchRecordView!
     private var slideCtrl: TYSlideMenuController!
     
-    private var pageIds: [HCsearchModule] = [.all, .doctor, .article]
+    private var pageIds: [HCsearchModule] = [.all, .doctor, .course, .article]
     
     private var viewModel: HCSearchViewModel!
 
@@ -57,7 +57,7 @@ class HCSearchViewController: BaseViewController {
         view.addSubview(slideCtrl.view)
                 
         searchRecordView = TYSearchRecordView.init(frame: .init(x: 0, y: searchBar.frame.maxY, width: view.width, height: searchBar.frame.maxY))
-        searchRecordView.isHidden = true
+        searchRecordView.isHidden = false
         view.addSubview(searchRecordView)
         
         searchRecordView.clearRecordsCallBack = { [weak self] in
@@ -101,17 +101,19 @@ class HCSearchViewController: BaseViewController {
             HCHelper.pushH5(href: "\(H5Type.doctorHome.getLocalUrl())&userId=\($0.userId)")
         }
         
-//        let classCtrl = HCSearchHealthyCourseViewController()
-//        classCtrl.pageIdx = 2
-//        classCtrl.view.backgroundColor = .white
-//        classCtrl.bind(viewModel: viewModel, canRefresh: true, canLoadMore: true, isAddNoMoreContent: false)
-        //        allCtrl.didSelectedCallBack = {
-        //            HCHelper.pushH5(href: $0.hrefUrl)
-        //        }
-        
+        let classCtrl = HCSearchHealthyCourseViewController()
+        classCtrl.pageIdx = 2
+        classCtrl.view.backgroundColor = .white
+        classCtrl.bind(viewModel: viewModel, canRefresh: true, canLoadMore: true, isAddNoMoreContent: false)
+//                allCtrl.didSelectedCallBack = {
+//                    HCHelper.pushH5(href: $0.hrefUrl)
+//                }
+        classCtrl.pushH5CallBack = {
+            HCHelper.pushH5(href: $0)
+        }
         
         let popularScienceCtrl = HCSearchPopularScienceViewController()
-        popularScienceCtrl.pageIdx = 2
+        popularScienceCtrl.pageIdx = 3
         popularScienceCtrl.view.backgroundColor = .white
         popularScienceCtrl.bind(viewModel: viewModel, canRefresh: true, canLoadMore: true, isAddNoMoreContent: false)
         //        allCtrl.didSelectedCallBack = {
@@ -121,23 +123,39 @@ class HCSearchViewController: BaseViewController {
             HCHelper.pushH5(href: $0)
         }
 
-        slideCtrl.menuItems = TYSlideItemModel.creatSimple(for: ["全部", "医生", "文章"])
-//        slideCtrl.menuCtrls = [allCtrl, doctorCtrl, classCtrl, popularScienceCtrl]
-        slideCtrl.menuCtrls = [allCtrl, doctorCtrl, popularScienceCtrl]
+        slideCtrl.menuItems = TYSlideItemModel.creatSimple(for: ["全部", "医生", "课程", "文章"])
+        slideCtrl.menuCtrls = [allCtrl, doctorCtrl, classCtrl, popularScienceCtrl]
         
         viewModel.pageListData
             .subscribe(onNext: { [weak self] data in
-                guard let strongSelf = self, let page = strongSelf.pageIds.lastIndex(of: data.1) else { return }
-                strongSelf.slideCtrl.reloadList(listMode: data.0, page: page)
+                guard let strongSelf = self else { return }
+                switch data.4 {
+                case .all:
+                    strongSelf.slideCtrl.reloadList(listMode: data.0, page: strongSelf.pageIds.lastIndex(of: .all)!)
+                    strongSelf.slideCtrl.reloadList(listMode: data.1, page: strongSelf.pageIds.lastIndex(of: .doctor)!)
+                    strongSelf.slideCtrl.reloadList(listMode: data.2, page: strongSelf.pageIds.lastIndex(of: .course)!)
+                    strongSelf.slideCtrl.reloadList(listMode: data.3, page: strongSelf.pageIds.lastIndex(of: .article)!)
+                case .doctor:
+                    strongSelf.slideCtrl.reloadList(listMode: data.1, page: strongSelf.pageIds.lastIndex(of: .doctor)!)
+                case .course:
+                    strongSelf.slideCtrl.reloadList(listMode: data.2, page: strongSelf.pageIds.lastIndex(of: .course)!)
+                case .article:
+                    strongSelf.slideCtrl.reloadList(listMode: data.3, page: strongSelf.pageIds.lastIndex(of: .article)!)
+                }
             })
             .disposed(by: disposeBag)
         
-        slideCtrl.pageScroll = { [weak self] page in
-            guard let strongSelf = self else { return }
-            strongSelf.viewModel.requestSearchListSubject.onNext(strongSelf.pageIds[page])
-        }
+        slideCtrl.pageScrollSubject
+            .map{ [unowned self] in self.pageIds[$0] }
+            .bind(to: viewModel.currentPageObser)
+            .disposed(by: disposeBag)
+        
+//        slideCtrl.pageScroll = { [weak self] page in
+//            guard let strongSelf = self else { return }
+//            strongSelf.viewModel.requestSearchListSubject.onNext(strongSelf.pageIds[page])
+//        }
 
-        viewModel.requestSearchListSubject.onNext(.all)
+//        viewModel.requestSearchListSubject.onNext(.all)
     }
     
     override func viewDidLayoutSubviews() {

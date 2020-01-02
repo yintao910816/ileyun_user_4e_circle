@@ -48,6 +48,7 @@ class HCSearchAllViewController: HCSlideItemController {
     override func reloadData(data: Any?) {
         guard let models = data as? [HCSearchDataModel], let model = models.first else { return }
         datasource.removeAll()
+        titleDatas.removeAll()
         
         if model.doctor.count > 0 {
             datasource.append(model.doctor)

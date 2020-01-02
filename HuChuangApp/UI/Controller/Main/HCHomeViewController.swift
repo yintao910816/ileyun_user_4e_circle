@@ -157,6 +157,8 @@ extension HCHomeViewController: UICollectionViewDelegateFlowLayout, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        HCHelper.pushH5(href: viewModel.articleModels[indexPath.row].hrefUrl)
+        let ctrl = HCArticleDetailViewController()
+        ctrl.prepare(parameters: HCArticleDetailViewController.preprare(model: viewModel.articleModels[indexPath.row]))
+        navigationController?.pushViewController(ctrl, animated: true)
     }
 }
