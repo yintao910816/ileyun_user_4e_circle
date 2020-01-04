@@ -15,23 +15,25 @@ class HCDoctorHomeController: BaseWebViewController {
     
     private var shareButton: UIButton!
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
-        navBarColor = HC_MAIN_COLOR
-        (navigationController as? BaseNavigationController)?.backItemInterface = .red
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+//        
+//        navBarColor = HC_MAIN_COLOR
+//        (navigationController as? BaseNavigationController)?.backItemInterface = .red
+//    }
+//    
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     override func setupUI() {
         super.setupUI()
-                
+        navigationItem.title = "医生主页"
+        
         shareButton = UIButton()
-        shareButton.setImage(UIImage(named: "button_share"), for: .normal)
-        shareButton.sizeToFit()
+        shareButton.frame = .init(x: 0, y: 0, width: 30, height: 30)
+        shareButton.setImage(UIImage(named: "button_share_black"), for: .normal)
+//        shareButton.sizeToFit()
 
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: shareButton)
     }

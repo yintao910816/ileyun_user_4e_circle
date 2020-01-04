@@ -278,7 +278,7 @@ extension BaseWebViewController: UIWebViewDelegate{
         }
         context?.setObject(unsafeBitCast(backFnApi, to: AnyObject.self), forKeyedSubscript: "backFnApi" as NSCopying & NSObjectProtocol)
 
-        setTitle()
+//        setTitle()
     }
     
     func webView(_ webView: UIWebView, didFailLoadWithError error: Error){

@@ -52,7 +52,7 @@ class BaseNavigationController: UINavigationController {
         { // 非根控制器
             viewController.hidesBottomBarWhenPushed = true
             var backImage = UIImage(named: HCBackItemInterface.white.rawValue)
-            if viewController.isKind(of: HCArticleDetailViewController.self) || viewController.isKind(of: HCDoctorHomeController.self) {
+            if viewController.isKind(of: HCArticleDetailViewController.self) {
                 backImage = UIImage(named: HCBackItemInterface.red.rawValue)
                 navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white,
                                                      NSAttributedString.Key.font : UIFont.font(fontSize: 18, fontName: .PingFRegular)]

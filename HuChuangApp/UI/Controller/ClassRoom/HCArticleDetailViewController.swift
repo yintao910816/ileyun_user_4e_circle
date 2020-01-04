@@ -13,12 +13,12 @@ class HCArticleDetailViewController: BaseWebViewController {
     private var viewModel: HCArticleDetailViewModel!
     private var articleModel: HCArticleItemModel!
     
-    private var storeButton: UIButton!
-    private var shareButton: UIButton!
+    private var storeButton: TYClickedButton!
+    private var shareButton: TYClickedButton!
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
+
         navBarColor = HC_MAIN_COLOR
         (navigationController as? BaseNavigationController)?.backItemInterface = .red
     }
@@ -32,17 +32,21 @@ class HCArticleDetailViewController: BaseWebViewController {
         
         title = articleModel.title
         
-        storeButton = UIButton()
-        storeButton.setImage(UIImage(named: "button_collect_sel"), for: .selected)
+        storeButton = TYClickedButton.init(type: .custom)
+        storeButton.frame = .init(x: 0, y: 0, width: 30, height: 30)
+        storeButton.setEnlargeEdge(top: 10, bottom: 10, left: 10, right: 10)
+        storeButton.backgroundColor = .clear
         storeButton.setImage(UIImage(named: "button_collect_unsel"), for: .normal)
+        storeButton.setImage(UIImage(named: "button_collect_sel"), for: .selected)
         storeButton.titleLabel?.font = .font(fontSize: 10)
         storeButton.imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 10)
-        storeButton.showsTouchWhenHighlighted = false
-        storeButton.sizeToFit()
+//        storeButton.sizeToFit()
         
-        shareButton = UIButton()
-        shareButton.setImage(UIImage(named: "button_share"), for: .normal)
-        shareButton.sizeToFit()
+        shareButton = TYClickedButton.init(type: .custom)
+        shareButton.frame = .init(x: 0, y: 0, width: 30, height: 30)
+        shareButton.setEnlargeEdge(top: 10, bottom: 10, left: 10, right: 10)
+        shareButton.setImage(UIImage(named: "button_share_white"), for: .normal)
+//        shareButton.sizeToFit()
 
         navigationItem.rightBarButtonItems = [UIBarButtonItem.init(customView: shareButton),
                                               UIBarButtonItem.init(customView: storeButton)]

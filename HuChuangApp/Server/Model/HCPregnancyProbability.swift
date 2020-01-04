@@ -13,10 +13,35 @@ class HCPregnancyProbabilityModel: HJModel {
     var todayProbability: Float = 0
     /// 明日 —怀孕几率（%）
     var tomorrowProbability: Float = 0
+    var menstruationDate: String = ""
+    var keepDays: Int = 0
+    var cycle: Int = 0
     /// 排卵日
     var ovulationDate: String = ""
     /// 提示
     var tips: String = ""
+    
+    func caculateOvulationDate() ->NSAttributedString {
+        let intDays = TYDateCalculate.numberOfDays(toDate: ovulationDate)
+        var days = ""
+        var paiNuanText = ""
+        var range = NSMakeRange(0, 0)
+        if intDays >= 0 {
+            days = "\(intDays)"
+            paiNuanText = "距离排卵日还有\(days)天"
+            range = .init(location: 7, length: days.count)
+        }else {
+            let aday = TYDateCalculate.getDate(currentDate: TYDateCalculate.date(for: menstruationDate),
+                                               days: cycle,
+                                               isAfter: true)
+            
+            days = "\(TYDateCalculate.numberOfDays(fromDate: TYDateCalculate.formatNowDate(), toDate: aday))"
+            paiNuanText = "距离下一个排卵日还有\(days)天"
+            range = .init(location: 10, length: days.count)
+        }
+        
+        return paiNuanText.attributed(range, .white, .font(fontSize: 21, fontName: .PingFMedium))
+    }
 }
 
 /// 记录数据
