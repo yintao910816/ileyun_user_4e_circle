@@ -26,6 +26,7 @@ class TYCurveView: UIView {
     private var titleLable: UILabel!
     private var fullScreenButton: UIButton!
     private var markLabel: UILabel!
+    private var noConentRemindLabel: UILabel!
     
     private var curveTimeBgView: UIView!
     private var remindBgView: UIView!
@@ -35,6 +36,7 @@ class TYCurveView: UIView {
     private var probabilityDatas: [Float] = []
     private var timesDatas: [String] = []
     private var nowIdx: Int = 0
+    private var isCircleSet: Bool = false
     
     /// 标题
     private var titleViewHeight: CGFloat = 25
@@ -79,6 +81,12 @@ class TYCurveView: UIView {
         fullScreenButton = UIButton()
         fullScreenButton.setImage(UIImage(named: "record_button_screen"), for: .normal)
         fullScreenButton.addTarget(self, action: #selector(fullScreenAction), for: .touchUpInside)
+        
+        noConentRemindLabel = UILabel()
+        noConentRemindLabel.textAlignment = .center
+        noConentRemindLabel.text = "暂无数据..."
+        noConentRemindLabel.font = .font(fontSize: 15)
+        noConentRemindLabel.textColor = RGB(254, 192, 65)
         
         curveView = UIView()
         curveView.backgroundColor = .clear
@@ -141,6 +149,8 @@ class TYCurveView: UIView {
         timeView.itemSize = .init(width: itemWidth, height: curvelTimeViewHeight - lineHeight)
         timeView.backgroundColor = .white
         
+        addSubview(noConentRemindLabel)
+
         addSubview(scrollView)
         scrollView.addSubview(curveView)
         scrollView.addSubview(lineView)
@@ -193,27 +203,43 @@ class TYCurveView: UIView {
     
     public var curvelContentTextHeight: CGFloat = 40.0
     
-    public func setData(probabilityDatas: [Float], itemDatas: [TYLineItemModel], title: String, nowIdx: Int) {
-        self.probabilityDatas = probabilityDatas
-        self.nowIdx = nowIdx
+    public func setData(probabilityDatas: [Float], itemDatas: [TYLineItemModel], title: String, nowIdx: Int, isCircleSet: Bool) {
+        self.isCircleSet = isCircleSet
+        
+        if isCircleSet {
+            remindBgView.isHidden = false
+            fullScreenButton.isHidden = false
+            probabilityLabel.isHidden = false
+            sepLine.isHidden = false
+            noConentRemindLabel.isHidden = true
+            
+            self.probabilityDatas = probabilityDatas
+            self.nowIdx = nowIdx
 
-        self.titleLable.text = title
-        setProbability(probability: probabilityDatas.first ?? 0.01)
-        
-        curvelViewWidth = CGFloat(probabilityDatas.count - 1) * itemWidth
-        
-        lineView.frame = .init(x: 0, y: curvelViewHeight - curvelTimeViewHeight - lineHeight,
-                               width: curvelViewWidth,
-                               height: lineHeight)
-        lineView.set(itemDatas: itemDatas)
+            self.titleLable.text = title
+            setProbability(probability: probabilityDatas.first ?? 0.01)
+            
+            curvelViewWidth = CGFloat(probabilityDatas.count - 1) * itemWidth
+            
+            lineView.frame = .init(x: 0, y: curvelViewHeight - curvelTimeViewHeight - lineHeight,
+                                   width: curvelViewWidth,
+                                   height: lineHeight)
+            lineView.set(itemDatas: itemDatas)
 
-        timeView.frame = .init(x: itemWidth / 2.0, y: 0,
-                               width: curvelViewWidth,
-                               height: curvelTimeViewHeight - lineHeight)
-        timeView.itemModels = itemDatas
-        
-        setNeedsDisplay()
-        layoutIfNeeded()
+            timeView.frame = .init(x: itemWidth / 2.0, y: 0,
+                                   width: curvelViewWidth,
+                                   height: curvelTimeViewHeight - lineHeight)
+            timeView.itemModels = itemDatas
+            
+            setNeedsDisplay()
+            layoutIfNeeded()
+        }else {
+            remindBgView.isHidden = true
+            fullScreenButton.isHidden = true
+            probabilityLabel.isHidden = true
+            sepLine.isHidden = true
+            noConentRemindLabel.isHidden = false
+        }
     }
     
     public func setOffsetX(_ offsetX: CGFloat) {
@@ -228,7 +254,7 @@ class TYCurveView: UIView {
                 intX += 1
             }
             
-            if intX < probabilityDatas.count {
+            if intX < probabilityDatas.count, intX >= 0 {
                 setProbability(probability: probabilityDatas[intX])
             }
         }
@@ -236,6 +262,12 @@ class TYCurveView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        let noConentRemindLabelSize = noConentRemindLabel.sizeThatFits(.init(width: width, height: 30))
+        noConentRemindLabel.frame = .init(x: (width - noConentRemindLabelSize.width) / 2.0,
+                                          y: (height - titleViewHeight - noConentRemindLabelSize.height) / 2.0,
+                                          width: noConentRemindLabelSize.width,
+                                          height: noConentRemindLabelSize.height)
         
         titleBgView.frame = .init(x: 0, y: 0, width: width, height: titleViewHeight)
         let titleSize = titleLable.sizeThatFits(.init(width: titleBgView.width, height: titleBgView.height))
@@ -281,7 +313,7 @@ class TYCurveView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        guard probabilityDatas.count >= 4 else { return }
+        guard probabilityDatas.count >= 4, isCircleSet else { return }
         
         transformPoint()
                 
@@ -389,7 +421,7 @@ extension TYCurveView: UIScrollViewDelegate {
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
-            resetContentOffset(needScroll: false)
+            resetContentOffset(needScroll: true)
         }
     }
     
@@ -401,7 +433,7 @@ extension TYCurveView: UIScrollViewDelegate {
             intX += 1
         }
         
-        if intX < probabilityDatas.count {
+        if intX < probabilityDatas.count, intX >= 0 {
             setProbability(probability: probabilityDatas[intX])
         }
         

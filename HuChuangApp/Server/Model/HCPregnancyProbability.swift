@@ -88,6 +88,7 @@ class HCRecordItemDataModel: HJModel, HCRecordData {
     var cellIdentifier: String { return HCCurveCell_identifier }
     var width: CGFloat { return PPScreenW }
     var height: CGFloat { return HCCurveCell_height }
+    var isCircleSet: Bool { return circleIsSet }
     
     // 距离排卵日
     public func calutePailuanLeft(nextCircle: HCRecordItemDataModel) ->NSAttributedString {
@@ -118,7 +119,7 @@ class HCRecordItemDataModel: HJModel, HCRecordData {
             let days = TYDateCalculate.numberOfDays(toDate: nextPailuan)
             daysText = "\(days)"
             text = "距离下一个排卵日：\(daysText)天"
-            pailuanri = text.attributed(.init(location: 6, length: daysText.count),
+            pailuanri = text.attributed(.init(location: 9, length: daysText.count),
                                         HC_MAIN_COLOR, .font(fontSize: 12))
         }
 
@@ -163,4 +164,13 @@ protocol HCRecordData {
     var width: CGFloat { get }
     var height: CGFloat { get }
     var cellIdentifier: String { get }
+    var isCircleSet: Bool { get }
+}
+
+extension HCRecordData {
+    var isCircleSet: Bool {
+        get {
+            return false
+        }
+    }
 }

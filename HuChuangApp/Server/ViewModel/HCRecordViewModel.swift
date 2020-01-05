@@ -274,9 +274,7 @@ extension HCRecordViewModel {
         if isContrast {
             datasource.append(circleDatas)
         }else {
-            if currentCircleData.circleIsSet {
-                datasource.append([currentCircleData])
-            }
+            datasource.append([currentCircleData])
             datasource.append(cellActionItemDatasource)
         }
         
@@ -302,7 +300,6 @@ extension HCRecordViewModel {
                     nextCircleData = item
                     nextCircleData.circleIsSet = true
                 }
-                circleDatas.append(item)
             }else {
                 PrintLog("非法数据")
                 if idx == 0 {
@@ -316,14 +313,14 @@ extension HCRecordViewModel {
                     nextCircleData.circleIsSet = false
                 }
             }
+            
+            circleDatas.append(item)
+
             idx += 1
         }
         
         datasource.removeAll()
-        if currentCircleData.circleIsSet  {
-            datasource.append([currentCircleData])
-        }
-        
+        datasource.append([currentCircleData])
         datasource.append(cellActionItemDatasource)
         
         reloadUISubject.onNext(Void())

@@ -59,7 +59,8 @@ class HCCurveCell: HCBaseRecordCell {
             curveView.setData(probabilityDatas: proModel.probabilityDatas,
                               itemDatas: proModel.lineItemDatas,
                               title: proModel.isContrast ? proModel.nowCircle : proModel.curelTitle,
-                              nowIdx: proModel.isContrast ? 0 : proModel.nowDateIdxOfCircle)
+                              nowIdx: proModel.isContrast ? 0 : proModel.nowDateIdxOfCircle,
+                              isCircleSet: proModel.circleIsSet)
         }
     }
      
