@@ -34,14 +34,17 @@ class HCExpertConsultViewModel: RefreshVM<HCDoctorItemModel> {
             model.title = listDataTitle[idx]
   
             if idx == 0{
+                model.isSelected = false
                 model.titleIconNormalImage = UIImage.init(named: "btn_red_down_arrow")
                 model.titleIconSelectedImage = UIImage.init(named: "btn_red_up_arrow")
                 model.titleNormalColor = HC_MAIN_COLOR
             }else if idx == 1 || idx == 2 {
+                model.isSelected = nil
                 model.titleSelectColor = RGB(153, 153, 153)
                 model.titleIconNormalImage = UIImage.init(named: "btn_gray_down_arrow")
                 model.titleIconSelectedImage = UIImage.init(named: "btn_gray_up_arrow")
             }else if idx == 3 {
+                model.isSelected = false
                 model.titleSelectColor = RGB(153, 153, 153)
                 model.titleIconNormalImage = UIImage.init(named: "list_menu_filiter")
                 model.titleIconSelectedImage = UIImage.init(named: "list_menu_filiter")
@@ -147,10 +150,17 @@ class HCExpertConsultViewModel: RefreshVM<HCDoctorItemModel> {
         return ["lv": lv, "addNum": addNum, "skilledIn": skilledIn]
     }
     
+    /**
+     医生列表页，咨询人数和价格的箭头，比如：箭头朝上，价格逐渐变高，箭头朝下，价格逐渐变低，同理，咨询人数一样
+     */
     private func prepareFiliterOpType() ->[String: Any] {
         let menuItem = listMenuData[filiterOpType]
         // desc = 1 倒序， 则 为正序
-        let order: Int = menuItem.isSelected ? 1 : 0
+        var order: Int = 0
+        if menuItem.isSelected != nil {
+            order = menuItem.isSelected! ? 0 : 1
+        }
+        
         return ["type": filiterOpType, "desc": order]
     }
 }

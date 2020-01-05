@@ -109,9 +109,9 @@ extension TYListMenuView: UICollectionViewDelegateFlowLayout, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == 1 || indexPath.row == 2 {
             let resetIdx = indexPath.row == 1 ? 2 : 1
-            datasource[resetIdx].isSelected = false
+            datasource[resetIdx].isSelected = nil
             datasource[indexPath.row].didClicked()
-            selectedCallBack?(datasource[indexPath.row].isSelected ? TYListMenuViewType(rawValue: indexPath.row)! : .none)
+            selectedCallBack?(TYListMenuViewType(rawValue: indexPath.row)!)
         }else {
             datasource[indexPath.row].didClicked()
             if indexPath.row == 0 {

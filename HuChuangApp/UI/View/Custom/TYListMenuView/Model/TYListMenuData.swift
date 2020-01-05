@@ -33,7 +33,7 @@ class TYListMenuModel {
     var iconMargin: CGFloat = 5
     var margin: CGFloat = 15
 
-    var isSelected: Bool = false
+    var isSelected: Bool? = nil
     
     var titleWidth: CGFloat {
         get {
@@ -43,7 +43,11 @@ class TYListMenuModel {
     
     var titleColor: UIColor {
         get {
-            return isSelected ? titleSelectColor : titleNormalColor
+            if isSelected != nil, isSelected! {
+                return isSelected! ? titleSelectColor : titleNormalColor
+            }
+            
+            return titleNormalColor
         }
     }
     
@@ -55,12 +59,19 @@ class TYListMenuModel {
 //                }
 //            }
 //            return titleIconNormalImage
-            return isSelected ? titleIconSelectedImage : titleIconNormalImage
+            if isSelected != nil {
+                return isSelected! ? titleIconSelectedImage : titleIconNormalImage
+            }
+            return nil
         }
     }
 
     public func didClicked() {
-        isSelected = !isSelected
+        if isSelected == nil {
+            isSelected = true
+        }
+        
+        isSelected! = !isSelected!
     }
     
 //    public func didClicked(_ isReset: Bool = true) {
@@ -87,7 +98,7 @@ class TYListMenuModel {
                      titleFont: UIFont = .font(fontSize: 13, fontName: .PingFRegular),
                      titleNormalColor: UIColor = RGB(153, 153, 153),
                      titleSelectColor: UIColor = HC_MAIN_COLOR,
-                     isSelected: Bool = false,
+                     isSelected: Bool? = nil,
                      titleIconNormalImage:UIImage? = nil,
                      titleIconSelectedImage:UIImage? = nil,
                      iconMargin: CGFloat = 5,
