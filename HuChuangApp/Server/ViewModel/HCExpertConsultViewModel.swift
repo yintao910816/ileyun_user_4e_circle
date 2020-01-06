@@ -147,7 +147,9 @@ class HCExpertConsultViewModel: RefreshVM<HCDoctorItemModel> {
             skilledIn.append(contentsOf: filiterDatas.2.map{ $0.title })
         }
         
-        return ["lv": lv, "addNum": addNum, "skilledIn": skilledIn]
+        // 加号 为 1
+        return ["lv": lv, "addNum": [addNum.count > 0 ? 1 : 0], "skilledIn": skilledIn]
+//        return ["lv": lv, "addNum": addNum, "skilledIn": skilledIn]
     }
     
     /**
