@@ -11,15 +11,17 @@ import RxSwift
 
 class HCHelper {
     
-    lazy var hud: NoticesCenter = {
-        return NoticesCenter()
-    }()
-
     enum AppKeys: String {
         /// app schame
         case appSchame = "ileyun.ivfcn.com"
     }
-
+    
+    lazy var hud: NoticesCenter = {
+        return NoticesCenter()
+    }()
+    
+    private let disposeBag = DisposeBag()
+    
     static let share = HCHelper()
     
     typealias blankBlock = ()->()
@@ -27,6 +29,26 @@ class HCHelper {
     public let userInfoHasReload = PublishSubject<HCUserModel>()
     public var userInfoModel: HCUserModel?
     public var isPresentLogin: Bool = false
+    
+    init() {
+        
+        let userInfoSignal = HCProvider.request(.selectInfo)
+            .map(model: HCUserModel.self)
+
+        NotificationCenter.default.rx.notification(NotificationName.UserInterface.jsReloadHome)
+            .flatMap { _ in userInfoSignal }
+            .subscribe(onNext: { user in
+                HCHelper.saveLogin(user: user)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    public static func setupHelper() {
+        _ = HCHelper.share
+    }
+}
+
+extension HCHelper {
     
     class func presentLogin(presentVC: UIViewController? = nil, isPopToRoot: Bool = false, _ completion: (() ->())? = nil) {
         HCHelper.share.isPresentLogin = true
@@ -52,6 +74,8 @@ class HCHelper {
     }
     
     class func saveLogin(user: HCUserModel) {
+        NoticesCenter.alert(message: "更新unitId为\(user.unitId)")
+
         userDefault.uid = user.uid
         userDefault.token = user.token
         userDefault.unitId = user.unitId
@@ -61,6 +85,7 @@ class HCHelper {
         
         HCHelper.share.userInfoHasReload.onNext(user)
     }
+
 }
 
 import AVFoundation

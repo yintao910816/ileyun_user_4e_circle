@@ -316,7 +316,11 @@ extension API: TargetType{
             break
         }
         
+        let userAgent: String = "\(Bundle.main.bundleIdentifier),\(Bundle.main.version),\(UIDevice.iosVersion),\(UIDevice.modelName)"
+        
+        
         let customHeaders: [String: String] = ["token": userDefault.token,
+                                               "User-Agent": userAgent,
                                                "unitId": userDefault.unitId,
                                                "Content-Type": contentType,
                                                "Accept": "application/json"]
