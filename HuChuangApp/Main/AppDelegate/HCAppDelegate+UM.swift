@@ -262,11 +262,17 @@ extension HCAppDelegate {
 //        if urlString.contains("wx") {
 //            return WXApi.handleOpen(url, delegate: self)
 //        }
-        
+                
         let result = UMSocialManager.default()?.handleOpen(url)
         return result!
     }
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        if url.absoluteString.contains(HCHelper.AppKeys.appSchame.rawValue) {
+            let param = url.absoluteString.replacingOccurrences(of: "\(HCHelper.AppKeys.appSchame.rawValue)://", with: "")
+            NoticesCenter.alert(title: "应用唤起", message: param)
+            return true
+        }
+
 //        return WXApi.handleOpen(url, delegate: self)
 //        BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
         let result = UMSocialManager.default()?.handleOpen(url, sourceApplication: sourceApplication, annotation: annotation)

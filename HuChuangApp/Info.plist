@@ -34,6 +34,16 @@
 				<string>wx870ac6243698c3f6</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>appscheme</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>ileyun.ivfcn.com</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
