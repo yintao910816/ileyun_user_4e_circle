@@ -133,8 +133,14 @@ extension HCHelper: VMNavigation {
     }
     
     public class func pushLocalH5(type: H5Type) {
-        PrintLog("固定链接跳转地址: \(type.getLocalUrl())")
-        HCHelper.push(BaseWebViewController.self, ["url": type.getLocalUrl()])
+        let urlString = type.getLocalUrl()
+        PrintLog("固定链接跳转地址: \(urlString)")
+        switch type {
+        case .csRecord:
+            HCHelper.push(HCOrderRecordController.self, ["url": urlString])
+        default:
+            HCHelper.push(BaseWebViewController.self, ["url": urlString])
+        }
     }
 
     private class func pushH5(model: H5InfoModel, arg: String?) {
@@ -162,6 +168,12 @@ extension HCHelper: VMNavigation {
         
         //        let url = "\(model.setValue)?token=\(userDefault.token)&unitId=\(AppSetup.instance.unitId)"
         //        HomeViewModel.push(BaseWebViewController.self, ["url": url])
+    }
+    
+    public func requestH5(type: H5Type) ->Observable<H5InfoModel> {
+        return HCProvider.request(.unitSetting(type: type))
+            .map(model: H5InfoModel.self)
+            .asObservable()
     }
 }
 

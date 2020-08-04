@@ -83,22 +83,14 @@ enum H5Type: String {
     case share = "share"
         
     func getLocalUrl(needToken: Bool = true) ->String {
+        var host = APIAssistance.baseH5Host
+
         if needToken {
-            return "\(APIAssistance.baseH5Host)#/\(rawValue)?token=\(userDefault.token)"
+            host = "\(host)#/\(rawValue)?token=\(userDefault.token)&titleLock=true"
+        }else {
+            host = "\(APIAssistance.baseH5Host)#/\(rawValue)?titleLock=true"
         }
-        return "\(APIAssistance.baseH5Host)#/\(rawValue)"
-//        switch self {
-//        case .healthRecordsUser:
-//            return "\(APIAssistance.baseH5Host)#/HealthRecords"
-//        case .doctorHome:
-//            return "\(APIAssistance.baseH5Host)#/doctorHome"
-////        case .csRecord:
-////            return "\(APIAssistance.baseH5Host)#/csRecord?token=\(userDefault.token)"
-//        case .doctorCs:
-//            return "\(APIAssistance.baseH5Host)#/DoctorCs?token=\(userDefault.token)"
-//        default:
-//            return ""
-//        }
+        return host
     }
 }
 

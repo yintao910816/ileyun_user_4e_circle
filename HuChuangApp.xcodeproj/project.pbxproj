@@ -240,6 +240,12 @@
 		B816EB57221DABF400F024D5 /* ZXingWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = B816EA6F221DABF300F024D5 /* ZXingWrapper.m */; };
 		B816EB58221DABF400F024D5 /* LBXZXCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = B816EA70221DABF300F024D5 /* LBXZXCapture.m */; };
 		B816EB5A221DACA600F024D5 /* ScanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B816EB59221DACA600F024D5 /* ScanViewModel.swift */; };
+		B819AF6324C68C3400F88BA7 /* HCOrderRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B819AF6224C68C3400F88BA7 /* HCOrderRecordController.swift */; };
+		B819AF6824C6E3F900F88BA7 /* HCNavBarTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B819AF6724C6E3F900F88BA7 /* HCNavBarTitleView.swift */; };
+		B819AF6D24C6E5A500F88BA7 /* HCNavBarTitleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B819AF6C24C6E5A500F88BA7 /* HCNavBarTitleData.swift */; };
+		B819AF7324C6E85B00F88BA7 /* HCNavBarOrderRecordModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B819AF7124C6E85B00F88BA7 /* HCNavBarOrderRecordModeView.swift */; };
+		B819AF7424C6E85B00F88BA7 /* HCNavBarFloatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B819AF7224C6E85B00F88BA7 /* HCNavBarFloatView.swift */; };
+		B819AF7624C6E89700F88BA7 /* HCNavBarOrderRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B819AF7524C6E89700F88BA7 /* HCNavBarOrderRecordCell.swift */; };
 		B81C2F772215B60E00A887AF /* MineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81C2F762215B60E00A887AF /* MineHeaderView.swift */; };
 		B81C2F792215BBFB00A887AF /* FileUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81C2F782215BBFB00A887AF /* FileUpload.swift */; };
 		B821E34D23070907009A11A3 /* HCLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B821E34C23070907009A11A3 /* HCLocationManager.swift */; };
@@ -975,6 +981,12 @@
 		B816EA71221DABF300F024D5 /* ZXingWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXingWrapper.h; sourceTree = "<group>"; };
 		B816EA72221DABF300F024D5 /* LBXScanTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanTypes.h; sourceTree = "<group>"; };
 		B816EB59221DACA600F024D5 /* ScanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewModel.swift; sourceTree = "<group>"; };
+		B819AF6224C68C3400F88BA7 /* HCOrderRecordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCOrderRecordController.swift; sourceTree = "<group>"; };
+		B819AF6724C6E3F900F88BA7 /* HCNavBarTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCNavBarTitleView.swift; sourceTree = "<group>"; };
+		B819AF6C24C6E5A500F88BA7 /* HCNavBarTitleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCNavBarTitleData.swift; sourceTree = "<group>"; };
+		B819AF7124C6E85B00F88BA7 /* HCNavBarOrderRecordModeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCNavBarOrderRecordModeView.swift; sourceTree = "<group>"; };
+		B819AF7224C6E85B00F88BA7 /* HCNavBarFloatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCNavBarFloatView.swift; sourceTree = "<group>"; };
+		B819AF7524C6E89700F88BA7 /* HCNavBarOrderRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCNavBarOrderRecordCell.swift; sourceTree = "<group>"; };
 		B81C2F762215B60E00A887AF /* MineHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineHeaderView.swift; sourceTree = "<group>"; };
 		B81C2F782215BBFB00A887AF /* FileUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUpload.swift; sourceTree = "<group>"; };
 		B821E34C23070907009A11A3 /* HCLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCLocationManager.swift; sourceTree = "<group>"; };
@@ -2038,6 +2050,34 @@
 			path = result;
 			sourceTree = "<group>";
 		};
+		B819AF6624C6E3E700F88BA7 /* HCNavBar */ = {
+			isa = PBXGroup;
+			children = (
+				B819AF7024C6E85B00F88BA7 /* View */,
+				B819AF6B24C6E58B00F88BA7 /* Model */,
+				B819AF6724C6E3F900F88BA7 /* HCNavBarTitleView.swift */,
+			);
+			path = HCNavBar;
+			sourceTree = "<group>";
+		};
+		B819AF6B24C6E58B00F88BA7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B819AF6C24C6E5A500F88BA7 /* HCNavBarTitleData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B819AF7024C6E85B00F88BA7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B819AF7124C6E85B00F88BA7 /* HCNavBarOrderRecordModeView.swift */,
+				B819AF7224C6E85B00F88BA7 /* HCNavBarFloatView.swift */,
+				B819AF7524C6E89700F88BA7 /* HCNavBarOrderRecordCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		B8508EA223421486008C24BA /* HCCellItem */ = {
 			isa = PBXGroup;
 			children = (
@@ -2184,6 +2224,7 @@
 		B8BE34F022145DF000EF16F1 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				B819AF6624C6E3E700F88BA7 /* HCNavBar */,
 				B870E54623900FAA0085AFA3 /* TYListMenuView */,
 				B86993D22337395800086A77 /* TYButton.swift */,
 				C4193D8322A7649F007A9E07 /* TYClickedButton.swift */,
@@ -2205,6 +2246,7 @@
 				B8BE351822147B4000EF16F1 /* HCEditSynopsisViewController.swift */,
 				B8FC3F88239A9FCE006EB478 /* HCSettingViewController.swift */,
 				B85CD93223BE602E00B1A1C3 /* HCEditUserCityController.swift */,
+				B819AF6224C68C3400F88BA7 /* HCOrderRecordController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -2993,6 +3035,7 @@
 				B816EB04221DABF400F024D5 /* ZXRSSExpandedRow.m in Sources */,
 				B816EB0C221DABF400F024D5 /* ZXRSSExpandedFieldParser.m in Sources */,
 				C4B1852B2345880E00F37197 /* HCSearchViewModel.swift in Sources */,
+				B819AF7324C6E85B00F88BA7 /* HCNavBarOrderRecordModeView.swift in Sources */,
 				C497E95D23444FA300328B47 /* HCHomeGoodNewsCellItemCell.swift in Sources */,
 				B816EB08221DABF400F024D5 /* ZXAI013x0x1xDecoder.m in Sources */,
 				B816EB43221DABF400F024D5 /* ZXBizcardResultParser.m in Sources */,
@@ -3086,6 +3129,7 @@
 				B842D1FE22258CC000A4F8DF /* HCAppDelegate+UM.swift in Sources */,
 				B816EA76221DABF400F024D5 /* LBXScanVideoZoomView.m in Sources */,
 				C497E95923444EF200328B47 /* HCHomeGoodNewsCell.swift in Sources */,
+				B819AF6D24C6E5A500F88BA7 /* HCNavBarTitleData.swift in Sources */,
 				B816EAAD221DABF400F024D5 /* ZXQRCodeAlignmentPatternFinder.m in Sources */,
 				B816EAEA221DABF400F024D5 /* ZXDataMatrixSymbolInfo.m in Sources */,
 				B816EB02221DABF400F024D5 /* ZXOneDimensionalCodeWriter.m in Sources */,
@@ -3197,6 +3241,7 @@
 				B816EA7B221DABF400F024D5 /* ZXPlanarYUVLuminanceSource.m in Sources */,
 				B8508E332340FC9F008C24BA /* Doctor.swift in Sources */,
 				B816EB55221DABF400F024D5 /* ZXCapture.m in Sources */,
+				B819AF6324C68C3400F88BA7 /* HCOrderRecordController.swift in Sources */,
 				B816EB45221DABF400F024D5 /* ZXSMTPResultParser.m in Sources */,
 				C421339D2205B224006C10C4 /* ImageRx.swift in Sources */,
 				C421338822059B8C006C10C4 /* DB+Extension.swift in Sources */,
@@ -3238,6 +3283,7 @@
 				C4F3B8EC235B342E00A6539A /* HCListDetailButtonCell.swift in Sources */,
 				C421335A2205883D006C10C4 /* RefreshServer.swift in Sources */,
 				C421333A220572F2006C10C4 /* HCTabBarViewController.swift in Sources */,
+				B819AF6824C6E3F900F88BA7 /* HCNavBarTitleView.swift in Sources */,
 				B816EAC5221DABF400F024D5 /* ZXGenericGFPoly.m in Sources */,
 				C421339C2205B224006C10C4 /* ImageCacheCenter.swift in Sources */,
 				B89C396A23A0C90100CAB651 /* TYCurveView.swift in Sources */,
@@ -3364,6 +3410,7 @@
 				B816EA84221DABF400F024D5 /* ZXLuminanceSource.m in Sources */,
 				B8CD926923A2967D00C9C061 /* HCRecordSuggestReusableView.swift in Sources */,
 				B816EA83221DABF400F024D5 /* ZXRGBLuminanceSource.m in Sources */,
+				B819AF7424C6E85B00F88BA7 /* HCNavBarFloatView.swift in Sources */,
 				B816EA8D221DABF400F024D5 /* ZXAztecState.m in Sources */,
 				B816EA9B221DABF400F024D5 /* ZXQRCodeMatrixUtil.m in Sources */,
 				B816EA98221DABF400F024D5 /* ZXQRCodeMaskUtil.m in Sources */,
@@ -3382,6 +3429,7 @@
 				B816EA9E221DABF400F024D5 /* ZXMultiDetector.m in Sources */,
 				C43F09BB2214315900910437 /* HomeFunctionCell.swift in Sources */,
 				C48842B5233EFD3500C209B3 /* HCClassRoomViewModel.swift in Sources */,
+				B819AF7624C6E89700F88BA7 /* HCNavBarOrderRecordCell.swift in Sources */,
 				B816EAB6221DABF400F024D5 /* ZXHybridBinarizer.m in Sources */,
 				B816EB44221DABF400F024D5 /* ZXResultParser.m in Sources */,
 				B8FE96BA238849090077B9BF /* HCArticleCell.swift in Sources */,

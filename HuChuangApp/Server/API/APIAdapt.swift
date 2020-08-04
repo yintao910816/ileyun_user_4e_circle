@@ -47,7 +47,8 @@ struct APIAssistance {
         
     public static let base   = "https://ileyun.ivfcn.com/hc-patient/"
     public static let fileBase = "https://ileyun.ivfcn.com/hc-files/"
-    public static let baseH5Host = "https://ileyun.ivfcn.com/patient-c/"
+//    public static let baseH5Host = "https://ileyun.ivfcn.com/patient-c/"
+    public static let baseH5Host = "https://ileyun.ivfcn.com/consult/"
 
     static public func baseURL(API: API) ->URL{
         switch API {
